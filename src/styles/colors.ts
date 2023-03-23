@@ -1,3 +1,7 @@
+export const neutral = {
+  white: '#FFFFFF',
+};
+
 export const primary = {
   brand: '#13678A',
 };
@@ -7,7 +11,7 @@ export const secondary = {
 };
 
 export const background = {
-  main: '#1E1F28',
+  app: '#1E1F28',
 };
 
 export const danger = {
