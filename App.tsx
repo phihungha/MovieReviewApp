@@ -9,6 +9,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {Typography} from './src/styles';
 
 const apiClient = new ApolloClient({
   uri: 'localhost:3000/',
@@ -29,7 +30,7 @@ function App(): JSX.Element {
 
 const styles = StyleSheet.create({
   titleText: {
-    fontSize: 25,
+    ...Typography.heading.title,
   },
 });
 
