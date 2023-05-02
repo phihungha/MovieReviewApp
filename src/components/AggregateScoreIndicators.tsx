@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function CriticAggregateScoreIndicator(): JSX.Element {
   return <></>;
 }
