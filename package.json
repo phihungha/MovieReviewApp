@@ -51,7 +51,7 @@
     "preset": "react-native"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.{js,ts,tsx}": [
       "prettier --write",
       "eslint --cache --fix"
     ],
