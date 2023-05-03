@@ -1,21 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RelayEnvironmentProvider} from 'react-relay';
 import environment from './relay/environment';
+import {RootStackNavigator} from './navigators/RootStackNavigator';
+import {SignUpScreen} from './screens/SignUp';
+import {LoginScreen} from './screens/Login';
+import {MainScreen} from './screens/Main';
 
 function App(): JSX.Element {
   return (
     <RelayEnvironmentProvider environment={environment}>
       <NavigationContainer>
-        <Text>Hello World</Text>
+        <RootStackNavigator.Navigator>
+          <RootStackNavigator.Screen name="Login" component={LoginScreen} />
+          <RootStackNavigator.Screen name="SignUp" component={SignUpScreen} />
+          <RootStackNavigator.Screen name="Main" component={MainScreen} />
+        </RootStackNavigator.Navigator>
       </NavigationContainer>
     </RelayEnvironmentProvider>
   );
