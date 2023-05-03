@@ -6,19 +6,21 @@ import {HomeStackScreen} from './Home';
 
 export function MainScreen(): JSX.Element {
   return (
-    <MainTabNavigator.Navigator>
+    <MainTabNavigator.Navigator
+      initialRouteName="HomeStack"
+      screenOptions={{headerShown: false}}>
       <MainTabNavigator.Screen
-        name="Home"
+        name="HomeStack"
         options={{title: 'Home'}}
         component={HomeStackScreen}
       />
       <MainTabNavigator.Screen
-        name="MovieList"
+        name="MoviesListStack"
         options={{title: 'Movies'}}
         component={MoviesListStackScreen}
       />
       <MainTabNavigator.Screen
-        name="MyAccount"
+        name="MyAccountStack"
         options={{title: 'Account'}}
         component={MyAccountStackScreen}
       />

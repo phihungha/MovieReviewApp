@@ -14,14 +14,13 @@ export function MoviesListScreen(): JSX.Element {
 
 export function MoviesListStackScreen(): JSX.Element {
   return (
-    <MoviesListStackNavigator.Navigator>
+    <MoviesListStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <MoviesListStackNavigator.Screen
         name="MoviesList"
         component={MoviesListScreen}
       />
       <MoviesListStackNavigator.Screen
         name="MovieDetails"
-        options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
       <MoviesListStackNavigator.Screen

@@ -14,7 +14,7 @@ export function HomeScreen(): JSX.Element {
 
 export function HomeStackScreen(): JSX.Element {
   return (
-    <HomeStackNavigator.Navigator>
+    <HomeStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />
       <HomeStackNavigator.Screen
         name="MovieDetails"
@@ -22,7 +22,6 @@ export function HomeStackScreen(): JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="MovieReviewList"
-        options={{headerShown: false}}
         component={MovieReviewsListScreen}
       />
       <HomeStackNavigator.Screen

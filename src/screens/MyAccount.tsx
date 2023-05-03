@@ -14,14 +14,13 @@ export function MyAccountScreen(): JSX.Element {
 
 export function MyAccountStackScreen(): JSX.Element {
   return (
-    <MyAccountStackNavigator.Navigator>
+    <MyAccountStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <MyAccountStackNavigator.Screen
         name="MyAccount"
         component={MyAccountScreen}
       />
       <MyAccountStackNavigator.Screen
         name="MovieDetails"
-        options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
       <MyAccountStackNavigator.Screen
