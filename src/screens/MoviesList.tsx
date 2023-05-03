@@ -1,5 +1,5 @@
 import React from 'react';
-import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
+import {MoviesListStackNavigator} from '../navigators/MoviesListStackNavigator';
 import {MovieDetailsScreen} from './MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
 import {ReviewDetailsScreen} from './ReviewDetails';
@@ -8,46 +8,46 @@ import {UserLikedCommentsList} from './UserLikedCommentsList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 
-export function MyAccountScreen(): JSX.Element {
+export function MoviesListScreen(): JSX.Element {
   return <></>;
 }
 
-export function MyAccountStackScreen(): JSX.Element {
+export function MoviesListStackScreen(): JSX.Element {
   return (
-    <MyAccountStackNavigator.Navigator>
-      <MyAccountStackNavigator.Screen
-        name="MyAccount"
-        component={MyAccountScreen}
+    <MoviesListStackNavigator.Navigator>
+      <MoviesListStackNavigator.Screen
+        name="MoviesList"
+        component={MoviesListScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="MovieDetails"
         options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="MovieReviewList"
         component={MovieReviewsListScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="ReviewDetails"
         component={ReviewDetailsScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="UserDetails"
         component={UserDetailsScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="UserWatchedList"
         component={UserWatchedListScreen}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="UserReviewsList"
         component={UserReviewsList}
       />
-      <MyAccountStackNavigator.Screen
+      <MoviesListStackNavigator.Screen
         name="UserLikedCommentsList"
         component={UserLikedCommentsList}
       />
-    </MyAccountStackNavigator.Navigator>
+    </MoviesListStackNavigator.Navigator>
   );
 }
