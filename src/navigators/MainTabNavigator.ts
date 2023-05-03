@@ -1,4 +1,4 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export type MainTabParams = {
   Home: undefined;
@@ -6,4 +6,4 @@ export type MainTabParams = {
   MyAccount: undefined;
 };
 
-export const MainTabNavigator = createNativeStackNavigator<MainTabParams>();
+export const MainTabNavigator = createBottomTabNavigator<MainTabParams>();
