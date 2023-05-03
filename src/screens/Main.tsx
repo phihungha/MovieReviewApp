@@ -1,7 +1,7 @@
 import React from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
-import {MoviesListScreen, MoviesListStackScreen} from './MoviesList';
-import {MyAccountScreen} from './MyAccount';
+import {MoviesListStackScreen} from './MoviesList';
+import {MyAccountStackScreen} from './MyAccount';
 import {HomeStackScreen} from './Home';
 
 export function MainScreen(): JSX.Element {
@@ -20,7 +20,7 @@ export function MainScreen(): JSX.Element {
       <MainTabNavigator.Screen
         name="MyAccount"
         options={{title: 'Account'}}
-        component={MyAccountScreen}
+        component={MyAccountStackScreen}
       />
     </MainTabNavigator.Navigator>
   );
