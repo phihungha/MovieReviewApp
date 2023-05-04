@@ -1,7 +1,7 @@
-export const appColor = {
+export default {
   primary: '#EF3651',
   white: '#F6F6F6',
-  dark_black: '#1E1F28',
-  medium_black: '#2A2C36',
-  light_grey: '#ABB4BD',
+  darkBlack: '#1E1F28',
+  mediumBlack: '#2A2C36',
+  lightGrey: '#ABB4BD',
 };

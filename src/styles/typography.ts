@@ -1,12 +1,12 @@
-export const appFontSize = {
-  size_8: 8, // for note details,...
-  size_10: 10, // for item time text
-  size_12: 12, // for item text
-  size_16: 16, // for title item text
-  size_24: 24, // for title text
-  size_36: 36, // for large title text
+export const fontSizes = {
+  xs: 8, // Super small. For super small text such as footnotes.
+  sm: 10, // Small. For smaller text such as list items' time.
+  md: 12, // Medium. For regular text.
+  lg: 16, // Large. For title of list items.
+  xl: 24, // Very large. For title.
+  xl2: 36, // Super large. For large title.
 };
 
-export const appFont = {
-  primaryFont: 'Poppins',
+export const fonts = {
+  primary: 'Poppins',
 };
