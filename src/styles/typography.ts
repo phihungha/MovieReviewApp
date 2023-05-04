@@ -1,23 +1,12 @@
-import * as Colors from './colors';
-
-export const body = {
-  main: {
-    fontSize: 16,
-  },
+export const fontSizes = {
+  xs: 8, // Super small. For super small text such as footnotes.
+  sm: 10, // Small. For smaller text such as list items' time.
+  md: 12, // Medium. For regular text.
+  lg: 16, // Large. For title of list items.
+  xl: 24, // Very large. For title.
+  xl2: 36, // Super large. For large title.
 };
 
-export const heading = {
-  section: {
-    fontSize: 16,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  title: {
-    color: Colors.neutral.white,
-    fontSize: 24,
-  },
-  cardTitle: {
-    fontSize: 16,
-  },
+export const fonts = {
+  primary: 'Poppins',
 };
