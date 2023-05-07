@@ -16,6 +16,8 @@ import {CheckBox} from '@rneui/themed';
 import {Button} from '@rneui/themed';
 import {Input} from '@rneui/themed';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 export function HomeScreen(): JSX.Element {
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
@@ -23,6 +25,7 @@ export function HomeScreen(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>A quick brown fox jumps over the lazy dog</Text>
+      <Icon name="rocket" size={30} color="#900" />
       <Button>Primary</Button>
       <Button color="secondary">Secondary</Button>
       <Button color="warning">Warning</Button>
