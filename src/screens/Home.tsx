@@ -7,10 +7,9 @@ import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 export function HomeScreen(): JSX.Element {
-  return <SafeAreaView />;
+  return <></>;
 }
 
 export function HomeStackScreen(): JSX.Element {
