@@ -7,13 +7,13 @@ import {SignUpScreen} from './screens/SignUp';
 import {LoginScreen} from './screens/Login';
 import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
-import {theme} from './styles/theme';
+import {MainNavigationContainerTheme, theme} from './styles/theme';
 
 function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <RelayEnvironmentProvider environment={environment}>
-        <NavigationContainer>
+        <NavigationContainer theme={MainNavigationContainerTheme}>
           <RootStackNavigator.Navigator
             initialRouteName="Main"
             screenOptions={{headerShown: false}}>

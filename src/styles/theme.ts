@@ -1,6 +1,7 @@
 import {createTheme} from '@rneui/themed';
 import colors from './colors';
 import {fonts} from './typography';
+import {DefaultTheme} from '@react-navigation/native';
 
 export const theme = createTheme({
   darkColors: {
@@ -33,3 +34,12 @@ export const theme = createTheme({
     },
   },
 });
+
+export const MainNavigationContainerTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.darkBlack,
+  },
+};
