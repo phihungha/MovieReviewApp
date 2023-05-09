@@ -13,8 +13,6 @@
     "relay": "relay-compiler"
   },
   "dependencies": {
-    "@expo-google-fonts/poppins": "^0.2.3",
-    "@fontsource/poppins": "^4.5.10",
     "@react-icons/all-files": "^4.1.0",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
