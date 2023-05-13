@@ -1,19 +1,29 @@
 import React from 'react';
 import environment from './relay/environment';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {RelayEnvironmentProvider} from 'react-relay';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 import {SignUpScreen} from './screens/SignUp';
 import {LoginScreen} from './screens/Login';
 import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
-import {MainNavigationContainerTheme, theme} from './styles/theme';
+import {theme} from './styles/theme';
+import colors from './styles/colors';
+
+const NavigationContainerTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.darkBlack,
+  },
+};
 
 function App(): JSX.Element {
   return (
-    <ThemeProvider theme={theme}>
-      <RelayEnvironmentProvider environment={environment}>
-        <NavigationContainer theme={MainNavigationContainerTheme}>
+    <RelayEnvironmentProvider environment={environment}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer theme={NavigationContainerTheme}>
           <RootStackNavigator.Navigator
             initialRouteName="Main"
             screenOptions={{headerShown: false}}>
@@ -22,8 +32,8 @@ function App(): JSX.Element {
             <RootStackNavigator.Screen name="Main" component={MainScreen} />
           </RootStackNavigator.Navigator>
         </NavigationContainer>
-      </RelayEnvironmentProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </RelayEnvironmentProvider>
   );
 }
 
