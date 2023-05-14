@@ -35,7 +35,7 @@ export function DeleteCommentDialog(
   return (
     <View>
       <Button buttonStyle={styles.buttonOpenStyle} onPress={onPressButton}>
-        <RegularText text={dialogProps.buttonOpenDialogText} />
+        <RegularText>{dialogProps.buttonOpenDialogText} </RegularText>
       </Button>
       <Dialog
         overlayStyle={styles.container}
@@ -43,7 +43,7 @@ export function DeleteCommentDialog(
         isVisible={visible}
         onBackdropPress={toggleDialog}>
         <Dialog.Title titleStyle={styles.titleText} title="Warning?" />
-        <RegularText text="Are you sure to delete this comment?" />
+        <RegularText>Are you sure to delete this comment?</RegularText>
         <Dialog.Actions>
           <View style={styles.containerButton}>
             <Dialog.Button
