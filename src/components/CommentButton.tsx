@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
 import {TextProps} from '../props/TextProps';
@@ -13,11 +13,11 @@ import {fontSizes, fonts} from '../styles/typography';
  */
 export function CommentButton(textProps: TextProps): JSX.Element {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Text style={styles.subText}>{textProps.text}</Text>
-      <Icon style={styles.subText} name="comment" />
+      <Icon style={styles.subTextIcon} name="comment" />
       <Text style={styles.subText}>Comment</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
@@ -26,19 +26,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: colors.mediumBlack,
     paddingVertical: 12,
-
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
 
     width: 'auto',
-    height: 'auto',
   },
   subText: {
     color: colors.lightGrey,
     marginEnd: 8,
     fontFamily: fonts.primary,
     fontSize: fontSizes.md,
-    height: '100%',
-    textAlign: 'center',
+    verticalAlign: 'middle',
+  },
+  subTextIcon: {
+    color: colors.lightGrey,
+    marginEnd: 8,
+    fontFamily: fonts.primary,
+    fontSize: fontSizes.lg,
+    verticalAlign: 'middle',
   },
 });

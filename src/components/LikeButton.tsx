@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../styles/colors';
 import {fontSizes, fonts} from '../styles/typography';
@@ -15,19 +15,19 @@ import {LikeButtonProps} from '../props/LikeButtonProps';
 export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   if (likeButtonProps.isActive) {
     return (
-      <View style={styles.containerActive}>
+      <TouchableOpacity style={styles.containerActive}>
         <Text style={styles.subTextActive}>{likeButtonProps.likeCount}</Text>
-        <Icon style={styles.subTextActive} name="like1" />
+        <Icon style={styles.subTextActiveIcon} name="like1" />
         <Text style={styles.subTextActive}>Like</Text>
-      </View>
+      </TouchableOpacity>
     );
   } else {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container}>
         <Text style={styles.subText}>{likeButtonProps.likeCount}</Text>
-        <Icon style={styles.subText} name="like2" />
+        <Icon style={styles.subTextIcon} name="like2" />
         <Text style={styles.subText}>Like</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -38,39 +38,53 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: colors.mediumBlack,
     paddingVertical: 12,
-
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-
+    textAlign: 'center',
     width: 'auto',
-    height: 'auto',
-  },
-  containerActive: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    backgroundColor: colors.primary,
-    paddingVertical: 12,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    width: 'auto',
-    height: 'auto',
   },
   subText: {
     color: colors.lightGrey,
     marginEnd: 8,
     fontFamily: fonts.primary,
     fontSize: fontSizes.md,
-    height: '100%',
+    verticalAlign: 'middle',
+  },
+  containerActive: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    backgroundColor: colors.primary,
+    paddingVertical: 12,
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    width: 'auto',
   },
   subTextActive: {
     color: colors.white,
     marginEnd: 8,
     fontFamily: fonts.primary,
     fontSize: fontSizes.md,
-    height: '100%',
-    textAlign: 'center',
+    verticalAlign: 'middle',
+  },
+  subTextIcon: {
+    color: colors.lightGrey,
+    marginEnd: 8,
+    marginBottom: 4,
+    fontFamily: fonts.primary,
+    fontSize: fontSizes.lg,
+    verticalAlign: 'middle',
+  },
+
+  subTextActiveIcon: {
+    color: colors.white,
+    marginEnd: 8,
+    marginBottom: 4,
+
+    fontFamily: fonts.primary,
+    fontSize: fontSizes.lg,
+    verticalAlign: 'middle',
   },
 });
