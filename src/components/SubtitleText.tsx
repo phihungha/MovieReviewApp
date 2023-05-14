@@ -4,6 +4,12 @@ import {fontSizes, fonts} from '../styles/typography';
 import colors from '../styles/colors';
 import {TextProps} from '../props/TextProps';
 
+/**
+ *  props:
+ *    text: the text want to display
+ *  using: <SubtitleText text='aaaa'/>
+ *
+ */
 export function SubtitleText(props: TextProps): JSX.Element {
   return <Text style={styles.text}>{props.text}</Text>;
 }
