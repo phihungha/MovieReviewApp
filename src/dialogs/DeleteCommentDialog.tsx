@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
 import {fontSizes, fonts} from '../styles/typography';
-import {DialogProps} from '../props/DialogProps';
+import {DeleteCommentDialogProps} from '../props/DialogProps';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
@@ -18,7 +18,9 @@ import {Button} from '@rneui/themed';
     <DeleteCommentDialog buttonOpenDialogText="Delete" action={dialogAction} />
  *
  */
-export function DeleteCommentDialog(dialogProps: DialogProps): JSX.Element {
+export function DeleteCommentDialog(
+  dialogProps: DeleteCommentDialogProps,
+): JSX.Element {
   const [visible, setVisible] = useState(false);
   const toggleDialog = () => {
     setVisible(!visible);
