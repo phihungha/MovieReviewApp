@@ -1,3 +1,3 @@
 export interface TextProps {
-  text: string;
+  children: React.ReactNode;
 }
