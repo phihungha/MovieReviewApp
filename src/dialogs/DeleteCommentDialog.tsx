@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
-import {fontSizes, fonts} from '../styles/typography';
 import {DeleteCommentDialogProps} from '../props/DialogProps';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
+import {styles} from '../styles/styles';
 
 /**
  *  props:
- *    buttonOpenDialogText: title of text on openDialogButton
+ *    body: title of text on openDialogButton
  *    action: the action when confirm the dialog (yes button)
  *  using:
       const dialogAction = () => {
         console.log('action');
       };
-    <DeleteCommentDialog buttonOpenDialogText="Delete" action={dialogAction} />
+    <DeleteCommentDialog action={dialogAction}>Open Dialog</DeleteCommentDialog>
  *
  */
 export function DeleteCommentDialog(
@@ -34,28 +34,30 @@ export function DeleteCommentDialog(
   };
   return (
     <View>
-      <Button buttonStyle={styles.buttonOpenStyle} onPress={onPressButton}>
-        <RegularText>{dialogProps.buttonOpenDialogText} </RegularText>
+      <Button
+        buttonStyle={styles.buttonOpenDialogStyle}
+        onPress={onPressButton}>
+        <RegularText>{dialogProps.children} </RegularText>
       </Button>
       <Dialog
-        overlayStyle={styles.container}
-        style={styles.container}
+        overlayStyle={deleteCommentDialogStyles.container}
+        style={deleteCommentDialogStyles.container}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
-        <Dialog.Title titleStyle={styles.titleText} title="Warning?" />
+        <Dialog.Title titleStyle={styles.titleTextDialog} title="Warning?" />
         <RegularText>Are you sure to delete this comment?</RegularText>
         <Dialog.Actions>
-          <View style={styles.containerButton}>
+          <View style={styles.containerButtonDialog}>
             <Dialog.Button
               title="NO"
-              buttonStyle={styles.noButton}
-              titleStyle={styles.subText}
+              buttonStyle={styles.noDialogButton}
+              titleStyle={styles.subTextDialog}
               onPress={toggleDialog}
             />
             <Dialog.Button
               title="YES"
-              buttonStyle={styles.yesButton}
-              titleStyle={styles.subText}
+              buttonStyle={styles.yesDialogButton}
+              titleStyle={styles.subTextDialog}
               onPress={accept}
             />
           </View>
@@ -65,51 +67,10 @@ export function DeleteCommentDialog(
   );
 }
 
-const styles = StyleSheet.create({
+const deleteCommentDialogStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: colors.mediumBlack,
     paddingVertical: 12,
-  },
-  containerButton: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-
-    justifyContent: 'space-between',
-    alignItems: 'center',
-
-    width: '100%',
-    height: 'auto',
-  },
-  buttonOpenStyle: {
-    backgroundColor: colors.mediumBlack,
-    borderRadius: 8,
-  },
-  yesButton: {
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-  },
-  noButton: {
-    borderRadius: 12,
-    backgroundColor: 'none',
-    borderWidth: 0.5,
-    borderColor: colors.white,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-  },
-  titleText: {
-    color: colors.white,
-    fontFamily: fonts.primary_bold,
-    fontSize: fontSizes.lg,
-    textAlign: 'left',
-  },
-  subText: {
-    color: colors.white,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
-    textAlign: 'left',
   },
 });

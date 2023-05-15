@@ -1,19 +1,23 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
-import {fontSizes, fonts} from '../styles/typography';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
 import {ScoreDialogProps} from '../props/DialogProps';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import {styles} from '../styles/styles';
+import {
+  CustomSliderMarkerLeft,
+  CustomSliderMarkerRight,
+} from './CustomSliderMarker';
 
 /**
  *  props:
- *    buttonOpenDialogText: title of text on openDialogButton
+ *    body: title of text on openDialogButton
  *    action: the action when confirm the dialog (yes button), write in the code below
  *  using:
-        <ScoreDialog buttonOpenDialogText="OpenDialog" />
+        <ScoreDialog>Open Dialog</ScoreDialog>
  *
  */
 export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
@@ -45,17 +49,22 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   };
   return (
     <View>
-      <Button buttonStyle={styles.buttonOpenStyle} onPress={onPressButton}>
-        <RegularText>{dialogProps.buttonOpenDialogText} </RegularText>
+      <Button
+        buttonStyle={styles.buttonOpenDialogStyle}
+        onPress={onPressButton}>
+        <RegularText>{dialogProps.children} </RegularText>
       </Button>
       <Dialog
-        overlayStyle={styles.container}
-        style={styles.container}
+        overlayStyle={scoreDialogStyles.container}
+        style={scoreDialogStyles.container}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
-        <Dialog.Title titleStyle={styles.titleText} title="Input range?" />
+        <Dialog.Title
+          titleStyle={styles.titleTextDialog}
+          title="Input range?"
+        />
         <RegularText>Enter range</RegularText>
-        <View style={styles.containerInput}>
+        <View style={scoreDialogStyles.containerInput}>
           <MultiSlider
             values={[value.values[0], value.values[1]]}
             isMarkersSeparated={true}
@@ -75,17 +84,17 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
           />
         </View>
         <Dialog.Actions>
-          <View style={styles.containerButton}>
+          <View style={styles.containerButtonDialog}>
             <Dialog.Button
               title="NO"
-              buttonStyle={styles.noButton}
-              titleStyle={styles.subText}
+              buttonStyle={styles.noDialogButton}
+              titleStyle={styles.subTextDialog}
               onPress={toggleDialog}
             />
             <Dialog.Button
               title="YES"
-              buttonStyle={styles.yesButton}
-              titleStyle={styles.subText}
+              buttonStyle={styles.yesDialogButton}
+              titleStyle={styles.subTextDialog}
               onPress={accept}
             />
           </View>
@@ -95,43 +104,11 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   );
 }
 
-interface SliderProps {
-  currentValue: number;
-}
-
-function CustomSliderMarkerLeft(props: SliderProps): JSX.Element {
-  return (
-    <View>
-      <RegularText>Min</RegularText>
-      <RegularText>{props.currentValue}</RegularText>
-    </View>
-  );
-}
-function CustomSliderMarkerRight(props: SliderProps): JSX.Element {
-  return (
-    <View>
-      <RegularText>Max</RegularText>
-      <RegularText>{props.currentValue}</RegularText>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
+const scoreDialogStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     backgroundColor: colors.darkBlack,
     paddingVertical: 12,
-  },
-  containerButton: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-
-    justifyContent: 'space-between',
-    alignItems: 'center',
-
-    width: '100%',
-    height: 'auto',
   },
   containerInput: {
     flexDirection: 'row',
@@ -141,36 +118,5 @@ const styles = StyleSheet.create({
 
     width: '100%',
     height: 'auto',
-  },
-  input: {},
-  buttonOpenStyle: {
-    backgroundColor: colors.mediumBlack,
-    borderRadius: 8,
-  },
-  yesButton: {
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-  },
-  noButton: {
-    borderRadius: 12,
-    backgroundColor: 'none',
-    borderWidth: 0.5,
-    borderColor: colors.white,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-  },
-  titleText: {
-    color: colors.white,
-    fontFamily: fonts.primary_bold,
-    fontSize: fontSizes.lg,
-    textAlign: 'left',
-  },
-  subText: {
-    color: colors.white,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
-    textAlign: 'left',
   },
 });

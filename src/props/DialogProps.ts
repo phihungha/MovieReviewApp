@@ -1,8 +1,8 @@
 export interface DeleteCommentDialogProps {
   action: () => void;
-  buttonOpenDialogText: string;
+  children: React.ReactNode;
 }
 
 export interface ScoreDialogProps {
-  buttonOpenDialogText: string;
+  children: React.ReactNode;
 }
