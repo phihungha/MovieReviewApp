@@ -3,10 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import {TitleText} from './TitleText';
 import {Text} from '@rneui/themed';
 import {styles} from '../styles/styles';
-import {Image} from 'react-native';
 import {fontSizes, fonts} from '../styles/typography';
 import {AggregateScoreIndicatorProps} from '../props/AggregateScoreIndicatorProps';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import colors from '../styles/colors';
 /**
  *  The aggregate score by critic user
  *  props:
@@ -19,7 +19,6 @@ import {AggregateScoreIndicatorProps} from '../props/AggregateScoreIndicatorProp
 export function CriticAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
 ): JSX.Element {
-  const uri = '../assets/icons/ic_critic_score.png';
   return (
     <View
       style={[
@@ -28,8 +27,8 @@ export function CriticAggregateScoreIndicator(
         aggregateScoreStyles.right,
       ]}>
       <View style={[aggregateScoreStyles.container]}>
-        <Image
-          source={require(uri)}
+        <Icon
+          name="star"
           style={[aggregateScoreStyles.item, styles.marginEnd4]}
         />
         <Text style={aggregateScoreStyles.textScore}>
@@ -61,7 +60,6 @@ export function CriticAggregateScoreIndicator(
 export function UserAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
 ): JSX.Element {
-  const uri = '../assets/icons/ic_user_score.png';
   return (
     <View
       style={[
@@ -73,10 +71,10 @@ export function UserAggregateScoreIndicator(
         <Text style={[aggregateScoreStyles.textScore, styles.marginEnd4]}>
           {props.aggregateScore}
         </Text>
-        <Image source={require(uri)} style={[aggregateScoreStyles.item]} />
+        <Icon name="star" style={[aggregateScoreStyles.item2]} />
       </View>
 
-      <TitleText>Critic score</TitleText>
+      <TitleText>User score</TitleText>
       {props.reviewsCount <= 1 ? (
         <Text style={[styles.colorLightGrey]}>{props.reviewsCount} review</Text>
       ) : (
@@ -102,17 +100,23 @@ const aggregateScoreStyles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    textAlign: 'center',
-    alignItems: 'flex-start',
+
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 'auto',
     height: 'auto',
   },
+  item2: {
+    fontSize: fontSizes.xl2,
+    color: colors.blueStar,
+  },
   item: {
-    width: 32,
-    height: 32,
+    fontSize: fontSizes.xl2,
+    color: colors.yellowStar,
   },
   textScore: {
     fontFamily: fonts.primary_bold,
     fontSize: fontSizes.xl,
+    paddingTop: 10,
   },
 });
