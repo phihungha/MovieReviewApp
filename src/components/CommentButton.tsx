@@ -14,7 +14,7 @@ import {fontSizes, fonts} from '../styles/typography';
 export function CommentButton(textProps: TextProps): JSX.Element {
   return (
     <TouchableOpacity style={styles.container}>
-      <Text style={styles.subText}>{textProps.text}</Text>
+      <Text style={styles.subText}>{textProps.children}</Text>
       <Icon style={styles.subTextIcon} name="comment" />
       <Text style={styles.subText}>Comment</Text>
     </TouchableOpacity>

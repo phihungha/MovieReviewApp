@@ -47,7 +47,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   return (
     <View>
       <Button buttonStyle={styles.buttonOpenStyle} onPress={onPressButton}>
-        <RegularText text={dialogProps.buttonOpenDialogText} />
+        <RegularText>{dialogProps.buttonOpenDialogText} </RegularText>
       </Button>
       <Dialog
         overlayStyle={styles.container}
@@ -55,7 +55,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
         isVisible={visible}
         onBackdropPress={toggleDialog}>
         <Dialog.Title titleStyle={styles.titleText} title="Input range?" />
-        <RegularText text="Enter range" />
+        <RegularText>Enter range</RegularText>
         <View style={styles.containerInput}>
           <Input
             inputStyle={styles.input}
