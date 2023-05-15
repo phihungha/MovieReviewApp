@@ -136,10 +136,10 @@ const styles = StyleSheet.create({
   containerInput: {
     flexDirection: 'row',
 
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
 
-    width: '50%',
+    width: '100%',
     height: 'auto',
   },
   input: {},
