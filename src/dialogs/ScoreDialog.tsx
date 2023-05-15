@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
 import {fontSizes, fonts} from '../styles/typography';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
-import {Input} from '@rneui/themed';
 import {ScoreDialogProps} from '../props/DialogProps';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 /**
  *  props:
@@ -18,27 +18,26 @@ import {ScoreDialogProps} from '../props/DialogProps';
  */
 export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
-  const [min, setMin] = useState('');
-  const [max, setMax] = useState('');
+
+  const [value, setValue] = useState({values: [0, 10]});
+  const sliderValueChange = (values: any) => {
+    setValue({values});
+  };
 
   const action = () => {
     console.log('action score dialog');
     // add the action here
+    console.log('min: ', value.values[0]);
+    console.log('max: ', value.values[1]);
   };
 
   const toggleDialog = () => {
     setVisible(!visible);
-    setMin('');
-    setMax('');
   };
 
   const accept = () => {
-    if (min <= max && min != null && max != null) {
-      action();
-      toggleDialog();
-    } else {
-      Alert.alert('Please fill the value!!!');
-    }
+    action();
+    toggleDialog();
   };
 
   const onPressButton = () => {
@@ -57,19 +56,22 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
         <Dialog.Title titleStyle={styles.titleText} title="Input range?" />
         <RegularText>Enter range</RegularText>
         <View style={styles.containerInput}>
-          <Input
-            inputStyle={styles.input}
-            inputMode="numeric"
-            label="Min"
-            value={min}
-            onChangeText={setMin}
-          />
-          <Input
-            inputStyle={styles.input}
-            inputMode="numeric"
-            label="Max"
-            value={max}
-            onChangeText={setMax}
+          <MultiSlider
+            values={[value.values[0], value.values[1]]}
+            isMarkersSeparated={true}
+            enabledTwo={true}
+            enabledOne={true}
+            min={0}
+            max={10}
+            step={1}
+            sliderLength={200}
+            onValuesChange={sliderValueChange}
+            customMarkerLeft={e => {
+              return <CustomSliderMarkerLeft currentValue={e.currentValue} />;
+            }}
+            customMarkerRight={e => {
+              return <CustomSliderMarkerRight currentValue={e.currentValue} />;
+            }}
           />
         </View>
         <Dialog.Actions>
@@ -89,6 +91,27 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
           </View>
         </Dialog.Actions>
       </Dialog>
+    </View>
+  );
+}
+
+interface SliderProps {
+  currentValue: number;
+}
+
+function CustomSliderMarkerLeft(props: SliderProps): JSX.Element {
+  return (
+    <View>
+      <RegularText>Min</RegularText>
+      <RegularText>{props.currentValue}</RegularText>
+    </View>
+  );
+}
+function CustomSliderMarkerRight(props: SliderProps): JSX.Element {
+  return (
+    <View>
+      <RegularText>Max</RegularText>
+      <RegularText>{props.currentValue}</RegularText>
     </View>
   );
 }
