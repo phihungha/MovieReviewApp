@@ -1,17 +1,17 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {fontSizes, fonts} from '../styles/typography';
-import colors from '../styles/colors';
 import {TextProps} from '../props/TextProps';
+import {styles} from '../styles/styles';
 
 export function SubtitleText(props: TextProps): JSX.Element {
-  return <Text style={styles.text}>{props.children}</Text>;
+  const styleText = StyleSheet.compose(styles.textDefault, subtitleStyles.text);
+  return <Text style={styleText}>{props.children}</Text>;
 }
 
-const styles = StyleSheet.create({
+const subtitleStyles = StyleSheet.create({
   text: {
     fontFamily: fonts.primary,
     fontSize: fontSizes.lg,
-    color: colors.white,
   },
 });
