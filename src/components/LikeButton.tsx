@@ -1,90 +1,58 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import colors from '../styles/colors';
-import {fontSizes, fonts} from '../styles/typography';
 import {LikeButtonProps} from '../props/LikeButtonProps';
+import {styles} from '../styles/styles';
 
 /**
  *  props:
- *    likeCount: the like count want to display
+ *    body: the like count want to display
  *    isActive: set the like button active or inactive
- *  using: <LikeButton likeCount="12K" isActive={true}></LikeButton>;
+ *  using: <LikeButton isActive={true}>120</LikeButton>;
  *
  */
 export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   if (likeButtonProps.isActive) {
+    const styleContainerActive = StyleSheet.compose(
+      styles.containerMediumBlackCorner,
+      styles.colorPrimayBackground,
+    );
+    const styleTextActive = StyleSheet.flatten([
+      styles.subTextLikeComment,
+      styles.marginEnd8,
+      styles.colorWhite,
+    ]);
+    const styleIconActive = StyleSheet.flatten([
+      styles.subTextLikeComment,
+      styles.marginEnd8,
+      styles.fontSize16,
+      styles.colorWhite,
+      styles.marginBotton6,
+    ]);
     return (
-      <TouchableOpacity style={styles.containerActive}>
-        <Text style={styles.subTextActive}>{likeButtonProps.likeCount}</Text>
-        <Icon style={styles.subTextActiveIcon} name="like1" />
-        <Text style={styles.subTextActive}>Like</Text>
+      <TouchableOpacity style={styleContainerActive}>
+        <Text style={styleTextActive}>{likeButtonProps.children}</Text>
+        <Icon style={styleIconActive} name="like1" />
+        <Text style={styleTextActive}>Like</Text>
       </TouchableOpacity>
     );
   } else {
+    const styleText = StyleSheet.compose(
+      styles.subTextLikeComment,
+      styles.marginEnd8,
+    );
+    const styleIcon = StyleSheet.flatten([
+      styles.subTextLikeComment,
+      styles.marginEnd8,
+      styles.fontSize16,
+      styles.marginBotton6,
+    ]);
     return (
-      <TouchableOpacity style={styles.container}>
-        <Text style={styles.subText}>{likeButtonProps.likeCount}</Text>
-        <Icon style={styles.subTextIcon} name="like2" />
-        <Text style={styles.subText}>Like</Text>
+      <TouchableOpacity style={styles.containerMediumBlackCorner}>
+        <Text style={styleText}>{likeButtonProps.children}</Text>
+        <Icon style={styleIcon} name="like2" />
+        <Text style={styleText}>Like</Text>
       </TouchableOpacity>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    backgroundColor: colors.mediumBlack,
-    paddingVertical: 12,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    width: 'auto',
-  },
-  subText: {
-    color: colors.lightGrey,
-    marginEnd: 8,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
-    verticalAlign: 'middle',
-  },
-  containerActive: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    backgroundColor: colors.primary,
-    paddingVertical: 12,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    width: 'auto',
-  },
-  subTextActive: {
-    color: colors.white,
-    marginEnd: 8,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
-    verticalAlign: 'middle',
-  },
-  subTextIcon: {
-    color: colors.lightGrey,
-    marginEnd: 8,
-    marginBottom: 4,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.lg,
-    verticalAlign: 'middle',
-  },
-
-  subTextActiveIcon: {
-    color: colors.white,
-    marginEnd: 8,
-    marginBottom: 4,
-
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.lg,
-    verticalAlign: 'middle',
-  },
-});

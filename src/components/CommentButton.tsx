@@ -1,49 +1,30 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../styles/colors';
 import {TextProps} from '../props/TextProps';
-import {fontSizes, fonts} from '../styles/typography';
+import {styles} from '../styles/styles';
 
 /**
  *  props:
- *    text: the comment count of the comments want to display
- *  using: <CommentButton text="commentCount"/>
+ *    body: the comment count of the comments want to display
+ *  using: <CommentButton>120</CommentButton>
  *
  */
 export function CommentButton(textProps: TextProps): JSX.Element {
+  const styleText = StyleSheet.compose(
+    styles.subTextLikeComment,
+    styles.marginEnd8,
+  );
+  const styleIcon = StyleSheet.flatten([
+    styles.subTextLikeComment,
+    styles.marginEnd8,
+    styles.fontSize16,
+  ]);
   return (
-    <TouchableOpacity style={styles.container}>
-      <Text style={styles.subText}>{textProps.children}</Text>
-      <Icon style={styles.subTextIcon} name="comment" />
-      <Text style={styles.subText}>Comment</Text>
+    <TouchableOpacity style={styles.containerMediumBlackCorner}>
+      <Text style={styleText}>{textProps.children}</Text>
+      <Icon style={styleIcon} name="comment" />
+      <Text style={styleText}>Comment</Text>
     </TouchableOpacity>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    paddingHorizontal: 20,
-    backgroundColor: colors.mediumBlack,
-    paddingVertical: 12,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    width: 'auto',
-  },
-  subText: {
-    color: colors.lightGrey,
-    marginEnd: 8,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
-    verticalAlign: 'middle',
-  },
-  subTextIcon: {
-    color: colors.lightGrey,
-    marginEnd: 8,
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.lg,
-    verticalAlign: 'middle',
-  },
-});

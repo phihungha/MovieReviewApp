@@ -1,4 +1,4 @@
 export interface LikeButtonProps {
-  likeCount: string;
+  children: React.ReactNode;
   isActive: boolean;
 }
