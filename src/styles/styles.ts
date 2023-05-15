@@ -28,6 +28,12 @@ export const styles = StyleSheet.create({
   fontSize16: {
     fontSize: fontSizes.lg,
   },
+  marginStart4: {
+    marginStart: 4,
+  },
+  marginEnd4: {
+    marginEnd: 4,
+  },
   marginEnd8: {
     marginEnd: 8,
   },
@@ -40,7 +46,9 @@ export const styles = StyleSheet.create({
   colorWhite: {
     color: colors.white,
   },
-
+  colorLightGrey: {
+    color: colors.lightGrey,
+  },
   buttonOpenDialogStyle: {
     backgroundColor: colors.mediumBlack,
     borderRadius: 8,
@@ -71,15 +79,12 @@ export const styles = StyleSheet.create({
     fontSize: fontSizes.md,
     textAlign: 'left',
   },
-
   containerButtonDialog: {
     flexDirection: 'row',
     paddingHorizontal: 20,
     paddingVertical: 12,
-
     justifyContent: 'space-between',
     alignItems: 'center',
-
     width: '100%',
     height: 'auto',
   },

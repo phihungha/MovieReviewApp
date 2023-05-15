@@ -70,6 +70,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
             isMarkersSeparated={true}
             enabledTwo={true}
             enabledOne={true}
+            trackStyle={scoreDialogStyles.slider}
             min={0}
             max={10}
             step={1}
@@ -110,6 +111,7 @@ const scoreDialogStyles = StyleSheet.create({
     backgroundColor: colors.darkBlack,
     paddingVertical: 12,
   },
+  slider: {},
   containerInput: {
     flexDirection: 'row',
 
