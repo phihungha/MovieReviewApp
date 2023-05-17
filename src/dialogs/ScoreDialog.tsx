@@ -10,10 +10,11 @@ import {
   CustomSliderMarkerLeft,
   CustomSliderMarkerRight,
 } from './CustomSliderMarker';
+import {NoDialogButton, YesDialogButton} from '../components/DialogButtons';
 
-type OnRangeSelectedCb = (min: number, max: number) => void;
+export type OnRangeSelectedCb = (min: number, max: number) => void;
 
-interface ScoreDialogProps {
+export interface ScoreDialogProps {
   openBtnTitle: string;
   onRangeSelected: OnRangeSelectedCb;
 }
@@ -27,7 +28,7 @@ interface ScoreDialogProps {
  *  openBtnTitle='Open Dialog'
  *  onRangeSelected={(min, max) => console.log(min, max)} />
  */
-export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
+export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
   const toggleDialog = () => setVisible(!visible);
   const buttonPressed = () => toggleDialog();
@@ -39,8 +40,8 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
     setMaxValue(values[1]);
   };
 
-  const acceptPressed = () => {
-    dialogProps.onRangeSelected(minValue, maxValue);
+  const yesPressed = () => {
+    props.onRangeSelected(minValue, maxValue);
     toggleDialog();
   };
 
@@ -49,7 +50,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
       <Button
         buttonStyle={styles.buttonOpenDialogStyle}
         onPress={buttonPressed}>
-        <RegularText>{dialogProps.openBtnTitle} </RegularText>
+        <RegularText>{props.openBtnTitle} </RegularText>
       </Button>
       <Dialog
         overlayStyle={scoreDialogStyles.container}
@@ -66,7 +67,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
             isMarkersSeparated={true}
             enabledTwo={true}
             enabledOne={true}
-            trackStyle={scoreDialogStyles.slider}
+            trackStyle={{}}
             min={0}
             max={10}
             step={1}
@@ -82,18 +83,8 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
         </View>
         <Dialog.Actions>
           <View style={styles.containerButtonDialog}>
-            <Dialog.Button
-              title="NO"
-              buttonStyle={styles.noDialogButton}
-              titleStyle={styles.subTextDialog}
-              onPress={toggleDialog}
-            />
-            <Dialog.Button
-              title="YES"
-              buttonStyle={styles.yesDialogButton}
-              titleStyle={styles.subTextDialog}
-              onPress={acceptPressed}
-            />
+            <NoDialogButton onPress={() => setVisible(false)} />
+            <YesDialogButton onPress={yesPressed} />
           </View>
         </Dialog.Actions>
       </Dialog>
@@ -107,13 +98,10 @@ const scoreDialogStyles = StyleSheet.create({
     backgroundColor: colors.darkBlack,
     paddingVertical: 12,
   },
-  slider: {},
   containerInput: {
     flexDirection: 'row',
-
     justifyContent: 'center',
     alignItems: 'center',
-
     width: '100%',
     height: 'auto',
   },

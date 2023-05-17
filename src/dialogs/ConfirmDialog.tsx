@@ -5,60 +5,54 @@ import {Dialog, Button} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {styles} from '../styles/styles';
 import {ActionCb} from '../types/ActionCb';
+import {NoDialogButton, YesDialogButton} from '../components/DialogButtons';
 
-interface DeleteCommentDialogProps {
+export interface ConfirmDialogProps {
   action: ActionCb;
   openBtnTitle: string;
+  title: string;
+  message: string;
 }
 
 /**
- * Dialog to confirm comment deletion.
+ * Dialog to confirm something.
  * @param {string} openBtnTitle Title of dialog open button
- * @param {ActionCb} action Action when pressing Yes
+ * @param {string} title Title
+ * @param {string} message Message
+ * @param {ActionCb} action Action when confirm
  * @example
  * <DeleteCommentDialog
  *   openBtnTitle='Open Dialog'
  *   action={() => console.log('action')} />
  */
-export function DeleteCommentDialog(
-  dialogProps: DeleteCommentDialogProps,
-): JSX.Element {
+export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
   const toggleDialog = () => setVisible(!visible);
-  const accept = () => {
-    dialogProps.action();
+  const buttonPressed = () => toggleDialog();
+
+  const yesPressed = () => {
+    props.action();
     toggleDialog();
   };
-  const onPressButton = () => toggleDialog();
 
   return (
     <View>
       <Button
         buttonStyle={styles.buttonOpenDialogStyle}
-        onPress={onPressButton}>
-        <RegularText>{dialogProps.openBtnTitle}</RegularText>
+        onPress={buttonPressed}>
+        <RegularText>{props.openBtnTitle}</RegularText>
       </Button>
       <Dialog
         overlayStyle={deleteCommentDialogStyles.container}
         style={deleteCommentDialogStyles.container}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
-        <Dialog.Title titleStyle={styles.titleTextDialog} title="Warning" />
-        <RegularText>Do you really want to delete this comment?</RegularText>
+        <Dialog.Title titleStyle={styles.titleTextDialog} title={props.title} />
+        <RegularText>{props.message}</RegularText>
         <Dialog.Actions>
           <View style={styles.containerButtonDialog}>
-            <Dialog.Button
-              title="NO"
-              buttonStyle={styles.noDialogButton}
-              titleStyle={styles.subTextDialog}
-              onPress={toggleDialog}
-            />
-            <Dialog.Button
-              title="YES"
-              buttonStyle={styles.yesDialogButton}
-              titleStyle={styles.subTextDialog}
-              onPress={accept}
-            />
+            <NoDialogButton onPress={() => setVisible(false)} />
+            <YesDialogButton onPress={yesPressed} />
           </View>
         </Dialog.Actions>
       </Dialog>
