@@ -8,7 +8,7 @@ import {CancelDialogButton, OkDialogButton} from '../components/DialogButtons';
 import {fontSizes, fonts} from '../styles/typography';
 
 export interface DialogProps {
-  action: ActionCb;
+  onConfirm: ActionCb;
   openBtnTitle: string;
   title: string;
   message: string;
@@ -32,7 +32,7 @@ export function GenericDialog(props: DialogProps): JSX.Element {
   const buttonPressed = () => toggleDialog();
 
   const yesPressed = () => {
-    props.action();
+    props.onConfirm();
     toggleDialog();
   };
 

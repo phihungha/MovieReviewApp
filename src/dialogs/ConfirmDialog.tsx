@@ -4,7 +4,7 @@ import {ActionCb} from '../types/ActionCb';
 import {View} from 'react-native';
 
 export interface ConfirmDialogProps {
-  action: ActionCb;
+  onConfirm: ActionCb;
   openBtnTitle: string;
   title: string;
   message: string;
@@ -22,7 +22,7 @@ export interface ConfirmDialogProps {
  *   action={() => console.log('action')} />
  */
 export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
-  const yesPressed = () => props.action();
+  const yesPressed = () => props.onConfirm();
 
   return (
     <View>
@@ -30,7 +30,7 @@ export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
         openBtnTitle={props.openBtnTitle}
         title={props.title}
         message={props.message}
-        action={yesPressed}
+        onConfirm={yesPressed}
       />
     </View>
   );

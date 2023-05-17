@@ -39,7 +39,7 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
         openBtnTitle={props.openBtnTitle}
         title="Select score range"
         message="Please select min and max scores"
-        action={yesPressed}>
+        onConfirm={yesPressed}>
         <View style={styles.container}>
           <MultiSlider
             values={[minValue, maxValue]}
