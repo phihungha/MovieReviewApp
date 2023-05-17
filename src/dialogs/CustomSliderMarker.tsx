@@ -13,6 +13,7 @@ export function CustomSliderMarkerLeft(props: SliderProps): JSX.Element {
     </View>
   );
 }
+
 export function CustomSliderMarkerRight(props: SliderProps): JSX.Element {
   return (
     <View style={markerStyles.container}>

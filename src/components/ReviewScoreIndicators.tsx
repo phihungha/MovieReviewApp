@@ -1,18 +1,23 @@
 import {Text} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TextProps} from '../props/TextProps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {fontSizes} from '../styles/typography';
 import colors from '../styles/colors';
 
+interface ReviewScoreIndicatorProps {
+  score: number;
+}
+
 /**
- *  The score review by critic user
- *  props:
- *    body: the reviews score want to display
- *  using:  <CriticReviewScoreIndicator>4.5</CriticReviewScoreIndicator>;
+ * Displays review score of a critic.
+ * @param {number} score Score value
+ * @example
+ * <CriticReviewScoreIndicator score={4.5} />
  */
-export function CriticReviewScoreIndicator(props: TextProps): JSX.Element {
+export function CriticReviewScoreIndicator(
+  props: ReviewScoreIndicatorProps,
+): JSX.Element {
   return (
     <View style={[reviewScoreStyles.container]}>
       <Icon
@@ -22,18 +27,21 @@ export function CriticReviewScoreIndicator(props: TextProps): JSX.Element {
 
       <Text
         style={[reviewScoreStyles.colorLightGrey, reviewScoreStyles.textScore]}>
-        {props.children}
+        {props.score}
       </Text>
     </View>
   );
 }
 
-/** The score review by regular user
- *  props:
- *    body: the reviews score want to display
- *  using:  <UserReviewScoreIndicator>4.5</UserReviewScoreIndicator>;
+/**
+ * Displays review score of a regular user.
+ * @param {number} score Score value
+ * @example
+ * <UserReviewScoreIndicator score={4.5} />
  */
-export function UserReviewScoreIndicator(props: TextProps): JSX.Element {
+export function RegularReviewScoreIndicator(
+  props: ReviewScoreIndicatorProps,
+): JSX.Element {
   return (
     <View style={[reviewScoreStyles.container]}>
       <Icon
@@ -43,7 +51,7 @@ export function UserReviewScoreIndicator(props: TextProps): JSX.Element {
 
       <Text
         style={[reviewScoreStyles.colorLightGrey, reviewScoreStyles.textScore]}>
-        {props.children}
+        {props.score}
       </Text>
     </View>
   );

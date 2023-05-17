@@ -12,16 +12,15 @@ import {
 } from './CustomSliderMarker';
 
 interface ScoreDialogProps {
-  children: React.ReactNode;
+  openBtnTitle: string;
 }
 
 /**
- *  props:
- *    body: title of text on openDialogButton
- *    action: the action when confirm the dialog (yes button), write in the code below
- *  using:
-        <ScoreDialog>Open Dialog</ScoreDialog>
- *
+ * Dialog to select review score range.
+ * @param {string} openBtnTitle Title of dialog open button
+ * @param {ActionCb} action Action when pressing Yes, write in the code below
+ * @example
+   <ScoreDialog openBtnTitle='Open Dialog' />
  */
 export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
@@ -55,7 +54,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
       <Button
         buttonStyle={styles.buttonOpenDialogStyle}
         onPress={onPressButton}>
-        <RegularText>{dialogProps.children} </RegularText>
+        <RegularText>{dialogProps.openBtnTitle} </RegularText>
       </Button>
       <Dialog
         overlayStyle={scoreDialogStyles.container}

@@ -8,18 +8,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../styles/colors';
 
 interface AggregateScoreIndicatorProps {
-  aggregateScore: number;
-  reviewsCount: number;
+  score: number;
+  reviewCount: number;
 }
 
 /**
- *  The aggregate score by critic user
- *  props:
- *    aggregateScore: the reviews score want to display
- *    reviewsCount: the reviews count want to display
- *  using:  <CriticAggregateScoreIndicator
-          aggregateScore={8.3}
-          reviewsCount={211}></CriticAggregateScoreIndicator>
+ * Display critics' aggregate score and review count.
+ * @param {number} score Aggregate score
+ * @param {number} reviewCount Number of reviews
+ * @example
+ * <CriticAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
 export function CriticAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
@@ -36,19 +34,17 @@ export function CriticAggregateScoreIndicator(
           name="star"
           style={[aggregateScoreStyles.item, aggregateScoreStyles.marginEnd4]}
         />
-        <Text style={aggregateScoreStyles.textScore}>
-          {props.aggregateScore}
-        </Text>
+        <Text style={aggregateScoreStyles.textScore}>{props.score}</Text>
       </View>
 
       <TitleText>Critic score</TitleText>
-      {props.reviewsCount <= 1 ? (
+      {props.reviewCount <= 1 ? (
         <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewsCount} review
+          {props.reviewCount} review
         </Text>
       ) : (
         <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewsCount} reviews
+          {props.reviewCount} reviews
         </Text>
       )}
     </View>
@@ -56,15 +52,13 @@ export function CriticAggregateScoreIndicator(
 }
 
 /**
- *  The aggregate score by regular user
- *  props:
- *    aggregateScore: the reviews score want to display
- *    reviewsCount: the reviews count want to display
- *  using:  <UserAggregateScoreIndicator
-          aggregateScore={8.3}
-          reviewsCount={211}></UserAggregateScoreIndicator>
+ * Display regular users' aggregate score and review count.
+ * @param {number} score Aggregate score
+ * @param {number} reviewCount Number of reviews
+ * @example
+ * <RegularAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
-export function UserAggregateScoreIndicator(
+export function RegularAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
 ): JSX.Element {
   return (
@@ -80,19 +74,19 @@ export function UserAggregateScoreIndicator(
             aggregateScoreStyles.textScore,
             aggregateScoreStyles.marginEnd4,
           ]}>
-          {props.aggregateScore}
+          {props.score}
         </Text>
         <Icon name="star" style={[aggregateScoreStyles.item2]} />
       </View>
 
       <TitleText>User score</TitleText>
-      {props.reviewsCount <= 1 ? (
+      {props.reviewCount <= 1 ? (
         <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewsCount} review
+          {props.reviewCount} review
         </Text>
       ) : (
         <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewsCount} reviews
+          {props.reviewCount} reviews
         </Text>
       )}
     </View>

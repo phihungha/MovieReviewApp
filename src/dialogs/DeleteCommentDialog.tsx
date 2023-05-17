@@ -1,54 +1,50 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
-import {Dialog} from '@rneui/themed';
+import {Dialog, Button} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
-import {Button} from '@rneui/themed';
 import {styles} from '../styles/styles';
 
 interface DeleteCommentDialogProps {
-  action: () => void;
-  children: React.ReactNode;
+  action: ActionCb;
+  openBtnTitle: string;
 }
+
 /**
- *  props:
- *    body: title of text on openDialogButton
- *    action: the action when confirm the dialog (yes button)
- *  using:
-      const dialogAction = () => {
-        console.log('action');
-      };
-    <DeleteCommentDialog action={dialogAction}>Open Dialog</DeleteCommentDialog>
- *
+ * Dialog to confirm comment deletion.
+ * @param {string} openBtnTitle Title of dialog open button
+ * @param {ActionCb} action Action when pressing Yes
+ * @example
+   const dialogAction = () => console.log('action');
+   <DeleteCommentDialog
+     openBtnTitle='Open Dialog'
+     action={dialogAction} />
  */
 export function DeleteCommentDialog(
   dialogProps: DeleteCommentDialogProps,
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
-  const toggleDialog = () => {
-    setVisible(!visible);
-  };
+  const toggleDialog = () => setVisible(!visible);
   const accept = () => {
     dialogProps.action();
     toggleDialog();
   };
-  const onPressButton = () => {
-    toggleDialog();
-  };
+  const onPressButton = () => toggleDialog();
+
   return (
     <View>
       <Button
         buttonStyle={styles.buttonOpenDialogStyle}
         onPress={onPressButton}>
-        <RegularText>{dialogProps.children} </RegularText>
+        <RegularText>{dialogProps.openBtnTitle}</RegularText>
       </Button>
       <Dialog
         overlayStyle={deleteCommentDialogStyles.container}
         style={deleteCommentDialogStyles.container}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
-        <Dialog.Title titleStyle={styles.titleTextDialog} title="Warning?" />
-        <RegularText>Are you sure to delete this comment?</RegularText>
+        <Dialog.Title titleStyle={styles.titleTextDialog} title="Warning" />
+        <RegularText>Do you really want to delete this comment?</RegularText>
         <Dialog.Actions>
           <View style={styles.containerButtonDialog}>
             <Dialog.Button

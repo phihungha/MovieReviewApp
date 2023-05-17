@@ -6,16 +6,16 @@ import {fontSizes} from '../styles/typography';
 import colors from '../styles/colors';
 
 interface LikeButtonProps {
-  children: React.ReactNode;
+  likeCount: number;
   isActive: boolean;
 }
 
 /**
- *  props:
- *    body: the like count want to display
- *    isActive: set the like button active or inactive
- *  using: <LikeButton isActive={true}>120</LikeButton>;
- *
+ * Like button.
+ * @param {number} likeCount Number of likes
+ * @param {boolean} isActive True if like button is active
+ * @example
+ * <LikeButton isActive={true} likeCount={120} />
  */
 export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   if (likeButtonProps.isActive) {
@@ -23,11 +23,13 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
       styles.containerMediumBlackCorner,
       likeButtonStyles.colorPrimaryBackground,
     );
+
     const styleTextActive = StyleSheet.flatten([
       styles.subTextLikeComment,
       likeButtonStyles.marginEnd8,
       likeButtonStyles.colorWhite,
     ]);
+
     const styleIconActive = StyleSheet.flatten([
       styles.subTextLikeComment,
       likeButtonStyles.marginEnd8,
@@ -35,9 +37,10 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
       likeButtonStyles.colorWhite,
       likeButtonStyles.marginBottom6,
     ]);
+
     return (
       <TouchableOpacity style={styleContainerActive}>
-        <Text style={styleTextActive}>{likeButtonProps.children}</Text>
+        <Text style={styleTextActive}>{likeButtonProps.likeCount}</Text>
         <Icon style={styleIconActive} name="like1" />
         <Text style={styleTextActive}>Like</Text>
       </TouchableOpacity>
@@ -55,7 +58,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
     ]);
     return (
       <TouchableOpacity style={styles.containerMediumBlackCorner}>
-        <Text style={styleText}>{likeButtonProps.children}</Text>
+        <Text style={styleText}>{likeButtonProps.likeCount}</Text>
         <Icon style={styleIcon} name="like2" />
         <Text style={styleText}>Like</Text>
       </TouchableOpacity>

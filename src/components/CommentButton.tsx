@@ -1,17 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {TextProps} from '../props/TextProps';
 import {styles} from '../styles/styles';
 import {fontSizes} from '../styles/typography';
 
+interface CommentButtonProps {
+  commentCount: number;
+}
+
 /**
- *  props:
- *    body: the comment count of the comments want to display
- *  using: <CommentButton>120</CommentButton>
- *
+ * Comment button.
+ * @param {number} commentCount Number of comments
+ * @example
+ * <CommentButton commentCount={120} />
  */
-export function CommentButton(textProps: TextProps): JSX.Element {
+export function CommentButton(props: CommentButtonProps): JSX.Element {
   const styleText = StyleSheet.compose(
     styles.subTextLikeComment,
     commentButtonStyles.marginEnd8,
@@ -23,7 +26,7 @@ export function CommentButton(textProps: TextProps): JSX.Element {
   ]);
   return (
     <TouchableOpacity style={styles.containerMediumBlackCorner}>
-      <Text style={styleText}>{textProps.children}</Text>
+      <Text style={styleText}>{props.commentCount}</Text>
       <Icon style={styleIcon} name="comment" />
       <Text style={styleText}>Comment</Text>
     </TouchableOpacity>
