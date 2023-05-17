@@ -1,3 +1,4 @@
+import React from 'react';
 import {Dialog} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
 import colors from '../styles/colors';
