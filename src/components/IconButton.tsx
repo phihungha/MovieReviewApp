@@ -1,4 +1,11 @@
-import {Text, StyleSheet, Pressable, StyleProp, ViewStyle} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  StyleProp,
+  ViewStyle,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
 import {fontSizes, fonts} from '../styles/typography';
@@ -9,6 +16,7 @@ interface IconButtonProps {
   count: number;
   text: string;
   onPress: ActionCb;
+  isActive?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -18,37 +26,47 @@ interface IconButtonProps {
  * @param {number} count Count value
  * @param {string} text Text
  * @param {ActionCb} onPress Action on press
+ * @param {boolean} isActive True if button is active
  * @param {StyleProp<ViewStyle>} style Style
  * @example
  * <CommentButton count={120} />
  */
 export function CountButton(props: IconButtonProps) {
-  const pressableStyle = StyleSheet.compose(styles.container, props.style);
+  const containerStyle = StyleSheet.compose(styles.container, props.style);
   return (
-    <Pressable
-      style={pressableStyle}
-      onPress={props.onPress}
-      android_ripple={{color: 'gray'}}>
-      <Icon style={styles.icon} name={props.iconName} />
-      <Text style={styles.text}>
-        {props.count} {props.text}
-      </Text>
-    </Pressable>
+    <View style={containerStyle}>
+      <Pressable
+        style={[styles.pressable, props.isActive ? styles.activePressable : {}]}
+        onPress={props.onPress}
+        android_ripple={{
+          color: props.isActive ? '#e3949f' : '#525252',
+        }}>
+        <Icon
+          style={[styles.icon, props.isActive ? styles.activeIcon : {}]}
+          name={props.iconName}
+        />
+        <Text style={[styles.text, props.isActive ? styles.activeText : {}]}>
+          {props.count} {props.text}
+        </Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignSelf: 'flex-start',
-    paddingHorizontal: 20,
     backgroundColor: colors.mediumBlack,
-    paddingVertical: 12,
     borderRadius: 8,
+    overflow: 'hidden',
+  },
+  pressable: {
+    flexDirection: 'row',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    width: 'auto',
   },
   text: {
     color: colors.lightGrey,
@@ -58,5 +76,14 @@ const styles = StyleSheet.create({
   icon: {
     color: colors.lightGrey,
     fontSize: fontSizes.lg,
+  },
+  activePressable: {
+    backgroundColor: colors.primary,
+  },
+  activeText: {
+    color: colors.white,
+  },
+  activeIcon: {
+    color: colors.white,
   },
 });
