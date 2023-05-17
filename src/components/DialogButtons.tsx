@@ -8,10 +8,10 @@ export interface DialogButtonProps {
   onPress: ActionCb;
 }
 
-export function YesDialogButton(props: DialogButtonProps) {
+export function OkDialogButton(props: DialogButtonProps) {
   return (
     <Dialog.Button
-      title="YES"
+      title="OK"
       buttonStyle={styles.yesDialogButton}
       titleStyle={styles.subTextDialog}
       onPress={props.onPress}
@@ -19,10 +19,10 @@ export function YesDialogButton(props: DialogButtonProps) {
   );
 }
 
-export function NoDialogButton(props: DialogButtonProps) {
+export function CancelDialogButton(props: DialogButtonProps) {
   return (
     <Dialog.Button
-      title="NO"
+      title="CANCEL"
       buttonStyle={styles.noDialogButton}
       titleStyle={styles.subTextDialog}
       onPress={props.onPress}

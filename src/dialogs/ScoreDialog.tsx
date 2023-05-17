@@ -1,16 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import colors from '../styles/colors';
-import {Dialog} from '@rneui/themed';
-import {RegularText} from '../components/RegularText';
-import {Button} from '@rneui/themed';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {styles} from '../styles/styles';
 import {
   CustomSliderMarkerLeft,
   CustomSliderMarkerRight,
 } from './CustomSliderMarker';
-import {NoDialogButton, YesDialogButton} from '../components/DialogButtons';
+import {GenericDialog} from './GenericDialog';
 
 export type OnRangeSelectedCb = (min: number, max: number) => void;
 
@@ -29,10 +24,6 @@ export interface ScoreDialogProps {
  *  onRangeSelected={(min, max) => console.log(min, max)} />
  */
 export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
-  const [visible, setVisible] = useState(false);
-  const toggleDialog = () => setVisible(!visible);
-  const buttonPressed = () => toggleDialog();
-
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(10);
   const sliderValueChanged = (values: any) => {
@@ -40,28 +31,16 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
     setMaxValue(values[1]);
   };
 
-  const yesPressed = () => {
-    props.onRangeSelected(minValue, maxValue);
-    toggleDialog();
-  };
+  const yesPressed = () => props.onRangeSelected(minValue, maxValue);
 
   return (
     <View>
-      <Button
-        buttonStyle={styles.buttonOpenDialogStyle}
-        onPress={buttonPressed}>
-        <RegularText>{props.openBtnTitle} </RegularText>
-      </Button>
-      <Dialog
-        overlayStyle={scoreDialogStyles.container}
-        style={scoreDialogStyles.container}
-        isVisible={visible}
-        onBackdropPress={toggleDialog}>
-        <Dialog.Title
-          titleStyle={styles.titleTextDialog}
-          title="Select score range"
-        />
-        <View style={scoreDialogStyles.containerInput}>
+      <GenericDialog
+        openBtnTitle={props.openBtnTitle}
+        title="Select score range"
+        message="Please select min and max scores"
+        action={yesPressed}>
+        <View style={styles.container}>
           <MultiSlider
             values={[minValue, maxValue]}
             isMarkersSeparated={true}
@@ -81,24 +60,13 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
             )}
           />
         </View>
-        <Dialog.Actions>
-          <View style={styles.containerButtonDialog}>
-            <NoDialogButton onPress={() => setVisible(false)} />
-            <YesDialogButton onPress={yesPressed} />
-          </View>
-        </Dialog.Actions>
-      </Dialog>
+      </GenericDialog>
     </View>
   );
 }
 
-const scoreDialogStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    backgroundColor: colors.darkBlack,
-    paddingVertical: 12,
-  },
-  containerInput: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
