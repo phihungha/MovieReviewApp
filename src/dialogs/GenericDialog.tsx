@@ -48,15 +48,15 @@ export function GenericDialog(props: DialogProps): JSX.Element {
         style={styles.container}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
-          <Dialog.Title titleStyle={styles.titleTextDialog} title={props.title} />
-          <RegularText>{props.message}</RegularText>
-          {props.children}
-          <Dialog.Actions>
-            <View style={styles.containerButtonDialog}>
-              <CancelDialogButton onPress={() => setVisible(false)} />
-              <OkDialogButton onPress={yesPressed} />
-            </View>
-          </Dialog.Actions>
+        <Dialog.Title titleStyle={styles.titleTextDialog} title={props.title} />
+        <RegularText>{props.message}</RegularText>
+        {props.children}
+        <Dialog.Actions>
+          <View style={styles.containerButtonDialog}>
+            <CancelDialogButton onPress={() => setVisible(false)} />
+            <OkDialogButton onPress={yesPressed} />
+          </View>
+        </Dialog.Actions>
       </Dialog>
     </View>
   );
