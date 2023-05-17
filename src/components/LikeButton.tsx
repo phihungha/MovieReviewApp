@@ -17,8 +17,8 @@ interface LikeButtonProps {
  * @example
  * <LikeButton isActive={true} likeCount={120} />
  */
-export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
-  if (likeButtonProps.isActive) {
+export function LikeButton(props: LikeButtonProps): JSX.Element {
+  if (props.isActive) {
     const styleContainerActive = StyleSheet.compose(
       styles.containerMediumBlackCorner,
       likeButtonStyles.colorPrimaryBackground,
@@ -40,7 +40,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
 
     return (
       <TouchableOpacity style={styleContainerActive}>
-        <Text style={styleTextActive}>{likeButtonProps.likeCount}</Text>
+        <Text style={styleTextActive}>{props.likeCount}</Text>
         <Icon style={styleIconActive} name="like1" />
         <Text style={styleTextActive}>Like</Text>
       </TouchableOpacity>
@@ -58,7 +58,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
     ]);
     return (
       <TouchableOpacity style={styles.containerMediumBlackCorner}>
-        <Text style={styleText}>{likeButtonProps.likeCount}</Text>
+        <Text style={styleText}>{props.likeCount}</Text>
         <Icon style={styleIcon} name="like2" />
         <Text style={styleText}>Like</Text>
       </TouchableOpacity>
