@@ -16,10 +16,9 @@ interface DeleteCommentDialogProps {
  * @param {string} openBtnTitle Title of dialog open button
  * @param {ActionCb} action Action when pressing Yes
  * @example
-   const dialogAction = () => console.log('action');
-   <DeleteCommentDialog
-     openBtnTitle='Open Dialog'
-     action={dialogAction} />
+ * <DeleteCommentDialog
+ *   openBtnTitle='Open Dialog'
+ *   action={() => console.log('action')} />
  */
 export function DeleteCommentDialog(
   dialogProps: DeleteCommentDialogProps,

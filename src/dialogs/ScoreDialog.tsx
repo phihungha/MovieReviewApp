@@ -20,7 +20,7 @@ interface ScoreDialogProps {
  * @param {string} openBtnTitle Title of dialog open button
  * @param {ActionCb} action Action when pressing Yes, write in the code below
  * @example
-   <ScoreDialog openBtnTitle='Open Dialog' />
+ * <ScoreDialog openBtnTitle='Open Dialog' />
  */
 export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
@@ -37,9 +37,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
     console.log('max: ', value.values[1]);
   };
 
-  const toggleDialog = () => {
-    setVisible(!visible);
-  };
+  const toggleDialog = () => setVisible(!visible);;
 
   const accept = () => {
     action();
@@ -49,6 +47,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   const onPressButton = () => {
     toggleDialog();
   };
+
   return (
     <View>
       <Button
