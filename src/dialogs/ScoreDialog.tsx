@@ -31,7 +31,7 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
     setMaxValue(values[1]);
   };
 
-  const yesPressed = () => props.onRangeSelected(minValue, maxValue);
+  const onConfirm = () => props.onRangeSelected(minValue, maxValue);
 
   return (
     <View>
@@ -39,7 +39,7 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
         openBtnTitle={props.openBtnTitle}
         title="Select score range"
         message="Please select min and max scores"
-        onConfirm={yesPressed}>
+        onConfirm={onConfirm}>
         <View style={styles.container}>
           <MultiSlider
             values={[minValue, maxValue]}
