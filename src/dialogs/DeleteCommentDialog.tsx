@@ -4,6 +4,7 @@ import colors from '../styles/colors';
 import {Dialog, Button} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {styles} from '../styles/styles';
+import {ActionCb} from '../types/ActionCb';
 
 interface DeleteCommentDialogProps {
   action: ActionCb;

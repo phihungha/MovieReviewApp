@@ -1,1 +1,1 @@
-type ActionCb = () => void;
+export type ActionCb = () => void;
