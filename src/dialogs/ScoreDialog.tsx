@@ -11,40 +11,36 @@ import {
   CustomSliderMarkerRight,
 } from './CustomSliderMarker';
 
+type OnRangeSelectedCb = (min: number, max: number) => void;
+
 interface ScoreDialogProps {
   openBtnTitle: string;
+  onRangeSelected: OnRangeSelectedCb;
 }
 
 /**
  * Dialog to select review score range.
  * @param {string} openBtnTitle Title of dialog open button
- * @param {ActionCb} action Action when pressing Yes, write in the code below
+ * @param {OnRangeSelectedCb} onRangeSelected Receive selection result
  * @example
- * <ScoreDialog openBtnTitle='Open Dialog' />
+ * <ScoreDialog
+ *  openBtnTitle='Open Dialog'
+ *  onRangeSelected={(min, max) => console.log(min, max)} />
  */
 export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
   const [visible, setVisible] = useState(false);
+  const toggleDialog = () => setVisible(!visible);
+  const buttonPressed = () => toggleDialog();
 
-  const [value, setValue] = useState({values: [0, 10]});
-  const sliderValueChange = (values: any) => {
-    setValue({values});
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(10);
+  const sliderValueChanged = (values: any) => {
+    setMinValue(values[0]);
+    setMaxValue(values[1]);
   };
 
-  const action = () => {
-    console.log('action score dialog');
-    // add the action here
-    console.log('min: ', value.values[0]);
-    console.log('max: ', value.values[1]);
-  };
-
-  const toggleDialog = () => setVisible(!visible);;
-
-  const accept = () => {
-    action();
-    toggleDialog();
-  };
-
-  const onPressButton = () => {
+  const acceptPressed = () => {
+    dialogProps.onRangeSelected(minValue, maxValue);
     toggleDialog();
   };
 
@@ -52,7 +48,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
     <View>
       <Button
         buttonStyle={styles.buttonOpenDialogStyle}
-        onPress={onPressButton}>
+        onPress={buttonPressed}>
         <RegularText>{dialogProps.openBtnTitle} </RegularText>
       </Button>
       <Dialog
@@ -62,12 +58,11 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
         onBackdropPress={toggleDialog}>
         <Dialog.Title
           titleStyle={styles.titleTextDialog}
-          title="Input range?"
+          title="Select score range"
         />
-        <RegularText>Enter range</RegularText>
         <View style={scoreDialogStyles.containerInput}>
           <MultiSlider
-            values={[value.values[0], value.values[1]]}
+            values={[minValue, maxValue]}
             isMarkersSeparated={true}
             enabledTwo={true}
             enabledOne={true}
@@ -76,13 +71,13 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
             max={10}
             step={1}
             sliderLength={200}
-            onValuesChange={sliderValueChange}
-            customMarkerLeft={e => {
-              return <CustomSliderMarkerLeft currentValue={e.currentValue} />;
-            }}
-            customMarkerRight={e => {
-              return <CustomSliderMarkerRight currentValue={e.currentValue} />;
-            }}
+            onValuesChange={sliderValueChanged}
+            customMarkerLeft={e => (
+              <CustomSliderMarkerLeft currentValue={e.currentValue} />
+            )}
+            customMarkerRight={e => (
+              <CustomSliderMarkerRight currentValue={e.currentValue} />
+            )}
           />
         </View>
         <Dialog.Actions>
@@ -97,7 +92,7 @@ export function ScoreDialog(dialogProps: ScoreDialogProps): JSX.Element {
               title="YES"
               buttonStyle={styles.yesDialogButton}
               titleStyle={styles.subTextDialog}
-              onPress={accept}
+              onPress={acceptPressed}
             />
           </View>
         </Dialog.Actions>
