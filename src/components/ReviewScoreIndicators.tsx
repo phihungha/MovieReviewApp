@@ -1,7 +1,6 @@
 import {Text} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {styles} from '../styles/styles';
 import {TextProps} from '../props/TextProps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {fontSizes} from '../styles/typography';
@@ -16,9 +15,13 @@ import colors from '../styles/colors';
 export function CriticReviewScoreIndicator(props: TextProps): JSX.Element {
   return (
     <View style={[reviewScoreStyles.container]}>
-      <Icon name="star" style={[reviewScoreStyles.item, styles.marginEnd4]} />
+      <Icon
+        name="star"
+        style={[reviewScoreStyles.item, reviewScoreStyles.marginEnd4]}
+      />
 
-      <Text style={[styles.colorLightGrey, reviewScoreStyles.textScore]}>
+      <Text
+        style={[reviewScoreStyles.colorLightGrey, reviewScoreStyles.textScore]}>
         {props.children}
       </Text>
     </View>
@@ -33,9 +36,13 @@ export function CriticReviewScoreIndicator(props: TextProps): JSX.Element {
 export function UserReviewScoreIndicator(props: TextProps): JSX.Element {
   return (
     <View style={[reviewScoreStyles.container]}>
-      <Icon name="star" style={[reviewScoreStyles.item2, styles.marginEnd4]} />
+      <Icon
+        name="star"
+        style={[reviewScoreStyles.item2, reviewScoreStyles.marginEnd4]}
+      />
 
-      <Text style={[styles.colorLightGrey, reviewScoreStyles.textScore]}>
+      <Text
+        style={[reviewScoreStyles.colorLightGrey, reviewScoreStyles.textScore]}>
         {props.children}
       </Text>
     </View>
@@ -64,5 +71,29 @@ const reviewScoreStyles = StyleSheet.create({
   },
   textScore: {
     paddingTop: 4,
+  },
+  fontSize16: {
+    fontSize: fontSizes.lg,
+  },
+  marginStart4: {
+    marginStart: 4,
+  },
+  marginEnd4: {
+    marginEnd: 4,
+  },
+  marginEnd8: {
+    marginEnd: 8,
+  },
+  marginBotton6: {
+    marginBottom: 6,
+  },
+  colorPrimayBackground: {
+    backgroundColor: colors.primary,
+  },
+  colorWhite: {
+    color: colors.white,
+  },
+  colorLightGrey: {
+    color: colors.lightGrey,
   },
 });

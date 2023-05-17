@@ -3,6 +3,8 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {LikeButtonProps} from '../props/LikeButtonProps';
 import {styles} from '../styles/styles';
+import {fontSizes} from '../styles/typography';
+import colors from '../styles/colors';
 
 /**
  *  props:
@@ -15,19 +17,19 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   if (likeButtonProps.isActive) {
     const styleContainerActive = StyleSheet.compose(
       styles.containerMediumBlackCorner,
-      styles.colorPrimayBackground,
+      likeButtonStyles.colorPrimayBackground,
     );
     const styleTextActive = StyleSheet.flatten([
       styles.subTextLikeComment,
-      styles.marginEnd8,
-      styles.colorWhite,
+      likeButtonStyles.marginEnd8,
+      likeButtonStyles.colorWhite,
     ]);
     const styleIconActive = StyleSheet.flatten([
       styles.subTextLikeComment,
-      styles.marginEnd8,
-      styles.fontSize16,
-      styles.colorWhite,
-      styles.marginBotton6,
+      likeButtonStyles.marginEnd8,
+      likeButtonStyles.fontSize16,
+      likeButtonStyles.colorWhite,
+      likeButtonStyles.marginBotton6,
     ]);
     return (
       <TouchableOpacity style={styleContainerActive}>
@@ -39,13 +41,13 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   } else {
     const styleText = StyleSheet.compose(
       styles.subTextLikeComment,
-      styles.marginEnd8,
+      likeButtonStyles.marginEnd8,
     );
     const styleIcon = StyleSheet.flatten([
       styles.subTextLikeComment,
-      styles.marginEnd8,
-      styles.fontSize16,
-      styles.marginBotton6,
+      likeButtonStyles.marginEnd8,
+      likeButtonStyles.fontSize16,
+      likeButtonStyles.marginBotton6,
     ]);
     return (
       <TouchableOpacity style={styles.containerMediumBlackCorner}>
@@ -56,3 +58,29 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
     );
   }
 }
+const likeButtonStyles = StyleSheet.create({
+  fontSize16: {
+    fontSize: fontSizes.lg,
+  },
+  marginStart4: {
+    marginStart: 4,
+  },
+  marginEnd4: {
+    marginEnd: 4,
+  },
+  marginEnd8: {
+    marginEnd: 8,
+  },
+  marginBotton6: {
+    marginBottom: 6,
+  },
+  colorPrimayBackground: {
+    backgroundColor: colors.primary,
+  },
+  colorWhite: {
+    color: colors.white,
+  },
+  colorLightGrey: {
+    color: colors.lightGrey,
+  },
+});

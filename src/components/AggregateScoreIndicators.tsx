@@ -29,7 +29,7 @@ export function CriticAggregateScoreIndicator(
       <View style={[aggregateScoreStyles.container]}>
         <Icon
           name="star"
-          style={[aggregateScoreStyles.item, styles.marginEnd4]}
+          style={[aggregateScoreStyles.item, aggregateScoreStyles.marginEnd4]}
         />
         <Text style={aggregateScoreStyles.textScore}>
           {props.aggregateScore}
@@ -38,9 +38,11 @@ export function CriticAggregateScoreIndicator(
 
       <TitleText>Critic score</TitleText>
       {props.reviewsCount <= 1 ? (
-        <Text style={[styles.colorLightGrey]}>{props.reviewsCount} review</Text>
+        <Text style={[aggregateScoreStyles.colorLightGrey]}>
+          {props.reviewsCount} review
+        </Text>
       ) : (
-        <Text style={[styles.colorLightGrey]}>
+        <Text style={[aggregateScoreStyles.colorLightGrey]}>
           {props.reviewsCount} reviews
         </Text>
       )}
@@ -68,7 +70,11 @@ export function UserAggregateScoreIndicator(
         aggregateScoreStyles.left,
       ]}>
       <View style={[aggregateScoreStyles.container]}>
-        <Text style={[aggregateScoreStyles.textScore, styles.marginEnd4]}>
+        <Text
+          style={[
+            aggregateScoreStyles.textScore,
+            aggregateScoreStyles.marginEnd4,
+          ]}>
           {props.aggregateScore}
         </Text>
         <Icon name="star" style={[aggregateScoreStyles.item2]} />
@@ -76,9 +82,11 @@ export function UserAggregateScoreIndicator(
 
       <TitleText>User score</TitleText>
       {props.reviewsCount <= 1 ? (
-        <Text style={[styles.colorLightGrey]}>{props.reviewsCount} review</Text>
+        <Text style={[aggregateScoreStyles.colorLightGrey]}>
+          {props.reviewsCount} review
+        </Text>
       ) : (
-        <Text style={[styles.colorLightGrey]}>
+        <Text style={[aggregateScoreStyles.colorLightGrey]}>
           {props.reviewsCount} reviews
         </Text>
       )}
@@ -118,5 +126,29 @@ const aggregateScoreStyles = StyleSheet.create({
     fontFamily: fonts.primary_bold,
     fontSize: fontSizes.xl,
     paddingTop: 10,
+  },
+  fontSize16: {
+    fontSize: fontSizes.lg,
+  },
+  marginStart4: {
+    marginStart: 4,
+  },
+  marginEnd4: {
+    marginEnd: 4,
+  },
+  marginEnd8: {
+    marginEnd: 8,
+  },
+  marginBotton6: {
+    marginBottom: 6,
+  },
+  colorPrimayBackground: {
+    backgroundColor: colors.primary,
+  },
+  colorWhite: {
+    color: colors.white,
+  },
+  colorLightGrey: {
+    color: colors.lightGrey,
   },
 });

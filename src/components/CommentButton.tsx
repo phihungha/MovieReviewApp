@@ -3,6 +3,8 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextProps} from '../props/TextProps';
 import {styles} from '../styles/styles';
+import {fontSizes} from '../styles/typography';
+import colors from '../styles/colors';
 
 /**
  *  props:
@@ -13,12 +15,12 @@ import {styles} from '../styles/styles';
 export function CommentButton(textProps: TextProps): JSX.Element {
   const styleText = StyleSheet.compose(
     styles.subTextLikeComment,
-    styles.marginEnd8,
+    commentButtonStyles.marginEnd8,
   );
   const styleIcon = StyleSheet.flatten([
     styles.subTextLikeComment,
-    styles.marginEnd8,
-    styles.fontSize16,
+    commentButtonStyles.marginEnd8,
+    commentButtonStyles.fontSize16,
   ]);
   return (
     <TouchableOpacity style={styles.containerMediumBlackCorner}>
@@ -28,3 +30,30 @@ export function CommentButton(textProps: TextProps): JSX.Element {
     </TouchableOpacity>
   );
 }
+
+const commentButtonStyles = StyleSheet.create({
+  fontSize16: {
+    fontSize: fontSizes.lg,
+  },
+  marginStart4: {
+    marginStart: 4,
+  },
+  marginEnd4: {
+    marginEnd: 4,
+  },
+  marginEnd8: {
+    marginEnd: 8,
+  },
+  marginBotton6: {
+    marginBottom: 6,
+  },
+  colorPrimayBackground: {
+    backgroundColor: colors.primary,
+  },
+  colorWhite: {
+    color: colors.white,
+  },
+  colorLightGrey: {
+    color: colors.lightGrey,
+  },
+});
