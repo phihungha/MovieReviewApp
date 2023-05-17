@@ -1,6 +1,9 @@
 import {StyleSheet, View} from 'react-native';
-import {SliderProps} from '../props/SliderProps';
 import {RegularText} from '../components/RegularText';
+
+interface SliderProps {
+  currentValue: number;
+}
 
 export function CustomSliderMarkerLeft(props: SliderProps): JSX.Element {
   return (

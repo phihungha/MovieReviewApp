@@ -4,13 +4,16 @@ import colors from '../styles/colors';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
-import {ScoreDialogProps} from '../props/DialogProps';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {styles} from '../styles/styles';
 import {
   CustomSliderMarkerLeft,
   CustomSliderMarkerRight,
 } from './CustomSliderMarker';
+
+interface ScoreDialogProps {
+  children: React.ReactNode;
+}
 
 /**
  *  props:

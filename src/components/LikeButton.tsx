@@ -1,10 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {LikeButtonProps} from '../props/LikeButtonProps';
 import {styles} from '../styles/styles';
 import {fontSizes} from '../styles/typography';
 import colors from '../styles/colors';
+
+interface LikeButtonProps {
+  children: React.ReactNode;
+  isActive: boolean;
+}
 
 /**
  *  props:

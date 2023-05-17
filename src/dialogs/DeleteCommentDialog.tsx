@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
-import {DeleteCommentDialogProps} from '../props/DialogProps';
 import {Dialog} from '@rneui/themed';
 import {RegularText} from '../components/RegularText';
 import {Button} from '@rneui/themed';
 import {styles} from '../styles/styles';
 
+interface DeleteCommentDialogProps {
+  action: () => void;
+  children: React.ReactNode;
+}
 /**
  *  props:
  *    body: title of text on openDialogButton

@@ -4,9 +4,14 @@ import {TitleText} from './TitleText';
 import {Text} from '@rneui/themed';
 import {styles} from '../styles/styles';
 import {fontSizes, fonts} from '../styles/typography';
-import {AggregateScoreIndicatorProps} from '../props/AggregateScoreIndicatorProps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import colors from '../styles/colors';
+
+interface AggregateScoreIndicatorProps {
+  aggregateScore: number;
+  reviewsCount: number;
+}
+
 /**
  *  The aggregate score by critic user
  *  props:

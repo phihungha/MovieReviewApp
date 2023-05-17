@@ -28,8 +28,7 @@
     "react-native-screens": "^3.20.0",
     "react-native-vector-icons": "^9.2.0",
     "react-relay": "^15.0.0",
-    "relay-runtime": "^15.0.0",
-    "rn-range-slider": "^2.2.2"
+    "relay-runtime": "^15.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
