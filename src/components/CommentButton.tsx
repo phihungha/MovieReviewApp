@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextProps} from '../props/TextProps';
 import {styles} from '../styles/styles';
 import {fontSizes} from '../styles/typography';
-import colors from '../styles/colors';
 
 /**
  *  props:
@@ -35,25 +34,7 @@ const commentButtonStyles = StyleSheet.create({
   fontSize16: {
     fontSize: fontSizes.lg,
   },
-  marginStart4: {
-    marginStart: 4,
-  },
-  marginEnd4: {
-    marginEnd: 4,
-  },
   marginEnd8: {
     marginEnd: 8,
-  },
-  marginBotton6: {
-    marginBottom: 6,
-  },
-  colorPrimayBackground: {
-    backgroundColor: colors.primary,
-  },
-  colorWhite: {
-    color: colors.white,
-  },
-  colorLightGrey: {
-    color: colors.lightGrey,
   },
 });

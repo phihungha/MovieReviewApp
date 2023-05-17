@@ -127,26 +127,8 @@ const aggregateScoreStyles = StyleSheet.create({
     fontSize: fontSizes.xl,
     paddingTop: 10,
   },
-  fontSize16: {
-    fontSize: fontSizes.lg,
-  },
-  marginStart4: {
-    marginStart: 4,
-  },
   marginEnd4: {
     marginEnd: 4,
-  },
-  marginEnd8: {
-    marginEnd: 8,
-  },
-  marginBotton6: {
-    marginBottom: 6,
-  },
-  colorPrimayBackground: {
-    backgroundColor: colors.primary,
-  },
-  colorWhite: {
-    color: colors.white,
   },
   colorLightGrey: {
     color: colors.lightGrey,

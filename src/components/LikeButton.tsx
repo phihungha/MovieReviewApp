@@ -17,7 +17,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
   if (likeButtonProps.isActive) {
     const styleContainerActive = StyleSheet.compose(
       styles.containerMediumBlackCorner,
-      likeButtonStyles.colorPrimayBackground,
+      likeButtonStyles.colorPrimaryBackground,
     );
     const styleTextActive = StyleSheet.flatten([
       styles.subTextLikeComment,
@@ -29,7 +29,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
       likeButtonStyles.marginEnd8,
       likeButtonStyles.fontSize16,
       likeButtonStyles.colorWhite,
-      likeButtonStyles.marginBotton6,
+      likeButtonStyles.marginBottom6,
     ]);
     return (
       <TouchableOpacity style={styleContainerActive}>
@@ -47,7 +47,7 @@ export function LikeButton(likeButtonProps: LikeButtonProps): JSX.Element {
       styles.subTextLikeComment,
       likeButtonStyles.marginEnd8,
       likeButtonStyles.fontSize16,
-      likeButtonStyles.marginBotton6,
+      likeButtonStyles.marginBottom6,
     ]);
     return (
       <TouchableOpacity style={styles.containerMediumBlackCorner}>
@@ -71,10 +71,10 @@ const likeButtonStyles = StyleSheet.create({
   marginEnd8: {
     marginEnd: 8,
   },
-  marginBotton6: {
+  marginBottom6: {
     marginBottom: 6,
   },
-  colorPrimayBackground: {
+  colorPrimaryBackground: {
     backgroundColor: colors.primary,
   },
   colorWhite: {
