@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import {ActionCb} from '../types/ActionCb';
-import {CountButton} from './IconButton';
+import {CountButton} from './CountButton';
 
 interface LikeButtonProps {
   count: number;

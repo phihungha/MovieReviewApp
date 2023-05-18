@@ -1,5 +1,5 @@
 import React from 'react';
-import {CountButton} from './IconButton';
+import {CountButton} from './CountButton';
 import {ActionCb} from '../types/ActionCb';
 import {StyleProp, ViewStyle} from 'react-native';
 
