@@ -1,21 +1,18 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TitleText} from './TitleText';
-import {Text} from '@rneui/themed';
-import {styles} from '../styles/styles';
-import {fontSizes, fonts} from '../styles/typography';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import colors from '../styles/colors';
+import {StyleProp, ViewStyle} from 'react-native';
+import {IconAggregateScore} from './IconAggregateScore';
 
 interface AggregateScoreIndicatorProps {
   score: number;
   reviewCount: number;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**
  * Display critics' aggregate score and review count.
  * @param {number} score Aggregate score
  * @param {number} reviewCount Number of reviews
+ * @param {StyleProp<ViewStyle>} style Style
  * @example
  * <CriticAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
@@ -23,31 +20,14 @@ export function CriticAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <View
-      style={[
-        styles.containerMediumBlackCorner,
-        aggregateScoreStyles.column,
-        aggregateScoreStyles.right,
-      ]}>
-      <View style={[aggregateScoreStyles.container]}>
-        <Icon
-          name="star"
-          style={[aggregateScoreStyles.item, aggregateScoreStyles.marginEnd4]}
-        />
-        <Text style={aggregateScoreStyles.textScore}>{props.score}</Text>
-      </View>
-
-      <TitleText>Critic score</TitleText>
-      {props.reviewCount <= 1 ? (
-        <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewCount} review
-        </Text>
-      ) : (
-        <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewCount} reviews
-        </Text>
-      )}
-    </View>
+    <IconAggregateScore
+      iconName="star"
+      score={props.score}
+      reviewCount={props.reviewCount}
+      titleText="Critic score"
+      isCriticUser={true}
+      style={props.style}
+    />
   );
 }
 
@@ -55,6 +35,7 @@ export function CriticAggregateScoreIndicator(
  * Display regular users' aggregate score and review count.
  * @param {number} score Aggregate score
  * @param {number} reviewCount Number of reviews
+ * @param {StyleProp<ViewStyle>} style Style
  * @example
  * <RegularAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
@@ -62,74 +43,13 @@ export function RegularAggregateScoreIndicator(
   props: AggregateScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <View
-      style={[
-        styles.containerMediumBlackCorner,
-        aggregateScoreStyles.column,
-        aggregateScoreStyles.left,
-      ]}>
-      <View style={[aggregateScoreStyles.container]}>
-        <Text
-          style={[
-            aggregateScoreStyles.textScore,
-            aggregateScoreStyles.marginEnd4,
-          ]}>
-          {props.score}
-        </Text>
-        <Icon name="star" style={[aggregateScoreStyles.item2]} />
-      </View>
-
-      <TitleText>User score</TitleText>
-      {props.reviewCount <= 1 ? (
-        <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewCount} review
-        </Text>
-      ) : (
-        <Text style={[aggregateScoreStyles.colorLightGrey]}>
-          {props.reviewCount} reviews
-        </Text>
-      )}
-    </View>
+    <IconAggregateScore
+      iconName="star"
+      score={props.score}
+      reviewCount={props.reviewCount}
+      titleText="User score"
+      isCriticUser={false}
+      style={props.style}
+    />
   );
 }
-
-const aggregateScoreStyles = StyleSheet.create({
-  right: {
-    paddingLeft: '16%',
-    alignItems: 'flex-end',
-  },
-  left: {
-    paddingRight: '16%',
-    alignItems: 'flex-start',
-  },
-  column: {
-    flexDirection: 'column',
-  },
-  container: {
-    flexDirection: 'row',
-
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 'auto',
-    height: 'auto',
-  },
-  item2: {
-    fontSize: fontSizes.xl2,
-    color: colors.blueStar,
-  },
-  item: {
-    fontSize: fontSizes.xl2,
-    color: colors.yellowStar,
-  },
-  textScore: {
-    fontFamily: fonts.primary_bold,
-    fontSize: fontSizes.xl,
-    paddingTop: 10,
-  },
-  marginEnd4: {
-    marginEnd: 4,
-  },
-  colorLightGrey: {
-    color: colors.lightGrey,
-  },
-});

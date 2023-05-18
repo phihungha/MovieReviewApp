@@ -11,9 +11,23 @@ interface IconReviewScoreProps {
   style?: StyleProp<ViewStyle>;
 }
 
+/**
+ * Generic count button.
+ * @param {string} iconName Icon name
+ * @param {number} score score value
+ * @param {boolean} isCriticUser True if component is the score of Critic user
+ * @param {StyleProp<ViewStyle>} style Style
+ * @example
+ * <IconReviewScore
+      iconName="star"
+      score={props.score}
+      isCriticUser={false}
+      style={props.style}
+    />
+ */
 export function IconReviewScore(props: IconReviewScoreProps) {
   return (
-    <View style={[reviewScoreStyles.container]}>
+    <View style={[reviewScoreStyles.container, props.style]}>
       <Icon
         name={props.iconName}
         style={[
