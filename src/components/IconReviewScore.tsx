@@ -12,7 +12,7 @@ interface IconReviewScoreProps {
 }
 
 /**
- * Generic count button.
+ * Generic review score button.
  * @param {string} iconName Icon name
  * @param {number} score score value
  * @param {boolean} isCriticUser True if component is the score of Critic user

@@ -17,7 +17,7 @@ interface IconAggregateScoreProps {
 }
 
 /**
- * Generic count button.
+ * Generic aggregate score button.
  * @param {string} iconName Icon name
  * @param {number} score score value
  * @param {number} reviewCount Count value
