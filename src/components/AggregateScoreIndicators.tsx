@@ -1,62 +1,58 @@
 import React from 'react';
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {StyleProp, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 import colors from '../styles/colors';
 import {Text} from '@rneui/themed';
 import {TitleText} from './TitleText';
-import {IconReviewSize, ReviewScoreIndicators} from './ReviewScoreIndicators';
+import {ReviewScoreIndicator} from './ReviewScoreIndicators';
+import {fontSizes, fonts} from '../styles/typography';
 
-interface AggregateScoreIndicatorProps {
+interface SpecificAggregateScoreIndicatorProps {
   score: number;
   reviewCount: number;
   style?: StyleProp<ViewStyle>;
 }
 
-interface AggregateScoreProps {
+interface AggregateScoreIndicatorProps {
   iconName: string;
+  title: string;
   score: number;
   reviewCount: number;
-  titleText: string;
-  isCriticUser: boolean;
   isLeft: boolean;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<TextStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 /**
- * Generic aggregate score button.
+ * Generic aggregate score indicator.
  * @param {string} iconName Icon name
- * @param {number} score score value
- * @param {number} reviewCount Count value
- * @param {string} titleText title of label
- * @param {boolean} isCriticUser True if component is the score of Critic user
+ * @param {string} title Title of the indicator.
+ * @param {number} score Score value
+ * @param {number} reviewCount Number of reviews
  * @param {isLeft} boolean True if component is set on the left
  * @param {StyleProp<ViewStyle>} style Style
- * @example
- * <CommentButton count={120} />
+ * @param {StyleProp<TextStyle>} iconStyle Style of icon
+ * @param {StyleProp<ViewStyle>} textStyle Style of score value
  */
-export function AggregateScoreIndicators(props: AggregateScoreProps) {
+export function AggregateScoreIndicator(props: AggregateScoreIndicatorProps) {
   return (
     <View
       style={[
-        aggregateScoreStyles.mainContainer,
-        props.isLeft ? aggregateScoreStyles.left : aggregateScoreStyles.right,
+        styles.container,
+        props.isLeft ? styles.leftAlignContainer : styles.rightAlignContainer,
         props.style,
       ]}>
-      <ReviewScoreIndicators
+      <ReviewScoreIndicator
         iconName="star"
         score={props.score}
-        isCriticUser={props.isCriticUser ? true : false}
-        marginStart={props.isLeft ? 4 : 0}
-        marginEnd={props.isLeft ? 0 : 4}
-        size={IconReviewSize.L}
         isLeft={props.isLeft}
+        style={styles.scoreIndicator}
+        iconStyle={props.iconStyle}
+        textStyle={props.textStyle}
       />
-
-      <TitleText>{props.titleText}</TitleText>
-
-      <Text style={[aggregateScoreStyles.textReviewCount]}>
-        {props.reviewCount <= 1
-          ? props.reviewCount + ' review'
-          : props.reviewCount + ' reviews'}
+      <TitleText>{props.title}</TitleText>
+      <Text style={[styles.reviewCountText]}>
+        {props.reviewCount} {props.reviewCount > 1 ? 'reviews' : 'review'}
       </Text>
     </View>
   );
@@ -71,17 +67,18 @@ export function AggregateScoreIndicators(props: AggregateScoreProps) {
  * <CriticAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
 export function CriticAggregateScoreIndicator(
-  props: AggregateScoreIndicatorProps,
+  props: SpecificAggregateScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <AggregateScoreIndicators
+    <AggregateScoreIndicator
       iconName="star"
+      title="Critic score"
       score={props.score}
       reviewCount={props.reviewCount}
-      titleText="Critic score"
-      isCriticUser={true}
-      style={props.style}
       isLeft={true}
+      style={props.style}
+      iconStyle={styles.criticIcon}
+      textStyle={styles.scoreText}
     />
   );
 }
@@ -95,42 +92,55 @@ export function CriticAggregateScoreIndicator(
  * <RegularAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
 export function RegularAggregateScoreIndicator(
-  props: AggregateScoreIndicatorProps,
+  props: SpecificAggregateScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <AggregateScoreIndicators
+    <AggregateScoreIndicator
       iconName="star"
+      title="User score"
       score={props.score}
       reviewCount={props.reviewCount}
-      titleText="User score"
-      isCriticUser={false}
-      style={props.style}
       isLeft={false}
+      style={props.style}
+      iconStyle={styles.regularIcon}
+      textStyle={styles.scoreText}
     />
   );
 }
 
-const aggregateScoreStyles = StyleSheet.create({
-  mainContainer: {
-    flexDirection: 'column',
+const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'flex-start',
     paddingHorizontal: 20,
     backgroundColor: colors.mediumBlack,
     paddingVertical: 12,
     borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    width: 'auto',
   },
-  textReviewCount: {
+  reviewCountText: {
     color: colors.lightGrey,
   },
-  left: {
+  leftAlignContainer: {
     paddingLeft: '16%',
     alignItems: 'flex-end',
   },
-  right: {
+  rightAlignContainer: {
     paddingRight: '16%',
     alignItems: 'flex-start',
+  },
+  scoreIndicator: {
+    alignSelf: 'auto',
+  },
+  criticIcon: {
+    fontSize: fontSizes.xl2,
+    color: colors.yellow,
+  },
+  regularIcon: {
+    fontSize: fontSizes.xl2,
+    color: colors.darkBlue,
+  },
+  scoreText: {
+    fontFamily: fonts.primary_bold,
+    fontSize: fontSizes.xl,
+    paddingTop: 10,
   },
 });

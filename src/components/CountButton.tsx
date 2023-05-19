@@ -22,15 +22,13 @@ interface IconButtonProps {
 }
 
 /**
- * Generic count button.
+ * Button that displays a count of something (e.g. comments, likes).
  * @param {string} iconName Icon name
  * @param {number} count Count value
  * @param {string} text Text
  * @param {ActionCb} onPress Action on press
  * @param {boolean} isActive True if button is active
  * @param {StyleProp<ViewStyle>} style Style
- * @example
- * <CommentButton count={120} />
  */
 export function CountButton(props: IconButtonProps) {
   const containerStyle = StyleSheet.compose(styles.container, props.style);

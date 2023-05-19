@@ -1,105 +1,67 @@
 import {Text} from '@rneui/themed';
 import React from 'react';
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {StyleProp, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {fontSizes, fonts} from '../styles/typography';
+import {fontSizes} from '../styles/typography';
 import colors from '../styles/colors';
 
-interface ReviewScoreIndicatorsProps {
-  score: number;
-  style?: StyleProp<ViewStyle>;
-}
-
-export enum IconReviewSize {
-  S,
-  L,
-}
-
-interface ReviewScoreProps {
+interface ReviewScoreIndicatorProps {
   iconName: string;
   score: number;
-  isCriticUser: boolean;
-  marginStart?: number;
-  marginEnd?: number;
-  size: IconReviewSize;
   isLeft: boolean;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<TextStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 /**
- * Generic review score button.
+ * Generic review score indicator.
  * @param {string} iconName Icon name
- * @param {number} score score value
- * @param {boolean} isCriticUser True if component is the score of Critic user
- * @param {marginStart} number margin start the text score value
- * @param {marginEnd} number margin end the text score value
- * @param {size} IconReviewSize icon size (S,L)
- * @param {isLeft} boolean True if component is set on the left
+ * @param {number} score Score value
+ * @param {isLeft} boolean True if icon is on the left of score value
  * @param {StyleProp<ViewStyle>} style Style
- * @example
- *  <ReviewScoreIndicators
-      iconName="star"
-      score={props.score}
-      isCriticUser={true}
-      marginStart={4}
-      marginEnd={4}
-      size={IconReviewSize.S}
-      isLeft={props.isLeft}  />
+ * @param {StyleProp<TextStyle>} iconStyle Style of icon
+ * @param {StyleProp<ViewStyle>} textStyle Style of score value
  */
-export function ReviewScoreIndicators(props: ReviewScoreProps) {
+export function ReviewScoreIndicator(props: ReviewScoreIndicatorProps) {
   return (
     <View
       style={[
-        reviewScoreStyles.container,
-        props.isLeft ? {} : reviewScoreStyles.itemInTheRight,
+        styles.container,
+        props.isLeft ? {} : styles.rightIcon,
         props.style,
       ]}>
       <Icon
         name={props.iconName}
-        style={[
-          props.size == IconReviewSize.S
-            ? props.isCriticUser
-              ? reviewScoreStyles.itemCriticUser
-              : reviewScoreStyles.itemRegularUser
-            : //else
-            props.isCriticUser
-            ? reviewScoreStyles.itemCriticUserBigSize
-            : reviewScoreStyles.itemRegularUserBigSize,
-        ]}
+        style={[styles.regularIcon, props.iconStyle]}
       />
-
-      <Text
-        style={[
-          props.size == IconReviewSize.S
-            ? reviewScoreStyles.textScore
-            : reviewScoreStyles.textScoreBigSize,
-          {marginStart: props.marginStart, marginEnd: props.marginEnd},
-        ]}>
-        {props.score}
-      </Text>
+      <Text style={[styles.scoreText, props.textStyle]}>{props.score}</Text>
     </View>
   );
+}
+
+export interface SpecificReviewScoreIndicatorProps {
+  score: number;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**
  * Displays review score of a critic.
  * @param {number} score Score value
+ * @param {StyleProp<ViewStyle>} style Style
  * @example
- * <CriticReviewScoreIndicator score={4.5} />
+ * <CriticReviewScoreIndicator score={5} />
  */
 export function CriticReviewScoreIndicator(
-  props: ReviewScoreIndicatorsProps,
+  props: SpecificReviewScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <ReviewScoreIndicators
+    <ReviewScoreIndicator
       iconName="star"
       score={props.score}
-      isCriticUser={true}
       style={props.style}
-      marginStart={4}
-      marginEnd={0}
-      size={IconReviewSize.S}
       isLeft={true}
+      iconStyle={styles.criticIcon}
     />
   );
 }
@@ -107,62 +69,44 @@ export function CriticReviewScoreIndicator(
 /**
  * Displays review score of a regular user.
  * @param {number} score Score value
+ * @param {StyleProp<ViewStyle>} style Style
  * @example
- * <UserReviewScoreIndicator score={4.5} />
+ * <RegularReviewScoreIndicator score={5} />
  */
 export function RegularReviewScoreIndicator(
-  props: ReviewScoreIndicatorsProps,
+  props: SpecificReviewScoreIndicatorProps,
 ): JSX.Element {
   return (
-    <ReviewScoreIndicators
+    <ReviewScoreIndicator
       iconName="star"
       score={props.score}
-      isCriticUser={false}
       style={props.style}
-      marginStart={4}
-      marginEnd={0}
-      size={IconReviewSize.S}
       isLeft={true}
+      iconStyle={styles.regularIcon}
     />
   );
 }
 
-const reviewScoreStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    textAlign: 'center',
+    alignSelf: 'flex-start',
     flexDirection: 'row',
-
-    justifyContent: 'center',
     alignItems: 'center',
-    width: 'auto',
-    height: 'auto',
+    gap: 5,
   },
-  itemCriticUser: {
-    fontSize: fontSizes.lg,
-    color: colors.yellowStar,
-  },
-  itemRegularUser: {
-    fontSize: fontSizes.lg,
-    color: colors.blueStar,
-  },
-  textScore: {
+  scoreText: {
     color: colors.lightGrey,
     paddingTop: 4,
   },
-  itemInTheRight: {
+  rightIcon: {
     flexDirection: 'row-reverse',
   },
-  itemRegularUserBigSize: {
-    fontSize: fontSizes.xl2,
-    color: colors.blueStar,
+  criticIcon: {
+    fontSize: fontSizes.lg,
+    color: colors.yellow,
   },
-  itemCriticUserBigSize: {
-    fontSize: fontSizes.xl2,
-    color: colors.yellowStar,
-  },
-  textScoreBigSize: {
-    fontFamily: fonts.primary_bold,
-    fontSize: fontSizes.xl,
-    paddingTop: 10,
+  regularIcon: {
+    fontSize: fontSizes.lg,
+    color: colors.darkBlue,
   },
 });
