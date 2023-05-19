@@ -4,7 +4,7 @@ import {ActionCb} from '../types/ActionCb';
 import {View} from 'react-native';
 
 export interface ConfirmDialogProps {
-  onConfirm: ActionCb;
+  onOk: ActionCb;
   openBtnTitle: string;
   title: string;
   message: string;
@@ -13,16 +13,16 @@ export interface ConfirmDialogProps {
 /**
  * Dialog to confirm something.
  * @param {string} openBtnTitle Title of dialog open button
- * @param {string} title Title
+ * @param {string} title Title of the dialog
  * @param {string} message Message
- * @param {ActionCb} action Action when confirm
+ * @param {ActionCb} onOk Action on pressing Ok
  * @example
  * <DeleteCommentDialog
  *   openBtnTitle='Open Dialog'
- *   action={() => console.log('action')} />
+ *   onOk={() => console.log('action')} />
  */
 export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
-  const yesPressed = () => props.onConfirm();
+  const yesPressed = () => props.onOk();
 
   return (
     <View>
@@ -30,7 +30,7 @@ export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
         openBtnTitle={props.openBtnTitle}
         title={props.title}
         message={props.message}
-        onConfirm={yesPressed}
+        onOk={yesPressed}
       />
     </View>
   );

@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   titleTextDialog: {
     color: colors.white,
-    fontFamily: fonts.primary_bold,
+    fontFamily: fonts.primaryBold,
     fontSize: fontSizes.lg,
     textAlign: 'left',
   },

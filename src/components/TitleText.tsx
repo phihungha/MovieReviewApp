@@ -10,7 +10,7 @@ export function TitleText(props: ChildrenOnlyProps): JSX.Element {
 
 const titleStyles = StyleSheet.create({
   text: {
-    fontFamily: fonts.primary_bold,
+    fontFamily: fonts.primaryBold,
     fontSize: fontSizes.lg,
     color: colors.white,
   },

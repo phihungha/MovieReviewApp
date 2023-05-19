@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     color: colors.darkBlue,
   },
   scoreText: {
-    fontFamily: fonts.primary_bold,
+    fontFamily: fonts.primaryBold,
     fontSize: fontSizes.xl,
     paddingTop: 10,
   },

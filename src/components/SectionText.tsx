@@ -10,7 +10,7 @@ export function SectionText(props: ChildrenOnlyProps): JSX.Element {
 
 const sectionStyles = StyleSheet.create({
   text: {
-    fontFamily: fonts.primary_bold,
+    fontFamily: fonts.primaryBold,
     fontSize: fontSizes.xl,
     color: colors.white,
   },

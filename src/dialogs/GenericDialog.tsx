@@ -8,7 +8,7 @@ import {CancelDialogButton, OkDialogButton} from '../components/DialogButtons';
 import {fontSizes, fonts} from '../styles/typography';
 
 export interface DialogProps {
-  onConfirm: ActionCb;
+  onOk: ActionCb;
   openBtnTitle: string;
   title: string;
   message: string;
@@ -16,11 +16,12 @@ export interface DialogProps {
 }
 
 /**
- * Dialog to confirm something.
+ * Basic Ok/Cancel dialog that asks something.
  * @param {string} openBtnTitle Title of dialog open button
- * @param {string} title Title
+ * @param {string} title Title of the dialog
  * @param {string} message Message
- * @param {ActionCb} action Action on confirm
+ * @param {ActionCb} onOk Action on pressing Ok
+ * @param {React.ReactNode} children Content to display in the dialog
  * @example
  * <DeleteCommentDialog
  *   openBtnTitle='Open Dialog'
@@ -31,8 +32,8 @@ export function GenericDialog(props: DialogProps): JSX.Element {
   const toggleDialog = () => setVisible(!visible);
   const buttonPressed = () => toggleDialog();
 
-  const yesPressed = () => {
-    props.onConfirm();
+  const okPressed = () => {
+    props.onOk();
     toggleDialog();
   };
 
@@ -54,7 +55,7 @@ export function GenericDialog(props: DialogProps): JSX.Element {
         <Dialog.Actions>
           <View style={styles.containerButtonDialog}>
             <CancelDialogButton onPress={() => setVisible(false)} />
-            <OkDialogButton onPress={yesPressed} />
+            <OkDialogButton onPress={okPressed} />
           </View>
         </Dialog.Actions>
       </Dialog>
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   titleTextDialog: {
     color: colors.white,
-    fontFamily: fonts.primary_bold,
+    fontFamily: fonts.primaryBold,
     fontSize: fontSizes.lg,
     textAlign: 'left',
   },

@@ -22,7 +22,7 @@ export const theme = createTheme({
       },
       titleStyle: {
         color: colors.white,
-        fontFamily: fonts.primary_bold,
+        fontFamily: fonts.primaryBold,
       },
     },
 
