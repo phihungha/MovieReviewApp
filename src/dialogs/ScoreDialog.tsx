@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import MultiSlider, {MarkerProps} from '@ptomasroos/react-native-multi-slider';
 import {
   CustomSliderMarkerLeft,
   CustomSliderMarkerRight,
@@ -33,6 +33,19 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
 
   const onConfirm = () => props.onRangeSelected(minValue, maxValue);
 
+  const sliderMarkerLeft = useCallback(
+    (p: MarkerProps) => (
+      <CustomSliderMarkerLeft currentValue={p.currentValue} />
+    ),
+    [],
+  );
+  const sliderMarkerRight = useCallback(
+    (p: MarkerProps) => (
+      <CustomSliderMarkerRight currentValue={p.currentValue} />
+    ),
+    [],
+  );
+
   return (
     <View>
       <GenericDialog
@@ -52,12 +65,8 @@ export function ScoreDialog(props: ScoreDialogProps): JSX.Element {
             step={1}
             sliderLength={200}
             onValuesChange={sliderValueChanged}
-            customMarkerLeft={e => (
-              <CustomSliderMarkerLeft currentValue={e.currentValue} />
-            )}
-            customMarkerRight={e => (
-              <CustomSliderMarkerRight currentValue={e.currentValue} />
-            )}
+            customMarkerLeft={sliderMarkerLeft}
+            customMarkerRight={sliderMarkerRight}
           />
         </View>
       </GenericDialog>
