@@ -1,6 +1,6 @@
 import {createTheme} from '@rneui/themed';
 import colors from './colors';
-import {fonts} from './typography';
+import {fontSizes, fonts} from './typography';
 
 export const theme = createTheme({
   mode: 'dark',
@@ -22,7 +22,7 @@ export const theme = createTheme({
       },
       titleStyle: {
         color: colors.white,
-        fontFamily: fonts.primary_bold,
+        fontFamily: fonts.primaryBold,
       },
     },
 
@@ -30,6 +30,25 @@ export const theme = createTheme({
       style: {
         fontFamily: fonts.primary,
         color: colors.white,
+      },
+    },
+
+    Input: {
+      inputStyle: {
+        fontFamily: fonts.primary,
+        color: colors.white,
+        backgroundColor: colors.mediumBlack,
+        borderRadius: 8,
+        paddingVertical: 4,
+        paddingHorizontal: 12,
+        borderWidth: 0,
+        textDecorationLine: 'none',
+        fontSize: fontSizes.lg,
+      },
+      labelStyle: {
+        fontSize: fontSizes.md,
+        fontFamily: fonts.primary,
+        color: colors.lightGrey,
       },
     },
   },

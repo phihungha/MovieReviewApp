@@ -10,20 +10,11 @@ import {ThemeProvider} from '@rneui/themed';
 import {theme} from './styles/theme';
 import colors from './styles/colors';
 
-const NavigationContainerTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    background: colors.darkBlack,
-  },
-};
-
 function App(): JSX.Element {
   return (
     <RelayEnvironmentProvider environment={environment}>
       <ThemeProvider theme={theme}>
-        <NavigationContainer theme={NavigationContainerTheme}>
+        <NavigationContainer theme={navigationContainerTheme}>
           <RootStackNavigator.Navigator
             initialRouteName="Main"
             screenOptions={{headerShown: false}}>
@@ -36,5 +27,14 @@ function App(): JSX.Element {
     </RelayEnvironmentProvider>
   );
 }
+
+const navigationContainerTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.darkBlack,
+  },
+};
 
 export default App;

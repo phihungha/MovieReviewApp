@@ -9,11 +9,11 @@ export const fontSizes = {
 
 export const fonts = {
   primary: 'poppins_regular',
-  primary_italic: 'poppins_italic',
-  primary_bold: 'poppins_bold',
-  bold_italic: 'poppins_bold_italic',
+  primaryItalic: 'poppins_italic',
+  primaryBold: 'poppins_bold',
+  boldItalic: 'poppins_bold_italic',
   thin: 'poppins_thin',
-  thin_italic: 'poppins_thin_italic',
+  thinItalic: 'poppins_thin_italic',
   medium: 'poppins_medium',
-  medium_italic: 'poppins_medium_italic',
+  mediumItalic: 'poppins_medium_italic',
 };
