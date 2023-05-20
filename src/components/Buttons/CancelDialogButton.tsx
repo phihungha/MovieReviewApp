@@ -1,24 +1,9 @@
 import React from 'react';
 import {Dialog} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
-import colors from '../styles/colors';
-import {fontSizes, fonts} from '../styles/typography';
-import {ActionCb} from '../types/ActionCb';
-
-export interface DialogButtonProps {
-  onPress: ActionCb;
-}
-
-export function OkDialogButton(props: DialogButtonProps) {
-  return (
-    <Dialog.Button
-      title="OK"
-      buttonStyle={styles.yesDialogButton}
-      titleStyle={styles.subTextDialog}
-      onPress={props.onPress}
-    />
-  );
-}
+import colors from '../../styles/colors';
+import {fontSizes, fonts} from '../../styles/typography';
+import {DialogButtonProps} from '../../props/DialogButtonProps';
 
 export function CancelDialogButton(props: DialogButtonProps) {
   return (
@@ -32,12 +17,6 @@ export function CancelDialogButton(props: DialogButtonProps) {
 }
 
 const styles = StyleSheet.create({
-  yesDialogButton: {
-    borderRadius: 12,
-    backgroundColor: colors.primary,
-    paddingVertical: 4,
-    paddingHorizontal: 32,
-  },
   noDialogButton: {
     borderRadius: 12,
     backgroundColor: 'none',

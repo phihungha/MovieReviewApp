@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {RegularText} from '../components/RegularText';
+import {RegularText} from '../components/Text/RegularText';
 
 interface SliderProps {
   currentValue: number;

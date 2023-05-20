@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import colors from '../styles/colors';
 import {Dialog, Button} from '@rneui/themed';
-import {RegularText} from '../components/RegularText';
+import {RegularText} from '../components/Text/RegularText';
 import {ActionCb} from '../types/ActionCb';
-import {CancelDialogButton, OkDialogButton} from '../components/DialogButtons';
 import {fontSizes, fonts} from '../styles/typography';
+import {CancelDialogButton} from '../components/Buttons/CancelDialogButton';
+import {OkDialogButton} from '../components/Buttons/OkDialogButton';
 
 export interface DialogProps {
   onOk: ActionCb;

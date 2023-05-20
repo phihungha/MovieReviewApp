@@ -8,9 +8,9 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../styles/colors';
-import {fontSizes, fonts} from '../styles/typography';
-import {ActionCb} from '../types/ActionCb';
+import colors from '../../styles/colors';
+import {fontSizes, fonts} from '../../styles/typography';
+import {ActionCb} from '../../types/ActionCb';
 
 interface IconButtonProps {
   iconName: string;
