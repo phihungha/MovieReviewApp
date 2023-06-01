@@ -3,7 +3,7 @@ import {StyleSheet,View} from 'react-native';
 import { TitleText } from '../Text/TitleText';
 import { RegularText } from '../Text/RegularText';
 import { Avatar } from '@rneui/themed';
-import colors from '../../styles/colors';
+
 export function StaffListItem(): JSX.Element {
   return <View style={styles.container}>
   <Avatar
@@ -26,5 +26,17 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent:'center',
+  },
+  rowTime: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent:'flex-end',
+    padding: 5
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'flex-start',
+    padding: 5
   },
 });
