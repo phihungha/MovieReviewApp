@@ -3,7 +3,6 @@ import {StyleSheet,View} from 'react-native';
 import { TitleText } from '../Text/TitleText';
 import { RegularText } from '../Text/RegularText';
 import { Avatar } from '@rneui/themed';
-import colors from '../../styles/colors';
 
 export function HorizontalAuthorDisplay(): JSX.Element {
   return <View style={styles.container}>
@@ -28,6 +27,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'flex-start',
     padding: 5,
-    backgroundColor: colors.lightGrey
   },
 });

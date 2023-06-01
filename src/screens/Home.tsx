@@ -7,12 +7,12 @@ import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
-import { StaffListItem } from '../components/Items/StaffListItem';
+import { HorizontalAuthorDisplay } from '../components/Display/HorizontalAuthorDisplay';
 
 import {StyleSheet,View} from 'react-native';
 export function HomeScreen(): JSX.Element {
   return <View style={{ width: 400, height: 820, padding: 10, alignItems: 'center',justifyContent: 'center'}}>
-<StaffListItem></StaffListItem>
+<HorizontalAuthorDisplay></HorizontalAuthorDisplay>
   </View>;
 }
 
