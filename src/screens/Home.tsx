@@ -7,9 +7,12 @@ import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
+import { MovieGridItem } from '../components/Items/MovieGridItem';
 
 export function HomeScreen(): JSX.Element {
-  return <></>;
+  return <>
+  <MovieGridItem></MovieGridItem>
+  </>;
 }
 
 export function HomeStackScreen(): JSX.Element {
