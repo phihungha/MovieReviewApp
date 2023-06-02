@@ -7,7 +7,7 @@ import { TitleText } from '../Text/TitleText';
 import { SubtitleText } from '../Text/SubtitleText';
 
 export function MovieGridItem(): JSX.Element {
-  return <View style={{ width: 120 }}>
+  return <View>
         <Image
           style={styles.movieImage}
           source={{ uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg' }}

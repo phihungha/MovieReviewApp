@@ -20,9 +20,7 @@ export function StaffListItem(): JSX.Element {
   </View>;
 }
 const styles = StyleSheet.create({
-  container: {
-    width: 110, 
-    height: 135, 
+  container: { 
     padding: 10,
     alignItems: 'center',
     justifyContent:'center',
