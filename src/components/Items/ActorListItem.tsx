@@ -1,7 +1,6 @@
 import React from 'react';
-import { HorizontalAuthorDisplay } from '../Display/HorizontalAuthorDisplay';
-
+import {HorizontalAuthorDisplay} from '../Display/HorizontalAuthorDisplay';
 
 export function ActorListItem(): JSX.Element {
-  return <HorizontalAuthorDisplay/>;
+  return <HorizontalAuthorDisplay />;
 }
