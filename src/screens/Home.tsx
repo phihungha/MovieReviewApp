@@ -11,8 +11,8 @@ import { CommentListItem } from '../components/Items/CommentListItem';
 
 import {View} from 'react-native';
 export function HomeScreen(): JSX.Element {
-  return <View style={{ width: 400, height: 820, padding: 10, alignItems: 'center',justifyContent: 'center'}}>
-<CommentListItem></CommentListItem>
+  return <View>
+    <CommentListItem/>
   </View>;
 }
 
