@@ -4,6 +4,7 @@ import { TitleText } from '../Text/TitleText';
 import { RegularText } from '../Text/RegularText';
 import { Avatar } from '@rneui/themed';
 import colors from '../../styles/colors';
+
 export function WatchedMovieListItem(): JSX.Element {
   return <View style={styles.container}>
     <View style={styles.row}>

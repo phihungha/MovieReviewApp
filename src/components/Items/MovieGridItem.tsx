@@ -22,10 +22,10 @@ export function MovieGridItem(): JSX.Element {
           <SubtitleText>2014</SubtitleText>
           <View style={styles.row}>
             <View>
-            <CriticReviewScoreIndicator score={8.3}/>
+              <CriticReviewScoreIndicator score={8.3}/>
             </View>
             <View>
-            <RegularReviewScoreIndicator score={8.3}/>
+              <RegularReviewScoreIndicator score={8.3}/>
             </View>            
           </View>
         </View>
