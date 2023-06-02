@@ -7,13 +7,13 @@ import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
-import {CommentListItem} from '../components/Items/CommentListItem';
+import {ReviewListItem} from '../components/Items/ReviewListItem';
 
 import {View} from 'react-native';
 export function HomeScreen(): JSX.Element {
   return (
     <View>
-      <CommentListItem />
+      <ReviewListItem />
     </View>
   );
 }
