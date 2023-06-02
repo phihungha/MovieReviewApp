@@ -27,16 +27,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent:'center',
   },
-  rowTime: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent:'flex-end',
-    padding: 5
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent:'flex-start',
-    padding: 5
-  },
 });
