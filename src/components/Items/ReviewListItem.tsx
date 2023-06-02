@@ -10,7 +10,7 @@ import colors from '../../styles/colors';
 
 export function ReviewListItem(): JSX.Element {
   return <View style={styles.container}>
-    <View style={{ padding: 5 }}>
+    <View style={{ padding: 2 }}>
       <SectionText>Review title</SectionText> 
     </View> 
   
@@ -46,8 +46,9 @@ export function ReviewListItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    borderRadius: 5, 
+    padding: 5,
+    borderRadius: 5,
+    paddingTop: 1,
     backgroundColor: colors.mediumBlack
   },
   rowTime: {
