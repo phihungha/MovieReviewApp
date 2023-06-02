@@ -21,7 +21,7 @@ export function HorizontalAuthorDisplay(): JSX.Element {
         <TitleText>John</TitleText>
         <RegularText>Director</RegularText>
       </View>
-    </View>  
+    </View>
   );
 }
 
@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
     paddingEnd: 1,
   },
   right: {
-    padding: 2, 
-    paddingRight: 10
+    padding: 2,
+    paddingRight: 10,
   },
   left: {
-    padding: 2, 
-    paddingLeft: 10
+    padding: 2,
+    paddingLeft: 10,
   },
 });

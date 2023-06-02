@@ -35,7 +35,7 @@ export function MovieGridItem(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     width: 130,
-    padding: 5
+    padding: 5,
   },
   movieImage: {
     width: 120,
@@ -50,8 +50,7 @@ const styles = StyleSheet.create({
   },
 
   padding: {
-    paddingHorizontal: 5, 
-    marginTop: 5
+    paddingHorizontal: 5,
+    marginTop: 5,
   },
-
 });

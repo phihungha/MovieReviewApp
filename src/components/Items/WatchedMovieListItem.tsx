@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
   },
-  padding:{
-    padding: 10
-  }
+  padding: {
+    padding: 10,
+  },
 });

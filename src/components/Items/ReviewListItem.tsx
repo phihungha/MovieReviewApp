@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
   },
-  right:{
-    paddingRight: 10, 
-    paddingVertical: 2, 
-    paddingLeft: 1
+  right: {
+    paddingRight: 10,
+    paddingVertical: 2,
+    paddingLeft: 1,
   },
-  left:{
-    paddingRight: 1, 
-    paddingVertical: 2, 
-    paddingLeft: 10
+  left: {
+    paddingRight: 1,
+    paddingVertical: 2,
+    paddingLeft: 10,
   },
-  padding:{
-    padding: 2
-  }
+  padding: {
+    padding: 2,
+  },
 });

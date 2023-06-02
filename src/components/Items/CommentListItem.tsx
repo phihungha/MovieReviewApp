@@ -14,7 +14,8 @@ export function CommentListItem(): JSX.Element {
       <View style={styles.padding}>
         <ReviewListItem />
       </View>
-  </View>);
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
-  padding:{
-    padding: 2
-  }
+  padding: {
+    padding: 2,
+  },
 });
