@@ -9,7 +9,7 @@ import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
 import { CommentListItem } from '../components/Items/CommentListItem';
 
-import {StyleSheet,View} from 'react-native';
+import {View} from 'react-native';
 export function HomeScreen(): JSX.Element {
   return <View style={{ width: 400, height: 820, padding: 10, alignItems: 'center',justifyContent: 'center'}}>
 <CommentListItem></CommentListItem>
