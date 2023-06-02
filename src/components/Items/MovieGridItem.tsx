@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet,View} from 'react-native';
-import {Image, Text} from 'react-native';
+import {Image} from 'react-native';
 import { CriticReviewScoreIndicator } from '../Display/CriticReviewScoreIndicator';
 import { RegularReviewScoreIndicator } from '../Display/RegularReviewScoreIndicator';
 import { TitleText } from '../Text/TitleText';

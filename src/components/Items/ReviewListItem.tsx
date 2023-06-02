@@ -1,11 +1,9 @@
 import React from 'react';
 import {StyleSheet,View} from 'react-native';
-import {Image, Text} from 'react-native';
 import { CriticReviewScoreIndicator } from '../Display/CriticReviewScoreIndicator';
 import { LikeButton } from '../Buttons/LikeButton';
 import { CommentButton } from '../Buttons/CommentButton';
 import { SectionText } from '../Text/SectionText';
-import { TitleText } from '../Text/TitleText';
 import { SubtitleText } from '../Text/SubtitleText';
 import { RegularText } from '../Text/RegularText';
 import colors from '../../styles/colors';
