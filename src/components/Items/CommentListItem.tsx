@@ -7,14 +7,14 @@ import colors from '../../styles/colors';
 export function CommentListItem(): JSX.Element {
   return (
     <View style={styles.container}>
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <HorizontalAuthorDisplay />
       </View>
 
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <ReviewListItem />
       </View>
-  </View>;
+  </View>);
 }
 
 const styles = StyleSheet.create({
@@ -23,4 +23,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
+  padding:{
+    padding: 2
+  }
 });

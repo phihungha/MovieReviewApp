@@ -16,19 +16,19 @@ export function ReviewListItem(): JSX.Element {
       </View>
 
       <View style={styles.rowTime}>
-        <View style={{paddingRight: 10, paddingVertical: 2, paddingLeft: 1}}>
+        <View style={styles.right}>
           <SubtitleText>11:23 AM</SubtitleText>
         </View>
-        <View style={{paddingRight: 1, paddingVertical: 2, paddingLeft: 10}}>
+        <View style={styles.left}>
           <SubtitleText>April 24, 2023</SubtitleText>
         </View>
       </View>
 
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <CriticReviewScoreIndicator score={8.3} />
       </View>
 
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <RegularText>
           Lorem ipsum dolor sit amunt ut l, quis nostrud exercitation ullamco
           laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor
@@ -37,14 +37,14 @@ export function ReviewListItem(): JSX.Element {
       </View>
 
       <View style={styles.rowTime}>
-        <View style={{paddingRight: 10, paddingVertical: 2, paddingLeft: 1}}>
+        <View style={styles.right}>
           <LikeButton
             onPress={() => console.log('test')}
             isActive={true}
             count={120}
           />
         </View>
-        <View style={{paddingRight: 1, paddingVertical: 2, paddingLeft: 10}}>
+        <View style={styles.left}>
           <CommentButton onPress={() => console.log('test')} count={120} />
         </View>
       </View>
@@ -71,4 +71,17 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
   },
+  right:{
+    paddingRight: 10, 
+    paddingVertical: 2, 
+    paddingLeft: 1
+  },
+  left:{
+    paddingRight: 1, 
+    paddingVertical: 2, 
+    paddingLeft: 10
+  },
+  padding:{
+    padding: 2
+  }
 });

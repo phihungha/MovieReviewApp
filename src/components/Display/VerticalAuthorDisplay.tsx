@@ -14,10 +14,10 @@ export function VerticalAuthorDisplay(): JSX.Element {
           uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
         }}
       />
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <TitleText>John</TitleText>
       </View>
-      <View style={{padding: 2}}>
+      <View style={styles.padding}>
         <RegularText>Director</RegularText>
       </View>
     </View>
@@ -32,4 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  padding:{
+    padding: 2
+  }
 });

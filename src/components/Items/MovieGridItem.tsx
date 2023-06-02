@@ -8,7 +8,7 @@ import {SubtitleText} from '../Text/SubtitleText';
 
 export function MovieGridItem(): JSX.Element {
   return (
-    <View>
+    <View style={styles.container}>
       <Image
         style={styles.movieImage}
         source={{
@@ -16,7 +16,7 @@ export function MovieGridItem(): JSX.Element {
         }}
         resizeMode="stretch"
       />
-      <View style={{paddingHorizontal: 5, marginTop: 5}}>
+      <View style={styles.padding}>
         <TitleText>John Wick</TitleText>
         <SubtitleText>2014</SubtitleText>
         <View style={styles.row}>
@@ -33,6 +33,10 @@ export function MovieGridItem(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: 130,
+    padding: 5
+  },
   movieImage: {
     width: 120,
     height: 120,
@@ -44,4 +48,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingRight: 4,
   },
+
+  padding: {
+    paddingHorizontal: 5, 
+    marginTop: 5
+  },
+
 });

@@ -7,7 +7,7 @@ import {Avatar} from '@rneui/themed';
 export function HorizontalAuthorDisplay(): JSX.Element {
   return (
     <View style={styles.container}>
-      <View style={{padding: 2, paddingRight: 10}}>
+      <View style={styles.right}>
         <Avatar
           size={60}
           rounded
@@ -17,10 +17,11 @@ export function HorizontalAuthorDisplay(): JSX.Element {
         />
       </View>
 
-    <View style={{ padding: 2, paddingLeft: 10 }}>
+      <View style={styles.left}>
         <TitleText>John</TitleText>
         <RegularText>Director</RegularText>
-    </View>
+      </View>
+    </View>  
   );
 }
 
@@ -31,5 +32,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
     paddingEnd: 1,
+  },
+  right: {
+    padding: 2, 
+    paddingRight: 10
+  },
+  left: {
+    padding: 2, 
+    paddingLeft: 10
   },
 });

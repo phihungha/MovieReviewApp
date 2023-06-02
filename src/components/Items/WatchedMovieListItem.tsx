@@ -16,15 +16,15 @@ export function WatchedMovieListItem(): JSX.Element {
             uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
           }}
         />
-        <View style={{padding: 10}}>
+        <View style={styles.padding}>
           <TitleText>John Wick</TitleText>
         </View>
       </View>
       <View style={styles.rowTime}>
-        <View style={{padding: 10}}>
+        <View style={styles.padding}>
           <RegularText>11:23 AM</RegularText>
         </View>
-        <View style={{padding: 10}}>
+        <View style={styles.padding}>
           <RegularText>April 24, 2023</RegularText>
         </View>
       </View>
@@ -52,4 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
   },
+  padding:{
+    padding: 10
+  }
 });
