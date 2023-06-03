@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {SectionText} from '../Text/SectionText';
 import {RegularText} from '../Text/RegularText';
 import colors from '../../styles/colors';
+import {TitleText} from '../Text/TitleText';
 
 export interface CommentInfoDisplayProps {
   style?: StyleProp<ViewStyle>;
@@ -17,7 +17,7 @@ export function CommentInfoDisplay(
 ): JSX.Element {
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <SectionText>Name</SectionText>
+      <TitleText>Name</TitleText>
       <RegularText>11:23 AM</RegularText>
       <RegularText>
         Lorem ipsum dolor sit amunt ut l, quis nostrud exercitation ullamco

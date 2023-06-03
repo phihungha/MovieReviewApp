@@ -33,20 +33,19 @@ export function MovieGridItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 125,
+    alignSelf: 'flex-start',
+    gap: 5,
   },
   posterImage: {
     width: 125,
     height: 125,
     borderRadius: 5,
   },
+  infoContainer: {
+    paddingHorizontal: 3,
+  },
   scoresContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  infoContainer: {
-    paddingHorizontal: 5,
-    marginTop: 5,
   },
 });

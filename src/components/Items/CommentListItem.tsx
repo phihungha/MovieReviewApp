@@ -9,9 +9,10 @@ import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 export function CommentListItem(): JSX.Element {
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <VerticalProfileDisplay imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg" />
-      </View>
+      <VerticalProfileDisplay
+        style={styles.avatarContainer}
+        imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
+      />
       <CommentInfoDisplay style={styles.infoContainer} />
     </View>
   );
@@ -21,15 +22,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
-    padding: 15,
     borderRadius: 5,
+    gap: 10,
   },
   infoContainer: {
     flex: 1,
   },
   avatarContainer: {
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: 5,
   },
 });

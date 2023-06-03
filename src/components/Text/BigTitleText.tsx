@@ -4,11 +4,11 @@ import {fontSizes, fonts} from '../../styles/typography';
 import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
-export function SectionText(props: TextProps): JSX.Element {
-  return <Text style={sectionStyles.text}>{props.children}</Text>;
+export function BigTitleText(props: TextProps): JSX.Element {
+  return <Text style={titleStyles.text}>{props.children}</Text>;
 }
 
-const sectionStyles = StyleSheet.create({
+const titleStyles = StyleSheet.create({
   text: {
     fontFamily: fonts.primaryBold,
     fontSize: fontSizes.xl,
