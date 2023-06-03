@@ -8,7 +8,11 @@ export function ReviewListItem(): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.padding}>
-        <HorizontalProfileDisplay />
+        <HorizontalProfileDisplay
+          imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
+          name="Roger Ebert"
+          role="Critic"
+        />
       </View>
 
       <View style={styles.padding}>
