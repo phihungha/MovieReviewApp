@@ -3,8 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import {ReviewInfoDisplay} from '../Display/ReviewInfoDisplay';
 import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
-import {CommentButton} from '../Buttons/CommentButton';
-import {LikeButton} from '../Buttons/LikeButton';
+import {ReviewCommentButton} from '../Buttons/ReviewCommentButton';
+import {ReviewLikeButton} from '../Buttons/ReviewLikeButton';
 
 /**
  * Item for a list of reviews.
@@ -19,12 +19,8 @@ export function ReviewListItem(): JSX.Element {
       />
       <ReviewInfoDisplay style={styles.infoContainer} />
       <View style={styles.buttonsContainer}>
-        <LikeButton
-          onPress={() => console.log('test')}
-          isActive={true}
-          count={120}
-        />
-        <CommentButton onPress={() => console.log('test')} count={120} />
+        <ReviewLikeButton />
+        <ReviewCommentButton />
       </View>
     </View>
   );
