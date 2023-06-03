@@ -4,7 +4,7 @@ import {TitleText} from '../Text/TitleText';
 import {RegularText} from '../Text/RegularText';
 import {Avatar} from '@rneui/themed';
 
-export function VerticalAuthorDisplay(): JSX.Element {
+export function VerticalProfileDisplay(): JSX.Element {
   return (
     <View style={styles.container}>
       <Avatar

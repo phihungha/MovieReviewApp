@@ -18,14 +18,7 @@ export function WatchedMovieListItem(): JSX.Element {
         />
         <View style={styles.padding}>
           <TitleText>John Wick</TitleText>
-        </View>
-      </View>
-      <View style={styles.rowTime}>
-        <View style={styles.padding}>
-          <RegularText>11:23 AM</RegularText>
-        </View>
-        <View style={styles.padding}>
-          <RegularText>April 24, 2023</RegularText>
+          <RegularText>Watched on 15/5/2023</RegularText>
         </View>
       </View>
     </View>
@@ -34,17 +27,9 @@ export function WatchedMovieListItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 340,
-    height: 120,
     padding: 5,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
-  },
-  rowTime: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    padding: 5,
   },
   row: {
     flexDirection: 'row',
@@ -53,6 +38,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   padding: {
-    padding: 10,
+    paddingLeft: 15,
   },
 });

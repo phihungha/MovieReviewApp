@@ -1,6 +1,6 @@
 import React from 'react';
-import {HorizontalAuthorDisplay} from '../Display/HorizontalAuthorDisplay';
+import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 
 export function CrewListItem(): JSX.Element {
-  return <HorizontalAuthorDisplay />;
+  return <HorizontalProfileDisplay />;
 }

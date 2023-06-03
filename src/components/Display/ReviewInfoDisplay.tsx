@@ -16,12 +16,7 @@ export function ReviewInfoDisplay(): JSX.Element {
       </View>
 
       <View style={styles.rowTime}>
-        <View style={styles.right}>
-          <SubtitleText>11:23 AM</SubtitleText>
-        </View>
-        <View style={styles.left}>
-          <SubtitleText>April 24, 2023</SubtitleText>
-        </View>
+        <SubtitleText>15/5/2023</SubtitleText>
       </View>
 
       <View style={styles.padding}>

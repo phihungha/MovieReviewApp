@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ReviewInfoDisplay} from '../Display/ReviewInfoDisplay';
-import {HorizontalAuthorDisplay} from '../Display/HorizontalAuthorDisplay';
+import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
 
 export function ReviewListItem(): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.padding}>
-        <HorizontalAuthorDisplay />
+        <HorizontalProfileDisplay />
       </View>
 
       <View style={styles.padding}>

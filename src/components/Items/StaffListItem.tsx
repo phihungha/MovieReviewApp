@@ -1,6 +1,6 @@
 import React from 'react';
-import {HorizontalAuthorDisplay} from '../Display/HorizontalAuthorDisplay';
+import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 
 export function StaffListItem(): JSX.Element {
-  return <HorizontalAuthorDisplay />;
+  return <VerticalProfileDisplay />;
 }

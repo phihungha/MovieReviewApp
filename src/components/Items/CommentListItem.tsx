@@ -16,7 +16,7 @@ export function CommentListItem(): JSX.Element {
         />
       </View>
 
-      <View style={styles.padding}>
+      <View style={styles.infoContainer}>
         <CommentInfoDisplay />
       </View>
     </View>
@@ -25,14 +25,13 @@ export function CommentListItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 380,
     alignItems: 'center',
     flexDirection: 'row',
     padding: 5,
     borderRadius: 5,
   },
-  padding: {
-    padding: 2,
+  infoContainer: {
+    flex: 1,
   },
   avatarContainer: {
     alignItems: 'center',
