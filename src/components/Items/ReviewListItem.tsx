@@ -20,6 +20,8 @@ export function ReviewListItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
+    width: 380,
+    alignSelf: 'center',
     padding: 5,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
