@@ -7,14 +7,25 @@ import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
-import {ReviewListItem} from '../components/Items/ReviewListItem';
 
-import {View} from 'react-native';
+import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {CommentListItem} from '../components/Items/CommentListItem';
+import {MovieGridItem} from '../components/Items/MovieGridItem';
+import {StaffListItem} from '../components/Items/StaffListItem';
+import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
+import {VerticalAuthorDisplay} from '../components/Display/VerticalAuthorDisplay';
+import {ScrollView} from 'react-native';
+
 export function HomeScreen(): JSX.Element {
   return (
-    <View>
+    <ScrollView>
       <ReviewListItem />
-    </View>
+      <CommentListItem />
+      <MovieGridItem />
+      <StaffListItem />
+      <WatchedMovieListItem />
+      <VerticalAuthorDisplay />
+    </ScrollView>
   );
 }
 
