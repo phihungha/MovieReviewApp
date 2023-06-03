@@ -3,6 +3,9 @@ import {StyleSheet, View} from 'react-native';
 import {CommentInfoDisplay} from '../Display/CommentInfoDisplay';
 import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 
+/**
+ * Item for list of review comments.
+ */
 export function CommentListItem(): JSX.Element {
   return (
     <View style={styles.container}>

@@ -1,6 +1,9 @@
 import React from 'react';
 import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 
+/**
+ * Item for a list of non-actor crew members working on a film.
+ */
 export function CrewListItem(): JSX.Element {
   return (
     <VerticalProfileDisplay

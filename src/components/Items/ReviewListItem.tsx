@@ -6,6 +6,9 @@ import colors from '../../styles/colors';
 import {CommentButton} from '../Buttons/CommentButton';
 import {LikeButton} from '../Buttons/LikeButton';
 
+/**
+ * Item for a list of reviews.
+ */
 export function ReviewListItem(): JSX.Element {
   return (
     <View style={styles.container}>

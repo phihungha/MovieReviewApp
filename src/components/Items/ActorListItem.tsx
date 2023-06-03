@@ -1,6 +1,9 @@
 import React from 'react';
 import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 
+/**
+ * Item for list of actors working on a film.
+ */
 export function ActorListItem(): JSX.Element {
   return (
     <VerticalProfileDisplay
