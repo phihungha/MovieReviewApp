@@ -3,22 +3,19 @@ import {StyleSheet, View} from 'react-native';
 import {TitleText} from '../Text/TitleText';
 import {RegularText} from '../Text/RegularText';
 import {Avatar} from '@rneui/themed';
+import {ProfileDisplayProps} from '../../props/ProfileDisplayProps';
 
-export function VerticalProfileDisplay(): JSX.Element {
+export function VerticalProfileDisplay(
+  props: ProfileDisplayProps,
+): JSX.Element {
   return (
     <View style={styles.container}>
-      <Avatar
-        size={60}
-        rounded
-        source={{
-          uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
-        }}
-      />
+      <Avatar size={60} rounded source={{uri: props.imageUrl}} />
       <View style={styles.padding}>
-        <TitleText>John</TitleText>
+        <TitleText>{props.name}</TitleText>
       </View>
       <View style={styles.padding}>
-        <RegularText>Director</RegularText>
+        <RegularText>{props.role}</RegularText>
       </View>
     </View>
   );

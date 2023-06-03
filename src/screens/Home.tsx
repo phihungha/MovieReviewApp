@@ -11,9 +11,9 @@ import {UserLikedCommentsList} from './UserLikedCommentsList';
 import {ReviewListItem} from '../components/Items/ReviewListItem';
 import {CommentListItem} from '../components/Items/CommentListItem';
 import {MovieGridItem} from '../components/Items/MovieGridItem';
-import {StaffListItem} from '../components/Items/StaffListItem';
 import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
 import {ScrollView} from 'react-native';
+import {CrewListItem} from '../components/Items/CrewListItem';
 
 export function HomeScreen(): JSX.Element {
   return (
@@ -21,7 +21,7 @@ export function HomeScreen(): JSX.Element {
       <ReviewListItem />
       <CommentListItem />
       <MovieGridItem />
-      <StaffListItem />
+      <CrewListItem />
       <WatchedMovieListItem />
     </ScrollView>
   );

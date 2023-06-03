@@ -3,8 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {TitleText} from '../Text/TitleText';
 import {RegularText} from '../Text/RegularText';
 import {Avatar} from '@rneui/themed';
+import {ProfileDisplayProps} from '../../props/ProfileDisplayProps';
 
-export function HorizontalProfileDisplay(): JSX.Element {
+export function HorizontalProfileDisplay(
+  props: ProfileDisplayProps,
+): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.right}>
@@ -12,14 +15,14 @@ export function HorizontalProfileDisplay(): JSX.Element {
           size={60}
           rounded
           source={{
-            uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
+            uri: props.imageUrl,
           }}
         />
       </View>
 
       <View style={styles.left}>
-        <TitleText>John</TitleText>
-        <RegularText>Director</RegularText>
+        <TitleText>{props.name}</TitleText>
+        <RegularText>{props.role}</RegularText>
       </View>
     </View>
   );
