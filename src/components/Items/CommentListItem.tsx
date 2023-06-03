@@ -1,19 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CommentInfoDisplay} from '../Display/CommentInfoDisplay';
-import {Avatar} from '@rneui/themed';
+import {VerticalProfileDisplay} from '../Display/VerticalProfileDisplay';
 
 export function CommentListItem(): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Avatar
-          size={50}
-          rounded
-          source={{
-            uri: 'https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg',
-          }}
-        />
+        <VerticalProfileDisplay imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg" />
       </View>
       <CommentInfoDisplay style={styles.infoContainer} />
     </View>

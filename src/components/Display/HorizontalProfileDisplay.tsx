@@ -5,22 +5,21 @@ import {RegularText} from '../Text/RegularText';
 import {Avatar} from '@rneui/themed';
 import {ProfileDisplayProps} from '../../props/ProfileDisplayProps';
 
+/**
+ * Display basic profile info (image, name, role) of a user, crew member,...
+ * @param {string} imageUrl Image URL
+ * @param {string?} name Name
+ * @param {string?} role Role (user type, crew role,...)
+ * @param {StyleProp<ViewStyle>?} style Style
+ * @returns
+ */
 export function HorizontalProfileDisplay(
   props: ProfileDisplayProps,
 ): JSX.Element {
   return (
-    <View style={styles.container}>
-      <View style={styles.right}>
-        <Avatar
-          size={60}
-          rounded
-          source={{
-            uri: props.imageUrl,
-          }}
-        />
-      </View>
-
-      <View style={styles.left}>
+    <View style={StyleSheet.compose(styles.container, props.style)}>
+      <Avatar size={60} rounded source={{uri: props.imageUrl}} />
+      <View>
         <TitleText>{props.name}</TitleText>
         <RegularText>{props.role}</RegularText>
       </View>
@@ -35,13 +34,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
     paddingEnd: 1,
-  },
-  right: {
-    padding: 2,
-    paddingRight: 10,
-  },
-  left: {
-    padding: 2,
-    paddingLeft: 10,
+    gap: 10,
   },
 });
