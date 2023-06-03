@@ -19,9 +19,9 @@ export interface GenericReviewScoreIndicatorProps {
  * @param {string} iconName Icon name
  * @param {number} score Score value
  * @param {isLeft} boolean True if icon is on the left of score value
- * @param {StyleProp<ViewStyle>} style Style
- * @param {StyleProp<TextStyle>} iconStyle Style of icon
- * @param {StyleProp<ViewStyle>} textStyle Style of score value
+ * @param {StyleProp<ViewStyle>?} style Style
+ * @param {StyleProp<TextStyle>?} iconStyle Style of icon
+ * @param {StyleProp<ViewStyle>?} textStyle Style of score value
  */
 export function ReviewScoreIndicator(props: GenericReviewScoreIndicatorProps) {
   return (

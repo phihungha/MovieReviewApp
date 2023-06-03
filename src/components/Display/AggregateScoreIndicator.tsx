@@ -23,9 +23,9 @@ export interface GenericAggregateScoreIndicatorProps {
  * @param {number} score Score value
  * @param {number} reviewCount Number of reviews
  * @param {isLeft} boolean True if component is set on the left
- * @param {StyleProp<ViewStyle>} style Style
- * @param {StyleProp<TextStyle>} iconStyle Style of icon
- * @param {StyleProp<ViewStyle>} textStyle Style of score value
+ * @param {StyleProp<ViewStyle>?} style Style
+ * @param {StyleProp<TextStyle>?} iconStyle Style of icon
+ * @param {StyleProp<ViewStyle>?} textStyle Style of score value
  */
 export function AggregateScoreIndicator(
   props: GenericAggregateScoreIndicatorProps,

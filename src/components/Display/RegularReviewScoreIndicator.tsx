@@ -8,7 +8,7 @@ import {ReviewScoreIndicatorProps} from '../../props/ReviewIndicatorProps';
 /**
  * Displays review score of a regular user.
  * @param {number} score Score value
- * @param {StyleProp<ViewStyle>} style Style
+ * @param {StyleProp<ViewStyle>?} style Style
  * @example
  * <RegularReviewScoreIndicator score={5} />
  */

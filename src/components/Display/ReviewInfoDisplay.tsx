@@ -10,6 +10,10 @@ export interface ReviewInfoDisplayProps {
   style?: StyleProp<ViewStyle>;
 }
 
+/**
+ * Displays info of a review.
+ * @param {StyleProp<ViewStyle>?} style Style
+ */
 export function ReviewInfoDisplay(props: ReviewInfoDisplayProps): JSX.Element {
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>

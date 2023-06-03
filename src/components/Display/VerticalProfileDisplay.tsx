@@ -11,7 +11,6 @@ import {TitleText} from '../Text/TitleText';
  * @param {string?} name Name
  * @param {string?} role Role (user type, crew role,...)
  * @param {StyleProp<ViewStyle>?} style Style
- * @returns
  */
 export function VerticalProfileDisplay(
   props: ProfileDisplayProps,

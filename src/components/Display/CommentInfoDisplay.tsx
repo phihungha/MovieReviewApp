@@ -8,6 +8,10 @@ export interface CommentInfoDisplayProps {
   style?: StyleProp<ViewStyle>;
 }
 
+/**
+ * Displays info of a comment.
+ * @param {StyleProp<ViewStyle>?} style Style
+ */
 export function CommentInfoDisplay(
   props: CommentInfoDisplayProps,
 ): JSX.Element {
