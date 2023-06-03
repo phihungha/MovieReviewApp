@@ -8,8 +8,23 @@ import {UserReviewsList} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
 
+import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {CommentListItem} from '../components/Items/CommentListItem';
+import {MovieGridItem} from '../components/Items/MovieGridItem';
+import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
+import {ScrollView} from 'react-native';
+import {CrewListItem} from '../components/Items/CrewListItem';
+
 export function HomeScreen(): JSX.Element {
-  return <></>;
+  return (
+    <ScrollView>
+      <ReviewListItem />
+      <CommentListItem />
+      <MovieGridItem />
+      <CrewListItem />
+      <WatchedMovieListItem />
+    </ScrollView>
+  );
 }
 
 export function HomeStackScreen(): JSX.Element {

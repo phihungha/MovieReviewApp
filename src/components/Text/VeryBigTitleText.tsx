@@ -4,14 +4,14 @@ import {fontSizes, fonts} from '../../styles/typography';
 import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
-export function SubtitleText(props: TextProps): JSX.Element {
-  return <Text style={subtitleStyles.text}>{props.children}</Text>;
+export function VeryBigTitleText(props: TextProps): JSX.Element {
+  return <Text style={titleStyles.text}>{props.children}</Text>;
 }
 
-const subtitleStyles = StyleSheet.create({
+const titleStyles = StyleSheet.create({
   text: {
-    fontFamily: fonts.primary,
-    fontSize: fontSizes.lg,
+    fontFamily: fonts.primaryBold,
+    fontSize: fontSizes.xl2,
     color: colors.white,
   },
 });

@@ -9,7 +9,7 @@ import {AggregateScoreIndicatorProps} from '../../props/AggergateScoreIndicatorP
  * Display critics' aggregate score and review count.
  * @param {number} score Aggregate score
  * @param {number} reviewCount Number of reviews
- * @param {StyleProp<ViewStyle>} style Style
+ * @param {StyleProp<ViewStyle>?} style Style
  * @example
  * <CriticAggregateScoreIndicator score={8.3} reviewCount={211} />
  */
