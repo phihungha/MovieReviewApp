@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {fontSizes, fonts} from '../../styles/typography';
-import {ChildrenOnlyProps} from '../../props/ChildrenOnlyProps';
+import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
-export function TitleText(props: ChildrenOnlyProps): JSX.Element {
+export function TitleText(props: TextProps): JSX.Element {
   return <Text style={titleStyles.text}>{props.children}</Text>;
 }
 

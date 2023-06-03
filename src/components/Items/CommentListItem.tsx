@@ -11,14 +11,11 @@ export function CommentListItem(): JSX.Element {
           size={50}
           rounded
           source={{
-            uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
+            uri: 'https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg',
           }}
         />
       </View>
-
-      <View style={styles.infoContainer}>
-        <CommentInfoDisplay />
-      </View>
+      <CommentInfoDisplay style={styles.infoContainer} />
     </View>
   );
 }
