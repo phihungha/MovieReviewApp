@@ -8,5 +8,12 @@ export const fontSizes = {
 };
 
 export const fonts = {
-  primary: 'Poppins',
+  primary: 'poppins_regular',
+  primaryItalic: 'poppins_italic',
+  primaryBold: 'poppins_bold',
+  boldItalic: 'poppins_bold_italic',
+  thin: 'poppins_thin',
+  thinItalic: 'poppins_thin_italic',
+  medium: 'poppins_medium',
+  mediumItalic: 'poppins_medium_italic',
 };

@@ -4,4 +4,6 @@ export default {
   darkBlack: '#1E1F28',
   mediumBlack: '#2A2C36',
   lightGrey: '#ABB4BD',
+  yellow: '#FFCC33',
+  darkBlue: '#1C5E7F',
 };

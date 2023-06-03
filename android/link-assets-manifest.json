@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/poppins_bold.ttf",
+      "sha1": "3bc8164396c3e6c1e4fae0cf2a51ea66381c1c2d"
+    },
+    {
+      "path": "src/assets/fonts/poppins_bold_italic.ttf",
+      "sha1": "352b886f06803d5c77722dc91c0313b7d2338c82"
+    },
+    {
+      "path": "src/assets/fonts/poppins_italic.ttf",
+      "sha1": "8853c7193c21b71acb6054a2d8243147fb283360"
+    },
+    {
+      "path": "src/assets/fonts/poppins_medium.ttf",
+      "sha1": "cf83e7582e60ed83f67c7d68b4f7482ac9fc6958"
+    },
+    {
+      "path": "src/assets/fonts/poppins_medium_italic.ttf",
+      "sha1": "86f262a5dc3116a1f53ef76974802df2b6a8afc7"
+    },
+    {
+      "path": "src/assets/fonts/poppins_regular.ttf",
+      "sha1": "52f9413b264e8ecefbbf12830e3dfadebbf72986"
+    },
+    {
+      "path": "src/assets/fonts/poppins_thin.ttf",
+      "sha1": "9bebfeda7e983ad8d9d78059e44f937622c42dd7"
+    },
+    {
+      "path": "src/assets/fonts/poppins_thin_italic.ttf",
+      "sha1": "193eb4a66d90b17d1c2c1d96e5f218aa018e59b6"
+    }
+  ]
+}
