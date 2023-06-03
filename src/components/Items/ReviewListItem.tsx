@@ -3,20 +3,25 @@ import {StyleSheet, View} from 'react-native';
 import {ReviewInfoDisplay} from '../Display/ReviewInfoDisplay';
 import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
+import {CommentButton} from '../Buttons/CommentButton';
+import {LikeButton} from '../Buttons/LikeButton';
 
 export function ReviewListItem(): JSX.Element {
   return (
     <View style={styles.container}>
-      <View style={styles.padding}>
-        <HorizontalProfileDisplay
-          imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
-          name="Roger Ebert"
-          role="Critic"
+      <HorizontalProfileDisplay
+        imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
+        name="Roger Ebert"
+        role="Critic"
+      />
+      <ReviewInfoDisplay style={styles.infoContainer} />
+      <View style={styles.buttonsContainer}>
+        <LikeButton
+          onPress={() => console.log('test')}
+          isActive={true}
+          count={120}
         />
-      </View>
-
-      <View style={styles.padding}>
-        <ReviewInfoDisplay />
+        <CommentButton onPress={() => console.log('test')} count={120} />
       </View>
     </View>
   );
@@ -24,13 +29,17 @@ export function ReviewListItem(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 380,
-    alignSelf: 'center',
-    padding: 5,
+    padding: 15,
+    gap: 5,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
-  padding: {
-    padding: 2,
+  infoContainer: {
+    padding: 0,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: 5,
   },
 });

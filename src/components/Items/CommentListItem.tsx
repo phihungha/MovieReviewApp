@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
-    padding: 5,
+    padding: 15,
     borderRadius: 5,
   },
   infoContainer: {
