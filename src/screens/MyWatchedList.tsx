@@ -1,5 +1,5 @@
 import React from 'react';
 
-export function MyWatchedList(): JSX.Element {
+export function MyWatchedListScreen(): JSX.Element {
   return <></>;
 }

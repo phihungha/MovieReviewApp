@@ -1,5 +1,5 @@
 import React from 'react';
 
-export function UserReviewsList(): JSX.Element {
+export function UserReviewsListScreen(): JSX.Element {
   return <></>;
 }

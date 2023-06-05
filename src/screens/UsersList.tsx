@@ -4,8 +4,8 @@ import {MovieDetailsScreen} from './MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsList} from './UserLikedCommentsList';
-import {UserReviewsList} from './UserReviewsList';
+import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
+import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 
@@ -46,11 +46,11 @@ export function UsersListStackScreen(): JSX.Element {
       />
       <UsersListStackNavigator.Screen
         name="UserReviewsList"
-        component={UserReviewsList}
+        component={UserReviewsListScreen}
       />
       <UsersListStackNavigator.Screen
         name="UserLikedCommentsList"
-        component={UserLikedCommentsList}
+        component={UserLikedCommentsListScreen}
       />
     </UsersListStackNavigator.Navigator>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
 
-export function MyLikedCommentsList(): JSX.Element {
+export function MyLikedCommentsListScreen(): JSX.Element {
   return <></>;
 }

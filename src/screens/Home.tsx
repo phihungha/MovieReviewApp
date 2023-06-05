@@ -4,9 +4,9 @@ import {MovieDetailsScreen} from './MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserWatchedListScreen} from './UserWatchedList';
-import {UserReviewsList} from './UserReviewsList';
+import {UserReviewsListScreen} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsList} from './UserLikedCommentsList';
+import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {CreateReviewScreen} from './CreateReview';
 
 export function HomeScreen(): JSX.Element {
@@ -43,11 +43,11 @@ export function HomeStackScreen(): JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="UserReviewsList"
-        component={UserReviewsList}
+        component={UserReviewsListScreen}
       />
       <HomeStackNavigator.Screen
         name="UserLikedCommentsList"
-        component={UserLikedCommentsList}
+        component={UserLikedCommentsListScreen}
       />
     </HomeStackNavigator.Navigator>
   );
