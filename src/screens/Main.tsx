@@ -5,6 +5,7 @@ import {MyAccountStackScreen} from './MyAccount';
 import {HomeStackScreen} from './Home';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
+import {UsersListStackScreen} from './UsersList';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {
@@ -48,6 +49,11 @@ export function MainScreen(): JSX.Element {
         name="MoviesListStack"
         options={{title: 'Movies'}}
         component={MoviesListStackScreen}
+      />
+      <MainTabNavigator.Screen
+        name="UsersListStack"
+        options={{title: 'Users'}}
+        component={UsersListStackScreen}
       />
       <MainTabNavigator.Screen
         name="MyAccountStack"
