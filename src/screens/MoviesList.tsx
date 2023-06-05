@@ -7,6 +7,7 @@ import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsList} from './UserLikedCommentsList';
 import {UserReviewsList} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
+import {CreateReviewScreen} from './CreateReview';
 
 export function MoviesListScreen(): JSX.Element {
   return <></>;
@@ -22,6 +23,10 @@ export function MoviesListStackScreen(): JSX.Element {
       <MoviesListStackNavigator.Screen
         name="MovieDetails"
         component={MovieDetailsScreen}
+      />
+      <MoviesListStackNavigator.Screen
+        name="CreateReviewScreen"
+        component={CreateReviewScreen}
       />
       <MoviesListStackNavigator.Screen
         name="MovieReviewList"
