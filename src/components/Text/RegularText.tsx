@@ -5,7 +5,9 @@ import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
 export function RegularText(props: TextProps): JSX.Element {
-  return <Text style={regularStyles.text}>{props.children}</Text>;
+  return (
+    <Text style={[regularStyles.text, props.style]}>{props.children}</Text>
+  );
 }
 
 const regularStyles = StyleSheet.create({
