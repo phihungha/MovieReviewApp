@@ -2,12 +2,13 @@ import React from 'react';
 import {Pressable, StyleProp, StyleSheet, TextStyle, View} from 'react-native';
 import colors from '../../styles/colors';
 import {RegularText} from '../Text/RegularText';
+import {ActionCb} from '../../types/ActionCb';
 
 interface TextLinkProps {
   text: string;
   textLink: string;
   style?: StyleProp<TextStyle>;
-  onClicked?: () => void;
+  onClicked?: ActionCb;
 }
 
 /**
@@ -15,7 +16,7 @@ interface TextLinkProps {
  *  @param {string} text normal text
  *  @param {string} textLink pressable text
  *  @param {style} StyleProp<TextStyle> style
- *  @param {()=>void} onClicked action clicked on textLink
+ *  @param {ActionCb} onClicked action clicked on textLink
  *
  *  */
 export function TextLink(props: TextLinkProps): JSX.Element {
