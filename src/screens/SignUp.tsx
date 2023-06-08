@@ -6,7 +6,9 @@ import {TitleBlock} from '../components/Display/TitleBlock';
 import {TextLink} from '../components/Buttons/TextLink';
 import {DatePickerDialog} from '../dialogs/DatePickerDialog';
 import colors from '../styles/colors';
-import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheetDialog';
+import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheet';
+import {ItemData} from '../components/Items/BottomSheetListItem';
+import {ChooseFavoriteGenresBottomSheetDialog} from '../dialogs/ChooseFavoriteGenresBottomSheet';
 
 export function SignUpScreen(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -36,8 +38,13 @@ export function SignUpScreen(): JSX.Element {
       '/' +
       tempDate.getFullYear();
     setBirthdayText(dateToText);
+  };
 
-    console.log('Date: ' + date);
+  const onSelectedCountry = (country: ItemData) => {
+    setCountry(country.title);
+  };
+  const onSelectedGenre = (genre: ItemData) => {
+    setFavoriteGenre(genre.title);
   };
 
   return (
@@ -71,6 +78,7 @@ export function SignUpScreen(): JSX.Element {
             onChangeText={setCountry}
             rightIcon={
               <ChooseCountryBottomSheetDialog
+                onSelectedCountry={onSelectedCountry}
                 iconColor={colors.white}
                 iconSize={24}
               />
@@ -80,7 +88,15 @@ export function SignUpScreen(): JSX.Element {
           <Input
             label="Favorite genres"
             value={favoriteGenre}
+            disabled
             onChangeText={setFavoriteGenre}
+            rightIcon={
+              <ChooseFavoriteGenresBottomSheetDialog
+                onSelectedGenre={onSelectedGenre}
+                iconColor={colors.white}
+                iconSize={24}
+              />
+            }
           />
           <Input label="User type" value={type} onChangeText={setType} />
 
