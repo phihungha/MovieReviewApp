@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
-import {
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Input} from '@rneui/themed';
 import {TitleBlock} from '../components/Display/TitleBlock';
 
 import {TextLink} from '../components/Buttons/TextLink';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {DatePickerDialog} from '../dialogs/DatePickerDialog';
 import colors from '../styles/colors';
+import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheetDialog';
 
 export function SignUpScreen(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -23,8 +17,6 @@ export function SignUpScreen(): JSX.Element {
   const [country, setCountry] = useState('');
   const [type, setType] = useState('');
   const [favoriteGenre, setFavoriteGenre] = useState('');
-
-  const [datePickerVisibility, setDatePickerVisibility] = useState(false);
 
   const navigateToLoginScreen = () => {
     console.log('navigate to Login Screen');
@@ -44,13 +36,8 @@ export function SignUpScreen(): JSX.Element {
       '/' +
       tempDate.getFullYear();
     setBirthdayText(dateToText);
-    setDatePickerVisibility(false);
 
     console.log('Date: ' + date);
-  };
-
-  const openDatePickerDialog = () => {
-    setDatePickerVisibility(true);
   };
 
   return (
@@ -63,24 +50,33 @@ export function SignUpScreen(): JSX.Element {
           <Input label="Email" value={email} onChangeText={setEmail} />
           <Input label="Name" value={name} onChangeText={setName} />
 
-          <Pressable onPress={openDatePickerDialog}>
-            <Input
-              label="Birthday"
-              value={birthdayText}
-              disabled
-              onChangeText={setBirthdayText}
-              rightIcon={
-                <Icon name="calendar-today" size={24} color={colors.white} />
-              }
-            />
-          </Pressable>
+          <Input
+            label="Birthday"
+            value={birthdayText}
+            disabled
+            onChangeText={setBirthdayText}
+            rightIcon={
+              <DatePickerDialog
+                onSelectedDate={onSelectedDate}
+                iconColor={colors.white}
+                iconSize={24}
+              />
+            }
+          />
 
           <Input
             label="Country"
             value={country}
+            disabled
             onChangeText={setCountry}
-            rightIcon={<Icon name="earth" size={24} color={colors.white} />}
+            rightIcon={
+              <ChooseCountryBottomSheetDialog
+                iconColor={colors.white}
+                iconSize={24}
+              />
+            }
           />
+
           <Input
             label="Favorite genres"
             value={favoriteGenre}
@@ -113,14 +109,6 @@ export function SignUpScreen(): JSX.Element {
             onClicked={navigateToLoginScreen}
           />
         </View>
-
-        {datePickerVisibility && (
-          <DatePickerDialog
-            iconName="calendar-today"
-            onSelectedDate={onSelectedDate}
-          />
-        )}
-
         <View style={styles.space} />
       </ScrollView>
     </SafeAreaView>
