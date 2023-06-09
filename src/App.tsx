@@ -18,8 +18,20 @@ function App(): JSX.Element {
           <RootStackNavigator.Navigator
             initialRouteName="SignUp"
             screenOptions={{headerShown: false}}>
-            <RootStackNavigator.Screen name="Login" component={LoginScreen} />
-            <RootStackNavigator.Screen name="SignUp" component={SignUpScreen} />
+            <RootStackNavigator.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                animation: 'slide_from_left',
+              }}
+            />
+            <RootStackNavigator.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{
+                animation: 'slide_from_right',
+              }}
+            />
             <RootStackNavigator.Screen name="Main" component={MainScreen} />
           </RootStackNavigator.Navigator>
         </NavigationContainer>

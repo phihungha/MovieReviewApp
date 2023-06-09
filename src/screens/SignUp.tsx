@@ -10,8 +10,12 @@ import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomShee
 import {ItemData} from '../components/Items/BottomSheetListItem';
 import {ChooseFavoriteGenresBottomSheetDialog} from '../dialogs/ChooseFavoriteGenresBottomSheet';
 import {ChooseTypeBottomSheet} from '../dialogs/ChooseTypeBottomSheet';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParams} from '../navigators/RootStackNavigator';
 
-export function SignUpScreen(): JSX.Element {
+type Props = NativeStackScreenProps<RootStackParams, 'SignUp'>;
+
+export function SignUpScreen({navigation}: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +26,7 @@ export function SignUpScreen(): JSX.Element {
   const [favoriteGenre, setFavoriteGenre] = useState('');
 
   const navigateToLoginScreen = () => {
-    console.log('navigate to Login Screen');
+    navigation.navigate('Login');
   };
 
   const buttonClicked = (emailText: string, passwordText: string) => {

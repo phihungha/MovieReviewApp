@@ -3,13 +3,17 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 import {Button, Input} from '@rneui/themed';
 import {TitleBlock} from '../components/Display/TitleBlock';
 import {TextLink} from '../components/Buttons/TextLink';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParams} from '../navigators/RootStackNavigator';
 
-export function LoginScreen(): JSX.Element {
+type Props = NativeStackScreenProps<RootStackParams, 'Login'>;
+
+export function LoginScreen({navigation}: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigateToSignUpScreen = () => {
-    console.log('navigate to Sign up Screen');
+    navigation.navigate('SignUp');
   };
 
   const login = (emailText: string, passwordText: string) => {
