@@ -6,32 +6,19 @@ import {
 } from '../components/Items/BottomSheetListItem';
 
 const list = [
-  {id: 1, title: 'Genre 1'},
-  {id: 2, title: 'Genre 2'},
-  {id: 3, title: 'Genre 3'},
-  {id: 4, title: 'Genre 4'},
-  {id: 5, title: 'Genre 5'},
-  {id: 6, title: 'Genre 6'},
-  {id: 7, title: 'Genre 7'},
-  {id: 8, title: 'Genre 8'},
-  {id: 9, title: 'Genre 9'},
-  {id: 10, title: 'Genre 10'},
-  {id: 11, title: 'Genre 11'},
-  {id: 12, title: 'Genre 12'},
-  {id: 13, title: 'Genre 13'},
-  {id: 14, title: 'Genre 14'},
-  {id: 15, title: 'Genre 15'},
+  {id: 1, title: 'Critic'},
+  {id: 2, title: 'Regular'},
 ];
 
-type OnSelectedGenre = (country: ItemData) => void;
+type OnSelectedType = (type: ItemData) => void;
 
 interface ChooseFavoriteGenresDialogProps {
-  onSelectedGenre: OnSelectedGenre;
+  onSelectedType: OnSelectedType;
   iconColor?: string;
   iconSize?: number;
 }
 
-export function ChooseFavoriteGenresBottomSheetDialog(
+export function ChooseTypeBottomSheet(
   props: ChooseFavoriteGenresDialogProps,
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
@@ -58,12 +45,12 @@ export function ChooseFavoriteGenresBottomSheetDialog(
     closeDialog();
   };
   const onPressItem = ({item}: {item: ItemData}) => {
-    props.onSelectedGenre(item);
+    props.onSelectedType(item);
     closeDialog();
   };
   return (
     <GenericBottomSheetDialog
-      iconName="view-list"
+      iconName="account-tie"
       iconColor={props.iconColor}
       iconSize={props.iconSize}
       listItem={list}

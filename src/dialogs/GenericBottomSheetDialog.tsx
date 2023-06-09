@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, ListRenderItem} from 'react-native';
+import {FlatList, ListRenderItem, SafeAreaView} from 'react-native';
 import {BottomSheet} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -37,20 +37,24 @@ export function GenericBottomSheetDialog(
       size={props.iconSize}
       style={styles.container}
       onPress={props.onPressIcon}>
-      <BottomSheet
-        modalProps={{}}
-        isVisible={props.isVisible}
-        containerStyle={styles.bottomSheet}
-        onBackdropPress={props.onBackdropPress}>
-        <FlatList
-          data={props.listItem}
-          renderItem={props.renderItem}
-          keyExtractor={props.keyExtractor}
-          scrollEnabled={false}
-          ListHeaderComponent={props.listHeaderComponent}
-          ListFooterComponent={props.listFooterComponent}
-        />
-      </BottomSheet>
+      <SafeAreaView>
+        <BottomSheet
+          modalProps={{}}
+          isVisible={props.isVisible}
+          containerStyle={styles.bottomSheet}
+          backdropStyle={styles.backdrop}
+          scrollViewProps={{endFillColor: '#fff'}}
+          onBackdropPress={props.onBackdropPress}>
+          <FlatList
+            data={props.listItem}
+            renderItem={props.renderItem}
+            keyExtractor={props.keyExtractor}
+            scrollEnabled={false}
+            ListHeaderComponent={props.listHeaderComponent}
+            ListFooterComponent={props.listFooterComponent}
+          />
+        </BottomSheet>
+      </SafeAreaView>
     </Icon>
   );
 }
@@ -60,11 +64,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backdrop: {
+    backgroundColor: 'transparent',
+  },
   bottomSheet: {
-    height: '30%',
+    maxHeight: 400,
     width: '100%',
-    justifyContent: 'center',
     position: 'absolute',
-    bottom: 0,
+    bottom: 20,
   },
 });

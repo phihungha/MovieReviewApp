@@ -9,6 +9,7 @@ import colors from '../styles/colors';
 import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheet';
 import {ItemData} from '../components/Items/BottomSheetListItem';
 import {ChooseFavoriteGenresBottomSheetDialog} from '../dialogs/ChooseFavoriteGenresBottomSheet';
+import {ChooseTypeBottomSheet} from '../dialogs/ChooseTypeBottomSheet';
 
 export function SignUpScreen(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -24,8 +25,8 @@ export function SignUpScreen(): JSX.Element {
     console.log('navigate to Login Screen');
   };
 
-  const buttonClicked = (email: string, password: string) => {
-    console.log(email + ' ' + password);
+  const buttonClicked = (emailText: string, passwordText: string) => {
+    console.log(emailText + ' ' + passwordText);
   };
 
   const onSelectedDate = (date: Date) => {
@@ -40,13 +41,15 @@ export function SignUpScreen(): JSX.Element {
     setBirthdayText(dateToText);
   };
 
-  const onSelectedCountry = (country: ItemData) => {
-    setCountry(country.title);
+  const onSelectedCountry = (countryItem: ItemData) => {
+    setCountry(countryItem.title);
   };
-  const onSelectedGenre = (genre: ItemData) => {
-    setFavoriteGenre(genre.title);
+  const onSelectedGenre = (genreItem: ItemData) => {
+    setFavoriteGenre(genreItem.title);
   };
-
+  const onSelectedType = (typeItem: ItemData) => {
+    setType(typeItem.title);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -98,7 +101,19 @@ export function SignUpScreen(): JSX.Element {
               />
             }
           />
-          <Input label="User type" value={type} onChangeText={setType} />
+          <Input
+            label="User type"
+            value={type}
+            onChangeText={setType}
+            disabled
+            rightIcon={
+              <ChooseTypeBottomSheet
+                onSelectedType={onSelectedType}
+                iconColor={colors.white}
+                iconSize={24}
+              />
+            }
+          />
 
           <Input
             label="Password"

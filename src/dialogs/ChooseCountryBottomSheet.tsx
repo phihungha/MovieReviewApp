@@ -15,12 +15,6 @@ const list = [
   {id: 7, title: 'Country 7'},
   {id: 8, title: 'Country 8'},
   {id: 9, title: 'Country 9'},
-  {id: 10, title: 'Country 10'},
-  {id: 11, title: 'Country 11'},
-  {id: 12, title: 'Country 12'},
-  {id: 13, title: 'Country 13'},
-  {id: 14, title: 'Country 14'},
-  {id: 15, title: 'Country 15'},
 ];
 
 type OnSelectedCountry = (country: ItemData) => void;
@@ -35,7 +29,6 @@ export function ChooseCountryBottomSheetDialog(
   props: ChooseCountryDialogProps,
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
-  const [selectItem, setSelectedItem] = useState({});
 
   const renderItem = ({item}: {item: ItemData}) => {
     return (
@@ -59,8 +52,6 @@ export function ChooseCountryBottomSheetDialog(
     closeDialog();
   };
   const onPressItem = ({item}: {item: ItemData}) => {
-    setSelectedItem(item);
-    console.log(selectItem);
     props.onSelectedCountry(item);
     closeDialog();
   };

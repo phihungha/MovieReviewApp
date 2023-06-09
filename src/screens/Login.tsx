@@ -12,8 +12,8 @@ export function LoginScreen(): JSX.Element {
     console.log('navigate to Sign up Screen');
   };
 
-  const login = (email: string, password: string) => {
-    console.log(email + ' ' + password);
+  const login = (emailText: string, passwordText: string) => {
+    console.log(emailText + ' ' + passwordText);
   };
 
   return (
