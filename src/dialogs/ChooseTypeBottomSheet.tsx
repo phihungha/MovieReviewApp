@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
 import {
   BottomSheetListItem,
-  ItemData,
+  ItemTitleOnly,
 } from '../components/Items/BottomSheetListItem';
 
 const list = [
@@ -10,7 +10,7 @@ const list = [
   {id: 2, title: 'Regular'},
 ];
 
-type OnSelectedType = (type: ItemData) => void;
+type OnSelectedType = (type: ItemTitleOnly) => void;
 
 interface ChooseFavoriteGenresDialogProps {
   onSelectedType: OnSelectedType;
@@ -23,7 +23,7 @@ export function ChooseTypeBottomSheet(
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
 
-  const renderItem = ({item}: {item: ItemData}) => {
+  const renderItem = ({item}: {item: ItemTitleOnly}) => {
     return (
       <BottomSheetListItem
         item={item}
@@ -44,7 +44,7 @@ export function ChooseTypeBottomSheet(
   const onBackdropPress = () => {
     closeDialog();
   };
-  const onPressItem = ({item}: {item: ItemData}) => {
+  const onPressItem = ({item}: {item: ItemTitleOnly}) => {
     props.onSelectedType(item);
     closeDialog();
   };

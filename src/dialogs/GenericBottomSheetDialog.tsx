@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     maxHeight: 400,
     width: '100%',
     position: 'absolute',
-    bottom: 20,
+    bottom: 0,
   },
 });

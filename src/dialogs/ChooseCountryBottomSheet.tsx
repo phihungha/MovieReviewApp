@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
 import {
   BottomSheetListItem,
-  ItemData,
+  ItemTitleOnly,
 } from '../components/Items/BottomSheetListItem';
 
 const list = [
@@ -17,7 +17,7 @@ const list = [
   {id: 9, title: 'Country 9'},
 ];
 
-type OnSelectedCountry = (country: ItemData) => void;
+type OnSelectedCountry = (country: ItemTitleOnly) => void;
 
 interface ChooseCountryDialogProps {
   onSelectedCountry: OnSelectedCountry;
@@ -30,7 +30,7 @@ export function ChooseCountryBottomSheetDialog(
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
 
-  const renderItem = ({item}: {item: ItemData}) => {
+  const renderItem = ({item}: {item: ItemTitleOnly}) => {
     return (
       <BottomSheetListItem
         item={item}
@@ -51,7 +51,7 @@ export function ChooseCountryBottomSheetDialog(
   const onBackdropPress = () => {
     closeDialog();
   };
-  const onPressItem = ({item}: {item: ItemData}) => {
+  const onPressItem = ({item}: {item: ItemTitleOnly}) => {
     props.onSelectedCountry(item);
     closeDialog();
   };

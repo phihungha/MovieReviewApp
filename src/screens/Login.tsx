@@ -18,6 +18,7 @@ export function LoginScreen({navigation}: Props): JSX.Element {
 
   const login = (emailText: string, passwordText: string) => {
     console.log(emailText + ' ' + passwordText);
+    console.log('Call API');
   };
 
   return (
@@ -25,12 +26,18 @@ export function LoginScreen({navigation}: Props): JSX.Element {
       <TitleBlock>LOGIN</TitleBlock>
 
       <View>
-        <Input label="Email" value={email} onChangeText={setEmail} />
+        <Input
+          label="Email"
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Enter email..."
+        />
         <Input
           label="Password"
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
+          placeholder="Enter password..."
         />
       </View>
 

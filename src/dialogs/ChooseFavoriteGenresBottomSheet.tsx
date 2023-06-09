@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
 import {
   BottomSheetListItem,
-  ItemData,
+  ItemTitleOnly,
 } from '../components/Items/BottomSheetListItem';
 
 const list = [
@@ -23,7 +23,7 @@ const list = [
   {id: 15, title: 'Genre 15'},
 ];
 
-type OnSelectedGenre = (country: ItemData) => void;
+type OnSelectedGenre = (country: ItemTitleOnly) => void;
 
 interface ChooseFavoriteGenresDialogProps {
   onSelectedGenre: OnSelectedGenre;
@@ -36,7 +36,7 @@ export function ChooseFavoriteGenresBottomSheetDialog(
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
 
-  const renderItem = ({item}: {item: ItemData}) => {
+  const renderItem = ({item}: {item: ItemTitleOnly}) => {
     return (
       <BottomSheetListItem
         item={item}
@@ -57,7 +57,7 @@ export function ChooseFavoriteGenresBottomSheetDialog(
   const onBackdropPress = () => {
     closeDialog();
   };
-  const onPressItem = ({item}: {item: ItemData}) => {
+  const onPressItem = ({item}: {item: ItemTitleOnly}) => {
     props.onSelectedGenre(item);
     closeDialog();
   };

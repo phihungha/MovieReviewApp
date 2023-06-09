@@ -6,13 +6,13 @@ import {fontSizes, fonts} from '../../styles/typography';
 
 type OnPress = () => void;
 
-export interface ItemData {
+export interface ItemTitleOnly {
   id: string;
   title: string;
 }
 
 interface ItemProps {
-  item: ItemData;
+  item: ItemTitleOnly;
   onPressItem: OnPress;
 }
 
@@ -30,8 +30,8 @@ export function BottomSheetListItem(props: ItemProps): JSX.Element {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    height: 50,
     backgroundColor: colors.white,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',

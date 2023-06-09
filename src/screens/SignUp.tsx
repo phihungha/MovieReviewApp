@@ -7,7 +7,7 @@ import {TextLink} from '../components/Buttons/TextLink';
 import {DatePickerDialog} from '../dialogs/DatePickerDialog';
 import colors from '../styles/colors';
 import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheet';
-import {ItemData} from '../components/Items/BottomSheetListItem';
+import {ItemTitleOnly} from '../components/Items/BottomSheetListItem';
 import {ChooseFavoriteGenresBottomSheetDialog} from '../dialogs/ChooseFavoriteGenresBottomSheet';
 import {ChooseTypeBottomSheet} from '../dialogs/ChooseTypeBottomSheet';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -29,8 +29,9 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
     navigation.navigate('Login');
   };
 
-  const buttonClicked = (emailText: string, passwordText: string) => {
+  const signUp = (emailText: string, passwordText: string) => {
     console.log(emailText + ' ' + passwordText);
+    console.log('Call API');
   };
 
   const onSelectedDate = (date: Date) => {
@@ -45,30 +46,44 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
     setBirthdayText(dateToText);
   };
 
-  const onSelectedCountry = (countryItem: ItemData) => {
+  const onSelectedCountry = (countryItem: ItemTitleOnly) => {
     setCountry(countryItem.title);
   };
-  const onSelectedGenre = (genreItem: ItemData) => {
+  const onSelectedGenre = (genreItem: ItemTitleOnly) => {
     setFavoriteGenre(genreItem.title);
   };
-  const onSelectedType = (typeItem: ItemData) => {
+  const onSelectedType = (typeItem: ItemTitleOnly) => {
     setType(typeItem.title);
   };
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.space} />
+
         <TitleBlock>SIGN UP</TitleBlock>
 
         <View>
-          <Input label="Email" value={email} onChangeText={setEmail} />
-          <Input label="Name" value={name} onChangeText={setName} />
+          <Input
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Enter email..."
+          />
+          <Input
+            label="Name"
+            value={name}
+            onChangeText={setName}
+            placeholder="Enter your full name..."
+          />
 
           <Input
             label="Birthday"
             value={birthdayText}
             disabled
             onChangeText={setBirthdayText}
+            placeholder="Choose your date of birth..."
             rightIcon={
               <DatePickerDialog
                 onSelectedDate={onSelectedDate}
@@ -83,6 +98,7 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
             value={country}
             disabled
             onChangeText={setCountry}
+            placeholder="Choose your country..."
             rightIcon={
               <ChooseCountryBottomSheetDialog
                 onSelectedCountry={onSelectedCountry}
@@ -93,10 +109,11 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
           />
 
           <Input
-            label="Favorite genres"
+            label="Favorite genre"
             value={favoriteGenre}
             disabled
             onChangeText={setFavoriteGenre}
+            placeholder="Choose your favorite genre..."
             rightIcon={
               <ChooseFavoriteGenresBottomSheetDialog
                 onSelectedGenre={onSelectedGenre}
@@ -110,6 +127,7 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
             value={type}
             onChangeText={setType}
             disabled
+            placeholder="Choose user type..."
             rightIcon={
               <ChooseTypeBottomSheet
                 onSelectedType={onSelectedType}
@@ -123,21 +141,20 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
             label="Password"
             secureTextEntry={true}
             value={password}
+            placeholder="Enter password..."
             onChangeText={setPassword}
           />
           <Input
             label="Re-enter password"
             secureTextEntry={true}
             value={rePassword}
+            placeholder="Re enter your password..."
             onChangeText={setRePassword}
           />
         </View>
 
         <View style={styles.viewContainer}>
-          <Button
-            onPress={() => buttonClicked(email, password)}
-            title="SIGN UP"
-          />
+          <Button onPress={() => signUp(email, password)} title="SIGN UP" />
           <TextLink
             text="Already have an account, "
             textLink="login"
