@@ -16,7 +16,7 @@ function App(): JSX.Element {
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={navigationContainerTheme}>
           <RootStackNavigator.Navigator
-            initialRouteName="SignUp"
+            initialRouteName="Main"
             screenOptions={{headerShown: false}}>
             <RootStackNavigator.Screen
               name="Login"

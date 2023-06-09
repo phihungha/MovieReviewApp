@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
+import React from 'react';
+import {ItemTitleOnly} from '../components/Items/BottomSheetListItem';
 import {
-  BottomSheetListItem,
-  ItemTitleOnly,
-} from '../components/Items/BottomSheetListItem';
+  GenericBottomSheetHandleItemPressDialog,
+  OnPressItem,
+} from './GenericBottomSheetHandleItemPressDialog';
 
 const list = [
   {id: 1, title: 'Country 1'},
@@ -17,55 +17,31 @@ const list = [
   {id: 9, title: 'Country 9'},
 ];
 
-type OnSelectedCountry = (country: ItemTitleOnly) => void;
-
 interface ChooseCountryDialogProps {
-  onSelectedCountry: OnSelectedCountry;
+  onSelectedCountry: OnPressItem;
   iconColor?: string;
   iconSize?: number;
 }
 
+/**
+ * @using display component as an icon and open bottomSheet to choose country on clicked
+ * @param {OnPressItem} onSelectedCountry Receive selection country result
+ * @param {string} iconColor icon's color
+ * @param {number} iconSize icon's size
+ */
 export function ChooseCountryBottomSheetDialog(
   props: ChooseCountryDialogProps,
 ): JSX.Element {
-  const [visible, setVisible] = useState(false);
-
-  const renderItem = ({item}: {item: ItemTitleOnly}) => {
-    return (
-      <BottomSheetListItem
-        item={item}
-        onPressItem={() => onPressItem({item})}
-      />
-    );
-  };
-  const keyExtractor = (item: any) => {
-    return item.title;
-  };
-
-  const closeDialog = () => {
-    setVisible(false);
-  };
-  const openDialog = () => {
-    setVisible(true);
-  };
-  const onBackdropPress = () => {
-    closeDialog();
-  };
-  const onPressItem = ({item}: {item: ItemTitleOnly}) => {
-    props.onSelectedCountry(item);
-    closeDialog();
+  const onPressItem = (country: ItemTitleOnly) => {
+    props.onSelectedCountry(country);
   };
   return (
-    <GenericBottomSheetDialog
+    <GenericBottomSheetHandleItemPressDialog
+      onPressItemBottomSheet={item => onPressItem(item)}
+      listItem={list}
       iconName="earth"
       iconColor={props.iconColor}
       iconSize={props.iconSize}
-      listItem={list}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onPressIcon={openDialog}
-      onBackdropPress={onBackdropPress}
-      isVisible={visible}
     />
   );
 }

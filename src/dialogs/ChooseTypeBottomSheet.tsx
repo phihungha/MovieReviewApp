@@ -1,64 +1,41 @@
-import React, {useState} from 'react';
-import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
+import React from 'react';
+
+import {ItemTitleOnly} from '../components/Items/BottomSheetListItem';
 import {
-  BottomSheetListItem,
-  ItemTitleOnly,
-} from '../components/Items/BottomSheetListItem';
+  GenericBottomSheetHandleItemPressDialog,
+  OnPressItem,
+} from './GenericBottomSheetHandleItemPressDialog';
 
 const list = [
   {id: 1, title: 'Critic'},
   {id: 2, title: 'Regular'},
 ];
 
-type OnSelectedType = (type: ItemTitleOnly) => void;
-
 interface ChooseFavoriteGenresDialogProps {
-  onSelectedType: OnSelectedType;
+  onSelectedType: OnPressItem;
   iconColor?: string;
   iconSize?: number;
 }
 
+/**
+ * @using display component as an icon and open bottomSheet to choose user type on clicked
+ * @param {OnPressItem} onSelectedType Receive selection user type result
+ * @param {string} iconColor icon's color
+ * @param {number} iconSize icon's size
+ */
 export function ChooseTypeBottomSheet(
   props: ChooseFavoriteGenresDialogProps,
 ): JSX.Element {
-  const [visible, setVisible] = useState(false);
-
-  const renderItem = ({item}: {item: ItemTitleOnly}) => {
-    return (
-      <BottomSheetListItem
-        item={item}
-        onPressItem={() => onPressItem({item})}
-      />
-    );
-  };
-  const keyExtractor = (item: any) => {
-    return item.title;
-  };
-
-  const closeDialog = () => {
-    setVisible(false);
-  };
-  const openDialog = () => {
-    setVisible(true);
-  };
-  const onBackdropPress = () => {
-    closeDialog();
-  };
-  const onPressItem = ({item}: {item: ItemTitleOnly}) => {
-    props.onSelectedType(item);
-    closeDialog();
+  const onPressItem = (type: ItemTitleOnly) => {
+    props.onSelectedType(type);
   };
   return (
-    <GenericBottomSheetDialog
+    <GenericBottomSheetHandleItemPressDialog
+      onPressItemBottomSheet={item => onPressItem(item)}
+      listItem={list}
       iconName="account-tie"
       iconColor={props.iconColor}
       iconSize={props.iconSize}
-      listItem={list}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onPressIcon={openDialog}
-      onBackdropPress={onBackdropPress}
-      isVisible={visible}
     />
   );
 }

@@ -11,6 +11,12 @@ interface DatePickerDialogProps {
   iconSize?: number;
 }
 
+/**
+ * @using display component as an icon and open datePicker on clicked
+ * @param {OnSelectedDate} onSelectedDate Receive selection date result
+ * @param {string} iconColor icon's color
+ * @param {number} iconSize icon's size
+ */
 export function DatePickerDialog(props: DatePickerDialogProps): JSX.Element {
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);

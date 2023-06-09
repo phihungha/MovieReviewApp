@@ -27,6 +27,20 @@ interface BottomSheetDialogProps {
   isVisible: boolean;
 }
 
+/**
+ * @using generic component for bottom sheet
+ * @param {string} iconColor icon's color
+ * @param {number} iconSize icon's size
+ * @param {string} iconName icon's name
+ * @param {{}[]} listItem list item want to display on BottomSheet
+ * @param {RenderItem} renderItem renderItem of flatList
+ * @param {KeyExtractor} keyExtractor keyExtractor of flatList
+ * @param {Component} listHeaderComponent first item component of bottomSheet
+ * @param {Component} listFooterComponent last item component of bottomSheet
+ * @param {OnPress} onPressIcon eventHandle when click on Icon (open bottomSheet)
+ * @param {OnPress} onBackdropPress eventHandle when click out side the bottomSheet
+ * @param {boolean} isVisible true => display bottomSheet
+ */
 export function GenericBottomSheetDialog(
   props: BottomSheetDialogProps,
 ): JSX.Element {
