@@ -153,7 +153,7 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
           />
         </View>
 
-        <View style={styles.viewContainer}>
+        <View style={styles.buttonContainer}>
           <Button onPress={() => signUp(email, password)} title="SIGN UP" />
           <TextLink
             text="Already have an account, "
@@ -175,8 +175,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
   },
-  viewContainer: {
+  buttonContainer: {
     paddingHorizontal: 10,
+    gap: 20,
   },
   space: {
     height: 100,

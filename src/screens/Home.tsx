@@ -8,9 +8,10 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {CreateReviewScreen} from './CreateReview';
+import {ManageAccountInfo} from './ManageAccountInfo';
 
 export function HomeScreen(): JSX.Element {
-  return <></>;
+  return <ManageAccountInfo />;
 }
 
 export function HomeStackScreen(): JSX.Element {
