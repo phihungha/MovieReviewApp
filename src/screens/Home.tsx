@@ -8,9 +8,60 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {CreateReviewScreen} from './CreateReview';
+import {FlatList, Pressable} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {MovieGridItem} from '../components/Items/MovieGridItem';
+import {BigTitleText} from '../components/Text/BigTitleText';
 
-export function HomeScreen(): JSX.Element {
-  return <></>;
+export function ItemSeparatorComponent(): JSX.Element {
+  return <View style={styles.ItemSeparator} />;
+}
+
+export function HorizontalItemSeparator(): JSX.Element {
+  return <View style={styles.HorizontalItemSeparator} />;
+}
+
+export function HomeScreen({navigation}: {navigation: any}): JSX.Element {
+  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  return (
+    <View>
+      <View>
+        <View style={styles.padding}>
+          <BigTitleText>Popular</BigTitleText>
+        </View>
+        <FlatList
+          key={'#'}
+          style={styles.padding}
+          data={arr}
+          renderItem={({item}) => (
+            <Pressable
+              onPress={() => navigation.navigate('MovieDetails', item)}>
+              <MovieGridItem />
+            </Pressable>
+          )}
+          horizontal
+          ItemSeparatorComponent={HorizontalItemSeparator}
+        />
+      </View>
+
+      <View style={styles.padding}>
+        <BigTitleText>Recently released</BigTitleText>
+      </View>
+      <FlatList
+        key={'_'}
+        columnWrapperStyle={styles.columnWrap}
+        style={styles.padding}
+        data={arr}
+        renderItem={({item}) => (
+          <Pressable onPress={() => navigation.navigate('MovieDetails', item)}>
+            <MovieGridItem />
+          </Pressable>
+        )}
+        numColumns={2}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
+    </View>
+  );
 }
 
 export function HomeStackScreen(): JSX.Element {
@@ -52,3 +103,20 @@ export function HomeStackScreen(): JSX.Element {
     </HomeStackNavigator.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  padding: {
+    padding: 10,
+  },
+  columnWrap: {
+    justifyContent: 'space-around',
+  },
+  HorizontalItemSeparator: {
+    height: '100%',
+    width: 20,
+  },
+  ItemSeparator: {
+    height: 20,
+    width: 20,
+  },
+});
