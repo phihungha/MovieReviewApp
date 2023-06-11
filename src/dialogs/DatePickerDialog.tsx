@@ -3,7 +3,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-type OnSelectedDate = (date: Date) => void;
+export type OnSelectedDate = (date: Date) => void;
 
 interface DatePickerDialogProps {
   onSelectedDate: OnSelectedDate;

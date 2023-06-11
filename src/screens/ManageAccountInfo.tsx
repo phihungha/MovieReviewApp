@@ -1,90 +1,56 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {TextLink} from '../components/Buttons/TextLink';
-import {Avatar, Button} from '@rneui/themed';
-import {RegularText} from '../components/Text/RegularText';
-import {BigTitleText} from '../components/Text/BigTitleText';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../styles/colors';
+import {Button} from '@rneui/themed';
+import {ManageAccountProfilePictureDisplay} from '../components/Display/ManageAccountProfilePictureDisplay';
+import {ManageAccountInformationDisplay} from '../components/Display/ManageAccountInformationDisplay';
 
 export function ManageAccountInfo(): JSX.Element {
-  const onClicked = () => {};
-  const uri = 'https://uifaces.co/our-content/donated/6MWH9Xi_.jpg';
+  const [birthdayText, setBirthdayText] = useState('');
+  const [country, setCountry] = useState('');
+  const [type, setType] = useState('');
+  const [favoriteGenre, setFavoriteGenre] = useState('');
+
+  const onClickedText = () => {
+    console.log('Choose image');
+  };
+  const onSelectedCountry = (item: any) => {
+    setCountry(item.title);
+  };
+  const onSelectedType = (item: any) => {
+    setType(item.title);
+  };
+  const onSelectedFavoriteGenre = (item: any) => {
+    setFavoriteGenre(item.title);
+  };
+  const onSelectedBirthday = (date: any) => {
+    let tempDate = new Date(date);
+    let dateToText =
+      tempDate.getMonth() +
+      1 +
+      '/' +
+      tempDate.getDate() +
+      '/' +
+      tempDate.getFullYear();
+    setBirthdayText(dateToText);
+  };
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View>
-          <View style={{gap: 12}}>
-            <View style={styles.titleLine}>
-              <BigTitleText>Profile Picture</BigTitleText>
-              <TextLink text="" textLink="edit" onClicked={onClicked} />
-            </View>
-
-            <View style={styles.avatarContainer}>
-              <Avatar size={128} rounded source={{uri: uri}} />
-            </View>
-          </View>
-
-          <View style={{gap: 12}}>
-            <View style={styles.titleLine}>
-              <BigTitleText>Detail</BigTitleText>
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: colors.mediumBlack,
-                paddingHorizontal: 20,
-                paddingVertical: 12,
-                borderRadius: 12,
-              }}>
-              <RegularText>Birthday: 11/2/2023</RegularText>
-              <Icon name="earth" size={24} color={colors.white} />
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: colors.mediumBlack,
-                paddingHorizontal: 20,
-                paddingVertical: 12,
-                borderRadius: 12,
-              }}>
-              <RegularText>Birthday: 11/2/2023</RegularText>
-              <Icon name="earth" size={24} color={colors.white} />
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: colors.mediumBlack,
-                paddingHorizontal: 20,
-                paddingVertical: 12,
-                borderRadius: 12,
-              }}>
-              <RegularText>Birthday: 11/2/2023</RegularText>
-              <Icon name="earth" size={24} color={colors.white} />
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                backgroundColor: colors.mediumBlack,
-                paddingHorizontal: 20,
-                paddingVertical: 12,
-                borderRadius: 12,
-              }}>
-              <RegularText>Birthday: 11/2/2023</RegularText>
-              <Icon name="earth" size={24} color={colors.white} />
-            </View>
-
-            <Button>Save</Button>
-          </View>
-        </View>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <ManageAccountProfilePictureDisplay
+          name="Name"
+          onClickedText={onClickedText}
+        />
+        <ManageAccountInformationDisplay
+          countryValue={country}
+          typeValue={type}
+          favoriteGenreValue={favoriteGenre}
+          birthdayValue={birthdayText}
+          onSelectedCountry={onSelectedCountry}
+          onSelectedType={onSelectedType}
+          onSelectedFavoriteGenre={onSelectedFavoriteGenre}
+          onSelectedDate={onSelectedBirthday}
+        />
+        <Button>Save</Button>
       </ScrollView>
     </View>
   );
@@ -95,14 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
-  titleLine: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  scrollView: {
+    gap: 12,
   },
-  avatarContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePicture: {},
 });

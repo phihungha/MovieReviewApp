@@ -7,7 +7,7 @@ import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
 
 export type OnPressItem = (item: ItemTitleOnly) => void;
 
-interface EventProps {
+export interface EventBottomSheetProps {
   onPressItemBottomSheet: OnPressItem;
   iconColor?: string;
   iconSize?: number;
@@ -24,7 +24,7 @@ interface EventProps {
  * @param {{}[]} listItem list item want to display on BottomSheet
  */
 export function GenericBottomSheetHandleItemPressDialog(
-  props: EventProps,
+  props: EventBottomSheetProps,
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
 
