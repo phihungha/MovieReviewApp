@@ -9,9 +9,13 @@ export function ManageAccountInfo(): JSX.Element {
   const [country, setCountry] = useState('');
   const [type, setType] = useState('');
   const [favoriteGenre, setFavoriteGenre] = useState('');
+  const [name, setName] = useState('Name');
 
-  const onClickedText = () => {
+  const onSelectedImage = () => {
     console.log('Choose image');
+  };
+  const onSelectedName = (name: string) => {
+    setName(name);
   };
   const onSelectedCountry = (item: any) => {
     setCountry(item.title);
@@ -37,8 +41,9 @@ export function ManageAccountInfo(): JSX.Element {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ManageAccountProfilePictureDisplay
-          name="Name"
-          onClickedText={onClickedText}
+          nameValue={name}
+          onSelectedName={onSelectedName}
+          onSelectedImage={onSelectedImage}
         />
         <ManageAccountInformationDisplay
           countryValue={country}

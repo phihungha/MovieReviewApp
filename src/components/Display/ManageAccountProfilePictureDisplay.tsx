@@ -1,24 +1,25 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Avatar} from '@rneui/themed';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BigTitleText} from '../Text/BigTitleText';
 import {TextLink} from '../Buttons/TextLink';
 import {TitleText} from '../Text/TitleText';
-import colors from '../../styles/colors';
 import {ActionCb} from '../../types/ActionCb';
+import {ChangeNameDialog, OnSelectedName} from '../../dialogs/ChangeNameDialog';
 
 interface ManageAccountProfilePictureProps {
   imageUri?: string;
-  name: string;
-  onClickedText: ActionCb;
+  nameValue: string;
+  onSelectedName: OnSelectedName;
+  onSelectedImage: ActionCb;
 }
 
 /**
  * @using display the profile picture in ManageAccountInfo Screen
- * @param {string} imageUri Receive selection country result
- * @param {string} name name of user
- * @param {ActionCb} onClickedText action clicked on Edit (change image)
+ * @param {string} imageUri uri of image
+ * @param {string} nameValue name of user
+ * @param {OnSelectedName} onSelectedName action clicked when accept changing name from dialog (change name)
+ * @param {ActionCb} onSelectedImage action clicked on Edit (change image)
  */
 export function ManageAccountProfilePictureDisplay(
   props: ManageAccountProfilePictureProps,
@@ -28,7 +29,7 @@ export function ManageAccountProfilePictureDisplay(
     <View style={styles.container}>
       <View style={styles.titleLine}>
         <BigTitleText>Profile Picture</BigTitleText>
-        <TextLink text="" textLink="EDIT" onClicked={props.onClickedText} />
+        <TextLink text="" textLink="EDIT" onClicked={props.onSelectedImage} />
       </View>
 
       <View style={styles.avatarContainer}>
@@ -37,10 +38,13 @@ export function ManageAccountProfilePictureDisplay(
           rounded
           source={{uri: props.imageUri ? props.imageUri : uri}}
         />
-        <View style={styles.nameContainer}>
-          <TitleText>{props.name}</TitleText>
-          <Icon name="pen" size={20} color={colors.white} />
-        </View>
+
+        <TitleText>{props.nameValue}</TitleText>
+
+        <ChangeNameDialog
+          openBtnTitle="Change name"
+          onSelectedName={props.onSelectedName}
+        />
       </View>
     </View>
   );
@@ -57,9 +61,6 @@ const styles = StyleSheet.create({
   avatarContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  nameContainer: {
-    flexDirection: 'row',
     gap: 8,
   },
 });
