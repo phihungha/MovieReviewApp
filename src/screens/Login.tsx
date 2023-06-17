@@ -41,7 +41,7 @@ export function LoginScreen({navigation}: Props): JSX.Element {
         />
       </View>
 
-      <View style={styles.viewContainer}>
+      <View style={styles.buttonContainer}>
         <Button onPress={() => login(email, password)}>LOGIN</Button>
         <TextLink
           text="Didn't have an account, "
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
   },
-  viewContainer: {
+  buttonContainer: {
     paddingHorizontal: 10,
+    gap: 20,
   },
 });

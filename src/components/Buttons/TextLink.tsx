@@ -40,6 +40,5 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'row',
-    marginTop: 20,
   },
 });

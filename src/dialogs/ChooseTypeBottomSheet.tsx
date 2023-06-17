@@ -6,7 +6,7 @@ import {
   OnPressItem,
 } from './GenericBottomSheetHandleItemPressDialog';
 
-const list = [
+export const typeList = [
   {id: 1, title: 'Critic'},
   {id: 2, title: 'Regular'},
 ];
@@ -32,7 +32,7 @@ export function ChooseTypeBottomSheet(
   return (
     <GenericBottomSheetHandleItemPressDialog
       onPressItemBottomSheet={item => onPressItem(item)}
-      listItem={list}
+      listItem={typeList}
       iconName="account-tie"
       iconColor={props.iconColor}
       iconSize={props.iconSize}

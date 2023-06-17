@@ -5,7 +5,7 @@ import {
   OnPressItem,
 } from './GenericBottomSheetHandleItemPressDialog';
 
-const list = [
+export const countryList = [
   {id: 1, title: 'Country 1'},
   {id: 2, title: 'Country 2'},
   {id: 3, title: 'Country 3'},
@@ -38,7 +38,7 @@ export function ChooseCountryBottomSheetDialog(
   return (
     <GenericBottomSheetHandleItemPressDialog
       onPressItemBottomSheet={item => onPressItem(item)}
-      listItem={list}
+      listItem={countryList}
       iconName="earth"
       iconColor={props.iconColor}
       iconSize={props.iconSize}

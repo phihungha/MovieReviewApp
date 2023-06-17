@@ -5,7 +5,7 @@ import {
   OnPressItem,
 } from './GenericBottomSheetHandleItemPressDialog';
 
-const list = [
+export const genreList = [
   {id: 1, title: 'Genre 1'},
   {id: 2, title: 'Genre 2'},
   {id: 3, title: 'Genre 3'},
@@ -44,7 +44,7 @@ export function ChooseFavoriteGenresBottomSheetDialog(
   return (
     <GenericBottomSheetHandleItemPressDialog
       onPressItemBottomSheet={item => onPressItem(item)}
-      listItem={list}
+      listItem={genreList}
       iconName="view-list"
       iconColor={props.iconColor}
       iconSize={props.iconSize}
