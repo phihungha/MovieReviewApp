@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {HomeStackNavigator} from '../navigators/HomeStackNavigator';
 import {MovieDetailsScreen} from './MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
@@ -12,6 +12,7 @@ import {FlatList, Pressable} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import {MovieGridItem} from '../components/Items/MovieGridItem';
 import {BigTitleText} from '../components/Text/BigTitleText';
+import {Header, Input, Button, Icon} from '@rneui/themed';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -23,14 +24,31 @@ export function HorizontalItemSeparator(): JSX.Element {
 
 export function HomeScreen({navigation}: {navigation: any}): JSX.Element {
   const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  return (
-    <View>
+  const [search, setSearch] = useState('');
+
+  if (search !== '') {
+    return (
       <View>
-        <View style={styles.padding}>
-          <BigTitleText>Popular</BigTitleText>
-        </View>
+        <Header
+          centerComponent={
+            <Input
+              rightIcon={{color: 'white', name: 'search'}}
+              value={search}
+              onChangeText={setSearch}
+              placeholder="Search movies..."
+            />
+          }
+          rightComponent={
+            <Button
+              buttonStyle={styles.ButtonFilter}
+              onPress={() => console.log('in progress')}>
+              <Icon color="white" type="font-awesome" name="filter" />
+            </Button>
+          }
+        />
         <FlatList
-          key={'#'}
+          key={'/'}
+          columnWrapperStyle={styles.columnWrap}
           style={styles.padding}
           data={arr}
           renderItem={({item}) => (
@@ -39,29 +57,68 @@ export function HomeScreen({navigation}: {navigation: any}): JSX.Element {
               <MovieGridItem />
             </Pressable>
           )}
-          horizontal
-          ItemSeparatorComponent={HorizontalItemSeparator}
+          numColumns={2}
+          ItemSeparatorComponent={ItemSeparatorComponent}
         />
       </View>
+    );
+  } else {
+    return (
+      <View>
+        <View>
+          <Header
+            centerComponent={
+              <Input
+                rightIcon={{color: 'white', name: 'search'}}
+                value={search}
+                onChangeText={setSearch}
+                placeholder="Search movies..."
+              />
+            }
+            rightComponent={
+              <Button buttonStyle={styles.ButtonFilter}>
+                <Icon color="white" type="font-awesome" name="filter" />
+              </Button>
+            }
+          />
+          <View style={styles.padding}>
+            <BigTitleText>Popular</BigTitleText>
+          </View>
+          <FlatList
+            key={'#'}
+            style={styles.padding}
+            data={arr}
+            renderItem={({item}) => (
+              <Pressable
+                onPress={() => navigation.navigate('MovieDetails', item)}>
+                <MovieGridItem />
+              </Pressable>
+            )}
+            horizontal
+            ItemSeparatorComponent={HorizontalItemSeparator}
+          />
+        </View>
 
-      <View style={styles.padding}>
-        <BigTitleText>Recently released</BigTitleText>
+        <View style={styles.padding}>
+          <BigTitleText>Recently released</BigTitleText>
+        </View>
+        <FlatList
+          key={'_'}
+          columnWrapperStyle={styles.columnWrap}
+          style={styles.padding}
+          data={arr}
+          renderItem={({item}) => (
+            <Pressable
+              onPress={() => navigation.navigate('MovieDetails', item)}>
+              <MovieGridItem />
+            </Pressable>
+          )}
+          numColumns={2}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+        />
       </View>
-      <FlatList
-        key={'_'}
-        columnWrapperStyle={styles.columnWrap}
-        style={styles.padding}
-        data={arr}
-        renderItem={({item}) => (
-          <Pressable onPress={() => navigation.navigate('MovieDetails', item)}>
-            <MovieGridItem />
-          </Pressable>
-        )}
-        numColumns={2}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-      />
-    </View>
-  );
+    );
+  }
 }
 
 export function HomeStackScreen(): JSX.Element {
@@ -118,5 +175,8 @@ const styles = StyleSheet.create({
   ItemSeparator: {
     height: 20,
     width: 20,
+  },
+  ButtonFilter: {
+    backgroundColor: '#2A2C36',
   },
 });
