@@ -109,6 +109,8 @@ export function HomeScreen({navigation}: {navigation: any}): JSX.Element {
   const HandleReset = async () => {
     setConditionSort('');
     setConditionFilter('');
+    setMinRange('');
+    setMaxRange('');
     setIsVisible(false);
   };
 
