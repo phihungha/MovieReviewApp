@@ -5,7 +5,9 @@ import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
 export function SubtitleText(props: TextProps): JSX.Element {
-  return <Text style={subtitleStyles.text}>{props.children}</Text>;
+  return (
+    <Text style={[subtitleStyles.text, props.style]}>{props.children}</Text>
+  );
 }
 
 const subtitleStyles = StyleSheet.create({
