@@ -5,7 +5,7 @@ import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
 export function TitleText(props: TextProps): JSX.Element {
-  return <Text style={titleStyles.text}>{props.children}</Text>;
+  return <Text style={[titleStyles.text, props.style]}>{props.children}</Text>;
 }
 
 const titleStyles = StyleSheet.create({

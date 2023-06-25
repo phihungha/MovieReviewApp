@@ -34,21 +34,28 @@ export const theme = createTheme({
     },
 
     Input: {
-      inputStyle: {
-        fontFamily: fonts.primary,
-        color: colors.white,
+      inputContainerStyle: {
         backgroundColor: colors.mediumBlack,
-        borderRadius: 8,
-        paddingVertical: 4,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        textDecorationLine: 'none',
-        fontSize: fontSizes.lg,
+        borderRadius: 4,
+        borderColor: 'transparent',
+        paddingHorizontal: 16,
+        paddingTop: 16,
+        paddingBottom: 0,
       },
-      labelStyle: {
+      inputStyle: {
+        fontWeight: 'normal',
+        color: colors.white,
         fontSize: fontSizes.md,
         fontFamily: fonts.primary,
+      },
+      labelStyle: {
+        fontFamily: fonts.primary,
+        fontWeight: 'normal',
         color: colors.lightGrey,
+        zIndex: 100,
+        fontSize: fontSizes.sm,
+        marginBottom: -24,
+        marginStart: 20,
       },
     },
   },
