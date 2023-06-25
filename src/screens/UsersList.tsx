@@ -8,11 +8,58 @@ import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
+import {TitleText} from '../components/Text/TitleText';
+import {UserListItem} from '../components/Items/UserListItem';
 
-export function UsersListScreen(): JSX.Element {
-  return <></>;
+export function ItemSeparatorComponent(): JSX.Element {
+  return <View style={styles.ItemSeparator} />;
 }
-
+export function HorizontalItemSeparator(): JSX.Element {
+  return <View style={styles.HorizontalItemSeparator} />;
+}
+export function UsersListScreen(): JSX.Element {
+  const arr: number[] = [1, 2, 3, 4];
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.text}>
+          <TitleText>All Users</TitleText>
+        </View>
+      </View>
+      <FlatList
+        style={styles.padding}
+        data={arr}
+        renderItem={UserListItem}
+        ItemSeparatorComponent={HorizontalItemSeparator}
+      />
+    </ScrollView>
+  );
+}
+const styles = StyleSheet.create({
+  padding: {
+    padding: 10,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#2A2C36',
+    height: 50,
+  },
+  ItemSeparator: {
+    height: 20,
+    width: '100%',
+  },
+  HorizontalItemSeparator: {
+    marginVertical: 10,
+    width: 1,
+  },
+  text: {
+    padding: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 export function UsersListStackScreen(): JSX.Element {
   return (
     <UsersListStackNavigator.Navigator screenOptions={{headerShown: false}}>
