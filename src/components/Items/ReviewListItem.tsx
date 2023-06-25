@@ -5,11 +5,27 @@ import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
 import {ReviewCommentButton} from '../Buttons/ReviewCommentButton';
 import {ReviewLikeButton} from '../Buttons/ReviewLikeButton';
+import {ItemTitleOnly} from './BottomSheetListItem';
+import {ReviewListItemMoreButton} from '../Buttons/ReviewListItemMoreButton';
 
 /**
  * Item for a list of reviews.
  */
 export function ReviewListItem(): JSX.Element {
+  const onSelectedItem = (item: ItemTitleOnly) => {
+    switch (item.id) {
+      case 'hide':
+        console.log('hide review');
+        break;
+      case 'open':
+        console.log('open review');
+        break;
+      case 'share':
+        console.log('share review');
+        break;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <HorizontalProfileDisplay
@@ -22,6 +38,8 @@ export function ReviewListItem(): JSX.Element {
         <ReviewLikeButton />
         <ReviewCommentButton />
       </View>
+
+      <ReviewListItemMoreButton onSelectedItem={onSelectedItem} />
     </View>
   );
 }

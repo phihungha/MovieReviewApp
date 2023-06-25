@@ -18,12 +18,17 @@ const MainTabScreenOptions = ({route}: any) => ({
       icon = focused
         ? (icon = <Icon name="movie-open" size={size} color={color} />)
         : (icon = <Icon name="movie-open-outline" size={size} color={color} />);
+    } else if (route.name === 'UsersListStack') {
+      icon = focused
+        ? (icon = <Icon name="account-group" size={size} color={color} />)
+        : (icon = (
+            <Icon name="account-group-outline" size={size} color={color} />
+          ));
     } else if (route.name === 'MyAccountStack') {
       icon = focused
         ? (icon = <Icon name="account" size={size} color={color} />)
         : (icon = <Icon name="account-outline" size={size} color={color} />);
     }
-    // You can return any component that you like here!
     return icon;
   },
   tabBarStyle: {

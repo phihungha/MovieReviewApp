@@ -5,7 +5,9 @@ import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
 export function SectionText(props: TextProps): JSX.Element {
-  return <Text style={sectionStyles.text}>{props.children}</Text>;
+  return (
+    <Text style={[sectionStyles.text, props.style]}>{props.children}</Text>
+  );
 }
 
 const sectionStyles = StyleSheet.create({
