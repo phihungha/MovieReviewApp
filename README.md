@@ -3,4 +3,4 @@
 Technology:
 
 - React Native
-- GraphQL + Apollo Client
+- GraphQL + Relay
