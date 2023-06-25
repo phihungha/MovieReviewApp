@@ -7,4 +7,6 @@ export type MainStackParams = {
   UserReviewsList: undefined;
   UserLikedCommentsList: undefined;
   CreateReviewScreen: undefined;
+  // MyWatchedList: undefined;
+  // MyReviewsList: undefined;
 };

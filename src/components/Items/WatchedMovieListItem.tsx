@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
+    width: '100%',
+    marginHorizontal: 'auto',
   },
   image: {
     width: 80,
