@@ -7,8 +7,10 @@ import {
   Variables,
 } from 'relay-runtime';
 
+const API_URL = 'https://cinerate-app.05052023.xyz/';
+
 async function fetchQuery(operation: RequestParameters, variables: Variables) {
-  const resp = await fetch('', {
+  const resp = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
