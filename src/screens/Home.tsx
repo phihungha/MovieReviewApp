@@ -20,20 +20,46 @@ import {
   HorizontalMovieListItemSeparator,
   VerticalMovieListItemSeparator,
 } from '../components/ListItemSeparators/MovieListItemSeparators';
+import {graphql} from 'relay-runtime';
+import {useLazyLoadQuery} from 'react-relay';
+import type {HomeQuery} from './__generated__/HomeQuery.graphql';
+
+const HomeQuery = graphql`
+  query HomeQuery {
+    trendingMovies {
+      edges {
+        node {
+          id
+          ...MovieGridItemFragment
+        }
+      }
+    }
+    justReleasedMovies {
+      edges {
+        node {
+          id
+          ...MovieGridItemFragment
+        }
+      }
+    }
+  }
+`;
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
 
 export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
-  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const moviesData = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
 
   return (
     <ScrollView contentContainerStyle={styles.mainContainerContent}>
       <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
         <FlatList
-          data={arr}
-          renderItem={() => (
+          data={moviesData.trendingMovies.edges}
+          keyExtractor={item => item!.node.id}
+          renderItem={({item}) => (
             <MovieGridItem
+              movie={item!.node}
               onPress={() => navigation.navigate('MovieDetails')}
               containerStyle={styles.horizontalGridItem}
             />
@@ -48,9 +74,11 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
         <FlatList
           key={'_'}
           columnWrapperStyle={styles.columnWrap}
-          data={arr}
-          renderItem={() => (
+          keyExtractor={item => item!.node.id}
+          data={moviesData.justReleasedMovies.edges}
+          renderItem={({item}) => (
             <MovieGridItem
+              movie={item!.node}
               onPress={() => navigation.navigate('MovieDetails')}
               containerStyle={styles.verticalGridItem}
             />

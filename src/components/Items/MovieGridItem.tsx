@@ -7,8 +7,22 @@ import {TitleText} from '../Text/TitleText';
 import {SubtitleText} from '../Text/SubtitleText';
 import {ActionCb} from '../../types/ActionCb';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
+import {graphql} from 'relay-runtime';
+import {useFragment} from 'react-relay';
+import type {MovieGridItemFragment$key} from './__generated__/MovieGridItemFragment.graphql';
+
+const MovieGridItemFragment = graphql`
+  fragment MovieGridItemFragment on Movie {
+    title
+    posterUrl
+    releaseDate
+    criticScore
+    regularScore
+  }
+`;
 
 interface MovieGridItemProps {
+  movie: MovieGridItemFragment$key;
   onPress?: ActionCb;
   containerStyle?: StyleProp<ViewStyle>;
 }
@@ -17,6 +31,7 @@ interface MovieGridItemProps {
  * Item for a grid list of movies.
  */
 export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
+  const data = useFragment(MovieGridItemFragment, props.movie);
   return (
     <View style={StyleSheet.compose(styles.container, props.containerStyle)}>
       <Pressable
@@ -26,16 +41,16 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
         <Image
           style={styles.posterImage}
           source={{
-            uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
+            uri: data.posterUrl ?? '',
           }}
           resizeMode="cover"
         />
         <View style={styles.infoContainer}>
-          <TitleText>John Wick</TitleText>
-          <SubtitleText>2014</SubtitleText>
+          <TitleText>{data.title}</TitleText>
+          <SubtitleText>{data.releaseDate}</SubtitleText>
           <View style={styles.scoresContainer}>
-            <CriticReviewScoreIndicator score={8.3} />
-            <RegularReviewScoreIndicator score={8.5} />
+            <CriticReviewScoreIndicator score={data.criticScore} />
+            <RegularReviewScoreIndicator score={data.regularScore} />
           </View>
         </View>
       </Pressable>
