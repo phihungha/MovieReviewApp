@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {MoviesListStackNavigator} from '../navigators/MoviesListStackNavigator';
+import {
+  MoviesListStackNavigator,
+  MoviesListStackParams,
+} from '../navigators/MoviesListStackNavigator';
 import {MovieDetailsScreen} from './MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
 import {ReviewDetailsScreen} from './ReviewDetails';
@@ -9,10 +12,9 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 import {fontSizes, fonts} from '../styles/typography';
-import {FlatList, Pressable} from 'react-native';
+import {FlatList} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import {MovieGridItem} from '../components/Items/MovieGridItem';
-
 import {
   Header,
   Input,
@@ -23,12 +25,20 @@ import {
   Dialog,
 } from '@rneui/themed';
 import {TitleText} from '../components/Text/TitleText';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
 }
 
-export function MoviesListScreen({navigation}): JSX.Element {
+type MoviesListScreenProps = NativeStackScreenProps<
+  MoviesListStackParams,
+  'MoviesList'
+>;
+
+export function MoviesListScreen({
+  navigation,
+}: MoviesListScreenProps): JSX.Element {
   const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [search, setSearch] = useState('');
   const [minRange, setMinRange] = useState('');
@@ -215,10 +225,8 @@ export function MoviesListScreen({navigation}): JSX.Element {
         columnWrapperStyle={styles.columnWrap}
         style={styles.padding}
         data={arr}
-        renderItem={({item}) => (
-          <Pressable onPress={() => navigation.navigate('MovieDetails', item)}>
-            <MovieGridItem />
-          </Pressable>
+        renderItem={() => (
+          <MovieGridItem onPress={() => navigation.navigate('MovieDetails')} />
         )}
         numColumns={2}
         ItemSeparatorComponent={ItemSeparatorComponent}
