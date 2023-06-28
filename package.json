@@ -11,7 +11,8 @@
     "start": "react-native start",
     "test": "jest",
     "prepare": "husky install",
-    "relay": "relay-compiler"
+    "relay:start": "relay-compiler --watch",
+    "relay:generate": "relay-compiler"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
