@@ -26,10 +26,7 @@ import {
 } from '@rneui/themed';
 import {TitleText} from '../components/Text/TitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
-}
+import {VerticalMovieListItemSeparator} from '../components/ListItemSeparators/MovieListItemSeparators';
 
 type MoviesListScreenProps = NativeStackScreenProps<
   MoviesListStackParams,
@@ -214,22 +211,24 @@ export function MoviesListScreen({
         }
         rightComponent={
           <Button
-            buttonStyle={styles.ButtonFilter}
+            buttonStyle={styles.filterBtn}
             onPress={() => setIsVisible(true)}>
             <Icon color="white" type="font-awesome" name="filter" />
           </Button>
         }
       />
       <FlatList
-        key={'/'}
-        columnWrapperStyle={styles.columnWrap}
+        columnWrapperStyle={styles.gridRow}
         style={styles.padding}
         data={arr}
         renderItem={() => (
-          <MovieGridItem onPress={() => navigation.navigate('MovieDetails')} />
+          <MovieGridItem
+            onPress={() => navigation.navigate('MovieDetails')}
+            containerStyle={styles.gridItem}
+          />
         )}
         numColumns={2}
-        ItemSeparatorComponent={ItemSeparatorComponent}
+        ItemSeparatorComponent={VerticalMovieListItemSeparator}
       />
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
@@ -314,6 +313,60 @@ export function MoviesListScreen({
   );
 }
 
+const styles = StyleSheet.create({
+  padding: {
+    padding: 10,
+  },
+  gridItem: {
+    flex: 0.5,
+  },
+  gridRow: {
+    justifyContent: 'space-around',
+    gap: 5,
+  },
+  filterBtn: {
+    backgroundColor: '#2A2C36',
+  },
+  rangeContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    padding: 10,
+  },
+  titleTextDialog: {
+    color: 'white',
+    fontFamily: fonts.primaryBold,
+    fontSize: fontSizes.lg,
+    textAlign: 'left',
+  },
+  container: {
+    paddingHorizontal: 20,
+    backgroundColor: 'black',
+    paddingVertical: 12,
+  },
+  containerButtonDialog: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
+    marginRight: 10,
+    marginBottom: 5,
+    marginTop: -16,
+  },
+  yesDialogButton: {
+    width: 100,
+    borderRadius: 12,
+    backgroundColor: '#EF3651',
+  },
+  noDialogButton: {
+    width: 100,
+    borderRadius: 12,
+    backgroundColor: '#2A2C36',
+  },
+});
+
 export function MoviesListStackScreen(): JSX.Element {
   return (
     <MoviesListStackNavigator.Navigator screenOptions={{headerShown: false}}>
@@ -356,61 +409,3 @@ export function MoviesListStackScreen(): JSX.Element {
     </MoviesListStackNavigator.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  padding: {
-    padding: 10,
-  },
-  columnWrap: {
-    justifyContent: 'space-around',
-  },
-  HorizontalItemSeparator: {
-    height: '100%',
-    width: 20,
-  },
-  ItemSeparator: {
-    height: 20,
-    width: 20,
-  },
-  ButtonFilter: {
-    backgroundColor: '#2A2C36',
-  },
-  RangeContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 10,
-    padding: 10,
-  },
-  titleTextDialog: {
-    color: 'white',
-    fontFamily: fonts.primaryBold,
-    fontSize: fontSizes.lg,
-    textAlign: 'left',
-  },
-  container: {
-    paddingHorizontal: 20,
-    backgroundColor: 'black',
-    paddingVertical: 12,
-  },
-  containerButtonDialog: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 10,
-    marginRight: 10,
-    marginBottom: 5,
-    marginTop: -16,
-  },
-  yesDialogButton: {
-    width: 100,
-    borderRadius: 12,
-    backgroundColor: '#EF3651',
-  },
-  noDialogButton: {
-    width: 100,
-    borderRadius: 12,
-    backgroundColor: '#2A2C36',
-  },
-});

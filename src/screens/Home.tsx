@@ -16,14 +16,10 @@ import {StyleSheet, View} from 'react-native';
 import {MovieGridItem} from '../components/Items/MovieGridItem';
 import {BigTitleText} from '../components/Text/BigTitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-
-export function VerticalItemSeparator(): JSX.Element {
-  return <View style={styles.verticalItemSeparator} />;
-}
-
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.horizontalItemSeparator} />;
-}
+import {
+  HorizontalMovieListItemSeparator,
+  VerticalMovieListItemSeparator,
+} from '../components/ListItemSeparators/MovieListItemSeparators';
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
 
@@ -31,10 +27,8 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
   const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
-    <ScrollView
-      style={styles.mainContainer}
-      contentContainerStyle={styles.mainContainerContent}>
-      <View style={styles.popularSectionContainer}>
+    <ScrollView contentContainerStyle={styles.mainContainerContent}>
+      <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
         <FlatList
           data={arr}
@@ -45,11 +39,11 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             />
           )}
           horizontal
-          ItemSeparatorComponent={HorizontalItemSeparator}
+          ItemSeparatorComponent={HorizontalMovieListItemSeparator}
         />
       </View>
 
-      <View style={styles.recentSectionContainer}>
+      <View style={styles.sectionContainer}>
         <BigTitleText>Recently released</BigTitleText>
         <FlatList
           key={'_'}
@@ -62,7 +56,7 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
             />
           )}
           numColumns={2}
-          ItemSeparatorComponent={VerticalItemSeparator}
+          ItemSeparatorComponent={VerticalMovieListItemSeparator}
         />
       </View>
     </ScrollView>
@@ -70,16 +64,11 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    padding: 10,
-  },
   mainContainerContent: {
+    padding: 5,
     gap: 10,
   },
-  popularSectionContainer: {
-    gap: 10,
-  },
-  recentSectionContainer: {
+  sectionContainer: {
     gap: 10,
   },
   columnWrap: {
@@ -91,12 +80,6 @@ const styles = StyleSheet.create({
   },
   verticalGridItem: {
     flex: 0.5,
-  },
-  horizontalItemSeparator: {
-    width: 5,
-  },
-  verticalItemSeparator: {
-    height: 5,
   },
 });
 
