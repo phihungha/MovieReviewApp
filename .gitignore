@@ -64,3 +64,6 @@ yarn-error.log
 
 # Cache files
 .eslintcache
+
+# testing
+/coverage

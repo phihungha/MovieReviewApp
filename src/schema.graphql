@@ -1,3 +1,879 @@
+type ActingCredit implements Node {
+  actor: CrewMember!
+  characterName: String!
+  id: ID!
+  movie: Movie!
+}
+
+type AlreadyExistsError implements Error {
+  message: String!
+}
+
+type AuthError implements Error {
+  message: String!
+}
+
+type BaseError implements Error {
+  message: String!
+}
+
+type Collection implements Node {
+  author: User!
+  creationTime: DateTime!
+  id: ID!
+  lastUpdateTime: DateTime
+  likeCount: Int!
+  likeUsers(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CollectionLikeUsersConnection!
+  movies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CollectionMoviesConnection!
+  name: String!
+}
+
+type CollectionLikeUsersConnection {
+  edges: [CollectionLikeUsersConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CollectionLikeUsersConnectionEdge {
+  cursor: ID!
+  node: User!
+}
+
+type CollectionMoviesConnection {
+  edges: [CollectionMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CollectionMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+enum CollectionSortBy {
+  CreationDate
+  LikeCount
+  Name
+}
+
+type Comment implements Node {
+  author: User!
+  content: String!
+  id: ID!
+  lastUpdateTime: DateTime
+  postTime: DateTime!
+  review: Review!
+}
+
+type Company implements Node {
+  distributedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CompanyDistributedMoviesConnection!
+  id: ID!
+  name: String!
+  producedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CompanyProducedMoviesConnection!
+}
+
+type CompanyDistributedMoviesConnection {
+  edges: [CompanyDistributedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CompanyDistributedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type CompanyProducedMoviesConnection {
+  edges: [CompanyProducedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CompanyProducedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+input CreateCommentInput {
+  content: String!
+  reviewId: ID!
+}
+
+input CreateReviewInput {
+  content: String!
+  externalUrl: String
+  movieId: ID!
+  score: Int!
+  title: String!
+}
+
+type CrewMember implements Node {
+  avatarUrl: String
+  directedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberDirectedMoviesConnection!
+  dopMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberDopMoviesConnection!
+  editedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberEditedMoviesConnection!
+  id: ID!
+  name: String!
+  scoredMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberScoredMoviesConnection!
+  writtenMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberWrittenMoviesConnection!
+}
+
+type CrewMemberDirectedMoviesConnection {
+  edges: [CrewMemberDirectedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CrewMemberDirectedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type CrewMemberDopMoviesConnection {
+  edges: [CrewMemberDopMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CrewMemberDopMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type CrewMemberEditedMoviesConnection {
+  edges: [CrewMemberEditedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CrewMemberEditedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type CrewMemberScoredMoviesConnection {
+  edges: [CrewMemberScoredMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CrewMemberScoredMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type CrewMemberWrittenMoviesConnection {
+  edges: [CrewMemberWrittenMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type CrewMemberWrittenMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+input CriticSignUpInput {
+  blogUrl: String!
+  dateOfBirth: Date
+  gender: Gender
+  username: String!
+}
+
+input CriticUserUpdateInput {
+  avatarUrl: String
+  blogUrl: String
+  dateOfBirth: Date
+  gender: Gender
+  username: String
+}
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+input EditCommentInput {
+  content: String
+}
+
+input EditReviewInput {
+  content: String
+  externalUrl: String
+  score: Int
+  title: String
+}
+
+interface Error {
+  message: String!
+}
+
+type FieldValidationError {
+  message: String!
+  path: [String!]!
+}
+
+enum Gender {
+  Female
+  Male
+  Other
+}
+
+type Genre implements Node {
+  id: ID!
+  movies(after: ID, before: ID, first: Int, last: Int): GenreMoviesConnection!
+  name: String!
+}
+
+type GenreMoviesConnection {
+  edges: [GenreMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type GenreMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type Movie implements Node {
+  actingCredits: [ActingCredit!]!
+  collections(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): MovieCollectionsConnection!
+  composers: [CrewMember!]!
+  criticReviewCount: Int!
+  criticReviews(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    maxScore: Int
+    minScore: Int
+    sortBy: ReviewSortBy
+    sortDirection: SortDirection
+    textContains: String
+  ): MovieCriticReviewsConnection!
+  criticScore: Float
+  directors: [CrewMember!]!
+  distributedCompanies: [Company!]!
+  dops: [CrewMember!]!
+  editors: [CrewMember!]!
+  genres: [Genre!]!
+  id: ID!
+  isViewedByViewer: Boolean
+  numberOfReviewsPerScore(authorType: UserType!, score: Int!): Int!
+  posterUrl: String
+  productionCompanies: [Company!]!
+  regularReviewCount: Int!
+  regularReviews(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    maxScore: Int
+    minScore: Int
+    sortBy: ReviewSortBy
+    sortDirection: SortDirection
+    textContains: String
+  ): MovieRegularReviewsConnection!
+  regularScore: Float
+  regularScoreByCriteria(gender: Gender, maxAge: Int, minAge: Int): Float
+  releaseDate: Date!
+  runningTime: Int!
+  title: String!
+  viewedUserCount: Int!
+  viewedUsers(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): MovieViewedUsersConnection!
+  writers: [CrewMember!]!
+}
+
+type MovieCollectionsConnection {
+  edges: [MovieCollectionsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type MovieCollectionsConnectionEdge {
+  cursor: ID!
+  node: Collection!
+}
+
+type MovieCriticReviewsConnection {
+  edges: [MovieCriticReviewsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type MovieCriticReviewsConnectionEdge {
+  cursor: ID!
+  node: Review!
+}
+
+type MovieRegularReviewsConnection {
+  edges: [MovieRegularReviewsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type MovieRegularReviewsConnectionEdge {
+  cursor: ID!
+  node: Review!
+}
+
+enum MovieSortBy {
+  criticScore
+  regularScore
+  releaseDate
+  title
+  viewedUserCount
+}
+
+type MovieViewedUsersConnection {
+  edges: [MovieViewedUsersConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type MovieViewedUsersConnectionEdge {
+  cursor: ID!
+  node: User!
+}
+
+type Mutation {
+  addToCollection(id: ID!, movieIds: [ID!]!): MutationAddToCollectionResult!
+  createCollection(name: String!): Collection!
+  createComment(input: CreateCommentInput!): MutationCreateCommentResult!
+  createReview(input: CreateReviewInput!): MutationCreateReviewResult!
+  criticSignUp(input: CriticSignUpInput!): MutationCriticSignUpResult!
+  deleteCollection(id: ID!): MutationDeleteCollectionResult!
+  deleteComment(id: ID!): MutationDeleteCommentResult!
+  deleteReview(id: ID!): MutationDeleteReviewResult!
+  editCollection(id: ID!, name: String!): MutationEditCollectionResult!
+  editComment(id: ID!, input: EditCommentInput!): MutationEditCommentResult!
+  editReview(id: ID!, input: EditReviewInput!): MutationEditReviewResult!
+  markMovieAsViewed(
+    id: ID!
+    isViewed: Boolean!
+  ): MutationMarkMovieAsViewedResult!
+  regularSignUp(input: RegularSignUpInput!): MutationRegularSignUpResult!
+  removeFromCollection(
+    id: ID!
+    movieIds: [ID!]!
+  ): MutationRemoveFromCollectionResult!
+  thankReview(reviewId: ID!, thank: Boolean!): MutationThankReviewResult!
+  updateCriticUser(input: CriticUserUpdateInput!): User!
+  updateRegularUser(input: RegularUserUpdateInput!): User!
+}
+
+union MutationAddToCollectionResult =
+    AuthError
+  | BaseError
+  | MutationAddToCollectionSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationAddToCollectionSuccess {
+  data: Collection!
+}
+
+union MutationCreateCommentResult =
+    AuthError
+  | BaseError
+  | MutationCreateCommentSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationCreateCommentSuccess {
+  data: Comment!
+}
+
+union MutationCreateReviewResult =
+    AlreadyExistsError
+  | AuthError
+  | BaseError
+  | MutationCreateReviewSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationCreateReviewSuccess {
+  data: Review!
+}
+
+union MutationCriticSignUpResult =
+    AlreadyExistsError
+  | AuthError
+  | BaseError
+  | MutationCriticSignUpSuccess
+  | ValidationError
+
+type MutationCriticSignUpSuccess {
+  data: User!
+}
+
+union MutationDeleteCollectionResult =
+    AuthError
+  | BaseError
+  | MutationDeleteCollectionSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationDeleteCollectionSuccess {
+  data: Collection!
+}
+
+union MutationDeleteCommentResult =
+    AuthError
+  | BaseError
+  | MutationDeleteCommentSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationDeleteCommentSuccess {
+  data: Comment!
+}
+
+union MutationDeleteReviewResult =
+    AuthError
+  | BaseError
+  | MutationDeleteReviewSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationDeleteReviewSuccess {
+  data: Review!
+}
+
+union MutationEditCollectionResult =
+    AuthError
+  | BaseError
+  | MutationEditCollectionSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationEditCollectionSuccess {
+  data: Collection!
+}
+
+union MutationEditCommentResult =
+    AuthError
+  | BaseError
+  | MutationEditCommentSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationEditCommentSuccess {
+  data: Comment!
+}
+
+union MutationEditReviewResult =
+    AuthError
+  | BaseError
+  | MutationEditReviewSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationEditReviewSuccess {
+  data: Review!
+}
+
+union MutationMarkMovieAsViewedResult =
+    AuthError
+  | BaseError
+  | MutationMarkMovieAsViewedSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationMarkMovieAsViewedSuccess {
+  data: Movie!
+}
+
+union MutationRegularSignUpResult =
+    AlreadyExistsError
+  | AuthError
+  | BaseError
+  | MutationRegularSignUpSuccess
+  | ValidationError
+
+type MutationRegularSignUpSuccess {
+  data: User!
+}
+
+union MutationRemoveFromCollectionResult =
+    AuthError
+  | BaseError
+  | MutationRemoveFromCollectionSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationRemoveFromCollectionSuccess {
+  data: Collection!
+}
+
+union MutationThankReviewResult =
+    AuthError
+  | BaseError
+  | MutationThankReviewSuccess
+  | NotFoundError
+  | ValidationError
+
+type MutationThankReviewSuccess {
+  data: Review!
+}
+
+interface Node {
+  id: ID!
+}
+
+type NotFoundError implements Error {
+  message: String!
+}
+
+type PageInfo {
+  endCursor: ID
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: ID
+}
+
 type Query {
-  ok: Boolean!
+  collection(id: ID!): Collection
+  collections(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    nameContains: String
+    sortBy: CollectionSortBy
+    sortDirection: SortDirection
+  ): QueryCollectionsConnection!
+  justReleasedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): QueryJustReleasedMoviesConnection!
+  movie(id: ID!): Movie
+  movies(
+    after: ID
+    before: ID
+    first: Int
+    genres: [String!]
+    last: Int
+    maxCriticScore: Int
+    maxRegularScore: Int
+    minCriticScore: Int
+    minRegularScore: Int
+    releaseYear: Int
+    sortBy: MovieSortBy
+    sortDirection: SortDirection
+    titleContains: String
+  ): QueryMoviesConnection!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+  review(id: ID!): Review
+  trendingMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): QueryTrendingMoviesConnection!
+  user(id: ID!): User
+  userProfileImageUploadUrl: String!
+  users(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    nameContains: String
+  ): QueryUsersConnection!
+  viewer: User
+}
+
+type QueryCollectionsConnection {
+  edges: [QueryCollectionsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryCollectionsConnectionEdge {
+  cursor: ID!
+  node: Collection!
+}
+
+type QueryJustReleasedMoviesConnection {
+  edges: [QueryJustReleasedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryJustReleasedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type QueryMoviesConnection {
+  edges: [QueryMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type QueryTrendingMoviesConnection {
+  edges: [QueryTrendingMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryTrendingMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type QueryUsersConnection {
+  edges: [QueryUsersConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type QueryUsersConnectionEdge {
+  cursor: ID!
+  node: User!
+}
+
+input RegularSignUpInput {
+  dateOfBirth: Date
+  gender: Gender
+  username: String!
+}
+
+input RegularUserUpdateInput {
+  avatarUrl: String
+  dateOfBirth: Date
+  gender: Gender
+  username: String
+}
+
+type Review implements Node {
+  author: User!
+  authorType: UserType!
+  commentCount: Int!
+  comments(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): ReviewCommentsConnection!
+  content: String!
+  externalUrl: String
+  id: ID!
+  isThankedByViewer: Boolean
+  movie: Movie!
+  postTime: DateTime!
+  score: Int!
+  thankCount: Int!
+  thankUsers(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): ReviewThankUsersConnection!
+  title: String!
+}
+
+type ReviewCommentsConnection {
+  edges: [ReviewCommentsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type ReviewCommentsConnectionEdge {
+  cursor: ID!
+  node: Comment!
+}
+
+enum ReviewSortBy {
+  CommentCount
+  PostTime
+  Score
+  ThankCount
+}
+
+type ReviewThankUsersConnection {
+  edges: [ReviewThankUsersConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type ReviewThankUsersConnectionEdge {
+  cursor: ID!
+  node: User!
+}
+
+enum SortDirection {
+  Asc
+  Desc
+}
+
+type User implements Node {
+  avatarUrl: String
+  blogUrl: String
+  collections(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): UserCollectionsConnection!
+  comments(
+    after: ID
+    before: ID
+    contentContains: String
+    first: Int
+    last: Int
+  ): UserCommentsConnection!
+  dateOfBirth: Date
+  gender: Gender
+  id: ID!
+  likedCollections(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): UserLikedCollectionsConnection!
+  name: String!
+  reviewThanks(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): UserReviewThanksConnection!
+  reviews(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+    maxScore: Int
+    minScore: Int
+    sortBy: ReviewSortBy
+    sortDirection: SortDirection
+    textContains: String
+  ): UserReviewsConnection!
+  userType: UserType!
+  username: String!
+  viewedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): UserViewedMoviesConnection!
+}
+
+type UserCollectionsConnection {
+  edges: [UserCollectionsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserCollectionsConnectionEdge {
+  cursor: ID!
+  node: Collection!
+}
+
+type UserCommentsConnection {
+  edges: [UserCommentsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserCommentsConnectionEdge {
+  cursor: ID!
+  node: Comment!
+}
+
+type UserLikedCollectionsConnection {
+  edges: [UserLikedCollectionsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserLikedCollectionsConnectionEdge {
+  cursor: ID!
+  node: Collection!
+}
+
+type UserReviewThanksConnection {
+  edges: [UserReviewThanksConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserReviewThanksConnectionEdge {
+  cursor: ID!
+  node: Review!
+}
+
+type UserReviewsConnection {
+  edges: [UserReviewsConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserReviewsConnectionEdge {
+  cursor: ID!
+  node: Review!
+}
+
+enum UserType {
+  Critic
+  Regular
+}
+
+type UserViewedMoviesConnection {
+  edges: [UserViewedMoviesConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type UserViewedMoviesConnectionEdge {
+  cursor: ID!
+  node: Movie!
+}
+
+type ValidationError implements Error {
+  fieldErrors: [FieldValidationError!]!
+  message: String!
 }
