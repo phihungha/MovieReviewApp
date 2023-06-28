@@ -12,6 +12,7 @@ import {StyleSheet, View, ScrollView} from 'react-native';
 import {FlatList} from 'react-native';
 import {TitleText} from '../components/Text/TitleText';
 import {UserListItem} from '../components/Items/UserListItem';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -23,17 +24,19 @@ export function UsersListScreen(): JSX.Element {
   const arr: number[] = [1, 2, 3, 4];
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.text}>
-          <TitleText>All Users</TitleText>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <View style={styles.text}>
+            <TitleText>All Users</TitleText>
+          </View>
         </View>
-      </View>
-      <FlatList
-        style={styles.padding}
-        data={arr}
-        renderItem={UserListItem}
-        ItemSeparatorComponent={HorizontalItemSeparator}
-      />
+        <FlatList
+          style={styles.padding}
+          data={arr}
+          renderItem={UserListItem}
+          ItemSeparatorComponent={HorizontalItemSeparator}
+        />
+      </SafeAreaView>
     </ScrollView>
   );
 }
