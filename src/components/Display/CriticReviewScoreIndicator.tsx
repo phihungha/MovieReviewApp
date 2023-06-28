@@ -7,7 +7,7 @@ import {ReviewScoreIndicatorProps} from '../../props/ReviewIndicatorProps';
 
 /**
  * Displays review score of a critic.
- * @param {number} score Score value
+ * @param {number | null | undefined} score Score value
  * @param {StyleProp<ViewStyle>} style Style
  * @example
  * <CriticReviewScoreIndicator score={5} />

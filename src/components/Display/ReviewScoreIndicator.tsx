@@ -7,7 +7,7 @@ import colors from '../../styles/colors';
 
 export interface GenericReviewScoreIndicatorProps {
   iconName: string;
-  score: number;
+  score?: number | null;
   isLeft: boolean;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
@@ -17,7 +17,7 @@ export interface GenericReviewScoreIndicatorProps {
 /**
  * Generic review score indicator.
  * @param {string} iconName Icon name
- * @param {number} score Score value
+ * @param {number | null | undefined} score Score value
  * @param {isLeft} boolean True if icon is on the left of score value
  * @param {StyleProp<ViewStyle>?} style Style
  * @param {StyleProp<TextStyle>?} iconStyle Style of icon
@@ -35,7 +35,9 @@ export function ReviewScoreIndicator(props: GenericReviewScoreIndicatorProps) {
         name={props.iconName}
         style={[styles.defaultIcon, props.iconStyle]}
       />
-      <Text style={[styles.scoreText, props.textStyle]}>{props.score}</Text>
+      <Text style={[styles.scoreText, props.textStyle]}>
+        {props.score ?? 'N/A'}
+      </Text>
     </View>
   );
 }
