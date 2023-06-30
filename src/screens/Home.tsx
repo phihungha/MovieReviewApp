@@ -11,7 +11,7 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {CreateReviewScreen} from './CreateReview';
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
 import {StyleSheet, View} from 'react-native';
 import {MovieGridItem} from '../components/Items/MovieGridItem';
 import {BigTitleText} from '../components/Text/BigTitleText';
@@ -22,7 +22,10 @@ import {
 } from '../components/ListItemSeparators/MovieListItemSeparators';
 import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
-import type {HomeQuery} from './__generated__/HomeQuery.graphql';
+import type {
+  HomeQuery,
+  HomeQuery$data,
+} from './__generated__/HomeQuery.graphql';
 
 const HomeQuery = graphql`
   query HomeQuery {
@@ -45,22 +48,23 @@ const HomeQuery = graphql`
   }
 `;
 
-type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
+interface HeaderProps {
+  navigation: HomeScreenProps['navigation'];
+  moviesData: HomeQuery$data;
+}
 
-export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
-  const moviesData = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
-
+function Header(props: HeaderProps) {
   return (
-    <ScrollView contentContainerStyle={styles.mainContainerContent}>
+    <View>
       <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
         <FlatList
-          data={moviesData.trendingMovies.edges}
-          keyExtractor={item => item!.node.id}
+          data={props.moviesData.trendingMovies.edges}
+          keyExtractor={item => item?.node.id ?? '0'}
           renderItem={({item}) => (
             <MovieGridItem
-              movie={item!.node}
-              onPress={() => navigation.navigate('MovieDetails')}
+              movie={item?.node ?? null}
+              onPress={() => props.navigation.navigate('MovieDetails')}
               containerStyle={styles.horizontalGridItem}
             />
           )}
@@ -68,26 +72,32 @@ export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
           ItemSeparatorComponent={HorizontalMovieListItemSeparator}
         />
       </View>
+      <BigTitleText>Recently released</BigTitleText>
+    </View>
+  );
+}
 
-      <View style={styles.sectionContainer}>
-        <BigTitleText>Recently released</BigTitleText>
-        <FlatList
-          key={'_'}
-          columnWrapperStyle={styles.columnWrap}
-          keyExtractor={item => item!.node.id}
-          data={moviesData.justReleasedMovies.edges}
-          renderItem={({item}) => (
-            <MovieGridItem
-              movie={item!.node}
-              onPress={() => navigation.navigate('MovieDetails')}
-              containerStyle={styles.verticalGridItem}
-            />
-          )}
-          numColumns={2}
-          ItemSeparatorComponent={VerticalMovieListItemSeparator}
+type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
+
+export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
+  const moviesData = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
+
+  return (
+    <FlatList
+      ListHeaderComponent={Header}
+      columnWrapperStyle={styles.columnWrap}
+      keyExtractor={item => item?.node.id ?? '0'}
+      data={moviesData.justReleasedMovies.edges}
+      renderItem={({item}) => (
+        <MovieGridItem
+          movie={item?.node ?? null}
+          onPress={() => navigation.navigate('MovieDetails')}
+          containerStyle={styles.verticalGridItem}
         />
-      </View>
-    </ScrollView>
+      )}
+      numColumns={2}
+      ItemSeparatorComponent={VerticalMovieListItemSeparator}
+    />
   );
 }
 

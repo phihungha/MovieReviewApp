@@ -1,6 +1,5 @@
 import React from 'react';
 import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {Image} from 'react-native';
 import {CriticReviewScoreIndicator} from '../Display/CriticReviewScoreIndicator';
 import {RegularReviewScoreIndicator} from '../Display/RegularReviewScoreIndicator';
 import {TitleText} from '../Text/TitleText';
@@ -10,6 +9,7 @@ import {pressableRippleConfig} from '../../styles/pressable-ripple';
 import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
 import type {MovieGridItemFragment$key} from './__generated__/MovieGridItemFragment.graphql';
+import {MoviePoster} from '../Display/MoviePoster';
 
 const MovieGridItemFragment = graphql`
   fragment MovieGridItemFragment on Movie {
@@ -22,7 +22,7 @@ const MovieGridItemFragment = graphql`
 `;
 
 interface MovieGridItemProps {
-  movie: MovieGridItemFragment$key;
+  movie: MovieGridItemFragment$key | null;
   onPress?: ActionCb;
   containerStyle?: StyleProp<ViewStyle>;
 }
@@ -38,19 +38,13 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
         style={styles.contentContainer}
         onPress={props.onPress}
         android_ripple={pressableRippleConfig}>
-        <Image
-          style={styles.posterImage}
-          source={{
-            uri: data.posterUrl ?? '',
-          }}
-          resizeMode="cover"
-        />
+        <MoviePoster imageUrl={data?.posterUrl} />
         <View style={styles.infoContainer}>
-          <TitleText>{data.title}</TitleText>
-          <SubtitleText>{data.releaseDate}</SubtitleText>
+          <TitleText>{data?.title}</TitleText>
+          <SubtitleText>{data?.releaseDate}</SubtitleText>
           <View style={styles.scoresContainer}>
-            <CriticReviewScoreIndicator score={data.criticScore} />
-            <RegularReviewScoreIndicator score={data.regularScore} />
+            <CriticReviewScoreIndicator score={data?.criticScore} />
+            <RegularReviewScoreIndicator score={data?.regularScore} />
           </View>
         </View>
       </Pressable>
@@ -67,11 +61,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: 5,
     gap: 8,
-  },
-  posterImage: {
-    width: '100%',
-    aspectRatio: 1,
-    borderRadius: 5,
   },
   infoContainer: {
     paddingHorizontal: 3,
