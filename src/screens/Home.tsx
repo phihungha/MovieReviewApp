@@ -55,7 +55,7 @@ interface ListHeaderProps {
 
 function ListHeader({queryData, navigation}: ListHeaderProps) {
   return (
-    <View>
+    <View style={styles.headerContainer}>
       <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
         <TrendingMovieList
@@ -71,6 +71,10 @@ function ListHeader({queryData, navigation}: ListHeaderProps) {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
+  },
+  headerContainer: {
+    gap: 10,
+    marginBottom: 10,
   },
   sectionContainer: {
     gap: 10,
