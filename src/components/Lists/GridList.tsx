@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -8,7 +9,7 @@ import {VerticalMovieListItemSeparator} from '../ListItemSeparators/MovieListIte
 
 export type GridListProps = FlatListProps<any> & {isLoading?: boolean};
 
-export function GridList(props: GridListProps) {
+export function GridList(props: GridListProps): JSX.Element {
   return (
     <FlatList
       ListHeaderComponent={props.ListHeaderComponent}

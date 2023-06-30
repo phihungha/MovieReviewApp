@@ -1,9 +1,11 @@
+import React from 'react';
 import {graphql} from 'relay-runtime';
 import {GridList} from './GridList';
 import {JustReleasedMovieList$key} from './__generated__/JustReleasedMovieList.graphql';
 import {usePaginationFragment} from 'react-relay';
 import {MovieGridItem} from '../Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
+import type {JustReleasedMovieListRefetchQuery} from './__generated__/JustReleasedMovieListRefetchQuery.graphql';
 
 const JustReleasedMovieListFragment = graphql`
   fragment JustReleasedMovieList on Query
@@ -33,11 +35,13 @@ export interface JustReleasedMovieListProps {
     | null;
 }
 
-export function JustReleasedMovieList(props: JustReleasedMovieListProps) {
-  const {data, loadNext, isLoadingNext} = usePaginationFragment(
-    JustReleasedMovieListFragment,
-    props.justReleasedMovies,
-  );
+export function JustReleasedMovieList(
+  props: JustReleasedMovieListProps,
+): JSX.Element {
+  const {data, loadNext, isLoadingNext} = usePaginationFragment<
+    JustReleasedMovieListRefetchQuery,
+    JustReleasedMovieList$key
+  >(JustReleasedMovieListFragment, props.justReleasedMovies);
   return (
     <GridList
       ListHeaderComponent={props.ListHeaderComponent}

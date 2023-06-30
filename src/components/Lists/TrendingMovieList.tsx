@@ -1,9 +1,11 @@
+import React from 'react';
 import {graphql} from 'relay-runtime';
 import {TrendingMovieList$key} from './__generated__/TrendingMovieList.graphql';
 import {HorizontalList} from './HorizontalList';
 import {usePaginationFragment} from 'react-relay';
 import {MovieGridItem} from '../Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
+import type {TrendingMovieListRefetchQuery} from './__generated__/TrendingMovieListRefetchQuery.graphql';
 
 const TrendingMovieListFragment = graphql`
   fragment TrendingMovieList on Query
@@ -29,11 +31,11 @@ export interface TrendingMovieListProps {
   onItemPressed?: () => void;
 }
 
-export function TrendingMovieList(props: TrendingMovieListProps) {
-  const {data, loadNext, isLoadingNext} = usePaginationFragment(
-    TrendingMovieListFragment,
-    props.trendingMovies,
-  );
+export function TrendingMovieList(props: TrendingMovieListProps): JSX.Element {
+  const {data, loadNext, isLoadingNext} = usePaginationFragment<
+    TrendingMovieListRefetchQuery,
+    TrendingMovieList$key
+  >(TrendingMovieListFragment, props.trendingMovies);
   return (
     <HorizontalList
       data={data.trendingMovies.edges}
