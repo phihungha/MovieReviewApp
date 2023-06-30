@@ -39,7 +39,7 @@ export function TrendingMovieList(props: TrendingMovieListProps) {
       data={data.trendingMovies.edges}
       keyExtractor={item => item?.node.id ?? '0'}
       isLoading={isLoadingNext}
-      onEndReached={() => loadNext(4)}
+      onEndReached={() => loadNext(3)}
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}

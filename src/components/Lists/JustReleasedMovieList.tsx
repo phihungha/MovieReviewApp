@@ -9,7 +9,7 @@ const JustReleasedMovieListFragment = graphql`
   fragment JustReleasedMovieList on Query
   @argumentDefinitions(
     cursor: {type: "ID"}
-    count: {type: "Int", defaultValue: 1}
+    count: {type: "Int", defaultValue: 6}
   )
   @refetchable(queryName: "JustReleasedMovieListRefetchQuery") {
     justReleasedMovies(after: $cursor, first: $count)
@@ -44,7 +44,7 @@ export function JustReleasedMovieList(props: JustReleasedMovieListProps) {
       data={data.justReleasedMovies.edges}
       keyExtractor={item => item?.node.id ?? '0'}
       isLoading={isLoadingNext}
-      onEndReached={() => loadNext(1)}
+      onEndReached={() => loadNext(4)}
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}
