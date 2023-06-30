@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fcdbe687987a2cf907c689775a9eb250>>
+ * @generated SignedSource<<a85837e792c638631cc471f9b4d2a937>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,7 +25,7 @@ export type JustReleasedMovieListRefetchQuery = {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": 1,
+    "defaultValue": 6,
     "kind": "LocalArgument",
     "name": "count"
   },
@@ -206,16 +206,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e3b260611659be37ce4eaad2cd669664",
+    "cacheID": "d93fdbee67f9c44834b317e0d22a2b22",
     "id": null,
     "metadata": {},
     "name": "JustReleasedMovieListRefetchQuery",
     "operationKind": "query",
-    "text": "query JustReleasedMovieListRefetchQuery(\n  $count: Int = 1\n  $cursor: ID\n) {\n  ...JustReleasedMovieList_1G22uz\n}\n\nfragment JustReleasedMovieList_1G22uz on Query {\n  justReleasedMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query JustReleasedMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n) {\n  ...JustReleasedMovieList_1G22uz\n}\n\nfragment JustReleasedMovieList_1G22uz on Query {\n  justReleasedMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5f62da3db844af07d2785e2a09f97cae";
+(node as any).hash = "cfa7b9a06a3840b854f7eb9cec10ac46";
 
 export default node;

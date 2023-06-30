@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f3fe913fd53c3b074bbe36c819534300>>
+ * @generated SignedSource<<1f7b926537c8dd7e49019f5a8536410d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -131,13 +131,6 @@ v1 = [
     ],
     "storageKey": null
   }
-],
-v2 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 1
-  }
 ];
 return {
   "fragment": {
@@ -187,17 +180,17 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v0/*: any*/),
         "concreteType": "MovieConnection",
         "kind": "LinkedField",
         "name": "justReleasedMovies",
         "plural": false,
         "selections": (v1/*: any*/),
-        "storageKey": "justReleasedMovies(first:1)"
+        "storageKey": "justReleasedMovies(first:6)"
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v0/*: any*/),
         "filters": null,
         "handle": "connection",
         "key": "JustReleasedMovieListFragment_justReleasedMovies",
@@ -207,12 +200,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2135cea841c62de6d7aed8131b18b8c0",
+    "cacheID": "c772885881130e0cf84e486ab9ae7b7d",
     "id": null,
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  ...TrendingMovieList\n  ...JustReleasedMovieList\n}\n\nfragment JustReleasedMovieList on Query {\n  justReleasedMovies(first: 1) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList on Query {\n  trendingMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query HomeQuery {\n  ...TrendingMovieList\n  ...JustReleasedMovieList\n}\n\nfragment JustReleasedMovieList on Query {\n  justReleasedMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList on Query {\n  trendingMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
