@@ -11,65 +11,56 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {CreateReviewScreen} from './CreateReview';
-import {FlatList} from 'react-native';
 import {StyleSheet, View} from 'react-native';
-import {MovieGridItem} from '../components/Items/MovieGridItem';
 import {BigTitleText} from '../components/Text/BigTitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  HorizontalMovieListItemSeparator,
-  VerticalMovieListItemSeparator,
-} from '../components/ListItemSeparators/MovieListItemSeparators';
 import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
 import type {
   HomeQuery,
   HomeQuery$data,
 } from './__generated__/HomeQuery.graphql';
+import {TrendingMovieList} from '../components/Lists/TrendingMovieList';
+import {JustReleasedMovieList} from '../components/Lists/JustReleasedMovieList';
 
 const HomeQuery = graphql`
   query HomeQuery {
-    trendingMovies {
-      edges {
-        node {
-          id
-          ...MovieGridItemFragment
-        }
-      }
-    }
-    justReleasedMovies {
-      edges {
-        node {
-          id
-          ...MovieGridItemFragment
-        }
-      }
-    }
+    ...TrendingMovieList
+    ...JustReleasedMovieList
   }
 `;
 
-interface HeaderProps {
-  navigation: HomeScreenProps['navigation'];
-  moviesData: HomeQuery$data;
+type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
+
+export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
+  const data = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
+
+  return (
+    <View style={styles.container}>
+      <JustReleasedMovieList
+        ListHeaderComponent={
+          <ListHeader queryData={data} navigation={navigation} />
+        }
+        onItemPressed={() => navigation.navigate('MovieDetails')}
+        justReleasedMovies={data}
+      />
+    </View>
+  );
 }
 
-function Header(props: HeaderProps) {
+interface ListHeaderProps {
+  navigation: HomeScreenProps['navigation'];
+  queryData: HomeQuery$data;
+}
+
+function ListHeader({queryData, navigation}: ListHeaderProps) {
   return (
     <View>
       <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
-        <FlatList
-          data={props.moviesData.trendingMovies.edges}
-          keyExtractor={item => item?.node.id ?? '0'}
-          renderItem={({item}) => (
-            <MovieGridItem
-              movie={item?.node ?? null}
-              onPress={() => props.navigation.navigate('MovieDetails')}
-              containerStyle={styles.horizontalGridItem}
-            />
-          )}
-          horizontal
-          ItemSeparatorComponent={HorizontalMovieListItemSeparator}
+        <TrendingMovieList
+          trendingMovies={queryData}
+          onItemPressed={() => navigation.navigate('MovieDetails')}
         />
       </View>
       <BigTitleText>Recently released</BigTitleText>
@@ -77,47 +68,12 @@ function Header(props: HeaderProps) {
   );
 }
 
-type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
-
-export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
-  const moviesData = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
-
-  return (
-    <FlatList
-      ListHeaderComponent={Header}
-      columnWrapperStyle={styles.columnWrap}
-      keyExtractor={item => item?.node.id ?? '0'}
-      data={moviesData.justReleasedMovies.edges}
-      renderItem={({item}) => (
-        <MovieGridItem
-          movie={item?.node ?? null}
-          onPress={() => navigation.navigate('MovieDetails')}
-          containerStyle={styles.verticalGridItem}
-        />
-      )}
-      numColumns={2}
-      ItemSeparatorComponent={VerticalMovieListItemSeparator}
-    />
-  );
-}
-
 const styles = StyleSheet.create({
-  mainContainerContent: {
-    padding: 5,
-    gap: 10,
+  container: {
+    margin: 10,
   },
   sectionContainer: {
     gap: 10,
-  },
-  columnWrap: {
-    gap: 5,
-    justifyContent: 'space-between',
-  },
-  horizontalGridItem: {
-    width: 155,
-  },
-  verticalGridItem: {
-    flex: 0.5,
   },
 });
 
