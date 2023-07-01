@@ -12,9 +12,7 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 import {fontSizes, fonts} from '../styles/typography';
-import {FlatList} from 'react-native';
 import {StyleSheet, View} from 'react-native';
-import {MovieGridItem} from '../components/Items/MovieGridItem';
 import {
   Header,
   Input,
@@ -26,17 +24,27 @@ import {
 } from '@rneui/themed';
 import {TitleText} from '../components/Text/TitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {VerticalMovieListItemSeparator} from '../components/ListItemSeparators/MovieListItemSeparators';
+import {graphql} from 'relay-runtime';
+import {useLazyLoadQuery} from 'react-relay';
+import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
+import {AllMovieList} from '../components/Lists/AllMovieList';
 
 type MoviesListScreenProps = NativeStackScreenProps<
   MoviesListStackParams,
   'MoviesList'
 >;
 
+const MoviesListQuery = graphql`
+  query MoviesListQuery {
+    ...AllMovieList
+  }
+`;
+
 export function MoviesListScreen({
   navigation,
 }: MoviesListScreenProps): JSX.Element {
-  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const data = useLazyLoadQuery<MoviesListQuery>(MoviesListQuery, {});
+
   const [search, setSearch] = useState('');
   const [minRange, setMinRange] = useState('');
   const [maxRange, setMaxRange] = useState('');
@@ -217,18 +225,10 @@ export function MoviesListScreen({
           </Button>
         }
       />
-      <FlatList
-        columnWrapperStyle={styles.gridRow}
-        style={styles.padding}
-        data={arr}
-        renderItem={() => (
-          <MovieGridItem
-            onPress={() => navigation.navigate('MovieDetails')}
-            containerStyle={styles.gridItem}
-          />
-        )}
-        numColumns={2}
-        ItemSeparatorComponent={VerticalMovieListItemSeparator}
+
+      <AllMovieList
+        movies={data}
+        onItemPressed={() => navigation.navigate('MovieDetails')}
       />
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
