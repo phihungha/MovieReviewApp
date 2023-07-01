@@ -9,7 +9,7 @@ import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
 import {theme} from './styles/theme';
 import colors from './styles/colors';
-import {PreloadedQueriesContext} from './PreloadedQueriesContext';
+import {PreloadedQueriesContext} from './relay/PreloadedQueriesContext';
 import {HomeQuery} from './screens/Home';
 import type {HomeQuery as HomeQueryType} from './screens/__generated__/HomeQuery.graphql';
 

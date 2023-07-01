@@ -22,7 +22,7 @@ import type {
 } from './__generated__/HomeQuery.graphql';
 import {TrendingMovieList} from '../components/Lists/TrendingMovieList';
 import {JustReleasedMovieList} from '../components/Lists/JustReleasedMovieList';
-import {PreloadedQueriesContext} from '../PreloadedQueriesContext';
+import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
 import {MainTabParams} from '../navigators/MainTabNavigator';
 
 export const HomeQuery = graphql`
