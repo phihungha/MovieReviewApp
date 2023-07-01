@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   HomeStackNavigator,
   HomeStackParams,
@@ -15,15 +15,17 @@ import {StyleSheet, View} from 'react-native';
 import {BigTitleText} from '../components/Text/BigTitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
-import {useLazyLoadQuery} from 'react-relay';
+import {usePreloadedQuery} from 'react-relay';
 import type {
-  HomeQuery,
+  HomeQuery as HomeQueryType,
   HomeQuery$data,
 } from './__generated__/HomeQuery.graphql';
 import {TrendingMovieList} from '../components/Lists/TrendingMovieList';
 import {JustReleasedMovieList} from '../components/Lists/JustReleasedMovieList';
+import {PreloadedQueriesContext} from '../PreloadedQueriesContext';
+import {MainTabParams} from '../navigators/MainTabNavigator';
 
-const HomeQuery = graphql`
+export const HomeQuery = graphql`
   query HomeQuery {
     ...TrendingMovieList
     ...JustReleasedMovieList
@@ -32,8 +34,22 @@ const HomeQuery = graphql`
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
 
-export function HomeScreen({navigation}: HomeScreenProps): JSX.Element {
-  const data = useLazyLoadQuery<HomeQuery>(HomeQuery, {});
+export function HomeScreen(props: HomeScreenProps): JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.Home.queryRef) {
+    return <></>;
+  }
+  return <HomeScreenWithData {...props} />;
+}
+
+function HomeScreenWithData({navigation}: HomeScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<HomeQueryType>(
+    HomeQuery,
+
+    preloadedQueries!.Home.queryRef!,
+  );
 
   return (
     <View style={styles.container}>
@@ -81,7 +97,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export function HomeStackScreen(): JSX.Element {
+type HomeStackProps = NativeStackScreenProps<MainTabParams, 'HomeStack'>;
+
+export function HomeStackScreen({navigation}: HomeStackProps): JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  navigation.addListener('state', () => {
+    preloadedQueries?.Home.loadQuery({});
+  });
+
   return (
     <HomeStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />

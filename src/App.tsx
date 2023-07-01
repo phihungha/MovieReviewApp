@@ -1,7 +1,7 @@
 import React from 'react';
 import environment from './relay/environment';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {RelayEnvironmentProvider} from 'react-relay';
+import {RelayEnvironmentProvider, useQueryLoader} from 'react-relay';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 import {SignUpScreen} from './screens/SignUp';
 import {LoginScreen} from './screens/Login';
@@ -9,10 +9,24 @@ import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
 import {theme} from './styles/theme';
 import colors from './styles/colors';
+import {PreloadedQueriesContext} from './PreloadedQueriesContext';
+import {HomeQuery} from './screens/Home';
+import type {HomeQuery as HomeQueryType} from './screens/__generated__/HomeQuery.graphql';
 
-function App(): JSX.Element {
+function usePreloadedQueries() {
+  const [queryRef, loadQuery] = useQueryLoader<HomeQueryType>(HomeQuery);
+  return {
+    Home: {queryRef, loadQuery},
+  };
+}
+
+export type PreloadedQueries =
+  | ReturnType<typeof usePreloadedQueries>
+  | undefined;
+
+function AppUI() {
   return (
-    <RelayEnvironmentProvider environment={environment}>
+    <PreloadedQueriesContext.Provider value={usePreloadedQueries()}>
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={navigationContainerTheme}>
           <RootStackNavigator.Navigator
@@ -36,6 +50,14 @@ function App(): JSX.Element {
           </RootStackNavigator.Navigator>
         </NavigationContainer>
       </ThemeProvider>
+    </PreloadedQueriesContext.Provider>
+  );
+}
+
+function App(): JSX.Element {
+  return (
+    <RelayEnvironmentProvider environment={environment}>
+      <AppUI />
     </RelayEnvironmentProvider>
   );
 }
