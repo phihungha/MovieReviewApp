@@ -42,9 +42,7 @@ const MainTabScreenOptions = ({route}: any) => ({
 
 export function MainScreen(): JSX.Element {
   return (
-    <MainTabNavigator.Navigator
-      initialRouteName="HomeStack"
-      screenOptions={MainTabScreenOptions}>
+    <MainTabNavigator.Navigator screenOptions={MainTabScreenOptions}>
       <MainTabNavigator.Screen
         name="HomeStack"
         options={{title: 'Home'}}

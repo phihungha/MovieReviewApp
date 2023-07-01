@@ -29,16 +29,16 @@ import {useLazyLoadQuery} from 'react-relay';
 import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
 import {AllMovieList} from '../components/Lists/AllMovieList';
 
-type MoviesListScreenProps = NativeStackScreenProps<
-  MoviesListStackParams,
-  'MoviesList'
->;
-
 const MoviesListQuery = graphql`
   query MoviesListQuery {
     ...AllMovieList
   }
 `;
+
+type MoviesListScreenProps = NativeStackScreenProps<
+  MoviesListStackParams,
+  'MoviesList'
+>;
 
 export function MoviesListScreen({
   navigation,
@@ -207,7 +207,7 @@ export function MoviesListScreen({
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <Header
         centerComponent={
           <Input
@@ -285,8 +285,8 @@ export function MoviesListScreen({
 
       <Dialog
         isVisible={isVisibleRange}
-        overlayStyle={styles.container}
-        style={styles.container}>
+        overlayStyle={styles.dialogContainer}
+        style={styles.dialogContainer}>
         <Dialog.Title
           titleStyle={styles.titleTextDialog}
           title="Input range?"
@@ -320,10 +320,6 @@ const styles = StyleSheet.create({
   gridItem: {
     flex: 0.5,
   },
-  gridRow: {
-    justifyContent: 'space-around',
-    gap: 5,
-  },
   filterBtn: {
     backgroundColor: '#2A2C36',
   },
@@ -342,6 +338,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   container: {
+    margin: 10,
+  },
+  dialogContainer: {
     paddingHorizontal: 20,
     backgroundColor: 'black',
     paddingVertical: 12,
