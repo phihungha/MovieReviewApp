@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5561c53225e0dffb4a8e14db6b335906>>
+ * @generated SignedSource<<6423ddc0ea39662e5af358dae0a4faaa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -166,7 +166,17 @@ return {
       {
         "alias": null,
         "args": (v0/*: any*/),
-        "filters": null,
+        "filters": [
+          "sortBy",
+          "sortDirection",
+          "titleContains",
+          "releaseYear",
+          "genres",
+          "minCriticScore",
+          "maxCriticScore",
+          "minRegularScore",
+          "maxRegularScore"
+        ],
         "handle": "connection",
         "key": "AllMovieListFragment_movies",
         "kind": "LinkedHandle",

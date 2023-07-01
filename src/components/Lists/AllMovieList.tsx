@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {graphql} from 'relay-runtime';
 import {AllMovieList$key} from './__generated__/AllMovieList.graphql';
 import {usePaginationFragment} from 'react-relay';
@@ -12,10 +12,30 @@ const AllMovieListFragment = graphql`
   @argumentDefinitions(
     cursor: {type: "ID"}
     count: {type: "Int", defaultValue: 6}
+    titleContains: {type: "String"}
+    releaseYear: {type: "Int"}
+    minCriticScore: {type: "Int"}
+    maxCriticScore: {type: "Int"}
+    minRegularScore: {type: "Int"}
+    maxRegularScore: {type: "Int"}
+    genres: {type: "[String!]"}
+    sortBy: {type: "MovieSortBy"}
+    sortDirection: {type: "SortDirection"}
   )
   @refetchable(queryName: "AllMovieListRefetchQuery") {
-    movies(after: $cursor, first: $count)
-      @connection(key: "AllMovieListFragment_movies") {
+    movies(
+      after: $cursor
+      first: $count
+      sortBy: $sortBy
+      sortDirection: $sortDirection
+      titleContains: $titleContains
+      releaseYear: $releaseYear
+      genres: $genres
+      minCriticScore: $minCriticScore
+      maxCriticScore: $maxCriticScore
+      minRegularScore: $minRegularScore
+      maxRegularScore: $maxRegularScore
+    ) @connection(key: "AllMovieListFragment_movies") {
       edges {
         node {
           id
@@ -28,14 +48,42 @@ const AllMovieListFragment = graphql`
 
 export interface AllMovieListProps {
   movies: AllMovieList$key;
+  titleContains?: string;
+  genres?: string[];
+  releaseYear?: number;
+  minCriticScore?: number;
+  maxCriticScore?: number;
+  minRegularScore?: number;
+  maxRegularScore?: number;
   onItemPressed?: () => void;
 }
 
 export function AllMovieList(props: AllMovieListProps) {
-  const {data, loadNext, isLoadingNext} = usePaginationFragment<
+  const {data, loadNext, isLoadingNext, refetch} = usePaginationFragment<
     AllMovieListRefetchQuery,
     AllMovieList$key
   >(AllMovieListFragment, props.movies);
+
+  useEffect(() => {
+    refetch({
+      titleContains: props.titleContains,
+      releaseYear: props.releaseYear,
+      genres: props.genres,
+      minCriticScore: props.minCriticScore,
+      maxCriticScore: props.maxCriticScore,
+      minRegularScore: props.minRegularScore,
+      maxRegularScore: props.maxRegularScore,
+    });
+  }, [
+    props.titleContains,
+    props.releaseYear,
+    props.genres,
+    props.minCriticScore,
+    props.maxCriticScore,
+    props.minRegularScore,
+    props.maxRegularScore,
+    refetch,
+  ]);
 
   return (
     <GridList

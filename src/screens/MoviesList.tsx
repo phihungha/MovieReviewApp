@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import {
   MoviesListStackNavigator,
   MoviesListStackParams,
@@ -12,7 +12,7 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 import {fontSizes, fonts} from '../styles/typography';
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {
   Header,
   Input,
@@ -226,10 +226,13 @@ export function MoviesListScreen({
         }
       />
 
-      <AllMovieList
-        movies={data}
-        onItemPressed={() => navigation.navigate('MovieDetails')}
-      />
+      <Suspense fallback={<ActivityIndicator />}>
+        <AllMovieList
+          titleContains={search}
+          movies={data}
+          onItemPressed={() => navigation.navigate('MovieDetails')}
+        />
+      </Suspense>
 
       <BottomSheet modalProps={{}} isVisible={isVisible}>
         {list.map((l, i) => (

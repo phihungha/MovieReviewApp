@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5b40d4d519b7dc4591cd44860f14f152>>
+ * @generated SignedSource<<c71815f3096b0fe30982f19cbee19e0c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,6 +41,51 @@ return {
       "defaultValue": null,
       "kind": "LocalArgument",
       "name": "cursor"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "genres"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "maxCriticScore"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "maxRegularScore"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "minCriticScore"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "minRegularScore"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "releaseYear"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "sortBy"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "sortDirection"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "titleContains"
     }
   ],
   "kind": "Fragment",
@@ -70,7 +115,53 @@ return {
   "selections": [
     {
       "alias": "movies",
-      "args": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "genres",
+          "variableName": "genres"
+        },
+        {
+          "kind": "Variable",
+          "name": "maxCriticScore",
+          "variableName": "maxCriticScore"
+        },
+        {
+          "kind": "Variable",
+          "name": "maxRegularScore",
+          "variableName": "maxRegularScore"
+        },
+        {
+          "kind": "Variable",
+          "name": "minCriticScore",
+          "variableName": "minCriticScore"
+        },
+        {
+          "kind": "Variable",
+          "name": "minRegularScore",
+          "variableName": "minRegularScore"
+        },
+        {
+          "kind": "Variable",
+          "name": "releaseYear",
+          "variableName": "releaseYear"
+        },
+        {
+          "kind": "Variable",
+          "name": "sortBy",
+          "variableName": "sortBy"
+        },
+        {
+          "kind": "Variable",
+          "name": "sortDirection",
+          "variableName": "sortDirection"
+        },
+        {
+          "kind": "Variable",
+          "name": "titleContains",
+          "variableName": "titleContains"
+        }
+      ],
       "concreteType": "MovieConnection",
       "kind": "LinkedField",
       "name": "__AllMovieListFragment_movies_connection",
@@ -158,6 +249,6 @@ return {
 };
 })();
 
-(node as any).hash = "5ca304bdd71fbaedfa424e18dc0a6be3";
+(node as any).hash = "03a74a5aef35332bc485fee38997c837";
 
 export default node;
