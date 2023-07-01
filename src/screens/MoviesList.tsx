@@ -12,7 +12,7 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 import {fontSizes, fonts} from '../styles/typography';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {
   Header,
   Input,
@@ -28,6 +28,7 @@ import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
 import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
 import {AllMovieList} from '../components/Lists/AllMovieList';
+import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
 
 const MoviesListQuery = graphql`
   query MoviesListQuery {
@@ -226,7 +227,7 @@ export function MoviesListScreen({
         }
       />
 
-      <Suspense fallback={<ActivityIndicator />}>
+      <Suspense fallback={<StandardLoadingIcon />}>
         <AllMovieList
           titleContains={search}
           movies={data}
