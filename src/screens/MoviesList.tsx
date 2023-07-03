@@ -84,17 +84,8 @@ export function MoviesListScreen({
 }
 
 const styles = StyleSheet.create({
-  padding: {
-    padding: 10,
-  },
-  gridItem: {
-    flex: 0.5,
-  },
-  filterBtn: {
-    backgroundColor: '#2A2C36',
-  },
   container: {
-    margin: 10,
+    margin: 6,
   },
 });
 
