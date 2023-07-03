@@ -7,6 +7,7 @@ import type {
   SortDirection,
   MovieSortBy,
 } from '../components/Lists/__generated__/AllMovieListRefetchQuery.graphql';
+import {CustomButtonCb} from '../types/CustomButtonCb';
 export type MoviesListSortDirection = 'Asc' | 'Desc';
 
 export interface MoviesListOptions {
@@ -24,7 +25,7 @@ type MovieListOptionsKey = keyof MoviesListOptions;
 
 export interface MoviesListOptionsDialogProps {
   onOk?: (selectedOptions: MoviesListOptions) => void;
-  customOpenButton?: React.ReactNode;
+  customOpenButton?: CustomButtonCb;
 }
 
 export function MoviesListOptionsDialog(

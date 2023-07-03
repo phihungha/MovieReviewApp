@@ -7,6 +7,7 @@ import {ActionCb} from '../types/ActionCb';
 import {fontSizes, fonts} from '../styles/typography';
 import {CancelDialogButton} from '../components/Buttons/CancelDialogButton';
 import {OkDialogButton} from '../components/Buttons/OkDialogButton';
+import {CustomButtonCb} from '../types/CustomButtonCb';
 
 export interface DialogProps {
   title: string;
@@ -14,7 +15,7 @@ export interface DialogProps {
   onOk?: ActionCb;
   message?: string;
   containerStyle?: StyleProp<ViewStyle>;
-  customOpenButton?: React.ReactNode;
+  customOpenButton?: CustomButtonCb;
   children?: React.ReactNode;
 }
 
@@ -25,7 +26,7 @@ export interface DialogProps {
  * @param {string?} message Message
  * @param {ActionCb?} onOk Action on pressing Ok
  * @param {StyleProp<ViewStyle>?} containerStyle Container style
- * @param {React.ReactNode?} customOpenButton Custom open button component
+ * @param {CustomButtonCb?} customOpenButton Custom open button component passed as a function
  * @param {React.ReactNode?} children Content to display in the dialog
  * @example
  * <DeleteCommentDialog
@@ -35,7 +36,6 @@ export interface DialogProps {
 export function GenericDialog(props: DialogProps): React.JSX.Element {
   const [visible, setVisible] = useState(false);
   const toggleDialog = () => setVisible(!visible);
-  const buttonPressed = () => toggleDialog();
 
   const okPressed = () => {
     props.onOk?.();
@@ -43,11 +43,12 @@ export function GenericDialog(props: DialogProps): React.JSX.Element {
   };
 
   const defaultOpenButton = (
-    <Button buttonStyle={styles.buttonOpenDialogStyle} onPress={buttonPressed}>
+    <Button buttonStyle={styles.buttonOpenDialogStyle} onPress={toggleDialog}>
       <RegularText>{props.openBtnTitle}</RegularText>
     </Button>
   );
-  const dialogOpenButton = props.customOpenButton ?? defaultOpenButton;
+  const dialogOpenButton =
+    props.customOpenButton?.(toggleDialog) ?? defaultOpenButton;
 
   return (
     <View>

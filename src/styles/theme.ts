@@ -58,5 +58,11 @@ export const theme = createTheme({
         marginStart: 20,
       },
     },
+
+    SearchBar: {
+      inputContainerStyle: {
+        backgroundColor: colors.mediumBlack,
+      },
+    },
   },
 });
