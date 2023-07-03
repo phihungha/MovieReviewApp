@@ -12,7 +12,7 @@ import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
 import {StyleSheet, View} from 'react-native';
-import {Button, Icon} from '@rneui/themed';
+import {Icon} from '@rneui/themed';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
@@ -25,6 +25,7 @@ import {
 } from '../dialogs/MoviesListOptionsDialog';
 import {ListScreenHeader} from '../components/Headers/ListScreenHeader';
 import {HeaderSearchBar} from '../components/Inputs/HeaderSearchBar';
+import {HeaderButton} from '../components/Buttons/HeaderButton';
 
 const MoviesListQuery = graphql`
   query MoviesListQuery {
@@ -48,8 +49,6 @@ export function MoviesListScreen({
     sortDirection: 'Desc',
   });
 
-  useEffect(() => navigation.setOptions({header: () => customHeader}));
-
   const customHeader = (
     <ListScreenHeader>
       <HeaderSearchBar
@@ -59,17 +58,16 @@ export function MoviesListScreen({
       />
       <MoviesListOptionsDialog
         customOpenButton={onPress => (
-          <Button
+          <HeaderButton
             onPress={onPress}
-            style={styles.optionsDialogBtn}
-            containerStyle={styles.optionsDialogBtnContainer}>
-            <Icon color="white" type="font-awesome" name="filter" />
-          </Button>
+            icon={<Icon color="white" type="font-awesome" name="filter" />}
+          />
         )}
         onOk={opts => setOptions(opts)}
       />
     </ListScreenHeader>
   );
+  useEffect(() => navigation.setOptions({header: () => customHeader}));
 
   return (
     <View style={styles.container}>
@@ -97,10 +95,6 @@ const styles = StyleSheet.create({
   },
   container: {
     margin: 10,
-  },
-  optionsDialogBtn: {},
-  optionsDialogBtnContainer: {
-    width: 50,
   },
 });
 

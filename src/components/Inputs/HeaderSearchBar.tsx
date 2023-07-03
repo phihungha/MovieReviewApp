@@ -8,7 +8,6 @@ export function HeaderSearchBar(props: SearchBarProps): React.JSX.Element {
     <SearchBar
       containerStyle={[styles.container, props.containerStyle]}
       inputContainerStyle={styles.inputContainer}
-      rightIcon={{color: 'white', name: 'search'}}
       placeholder={props.placeholder}
       value={props.value}
       onChangeText={props.onChangeText}

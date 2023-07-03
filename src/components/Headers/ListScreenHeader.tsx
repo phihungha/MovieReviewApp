@@ -18,9 +18,9 @@ export function ListScreenHeader({children}: ListScreenHeaderProps) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 7,
     alignItems: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     backgroundColor: colors.mediumBlack,
   },
 });
