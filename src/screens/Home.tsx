@@ -23,7 +23,6 @@ import type {
 import {TrendingMovieList} from '../components/Lists/TrendingMovieList';
 import {JustReleasedMovieList} from '../components/Lists/JustReleasedMovieList';
 import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
-import {MainTabParams} from '../navigators/MainTabNavigator';
 
 export const HomeQuery = graphql`
   query HomeQuery {
@@ -97,14 +96,7 @@ const styles = StyleSheet.create({
   },
 });
 
-type HomeStackProps = NativeStackScreenProps<MainTabParams, 'HomeStack'>;
-
-export function HomeStackScreen({navigation}: HomeStackProps): JSX.Element {
-  const preloadedQueries = useContext(PreloadedQueriesContext);
-  navigation.addListener('state', () => {
-    preloadedQueries?.Home.loadQuery({});
-  });
-
+export function HomeStackScreen(): JSX.Element {
   return (
     <HomeStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <HomeStackNavigator.Screen name="Home" component={HomeScreen} />

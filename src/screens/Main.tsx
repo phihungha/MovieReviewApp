@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
 import {MoviesListStackScreen} from './MoviesList';
 import {MyAccountStackScreen} from './MyAccount';
@@ -6,6 +6,7 @@ import {HomeStackScreen} from './Home';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
 import {UsersListStackScreen} from './UsersList';
+import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {
@@ -41,11 +42,17 @@ const MainTabScreenOptions = ({route}: any) => ({
 });
 
 export function MainScreen(): JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
   return (
     <MainTabNavigator.Navigator screenOptions={MainTabScreenOptions}>
       <MainTabNavigator.Screen
         name="HomeStack"
         options={{title: 'Home'}}
+        listeners={{
+          tabPress: () => preloadedQueries?.Home.loadQuery({}),
+          state: () => preloadedQueries?.Home.loadQuery({}),
+        }}
         component={HomeStackScreen}
       />
       <MainTabNavigator.Screen
