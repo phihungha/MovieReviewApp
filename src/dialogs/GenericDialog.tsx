@@ -54,8 +54,7 @@ export function GenericDialog(props: DialogProps): React.JSX.Element {
     <View>
       {dialogOpenButton}
       <Dialog
-        overlayStyle={styles.container}
-        style={[styles.container, props.containerStyle]}
+        overlayStyle={[styles.container, props.containerStyle]}
         isVisible={visible}
         onBackdropPress={toggleDialog}>
         <Dialog.Title titleStyle={styles.titleTextDialog} title={props.title} />

@@ -103,6 +103,6 @@ function getUpdatedOptions(
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 200,
+    height: 450,
   },
 });
