@@ -3,15 +3,11 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {GenericDialog} from './GenericDialog';
 import {useState} from 'react';
 import {Input} from '@rneui/themed';
-
-export type MoviesListSortBy =
-  | 'title'
-  | 'releaseDate'
-  | 'regularScore'
-  | 'criticScore'
-  | 'viewCount';
-
-export type MoviesListSortDirection = 'asc' | 'desc';
+import type {
+  SortDirection,
+  MovieSortBy,
+} from '../components/Lists/__generated__/AllMovieListRefetchQuery.graphql';
+export type MoviesListSortDirection = 'Asc' | 'Desc';
 
 export interface MoviesListOptions {
   releaseYear?: number;
@@ -20,8 +16,8 @@ export interface MoviesListOptions {
   maxCriticScore?: number;
   minRegularScore?: number;
   maxRegularScore?: number;
-  sortBy: MoviesListSortBy;
-  sortDirection: MoviesListSortDirection;
+  sortBy: MovieSortBy;
+  sortDirection: SortDirection;
 }
 
 type MovieListOptionsKey = keyof MoviesListOptions;
@@ -36,7 +32,7 @@ export function MoviesListOptionsDialog(
 ): React.JSX.Element {
   const [options, setOptions] = useState<MoviesListOptions>({
     sortBy: 'releaseDate',
-    sortDirection: 'desc',
+    sortDirection: 'Desc',
   });
 
   function updateOption(

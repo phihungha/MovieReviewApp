@@ -1,4 +1,4 @@
-import React, {Suspense, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import {
   MoviesListStackNavigator,
   MoviesListStackParams,
@@ -11,24 +11,18 @@ import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {CreateReviewScreen} from './CreateReview';
-import {fontSizes, fonts} from '../styles/typography';
 import {StyleSheet, View} from 'react-native';
-import {
-  Header,
-  Input,
-  Button,
-  Icon,
-  BottomSheet,
-  ListItem,
-  Dialog,
-} from '@rneui/themed';
-import {TitleText} from '../components/Text/TitleText';
+import {SearchBar} from '@rneui/themed';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
 import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
 import {AllMovieList} from '../components/Lists/AllMovieList';
 import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
+import {
+  MoviesListOptions,
+  MoviesListOptionsDialog,
+} from '../dialogs/MoviesListOptionsDialog';
 
 const MoviesListQuery = graphql`
   query MoviesListQuery {
@@ -43,276 +37,41 @@ type MoviesListScreenProps = NativeStackScreenProps<
 
 export function MoviesListScreen({
   navigation,
-}: MoviesListScreenProps): JSX.Element {
+}: MoviesListScreenProps): React.JSX.Element {
   const data = useLazyLoadQuery<MoviesListQuery>(MoviesListQuery, {});
 
   const [search, setSearch] = useState('');
-  const [minRange, setMinRange] = useState('');
-  const [maxRange, setMaxRange] = useState('');
-  const [conditionSort, setConditionSort] = useState('');
-  const [conditionFilter, setConditionFilter] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const [isVisibleSort1, setIsVisibleSort1] = useState(false);
-  const [isVisibleSort2, setIsVisibleSort2] = useState(false);
-  const [isVisibleFilter, setIsVisibleFilter] = useState(false);
-  const [isVisibleRange, setIsVisibleRange] = useState(false);
+  const [options, setOptions] = useState<MoviesListOptions>({
+    sortBy: 'releaseDate',
+    sortDirection: 'Desc',
+  });
 
-  const list = [
-    {title: 'Sort by', onPress: () => setIsVisibleSort1(true)},
-    {title: 'Filter by', onPress: () => setIsVisibleFilter(true)},
-    {title: 'Reset', onPress: () => HandleReset()},
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: 'red'},
-      titleStyle: {color: 'white'},
-      onPress: () => setIsVisible(false),
-    },
-  ];
+  useEffect(() => navigation.setOptions({header: () => customHeader}));
 
-  const listSort1 = [
-    {title: 'Name', onPress: () => HandleNameSort()},
-    {title: 'Release date', onPress: () => HandleDateSort()},
-    {title: 'User score', onPress: () => HandleUserSort()},
-    {title: 'Critic score', onPress: () => HandleCriticSort()},
-    {title: 'View count', onPress: () => HandleViewSort()},
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: 'red'},
-      titleStyle: {color: 'white'},
-      onPress: () => setIsVisibleSort1(false),
-    },
-  ];
-
-  const listSort2 = [
-    {title: 'Ascending', onPress: () => HandleAscendingSort(conditionSort)},
-    {title: 'Decending', onPress: () => HandleDecendingSort(conditionSort)},
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: 'red'},
-      titleStyle: {color: 'white'},
-      onPress: () => HandleCancelSort2(),
-    },
-  ];
-
-  const listFilter = [
-    {title: 'Genre', onPress: () => HandleGenreFilter()},
-    {title: 'Release year', onPress: () => HandleYearFilter()},
-    {title: 'User score', onPress: () => HandleUserFilter()},
-    {title: 'Critic score', onPress: () => HandleCriticFilter()},
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: 'red'},
-      titleStyle: {color: 'white'},
-      onPress: () => setIsVisibleFilter(false),
-    },
-  ];
-
-  const HandleNoRange = async () => {
-    console.log('api here!');
-    setIsVisibleRange(false);
-  };
-
-  const HandleYesRange = async (minNumber: string, maxNumber: string) => {
-    console.log(minNumber + maxNumber);
-    console.log('api here');
-    setIsVisibleRange(false);
-  };
-
-  const HandleReset = async () => {
-    setConditionSort('');
-    setConditionFilter('');
-    setMinRange('');
-    setMaxRange('');
-    setIsVisible(false);
-  };
-
-  const HandleCancelSort2 = async () => {
-    setIsVisibleSort2(false);
-    setConditionSort('');
-  };
-
-  const HandleNameSort = async () => {
-    setIsVisible(false);
-    setIsVisibleSort1(false);
-    setIsVisibleSort2(true);
-    setConditionSort('Name');
-  };
-
-  const HandleDateSort = async () => {
-    setIsVisible(false);
-    setIsVisibleSort1(false);
-    setIsVisibleSort2(true);
-    setConditionSort('Release Date');
-  };
-
-  const HandleUserSort = async () => {
-    setIsVisible(false);
-    setIsVisibleSort1(false);
-    setIsVisibleSort2(true);
-    setConditionSort('User score');
-  };
-
-  const HandleCriticSort = async () => {
-    setIsVisible(false);
-    setIsVisibleSort1(false);
-    setIsVisibleSort2(true);
-    setConditionSort('Critic score');
-  };
-
-  const HandleViewSort = async () => {
-    setIsVisible(false);
-    setIsVisibleSort1(false);
-    setIsVisibleSort2(true);
-    setConditionSort('View count');
-  };
-
-  const HandleAscendingSort = async (SortType: string) => {
-    console.log(SortType);
-    console.log('api here');
-    setIsVisibleSort2(false);
-  };
-
-  const HandleDecendingSort = async (SortType: string) => {
-    console.log(SortType);
-    console.log('api here');
-    setIsVisibleSort2(false);
-  };
-
-  const HandleGenreFilter = async () => {
-    setIsVisible(false);
-    setIsVisibleFilter(false);
-    setIsVisibleRange(true);
-    setConditionFilter('Genre');
-  };
-
-  const HandleYearFilter = async () => {
-    setIsVisible(false);
-    setIsVisibleFilter(false);
-    setIsVisibleRange(true);
-    setConditionFilter('Release year');
-  };
-
-  const HandleUserFilter = async () => {
-    setIsVisible(false);
-    setIsVisibleFilter(false);
-    setIsVisibleRange(true);
-    setConditionFilter('User score');
-  };
-
-  const HandleCriticFilter = async () => {
-    setIsVisible(false);
-    setIsVisibleFilter(false);
-    setIsVisibleRange(true);
-    setConditionFilter('Critic score');
-    console.log(conditionFilter);
-  };
+  const customHeader = (
+    <View style={{flexDirection: 'row'}}>
+      <SearchBar
+        containerStyle={{padding: 0, borderRadius: 0}}
+        inputContainerStyle={{borderRadius: 0}}
+        rightIcon={{color: 'white', name: 'search'}}
+        value={search}
+        onChangeText={setSearch}
+        placeholder="Search movies..."
+      />
+      <MoviesListOptionsDialog onOk={opts => setOptions(opts)} />
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <Header
-        centerComponent={
-          <Input
-            rightIcon={{color: 'white', name: 'search'}}
-            value={search}
-            onChangeText={setSearch}
-            placeholder="Search movies..."
-          />
-        }
-        rightComponent={
-          <Button
-            buttonStyle={styles.filterBtn}
-            onPress={() => setIsVisible(true)}>
-            <Icon color="white" type="font-awesome" name="filter" />
-          </Button>
-        }
-      />
-
       <Suspense fallback={<StandardLoadingIcon />}>
         <AllMovieList
           titleContains={search}
+          options={options}
           movies={data}
           onItemPressed={() => navigation.navigate('MovieDetails')}
         />
       </Suspense>
-
-      <BottomSheet modalProps={{}} isVisible={isVisible}>
-        {list.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-
-      <BottomSheet modalProps={{}} isVisible={isVisibleSort1}>
-        {listSort1.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-
-      <BottomSheet modalProps={{}} isVisible={isVisibleSort2}>
-        {listSort2.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-
-      <BottomSheet modalProps={{}} isVisible={isVisibleFilter}>
-        {listFilter.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-
-      <Dialog
-        isVisible={isVisibleRange}
-        overlayStyle={styles.dialogContainer}
-        style={styles.dialogContainer}>
-        <Dialog.Title
-          titleStyle={styles.titleTextDialog}
-          title="Input range?"
-        />
-        <View>
-          <Input label={'Min'} value={minRange} onChangeText={setMinRange} />
-
-          <Input label={'Max'} value={maxRange} onChangeText={setMaxRange} />
-        </View>
-        <Dialog.Actions>
-          <View style={styles.containerButtonDialog}>
-            <Button buttonStyle={styles.noDialogButton} onPress={HandleNoRange}>
-              <TitleText>No</TitleText>
-            </Button>
-            <Button
-              buttonStyle={styles.yesDialogButton}
-              onPress={() => HandleYesRange(minRange, maxRange)}>
-              <TitleText>Yes</TitleText>
-            </Button>
-          </View>
-        </Dialog.Actions>
-      </Dialog>
     </View>
   );
 }
@@ -327,52 +86,14 @@ const styles = StyleSheet.create({
   filterBtn: {
     backgroundColor: '#2A2C36',
   },
-  rangeContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 10,
-    padding: 10,
-  },
-  titleTextDialog: {
-    color: 'white',
-    fontFamily: fonts.primaryBold,
-    fontSize: fontSizes.lg,
-    textAlign: 'left',
-  },
   container: {
     margin: 10,
-  },
-  dialogContainer: {
-    paddingHorizontal: 20,
-    backgroundColor: 'black',
-    paddingVertical: 12,
-  },
-  containerButtonDialog: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 10,
-    marginRight: 10,
-    marginBottom: 5,
-    marginTop: -16,
-  },
-  yesDialogButton: {
-    width: 100,
-    borderRadius: 12,
-    backgroundColor: '#EF3651',
-  },
-  noDialogButton: {
-    width: 100,
-    borderRadius: 12,
-    backgroundColor: '#2A2C36',
   },
 });
 
 export function MoviesListStackScreen(): JSX.Element {
   return (
-    <MoviesListStackNavigator.Navigator screenOptions={{headerShown: false}}>
+    <MoviesListStackNavigator.Navigator>
       <MoviesListStackNavigator.Screen
         name="MoviesList"
         component={MoviesListScreen}

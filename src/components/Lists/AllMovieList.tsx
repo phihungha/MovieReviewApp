@@ -6,6 +6,7 @@ import {AllMovieListRefetchQuery} from './__generated__/AllMovieListRefetchQuery
 import {GridList} from './GridList';
 import {MovieGridItem} from '../Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
+import {MoviesListOptions} from '../../dialogs/MoviesListOptionsDialog';
 
 const AllMovieListFragment = graphql`
   fragment AllMovieList on Query
@@ -49,12 +50,7 @@ const AllMovieListFragment = graphql`
 export interface AllMovieListProps {
   movies: AllMovieList$key;
   titleContains?: string;
-  genres?: string[];
-  releaseYear?: number;
-  minCriticScore?: number;
-  maxCriticScore?: number;
-  minRegularScore?: number;
-  maxRegularScore?: number;
+  options?: MoviesListOptions;
   onItemPressed?: () => void;
 }
 
@@ -64,24 +60,30 @@ export function AllMovieList(props: AllMovieListProps) {
     AllMovieList$key
   >(AllMovieListFragment, props.movies);
 
+  const options = props.options;
+
   useEffect(() => {
     refetch({
       titleContains: props.titleContains,
-      releaseYear: props.releaseYear,
-      genres: props.genres,
-      minCriticScore: props.minCriticScore,
-      maxCriticScore: props.maxCriticScore,
-      minRegularScore: props.minRegularScore,
-      maxRegularScore: props.maxRegularScore,
+      releaseYear: options?.releaseYear,
+      genres: options?.genres,
+      minCriticScore: options?.minCriticScore,
+      maxCriticScore: options?.maxCriticScore,
+      minRegularScore: options?.minRegularScore,
+      maxRegularScore: options?.maxRegularScore,
+      sortBy: options?.sortBy,
+      sortDirection: options?.sortDirection,
     });
   }, [
     props.titleContains,
-    props.releaseYear,
-    props.genres,
-    props.minCriticScore,
-    props.maxCriticScore,
-    props.minRegularScore,
-    props.maxRegularScore,
+    options?.releaseYear,
+    options?.genres,
+    options?.minCriticScore,
+    options?.maxCriticScore,
+    options?.minRegularScore,
+    options?.maxRegularScore,
+    options?.sortBy,
+    options?.sortDirection,
     refetch,
   ]);
 
