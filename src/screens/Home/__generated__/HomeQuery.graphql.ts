@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1f7b926537c8dd7e49019f5a8536410d>>
+ * @generated SignedSource<<0036070a1e5d80b3008480338b06b1fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -200,12 +200,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c772885881130e0cf84e486ab9ae7b7d",
+    "cacheID": "5d03d710bab8975ce05f1bd2a9a7e47f",
     "id": null,
     "metadata": {},
     "name": "HomeQuery",
     "operationKind": "query",
-    "text": "query HomeQuery {\n  ...TrendingMovieList\n  ...JustReleasedMovieList\n}\n\nfragment JustReleasedMovieList on Query {\n  justReleasedMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList on Query {\n  trendingMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query HomeQuery {\n  ...TrendingMovieList\n  ...JustReleasedMovieList\n}\n\nfragment JustReleasedMovieList on Query {\n  justReleasedMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList on Query {\n  trendingMovies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

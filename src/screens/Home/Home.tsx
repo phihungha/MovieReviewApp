@@ -55,7 +55,7 @@ function HomeScreenWithData({navigation}: HomeScreenProps) {
         ListHeaderComponent={
           <ListHeader queryData={data} navigation={navigation} />
         }
-        onItemPressed={() => navigation.navigate('MovieDetails')}
+        onNavigate={() => navigation.navigate('MovieDetails')}
         justReleasedMovies={data}
       />
     </View>
@@ -74,7 +74,7 @@ function ListHeader({queryData, navigation}: ListHeaderProps) {
         <BigTitleText>Popular</BigTitleText>
         <TrendingMovieList
           trendingMovies={queryData}
-          onItemPressed={() => navigation.navigate('MovieDetails')}
+          onNavigate={() => navigation.navigate('MovieDetails')}
         />
       </View>
       <BigTitleText>Recently released</BigTitleText>

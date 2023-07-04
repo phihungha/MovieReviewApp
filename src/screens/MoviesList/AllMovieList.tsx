@@ -51,7 +51,7 @@ export interface AllMovieListProps {
   movies: AllMovieList$key;
   titleContains?: string;
   options?: MoviesListOptions;
-  onItemPressed?: () => void;
+  onNavigate?: () => void;
 }
 
 export function AllMovieList(props: AllMovieListProps) {
@@ -96,7 +96,7 @@ export function AllMovieList(props: AllMovieListProps) {
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}
-          onPress={props.onItemPressed}
+          onNavigate={props.onNavigate}
           containerStyle={styles.verticalGridItem}
         />
       )}

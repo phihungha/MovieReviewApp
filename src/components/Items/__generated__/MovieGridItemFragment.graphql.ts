@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1efd0f575d74adac14333bacf84e7124>>
+ * @generated SignedSource<<47e7c7e59a367f9c2a84c371f6020ee6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type MovieGridItemFragment$data = {
   readonly criticScore: number | null;
+  readonly id: string;
   readonly posterUrl: string | null;
   readonly regularScore: number | null;
   readonly releaseDate: any;
@@ -29,6 +30,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "MovieGridItemFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -69,6 +77,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "3381f1eb7003eed0562a4d13c33170cd";
+(node as any).hash = "9ce05c9ce12717f4c94401015259193d";
 
 export default node;

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {graphql} from 'relay-runtime';
 import {JustReleasedMovieList$key} from './__generated__/JustReleasedMovieList.graphql';
 import {usePaginationFragment} from 'react-relay';
@@ -6,7 +6,6 @@ import {StyleSheet} from 'react-native';
 import type {JustReleasedMovieListRefetchQuery} from './__generated__/JustReleasedMovieListRefetchQuery.graphql';
 import {GridList} from '../../components/Lists/GridList';
 import {MovieGridItem} from '../../components/Items/MovieGridItem';
-import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
 const JustReleasedMovieListFragment = graphql`
   fragment JustReleasedMovieList on Query
@@ -29,7 +28,7 @@ const JustReleasedMovieListFragment = graphql`
 
 export interface JustReleasedMovieListProps {
   justReleasedMovies: JustReleasedMovieList$key;
-  onItemPressed?: () => void;
+  onNavigate?: () => void;
   ListHeaderComponent?:
     | React.ComponentType<any>
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
@@ -43,7 +42,6 @@ export function JustReleasedMovieList(
     JustReleasedMovieListRefetchQuery,
     JustReleasedMovieList$key
   >(JustReleasedMovieListFragment, props.justReleasedMovies);
-  const preloadedQueries = useContext(PreloadedQueriesContext);
 
   return (
     <GridList
@@ -55,12 +53,7 @@ export function JustReleasedMovieList(
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}
-          onPress={() => {
-            if (item?.node.id) {
-              preloadedQueries?.MovieDetails.loadQuery({id: item.node.id});
-              props.onItemPressed?.();
-            }
-          }}
+          onNavigate={props.onNavigate}
           containerStyle={styles.verticalGridItem}
         />
       )}

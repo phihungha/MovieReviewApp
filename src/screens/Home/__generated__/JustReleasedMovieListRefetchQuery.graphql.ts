@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a85837e792c638631cc471f9b4d2a937>>
+ * @generated SignedSource<<29972e9f20e8223c7cc4dcb689aab00e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -206,12 +206,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d93fdbee67f9c44834b317e0d22a2b22",
+    "cacheID": "9b70d7c255d73e94ce3a2670e3617a37",
     "id": null,
     "metadata": {},
     "name": "JustReleasedMovieListRefetchQuery",
     "operationKind": "query",
-    "text": "query JustReleasedMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n) {\n  ...JustReleasedMovieList_1G22uz\n}\n\nfragment JustReleasedMovieList_1G22uz on Query {\n  justReleasedMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query JustReleasedMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n) {\n  ...JustReleasedMovieList_1G22uz\n}\n\nfragment JustReleasedMovieList_1G22uz on Query {\n  justReleasedMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();

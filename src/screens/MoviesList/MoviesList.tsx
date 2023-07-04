@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState} from 'react';
+import React, {Suspense, useContext, useEffect, useState} from 'react';
 import {
   MoviesListStackNavigator,
   MoviesListStackParams,
@@ -15,8 +15,8 @@ import {StyleSheet, View} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
-import {useLazyLoadQuery} from 'react-relay';
-import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
+import {usePreloadedQuery} from 'react-relay';
+import type {MoviesListQuery as MoviesListQueryType} from './__generated__/MoviesListQuery.graphql';
 import {AllMovieList} from './AllMovieList';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {
@@ -26,8 +26,9 @@ import {
 import {ListScreenHeader} from '../../components/Headers/ListScreenHeader';
 import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
 import {HeaderButton} from '../../components/Buttons/HeaderButton';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
-const MoviesListQuery = graphql`
+export const MoviesListQuery = graphql`
   query MoviesListQuery {
     ...AllMovieList
   }
@@ -38,10 +39,23 @@ type MoviesListScreenProps = NativeStackScreenProps<
   'MoviesList'
 >;
 
-export function MoviesListScreen({
+export function MoviesListScreen(props: MoviesListScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.Home.queryRef) {
+    return <></>;
+  }
+  return <MoviesListScreenWithData {...props} />;
+}
+
+function MoviesListScreenWithData({
   navigation,
 }: MoviesListScreenProps): React.JSX.Element {
-  const data = useLazyLoadQuery<MoviesListQuery>(MoviesListQuery, {});
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<MoviesListQueryType>(
+    MoviesListQuery,
+    preloadedQueries!.MoviesList.queryRef!,
+  );
 
   const [search, setSearch] = useState('');
   const [options, setOptions] = useState<MoviesListOptions>({
@@ -76,7 +90,7 @@ export function MoviesListScreen({
           titleContains={search}
           options={options}
           movies={data}
-          onItemPressed={() => navigation.navigate('MovieDetails')}
+          onNavigate={() => navigation.navigate('MovieDetails')}
         />
       </Suspense>
     </View>

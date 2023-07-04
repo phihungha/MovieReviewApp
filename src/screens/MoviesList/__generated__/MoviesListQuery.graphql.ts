@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6423ddc0ea39662e5af358dae0a4faaa>>
+ * @generated SignedSource<<abf40fe7265d5de46483120e511cab61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -185,12 +185,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "76da42eb1c6aa1e253a2194991f1179a",
+    "cacheID": "85e7b83f0f0af19a0cb95ad92f41b310",
     "id": null,
     "metadata": {},
     "name": "MoviesListQuery",
     "operationKind": "query",
-    "text": "query MoviesListQuery {\n  ...AllMovieList\n}\n\nfragment AllMovieList on Query {\n  movies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query MoviesListQuery {\n  ...AllMovieList\n}\n\nfragment AllMovieList on Query {\n  movies(first: 6) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c6c45b7bd1737d5bc14871e32bb2c2c2>>
+ * @generated SignedSource<<e40981ca73952530b5895b8420469dd4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -206,12 +206,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "08d3ea6b2c3c04dc08439cc534e384a2",
+    "cacheID": "89022c1d99771fcaec5487c86c40f926",
     "id": null,
     "metadata": {},
     "name": "TrendingMovieListRefetchQuery",
     "operationKind": "query",
-    "text": "query TrendingMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n) {\n  ...TrendingMovieList_1G22uz\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList_1G22uz on Query {\n  trendingMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TrendingMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n) {\n  ...TrendingMovieList_1G22uz\n}\n\nfragment MovieGridItemFragment on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment TrendingMovieList_1G22uz on Query {\n  trendingMovies(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

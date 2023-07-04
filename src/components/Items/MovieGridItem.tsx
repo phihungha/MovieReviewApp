@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {CriticReviewScoreIndicator} from '../Display/CriticReviewScoreIndicator';
 import {RegularReviewScoreIndicator} from '../Display/RegularReviewScoreIndicator';
@@ -10,9 +10,11 @@ import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
 import type {MovieGridItemFragment$key} from './__generated__/MovieGridItemFragment.graphql';
 import {MoviePoster} from '../Display/MoviePoster';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
 const MovieGridItemFragment = graphql`
   fragment MovieGridItemFragment on Movie {
+    id
     title
     posterUrl
     releaseDate
@@ -24,6 +26,7 @@ const MovieGridItemFragment = graphql`
 interface MovieGridItemProps {
   movie: MovieGridItemFragment$key | null;
   onPress?: ActionCb;
+  onNavigate?: ActionCb;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
@@ -32,11 +35,22 @@ interface MovieGridItemProps {
  */
 export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
   const data = useFragment(MovieGridItemFragment, props.movie);
+
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  const defaultOnPress = () => {
+    if (data?.id) {
+      preloadedQueries?.MovieDetails.loadQuery({id: data.id});
+    }
+    props.onNavigate?.();
+  };
+  const onPress = props.onPress ?? defaultOnPress;
+
   return (
     <View style={StyleSheet.compose(styles.container, props.containerStyle)}>
       <Pressable
         style={styles.contentContainer}
-        onPress={props.onPress}
+        onPress={onPress}
         android_ripple={pressableRippleConfig}>
         <MoviePoster imageUrl={data?.posterUrl} />
         <View style={styles.infoContainer}>

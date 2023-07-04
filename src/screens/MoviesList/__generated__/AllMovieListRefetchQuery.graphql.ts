@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef2f3b70c544fc8b5b0655c0cc24b8ae>>
+ * @generated SignedSource<<d4bb9976dacc1592f6c8df20cfb3e4c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -335,12 +335,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a4fb2ba0d287b0174cf25d92faf85638",
+    "cacheID": "c940364b8bdd8b8e8e0959d83375f4ce",
     "id": null,
     "metadata": {},
     "name": "AllMovieListRefetchQuery",
     "operationKind": "query",
-    "text": "query AllMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n  $genres: [String!]\n  $maxCriticScore: Int\n  $maxRegularScore: Int\n  $minCriticScore: Int\n  $minRegularScore: Int\n  $releaseYear: Int\n  $sortBy: MovieSortBy\n  $sortDirection: SortDirection\n  $titleContains: String\n) {\n  ...AllMovieList_4pZxSw\n}\n\nfragment AllMovieList_4pZxSw on Query {\n  movies(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, titleContains: $titleContains, releaseYear: $releaseYear, genres: $genres, minCriticScore: $minCriticScore, maxCriticScore: $maxCriticScore, minRegularScore: $minRegularScore, maxRegularScore: $maxRegularScore) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query AllMovieListRefetchQuery(\n  $count: Int = 6\n  $cursor: ID\n  $genres: [String!]\n  $maxCriticScore: Int\n  $maxRegularScore: Int\n  $minCriticScore: Int\n  $minRegularScore: Int\n  $releaseYear: Int\n  $sortBy: MovieSortBy\n  $sortDirection: SortDirection\n  $titleContains: String\n) {\n  ...AllMovieList_4pZxSw\n}\n\nfragment AllMovieList_4pZxSw on Query {\n  movies(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, titleContains: $titleContains, releaseYear: $releaseYear, genres: $genres, minCriticScore: $minCriticScore, maxCriticScore: $maxCriticScore, minRegularScore: $minRegularScore, maxRegularScore: $maxRegularScore) {\n    edges {\n      node {\n        id\n        ...MovieGridItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment MovieGridItemFragment on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();
