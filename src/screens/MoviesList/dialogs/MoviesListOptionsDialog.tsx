@@ -1,13 +1,13 @@
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
-import {GenericDialog} from './GenericDialog';
+import {GenericDialog} from '../../../dialogs/GenericDialog';
 import {useState} from 'react';
 import {Input} from '@rneui/themed';
-import {CustomButtonCb} from '../types/CustomButtonCb';
+import {CustomButtonCb} from '../../../types/CustomButtonCb';
 import {
   MovieSortBy,
   SortDirection,
-} from '../screens/MoviesList/__generated__/AllMovieListRefetchQuery.graphql';
+} from '../components/__generated__/AllMovieListRefetchQuery.graphql';
 export type MoviesListSortDirection = 'Asc' | 'Desc';
 
 export interface MoviesListOptions {

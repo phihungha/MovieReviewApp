@@ -28,7 +28,7 @@ import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon'
 import {
   MoviesListOptions,
   MoviesListOptionsDialog,
-} from '../../dialogs/MoviesListOptionsDialog';
+} from './dialogs/MoviesListOptionsDialog';
 import {ListScreenHeader} from '../../components/Headers/ListScreenHeader';
 import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
 import {HeaderButton} from '../../components/Buttons/HeaderButton';

@@ -6,7 +6,7 @@ import {AllMovieListRefetchQuery} from './__generated__/AllMovieListRefetchQuery
 import {GridList} from '../../../components/Lists/GridList';
 import {MovieGridItem} from '../../../components/Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
-import {MoviesListOptions} from '../../../dialogs/MoviesListOptionsDialog';
+import {MoviesListOptions} from '../dialogs/MoviesListOptionsDialog';
 
 const AllMovieListFragment = graphql`
   fragment AllMovieList on Query
