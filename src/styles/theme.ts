@@ -64,5 +64,18 @@ export const theme = createTheme({
         backgroundColor: colors.mediumBlack,
       },
     },
+
+    Tab: {
+      variant: 'primary',
+      indicatorStyle: {
+        backgroundColor: colors.primary,
+        height: '100%',
+        zIndex: 0,
+      },
+      containerStyle: {
+        zIndex: 1,
+        backgroundColor: 'transparent',
+      },
+    },
   },
 });

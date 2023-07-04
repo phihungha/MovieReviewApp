@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {SubtitleText} from '../../components/Text/SubtitleText';
 import {TitleText} from '../../components/Text/TitleText';
@@ -21,6 +21,7 @@ import {
 import {CrewListItem} from './components/CrewListItem';
 import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
+import {Tab, TabView} from '@rneui/themed';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -129,7 +130,10 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
             </View>
           </InfoSection>
 
-          <SectionText>Reviews</SectionText>
+          <InfoSection>
+            <SectionText>Reviews</SectionText>
+            <ReviewsOverview />
+          </InfoSection>
 
           <View style={styles.ButtonContainer}>
             <Button
@@ -141,6 +145,26 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
         </View>
       </View>
     </ScrollView>
+  );
+}
+
+function ReviewsOverview() {
+  const [index, setIndex] = useState(0);
+  return (
+    <>
+      <Tab value={index} onChange={i => setIndex(i)}>
+        <Tab.Item title="Critic" />
+        <Tab.Item title="Regular" />
+      </Tab>
+      <TabView value={index} onChange={setIndex}>
+        <TabView.Item>
+          <SectionText>List1</SectionText>
+        </TabView.Item>
+        <TabView.Item>
+          <SectionText>List2</SectionText>
+        </TabView.Item>
+      </TabView>
+    </>
   );
 }
 
