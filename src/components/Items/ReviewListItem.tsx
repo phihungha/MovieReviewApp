@@ -5,41 +5,59 @@ import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
 import {ReviewCommentButton} from '../Buttons/ReviewCommentButton';
 import {ReviewLikeButton} from '../Buttons/ReviewLikeButton';
-import {ItemTitleOnly} from './BottomSheetListItem';
-import {ReviewListItemMoreButton} from '../Buttons/ReviewListItemMoreButton';
+import {graphql} from 'relay-runtime';
+import {useFragment} from 'react-relay';
+import {ReviewListItem$key} from './__generated__/ReviewListItem.graphql';
+import {HorizontalUserDisplay} from '../Display/HorizontalUserDisplay';
+
+const ReviewListItemFragment = graphql`
+  fragment ReviewListItem on Review {
+    ...ReviewInfoDisplay
+    author {
+      ...HorizontalUserDisplay
+    }
+  }
+`;
+
+export interface ReviewListItemProps {
+  review?: ReviewListItem$key | null;
+}
 
 /**
  * Item for a list of reviews.
  */
-export function ReviewListItem(): JSX.Element {
-  const onSelectedItem = (item: ItemTitleOnly) => {
-    switch (item.id) {
-      case 'hide':
-        console.log('hide review');
-        break;
-      case 'open':
-        console.log('open review');
-        break;
-      case 'share':
-        console.log('share review');
-        break;
-    }
-  };
+export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
+  if (!props.review) {
+    return (
+      <View style={styles.container}>
+        <HorizontalProfileDisplay
+          imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
+          name="Roger Ebert"
+          role="Critic"
+        />
+        <ReviewInfoDisplay style={styles.infoContainer} />
+        <View style={styles.buttonsContainer}>
+          <ReviewLikeButton />
+          <ReviewCommentButton />
+        </View>
+      </View>
+    );
+  }
+  return <ReviewListItemWithData {...props} />;
+}
 
+function ReviewListItemWithData({
+  review,
+}: ReviewListItemProps): React.JSX.Element {
+  const data = useFragment(ReviewListItemFragment, review!);
   return (
     <View style={styles.container}>
-      <HorizontalProfileDisplay
-        imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
-        name="Roger Ebert"
-        role="Critic"
-      />
-      <ReviewInfoDisplay style={styles.infoContainer} />
+      <HorizontalUserDisplay user={data.author} />
+      <ReviewInfoDisplay review={data} style={styles.infoContainer} />
       <View style={styles.buttonsContainer}>
         <ReviewLikeButton />
         <ReviewCommentButton />
       </View>
-
-      <ReviewListItemMoreButton onSelectedItem={onSelectedItem} />
     </View>
   );
 }

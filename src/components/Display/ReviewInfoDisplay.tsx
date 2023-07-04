@@ -5,8 +5,21 @@ import {SubtitleText} from '../Text/SubtitleText';
 import {RegularText} from '../Text/RegularText';
 import colors from '../../styles/colors';
 import {TitleText} from '../Text/TitleText';
+import {graphql} from 'relay-runtime';
+import {ReviewInfoDisplay$key} from './__generated__/ReviewInfoDisplay.graphql';
+import {useFragment} from 'react-relay';
+
+const ReviewInfoDisplayFragment = graphql`
+  fragment ReviewInfoDisplay on Review {
+    title
+    content
+    postTime
+    score
+  }
+`;
 
 export interface ReviewInfoDisplayProps {
+  review?: ReviewInfoDisplay$key | null;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -15,16 +28,28 @@ export interface ReviewInfoDisplayProps {
  * @param {StyleProp<ViewStyle>?} style Style
  */
 export function ReviewInfoDisplay(props: ReviewInfoDisplayProps): JSX.Element {
+  if (!props.review) {
+    return (
+      <View style={StyleSheet.compose(styles.container, props.style)}>
+        <TitleText>N/A</TitleText>
+        <SubtitleText>N/A</SubtitleText>
+        <CriticReviewScoreIndicator />
+        <RegularText>N/A</RegularText>
+      </View>
+    );
+  }
+
+  return <ReviewInfoDisplayWithData {...props} />;
+}
+
+function ReviewInfoDisplayWithData(props: ReviewInfoDisplayProps) {
+  const data = useFragment(ReviewInfoDisplayFragment, props.review!);
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <TitleText>Review title</TitleText>
-      <SubtitleText>15/5/2023</SubtitleText>
-      <CriticReviewScoreIndicator score={8} />
-      <RegularText>
-        Lorem ipsum dolor sit amunt ut l, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor
-        sit........
-      </RegularText>
+      <TitleText>{data.title}</TitleText>
+      <SubtitleText>{data.postTime}</SubtitleText>
+      <CriticReviewScoreIndicator score={data.score} />
+      <RegularText>{data.content}</RegularText>
     </View>
   );
 }

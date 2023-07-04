@@ -17,7 +17,7 @@ export function HorizontalProfileDisplay(
 ): JSX.Element {
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <Avatar size={60} rounded source={{uri: props.imageUrl}} />
+      <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
       <View>
         <TitleText>{props.name}</TitleText>
         <RegularText>{props.role}</RegularText>
