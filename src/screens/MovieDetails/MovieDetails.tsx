@@ -71,8 +71,8 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
   return (
     <ScrollView>
-      <View style={styles.background1} />
-      <View style={styles.background2}>
+      <View style={styles.outerContainer} />
+      <View style={styles.mainContainer}>
         <MoviePoster
           style={styles.posterImage}
           imageUrl={data.movie?.posterUrl}
@@ -164,10 +164,10 @@ function InfoSection({children}: {children: React.ReactNode}) {
 }
 
 const styles = StyleSheet.create({
-  background1: {
+  outerContainer: {
     height: 150,
   },
-  background2: {
+  mainContainer: {
     flexGrow: 1,
     backgroundColor: 'black',
     alignItems: 'flex-start',
