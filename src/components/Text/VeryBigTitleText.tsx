@@ -4,7 +4,7 @@ import {fontSizes, fonts} from '../../styles/typography';
 import colors from '../../styles/colors';
 
 export function VeryBigTitleText(props: TextProps): JSX.Element {
-  return <Text style={[styles.text, props.style]}>{props.children}</Text>;
+  return <Text {...props} style={[styles.text, props.style]} />;
 }
 
 const styles = StyleSheet.create({

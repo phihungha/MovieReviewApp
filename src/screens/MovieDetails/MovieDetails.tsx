@@ -177,7 +177,7 @@ function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
         <Tab.Item title="Regular" />
       </Tab>
       <TabView
-        containerStyle={{height: 1500}}
+        containerStyle={{height: 1350}}
         value={index}
         onChange={setIndex}>
         <TabView.Item>
