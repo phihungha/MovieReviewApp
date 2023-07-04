@@ -4,16 +4,14 @@ import {fontSizes, fonts} from '../../styles/typography';
 import {TextProps} from '../../props/ChildrenOnlyProps';
 import colors from '../../styles/colors';
 
-export function SectionText(props: TextProps): JSX.Element {
-  return (
-    <Text style={[sectionStyles.text, props.style]}>{props.children}</Text>
-  );
+export function ItemSubtitleText(props: TextProps): JSX.Element {
+  return <Text style={[styles.text, props.style]}>{props.children}</Text>;
 }
 
-const sectionStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   text: {
-    fontFamily: fonts.primaryBold,
-    fontSize: fontSizes.lg,
+    fontFamily: fonts.primary,
+    fontSize: fontSizes.sm,
     color: colors.white,
   },
 });

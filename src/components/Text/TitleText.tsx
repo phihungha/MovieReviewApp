@@ -12,6 +12,7 @@ const titleStyles = StyleSheet.create({
   text: {
     fontFamily: fonts.primaryBold,
     fontSize: fontSizes.lg,
+    fontWeight: 'bold',
     color: colors.white,
   },
 });

@@ -15,6 +15,9 @@ import {usePreloadedQuery} from 'react-relay';
 import type {MovieDetailsQuery as MovieDetailsQueryType} from './__generated__/MovieDetailsQuery.graphql';
 import {HorizontalList} from '../../components/Lists/HorizontalList';
 import {ActorListItem} from './components/ActorListItem';
+import {RegularText} from '../../components/Text/RegularText';
+import {SectionText} from '../../components/Text/SectionText';
+import {convertSecondsToHumanReadable} from '../../utils/time-conversion';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -86,7 +89,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
       <View style={styles.background1} />
       <View style={styles.background2}>
         <MoviePoster
-          style={styles.MoviePoster}
+          style={styles.posterImage}
           imageUrl={data.movie?.posterUrl}
         />
 
@@ -106,16 +109,19 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
               nisi ut aliquip ex ea commodo consequat"
           />
 
-          <InfoItem name="Running time" value={data.movie?.runningTime} />
-        </View>
-
-        <View style={styles.crewListContainer}>
-          <TitleText>Crew</TitleText>
-          <HorizontalList
-            data={data.movie?.actingCredits}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => <ActorListItem actingCredit={item} />}
+          <InfoItem
+            name="Running time"
+            value={convertSecondsToHumanReadable(data.movie?.runningTime ?? -1)}
           />
+
+          <View style={styles.crewListContainer}>
+            <TitleText>Crew</TitleText>
+            <HorizontalList
+              data={data.movie?.actingCredits}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => <ActorListItem actingCredit={item} />}
+            />
+          </View>
         </View>
 
         <View style={styles.ScoreContainer} />
@@ -170,9 +176,8 @@ interface InfoItemProps {
 function InfoItem({name, value}: InfoItemProps) {
   return (
     <View>
-      <SubtitleText>
-        {name}: {value}
-      </SubtitleText>
+      <SectionText>{name}</SectionText>
+      <RegularText>{value}</RegularText>
     </View>
   );
 }
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     alignItems: 'flex-start',
   },
-  MoviePoster: {
+  posterImage: {
     position: 'absolute',
     top: -70,
     height: 140,
@@ -199,6 +204,7 @@ const styles = StyleSheet.create({
   },
   detailsInfoContainer: {
     padding: 10,
+    gap: 10,
   },
   crewListContainer: {
     gap: 5,
