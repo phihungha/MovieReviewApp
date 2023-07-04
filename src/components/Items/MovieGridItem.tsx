@@ -2,8 +2,6 @@ import React, {useContext} from 'react';
 import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {CriticReviewScoreIndicator} from '../Display/CriticReviewScoreIndicator';
 import {RegularReviewScoreIndicator} from '../Display/RegularReviewScoreIndicator';
-import {TitleText} from '../Text/TitleText';
-import {SubtitleText} from '../Text/SubtitleText';
 import {ActionCb} from '../../types/ActionCb';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
 import {graphql} from 'relay-runtime';
@@ -11,6 +9,8 @@ import {useFragment} from 'react-relay';
 import type {MovieGridItemFragment$key} from './__generated__/MovieGridItemFragment.graphql';
 import {MoviePoster} from '../Display/MoviePoster';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import {ItemTitleText} from '../Text/ItemTitleText';
+import {ItemSubtitleText} from '../Text/ItemSubtitleText';
 
 const MovieGridItemFragment = graphql`
   fragment MovieGridItemFragment on Movie {
@@ -54,8 +54,8 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
         android_ripple={pressableRippleConfig}>
         <MoviePoster imageUrl={data?.posterUrl} />
         <View style={styles.infoContainer}>
-          <TitleText>{data?.title}</TitleText>
-          <SubtitleText>{data?.releaseDate}</SubtitleText>
+          <ItemTitleText>{data?.title}</ItemTitleText>
+          <ItemSubtitleText>{data?.releaseDate}</ItemSubtitleText>
           <View style={styles.scoresContainer}>
             <CriticReviewScoreIndicator score={data?.criticScore} />
             <RegularReviewScoreIndicator score={data?.regularScore} />
