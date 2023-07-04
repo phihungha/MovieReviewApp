@@ -22,6 +22,7 @@ const ReviewInfoDisplayFragment = graphql`
 
 export interface ReviewInfoDisplayProps {
   review?: ReviewInfoDisplay$key | null;
+  maxContentLineCount?: number;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -53,7 +54,9 @@ function ReviewInfoDisplayWithData(props: ReviewInfoDisplayProps) {
         {dateToStandardDateFormat(new Date(data.postTime))}
       </RegularText>
       <CriticReviewScoreIndicator score={data.score} />
-      <RegularText>{data.content}</RegularText>
+      <RegularText numberOfLines={props.maxContentLineCount}>
+        {data.content}
+      </RegularText>
     </View>
   );
 }

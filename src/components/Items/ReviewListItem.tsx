@@ -53,7 +53,11 @@ function ReviewListItemWithData({
   return (
     <View style={styles.container}>
       <HorizontalUserDisplay user={data.author} />
-      <ReviewInfoDisplay review={data} style={styles.infoContainer} />
+      <ReviewInfoDisplay
+        review={data}
+        maxContentLineCount={3}
+        style={styles.infoContainer}
+      />
       <View style={styles.buttonsContainer}>
         <ReviewLikeButton />
         <ReviewCommentButton />
