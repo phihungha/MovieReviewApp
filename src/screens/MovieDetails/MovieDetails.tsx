@@ -9,19 +9,23 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
-import type {MovieDetailsQuery as MovieDetailsQueryType} from './__generated__/MovieDetailsQuery.graphql';
+import type {
+  MovieDetailsQuery$data,
+  MovieDetailsQuery as MovieDetailsQueryType,
+} from './__generated__/MovieDetailsQuery.graphql';
 import {HorizontalList} from '../../components/Lists/HorizontalList';
 import {ActorListItem} from './components/ActorListItem';
 import {RegularText} from '../../components/Text/RegularText';
 import {SectionText} from '../../components/Text/SectionText';
 import {
-  dateToStandardFormat,
+  dateToStandardDateFormat,
   secondsToLongFormat,
 } from '../../utils/time-conversion';
 import {CrewListItem} from './components/CrewListItem';
 import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
 import {Tab, TabView} from '@rneui/themed';
+import {ReviewListItem} from '../../components/Items/ReviewListItem';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -40,6 +44,22 @@ export const MovieDetailsQuery = graphql`
       }
       ...CriticAggregateScoreIndicator
       ...RegularAggregateScoreIndicator
+      criticReviews(first: 3) {
+        edges {
+          node {
+            id
+            ...ReviewListItem
+          }
+        }
+      }
+      regularReviews(first: 3) {
+        edges {
+          node {
+            id
+            ...ReviewListItem
+          }
+        }
+      }
     }
   }
 `;
@@ -87,7 +107,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
         <View style={styles.detailsInfoContainer}>
           <SimpleInfoSection
             name="Released on"
-            value={dateToStandardFormat(releaseDate)}
+            value={dateToStandardDateFormat(releaseDate)}
           />
           <SimpleInfoSection name="Genres" value="Thriller, Action" />
           <SimpleInfoSection
@@ -132,7 +152,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
           <InfoSection>
             <SectionText>Reviews</SectionText>
-            <ReviewsOverview />
+            <ReviewsOverview data={data} />
           </InfoSection>
 
           <View style={styles.ButtonContainer}>
@@ -148,7 +168,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
   );
 }
 
-function ReviewsOverview() {
+function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
   const [index, setIndex] = useState(0);
   return (
     <>
@@ -156,12 +176,23 @@ function ReviewsOverview() {
         <Tab.Item title="Critic" />
         <Tab.Item title="Regular" />
       </Tab>
-      <TabView value={index} onChange={setIndex}>
+      <TabView
+        containerStyle={{height: 1500}}
+        value={index}
+        onChange={setIndex}>
         <TabView.Item>
-          <SectionText>List1</SectionText>
+          <View style={styles.reviewList}>
+            {data.movie?.criticReviews.edges.map(i => (
+              <ReviewListItem review={i?.node} />
+            ))}
+          </View>
         </TabView.Item>
         <TabView.Item>
-          <SectionText>List2</SectionText>
+          <View style={styles.reviewList}>
+            {data.movie?.regularReviews.edges.map(i => (
+              <ReviewListItem review={i?.node} />
+            ))}
+          </View>
         </TabView.Item>
       </TabView>
     </>
@@ -228,19 +259,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 10,
   },
-  TabContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
+  reviewList: {
+    padding: 5,
     gap: 10,
-    padding: 10,
-  },
-  tabs: {
-    width: 103,
-  },
-  ReviewList: {
-    alignSelf: 'center',
-    padding: 10,
   },
 });

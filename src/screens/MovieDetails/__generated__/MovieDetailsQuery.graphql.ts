@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d0af090dfaf4a380ed7a8065aec3b7a0>>
+ * @generated SignedSource<<061c903e2bab9a7ba41bd459228e20fa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,11 +19,27 @@ export type MovieDetailsQuery$data = {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"ActorListItem">;
     }>;
+    readonly criticReviews: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
+        };
+      } | null>;
+    };
     readonly directors: ReadonlyArray<{
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
     }>;
     readonly posterUrl: string | null;
+    readonly regularReviews: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly id: string;
+          readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
+        };
+      } | null>;
+    };
     readonly releaseDate: any;
     readonly runningTime: number;
     readonly title: string;
@@ -85,20 +101,125 @@ v6 = {
   "name": "id",
   "storageKey": null
 },
-v7 = {
+v7 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 3
+  }
+],
+v8 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ReviewEdge",
+    "kind": "LinkedField",
+    "name": "edges",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Review",
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ReviewListItem"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "avatarUrl",
   "storageKey": null
 },
-v8 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v11 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ReviewEdge",
+    "kind": "LinkedField",
+    "name": "edges",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Review",
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/),
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "content",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "postTime",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "score",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "author",
+            "plural": false,
+            "selections": [
+              (v9/*: any*/),
+              (v10/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "userType",
+                "storageKey": null
+              },
+              (v6/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -161,6 +282,26 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "RegularAggregateScoreIndicator"
+          },
+          {
+            "alias": null,
+            "args": (v7/*: any*/),
+            "concreteType": "ReviewConnection",
+            "kind": "LinkedField",
+            "name": "criticReviews",
+            "plural": false,
+            "selections": (v8/*: any*/),
+            "storageKey": "criticReviews(first:3)"
+          },
+          {
+            "alias": null,
+            "args": (v7/*: any*/),
+            "concreteType": "ReviewConnection",
+            "kind": "LinkedField",
+            "name": "regularReviews",
+            "plural": false,
+            "selections": (v8/*: any*/),
+            "storageKey": "regularReviews(first:3)"
           }
         ],
         "storageKey": null
@@ -204,8 +345,8 @@ return {
                 "name": "actor",
                 "plural": false,
                 "selections": [
-                  (v7/*: any*/),
-                  (v8/*: any*/),
+                  (v9/*: any*/),
+                  (v10/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -229,8 +370,8 @@ return {
             "plural": true,
             "selections": [
               (v6/*: any*/),
-              (v8/*: any*/),
-              (v7/*: any*/)
+              (v10/*: any*/),
+              (v9/*: any*/)
             ],
             "storageKey": null
           },
@@ -262,6 +403,26 @@ return {
             "name": "regularReviewCount",
             "storageKey": null
           },
+          {
+            "alias": null,
+            "args": (v7/*: any*/),
+            "concreteType": "ReviewConnection",
+            "kind": "LinkedField",
+            "name": "criticReviews",
+            "plural": false,
+            "selections": (v11/*: any*/),
+            "storageKey": "criticReviews(first:3)"
+          },
+          {
+            "alias": null,
+            "args": (v7/*: any*/),
+            "concreteType": "ReviewConnection",
+            "kind": "LinkedField",
+            "name": "regularReviews",
+            "plural": false,
+            "selections": (v11/*: any*/),
+            "storageKey": "regularReviews(first:3)"
+          },
           (v6/*: any*/)
         ],
         "storageKey": null
@@ -269,16 +430,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "286977f1d19ee4ee688e6b6546b5ff26",
+    "cacheID": "b7b7192d80707035bdd87590d59e22ee",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "61ecd7fdd506a9bc0a0cd5e81bf5bd50";
+(node as any).hash = "d30d5e1846552a95a62dd64fb44f36cf";
 
 export default node;

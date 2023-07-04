@@ -9,6 +9,6 @@ export function secondsToLongFormat(inputSeconds: number) {
   return `${hours} ${hoursWord} ${minutes} ${minutesWord} ${seconds} ${secondsWord}`;
 }
 
-export function dateToStandardFormat(date: Date) {
+export function dateToStandardDateFormat(date: Date) {
   return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 }

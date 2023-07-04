@@ -77,5 +77,9 @@ export const theme = createTheme({
         backgroundColor: 'transparent',
       },
     },
+
+    TabViewItem: {
+      style: {width: '100%'},
+    },
   },
 });

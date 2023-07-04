@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
-import {RegularText} from '../Text/RegularText';
 import {Avatar} from '@rneui/themed';
 import {ProfileDisplayProps} from '../../props/ProfileDisplayProps';
+import {ItemTitleText} from '../Text/ItemTitleText';
+import {ItemSubtitleText} from '../Text/ItemSubtitleText';
 
 /**
  * Display basic profile info (image, name, role) of a user, crew member,...
@@ -19,8 +19,8 @@ export function HorizontalProfileDisplay(
     <View style={StyleSheet.compose(styles.container, props.style)}>
       <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
       <View>
-        <TitleText>{props.name}</TitleText>
-        <RegularText>{props.role}</RegularText>
+        <ItemTitleText>{props.name}</ItemTitleText>
+        <ItemSubtitleText>{props.role}</ItemSubtitleText>
       </View>
     </View>
   );

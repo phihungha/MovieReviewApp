@@ -8,6 +8,8 @@ import {TitleText} from '../Text/TitleText';
 import {graphql} from 'relay-runtime';
 import {ReviewInfoDisplay$key} from './__generated__/ReviewInfoDisplay.graphql';
 import {useFragment} from 'react-relay';
+import {SectionText} from '../Text/SectionText';
+import {dateToStandardDateFormat} from '../../utils/time-conversion';
 
 const ReviewInfoDisplayFragment = graphql`
   fragment ReviewInfoDisplay on Review {
@@ -46,8 +48,10 @@ function ReviewInfoDisplayWithData(props: ReviewInfoDisplayProps) {
   const data = useFragment(ReviewInfoDisplayFragment, props.review!);
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <TitleText>{data.title}</TitleText>
-      <SubtitleText>{data.postTime}</SubtitleText>
+      <SectionText>{data.title}</SectionText>
+      <RegularText>
+        {dateToStandardDateFormat(new Date(data.postTime))}
+      </RegularText>
       <CriticReviewScoreIndicator score={data.score} />
       <RegularText>{data.content}</RegularText>
     </View>
