@@ -46,7 +46,6 @@ function HomeScreenWithData({navigation}: HomeScreenProps) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<HomeQueryType>(
     HomeQuery,
-
     preloadedQueries!.Home.queryRef!,
   );
 

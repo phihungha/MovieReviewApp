@@ -1,7 +1,11 @@
 import React from 'react';
 import environment from './relay/environment';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {RelayEnvironmentProvider, useQueryLoader} from 'react-relay';
+import {
+  GraphQLTaggedNode,
+  RelayEnvironmentProvider,
+  useQueryLoader,
+} from 'react-relay';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
 import {SignUpScreen} from './screens/SignUp';
 import {LoginScreen} from './screens/Login';
@@ -11,12 +15,23 @@ import {theme} from './styles/theme';
 import colors from './styles/colors';
 import {PreloadedQueriesContext} from './relay/PreloadedQueriesContext';
 import {HomeQuery} from './screens/Home/Home';
-import type {HomeQuery as HomeQueryType} from './screens/__generated__/HomeQuery.graphql';
+import type {HomeQuery as HomeQueryType} from './screens/Home/__generated__/HomeQuery.graphql';
+import {OperationType} from 'relay-runtime';
+import type {MovieDetailsQuery as MovieDetailsQueryType} from './screens/__generated__/MovieDetailsQuery.graphql';
+import {MovieDetailsQuery} from './screens/MovieDetails';
+
+function useQueryLoaderAsDict<T extends OperationType>(
+  query: GraphQLTaggedNode,
+) {
+  const [queryRef, loadQuery] = useQueryLoader<T>(query);
+  return {queryRef, loadQuery};
+}
 
 function usePreloadedQueries() {
-  const [queryRef, loadQuery] = useQueryLoader<HomeQueryType>(HomeQuery);
   return {
-    Home: {queryRef, loadQuery},
+    Home: useQueryLoaderAsDict<HomeQueryType>(HomeQuery),
+    MovieDetails:
+      useQueryLoaderAsDict<MovieDetailsQueryType>(MovieDetailsQuery),
   };
 }
 

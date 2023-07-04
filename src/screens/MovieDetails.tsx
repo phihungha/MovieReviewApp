@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {FlatList, Image, Pressable} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {FlatList, Pressable} from 'react-native';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {CrewListItem} from '../components/Items/CrewListItem';
 import {ActorListItem} from '../components/Items/ActorListItem';
@@ -11,6 +11,13 @@ import {CriticReviewScoreIndicator} from '../components/Display/CriticReviewScor
 import colors from '../styles/colors';
 import {Button} from '@rneui/base';
 import {RegularReviewScoreIndicator} from '../components/Display/RegularReviewScoreIndicator';
+import {graphql} from 'relay-runtime';
+import {MoviePoster} from '../components/Display/MoviePoster';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParams} from '../navigators/MainStackParams';
+import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
+import {usePreloadedQuery} from 'react-relay';
+import type {MovieDetailsQuery as MovieDetailsQueryType} from './__generated__/MovieDetailsQuery.graphql';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -20,11 +27,41 @@ export function HorizontalItemSeparator(): JSX.Element {
   return <View style={styles.HorizontalItemSeparator} />;
 }
 
-export function MovieDetailsScreen({
-  navigation,
-}: {
-  navigation: any;
-}): JSX.Element {
+export const MovieDetailsQuery = graphql`
+  query MovieDetailsQuery($id: ID!) {
+    movie(id: $id) {
+      title
+      releaseDate
+      runningTime
+      posterUrl
+    }
+  }
+`;
+
+type MovieDetailsScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'MovieDetails'
+>;
+
+export function MovieDetailsScreen(
+  props: MovieDetailsScreenProps,
+): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.MovieDetails.queryRef) {
+    return <></>;
+  }
+  return <MovieDetailsScreenWithData {...props} />;
+}
+
+function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  const data = usePreloadedQuery<MovieDetailsQueryType>(
+    MovieDetailsQuery,
+    preloadedQueries!.MovieDetails.queryRef!,
+  );
+
   const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [colorAll, setColorAll] = useState('#EF3651');
   const [colorCritic, setColorCritic] = useState('#2A2C36');
@@ -56,16 +93,14 @@ export function MovieDetailsScreen({
       <ScrollView>
         <View style={styles.background1} />
         <View style={styles.background2}>
-          <Image
-            source={{
-              uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
-            }}
+          <MoviePoster
             style={styles.MoviePoster}
+            imageUrl={data.movie?.posterUrl}
           />
 
           <View style={styles.MovieInfo}>
-            <BigTitleText>John Wick</BigTitleText>
-            <SubtitleText>2014</SubtitleText>
+            <BigTitleText>{data.movie?.title}</BigTitleText>
+            <SubtitleText>{data.movie?.releaseDate}</SubtitleText>
           </View>
 
           <View style={styles.MovieInfo2}>
@@ -152,9 +187,8 @@ export function MovieDetailsScreen({
           <FlatList
             style={styles.ReviewList}
             data={arr}
-            renderItem={({item}) => (
-              <Pressable
-                onPress={() => navigation.navigate('ReviewDetails', item)}>
+            renderItem={() => (
+              <Pressable onPress={() => navigation.navigate('ReviewDetails')}>
                 <ReviewListItem />
               </Pressable>
             )}
