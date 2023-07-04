@@ -1,4 +1,4 @@
-export function convertSecondsToHumanReadable(inputSeconds: number) {
+export function secondsToLongFormat(inputSeconds: number) {
   const time = new Date(inputSeconds * 1000);
   const hours = time.getUTCHours();
   const hoursWord = hours > 1 ? 'hours' : 'hour';
@@ -7,4 +7,8 @@ export function convertSecondsToHumanReadable(inputSeconds: number) {
   const seconds = time.getUTCSeconds();
   const secondsWord = seconds > 1 ? 'seconds' : 'second';
   return `${hours} ${hoursWord} ${minutes} ${minutesWord} ${seconds} ${secondsWord}`;
+}
+
+export function dateToStandardFormat(date: Date) {
+  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 }

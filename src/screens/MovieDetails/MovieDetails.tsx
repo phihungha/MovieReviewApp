@@ -1,8 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {FlatList} from 'react-native';
+import React, {useContext} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {ReviewListItem} from '../../components/Items/ReviewListItem';
-import {BigTitleText} from '../../components/Text/BigTitleText';
 import {SubtitleText} from '../../components/Text/SubtitleText';
 import {TitleText} from '../../components/Text/TitleText';
 import {Button} from '@rneui/base';
@@ -17,7 +14,11 @@ import {HorizontalList} from '../../components/Lists/HorizontalList';
 import {ActorListItem} from './components/ActorListItem';
 import {RegularText} from '../../components/Text/RegularText';
 import {SectionText} from '../../components/Text/SectionText';
-import {convertSecondsToHumanReadable} from '../../utils/time-conversion';
+import {
+  dateToStandardFormat,
+  secondsToLongFormat,
+} from '../../utils/time-conversion';
+import {CrewListItem} from './components/CrewListItem';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -29,6 +30,14 @@ export const MovieDetailsQuery = graphql`
       actingCredits {
         id
         ...ActorListItem
+      }
+      directors {
+        id
+        ...CrewListItem
+      }
+      writers {
+        id
+        ...CrewListItem
       }
     }
   }
@@ -58,31 +67,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
     preloadedQueries!.MovieDetails.queryRef!,
   );
 
-  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const [colorAll, setColorAll] = useState('#EF3651');
-  const [colorCritic, setColorCritic] = useState('#2A2C36');
-  const [colorRegular, setColorRegular] = useState('#2A2C36');
-
-  const HandleAllButton = async () => {
-    setColorAll('#EF3651');
-    setColorCritic('#2A2C36');
-    setColorRegular('#2A2C36');
-    console.log('api here!');
-  };
-
-  const HandleCriticButton = async () => {
-    setColorCritic('#EF3651');
-    setColorAll('#2A2C36');
-    setColorRegular('#2A2C36');
-    console.log('api here!');
-  };
-
-  const HandleRegularButton = async () => {
-    setColorRegular('#EF3651');
-    setColorCritic('#2A2C36');
-    setColorAll('#2A2C36');
-    console.log('api here!');
-  };
+  const releaseDate = new Date(data.movie?.releaseDate ?? '0001-01-01');
 
   return (
     <ScrollView>
@@ -94,41 +79,52 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
         />
 
         <View style={styles.topInfoContainer}>
-          <BigTitleText>{data.movie?.title}</BigTitleText>
-          <SubtitleText>{data.movie?.releaseDate}</SubtitleText>
+          <TitleText>{data.movie?.title}</TitleText>
+          <SubtitleText> {releaseDate.getFullYear()}</SubtitleText>
         </View>
 
         <View style={styles.detailsInfoContainer}>
-          <InfoItem name="Genres" value="Thriller, Action" />
-
-          <InfoItem
+          <InfoSection
+            name="Released on"
+            value={dateToStandardFormat(releaseDate)}
+          />
+          <InfoSection name="Genres" value="Thriller, Action" />
+          <InfoSection
             name="Synopsis"
             value="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat"
           />
-
-          <InfoItem
+          <InfoSection
             name="Running time"
-            value={convertSecondsToHumanReadable(data.movie?.runningTime ?? -1)}
+            value={secondsToLongFormat(data.movie?.runningTime ?? -1)}
           />
 
-          <View style={styles.crewListContainer}>
-            <TitleText>Crew</TitleText>
+          <CrewListSection>
+            <SectionText>Actors</SectionText>
             <HorizontalList
               data={data.movie?.actingCredits}
               keyExtractor={item => item.id}
               renderItem={({item}) => <ActorListItem actingCredit={item} />}
             />
-          </View>
+          </CrewListSection>
+
+          <CrewListSection>
+            <SectionText>Crews</SectionText>
+            <HorizontalList
+              data={data.movie?.directors}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <CrewListItem roleName="Director" crewMember={item} />
+              )}
+            />
+          </CrewListSection>
         </View>
 
         <View style={styles.ScoreContainer} />
 
-        <View style={styles.crewListContainer}>
-          <TitleText>Reviews</TitleText>
-        </View>
+        <SectionText>Reviews</SectionText>
 
         <View style={styles.ButtonContainer}>
           <Button
@@ -137,49 +133,22 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
             color="#EF3651"
           />
         </View>
-
-        <View style={styles.TabContainer}>
-          <View style={styles.tabs}>
-            <Button onPress={HandleAllButton} title="All" color={colorAll} />
-          </View>
-          <View style={styles.tabs}>
-            <Button
-              onPress={HandleCriticButton}
-              title="Critic user"
-              color={colorCritic}
-            />
-          </View>
-          <View style={styles.tabs}>
-            <Button
-              onPress={HandleRegularButton}
-              title="Regular user"
-              color={colorRegular}
-            />
-          </View>
-        </View>
-
-        <FlatList
-          style={styles.ReviewList}
-          data={arr}
-          renderItem={() => <ReviewListItem />}
-        />
       </View>
     </ScrollView>
   );
 }
 
-interface InfoItemProps {
-  name: string;
-  value?: string | number;
-}
-
-function InfoItem({name, value}: InfoItemProps) {
+function InfoSection({name, value}: {name: string; value?: string | number}) {
   return (
     <View>
       <SectionText>{name}</SectionText>
       <RegularText>{value}</RegularText>
     </View>
   );
+}
+
+function CrewListSection({children}: {children: React.ReactNode}) {
+  return <View style={styles.crewListContainer}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -193,13 +162,13 @@ const styles = StyleSheet.create({
   },
   posterImage: {
     position: 'absolute',
-    top: -70,
-    height: 140,
-    width: 100,
+    top: -100,
+    aspectRatio: 0.67,
+    width: 110,
     marginHorizontal: 10,
   },
   topInfoContainer: {
-    marginLeft: 125,
+    marginLeft: 135,
     marginTop: 5,
   },
   detailsInfoContainer: {
@@ -207,7 +176,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   crewListContainer: {
-    gap: 5,
+    gap: 10,
   },
   ScoreContainer: {
     flexDirection: 'row',
