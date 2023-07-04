@@ -19,6 +19,8 @@ import {
   secondsToLongFormat,
 } from '../../utils/time-conversion';
 import {CrewListItem} from './components/CrewListItem';
+import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
+import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -35,10 +37,8 @@ export const MovieDetailsQuery = graphql`
         id
         ...CrewListItem
       }
-      writers {
-        id
-        ...CrewListItem
-      }
+      ...CriticAggregateScoreIndicator
+      ...RegularAggregateScoreIndicator
     }
   }
 `;
@@ -84,33 +84,33 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
         </View>
 
         <View style={styles.detailsInfoContainer}>
-          <InfoSection
+          <SimpleInfoSection
             name="Released on"
             value={dateToStandardFormat(releaseDate)}
           />
-          <InfoSection name="Genres" value="Thriller, Action" />
-          <InfoSection
+          <SimpleInfoSection name="Genres" value="Thriller, Action" />
+          <SimpleInfoSection
             name="Synopsis"
             value="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat"
           />
-          <InfoSection
+          <SimpleInfoSection
             name="Running time"
             value={secondsToLongFormat(data.movie?.runningTime ?? -1)}
           />
 
-          <CrewListSection>
+          <InfoSection>
             <SectionText>Actors</SectionText>
             <HorizontalList
               data={data.movie?.actingCredits}
               keyExtractor={item => item.id}
               renderItem={({item}) => <ActorListItem actingCredit={item} />}
             />
-          </CrewListSection>
+          </InfoSection>
 
-          <CrewListSection>
+          <InfoSection>
             <SectionText>Crews</SectionText>
             <HorizontalList
               data={data.movie?.directors}
@@ -119,26 +119,38 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
                 <CrewListItem roleName="Director" crewMember={item} />
               )}
             />
-          </CrewListSection>
-        </View>
+          </InfoSection>
 
-        <View style={styles.ScoreContainer} />
+          <InfoSection>
+            <SectionText>Average scores</SectionText>
+            <View style={styles.scoreDisplaysContainer}>
+              <CriticAggregateScoreIndicator movie={data.movie} />
+              <RegularAggregateScoreIndicator movie={data.movie} />
+            </View>
+          </InfoSection>
 
-        <SectionText>Reviews</SectionText>
+          <SectionText>Reviews</SectionText>
 
-        <View style={styles.ButtonContainer}>
-          <Button
-            onPress={() => navigation.navigate('CreateReview')}
-            title="Create a new review"
-            color="#EF3651"
-          />
+          <View style={styles.ButtonContainer}>
+            <Button
+              onPress={() => navigation.navigate('CreateReview')}
+              title="Create a new review"
+              color="#EF3651"
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
   );
 }
 
-function InfoSection({name, value}: {name: string; value?: string | number}) {
+function SimpleInfoSection({
+  name,
+  value,
+}: {
+  name: string;
+  value?: string | number;
+}) {
   return (
     <View>
       <SectionText>{name}</SectionText>
@@ -147,7 +159,7 @@ function InfoSection({name, value}: {name: string; value?: string | number}) {
   );
 }
 
-function CrewListSection({children}: {children: React.ReactNode}) {
+function InfoSection({children}: {children: React.ReactNode}) {
   return <View style={styles.crewListContainer}>{children}</View>;
 }
 
@@ -178,7 +190,7 @@ const styles = StyleSheet.create({
   crewListContainer: {
     gap: 10,
   },
-  ScoreContainer: {
+  scoreDisplaysContainer: {
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',

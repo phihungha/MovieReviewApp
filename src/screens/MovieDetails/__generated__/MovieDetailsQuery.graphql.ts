@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8bdeb4c20736e4a32619ece008db32b0>>
+ * @generated SignedSource<<d0af090dfaf4a380ed7a8065aec3b7a0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,10 +27,7 @@ export type MovieDetailsQuery$data = {
     readonly releaseDate: any;
     readonly runningTime: number;
     readonly title: string;
-    readonly writers: ReadonlyArray<{
-      readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
-    }>;
+    readonly " $fragmentSpreads": FragmentRefs<"CriticAggregateScoreIndicator" | "RegularAggregateScoreIndicator">;
   } | null;
 };
 export type MovieDetailsQuery = {
@@ -88,33 +85,20 @@ v6 = {
   "name": "id",
   "storageKey": null
 },
-v7 = [
-  (v6/*: any*/),
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "CrewListItem"
-  }
-],
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "avatarUrl",
   "storageKey": null
 },
-v9 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-},
-v10 = [
-  (v6/*: any*/),
-  (v9/*: any*/),
-  (v8/*: any*/)
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -158,18 +142,25 @@ return {
             "kind": "LinkedField",
             "name": "directors",
             "plural": true,
-            "selections": (v7/*: any*/),
+            "selections": [
+              (v6/*: any*/),
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CrewListItem"
+              }
+            ],
             "storageKey": null
           },
           {
-            "alias": null,
             "args": null,
-            "concreteType": "CrewMember",
-            "kind": "LinkedField",
-            "name": "writers",
-            "plural": true,
-            "selections": (v7/*: any*/),
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "CriticAggregateScoreIndicator"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "RegularAggregateScoreIndicator"
           }
         ],
         "storageKey": null
@@ -213,8 +204,8 @@ return {
                 "name": "actor",
                 "plural": false,
                 "selections": [
+                  (v7/*: any*/),
                   (v8/*: any*/),
-                  (v9/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -236,17 +227,39 @@ return {
             "kind": "LinkedField",
             "name": "directors",
             "plural": true,
-            "selections": (v10/*: any*/),
+            "selections": [
+              (v6/*: any*/),
+              (v8/*: any*/),
+              (v7/*: any*/)
+            ],
             "storageKey": null
           },
           {
             "alias": null,
             "args": null,
-            "concreteType": "CrewMember",
-            "kind": "LinkedField",
-            "name": "writers",
-            "plural": true,
-            "selections": (v10/*: any*/),
+            "kind": "ScalarField",
+            "name": "criticScore",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "criticReviewCount",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "regularScore",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "regularReviewCount",
             "storageKey": null
           },
           (v6/*: any*/)
@@ -256,16 +269,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fce890fd48c82c44593bda989265256b",
+    "cacheID": "286977f1d19ee4ee688e6b6546b5ff26",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    writers {\n      id\n      ...CrewListItem\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n"
   }
 };
 })();
 
-(node as any).hash = "20b8e36a9bbaf166067190e62b551096";
+(node as any).hash = "61ecd7fdd506a9bc0a0cd5e81bf5bd50";
 
 export default node;
