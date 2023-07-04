@@ -44,7 +44,7 @@ export const MovieDetailsQuery = graphql`
       }
       ...CriticAggregateScoreIndicator
       ...RegularAggregateScoreIndicator
-      criticReviews(first: 3) {
+      criticReviews(first: 3, sortBy: ThankCount) {
         edges {
           node {
             id
@@ -52,7 +52,7 @@ export const MovieDetailsQuery = graphql`
           }
         }
       }
-      regularReviews(first: 3) {
+      regularReviews(first: 3, sortBy: ThankCount) {
         edges {
           node {
             id
@@ -260,7 +260,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   reviewList: {
-    padding: 5,
     gap: 10,
   },
 });

@@ -77,7 +77,11 @@ export const theme = createTheme({
         backgroundColor: 'transparent',
       },
     },
-
+    TabView: {
+      tabItemContainerStyle: {
+        padding: 10,
+      },
+    },
     TabViewItem: {
       style: {width: '100%'},
     },

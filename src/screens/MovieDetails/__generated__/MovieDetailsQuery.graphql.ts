@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<061c903e2bab9a7ba41bd459228e20fa>>
+ * @generated SignedSource<<9f24a4b4d5e49f381d56b82abeebeeee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -106,6 +106,11 @@ v7 = [
     "kind": "Literal",
     "name": "first",
     "value": 3
+  },
+  {
+    "kind": "Literal",
+    "name": "sortBy",
+    "value": "ThankCount"
   }
 ],
 v8 = [
@@ -291,7 +296,7 @@ return {
             "name": "criticReviews",
             "plural": false,
             "selections": (v8/*: any*/),
-            "storageKey": "criticReviews(first:3)"
+            "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
           },
           {
             "alias": null,
@@ -301,7 +306,7 @@ return {
             "name": "regularReviews",
             "plural": false,
             "selections": (v8/*: any*/),
-            "storageKey": "regularReviews(first:3)"
+            "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
           }
         ],
         "storageKey": null
@@ -411,7 +416,7 @@ return {
             "name": "criticReviews",
             "plural": false,
             "selections": (v11/*: any*/),
-            "storageKey": "criticReviews(first:3)"
+            "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
           },
           {
             "alias": null,
@@ -421,7 +426,7 @@ return {
             "name": "regularReviews",
             "plural": false,
             "selections": (v11/*: any*/),
-            "storageKey": "regularReviews(first:3)"
+            "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
           },
           (v6/*: any*/)
         ],
@@ -430,16 +435,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b7b7192d80707035bdd87590d59e22ee",
+    "cacheID": "12f1428839ea5c27ecac89997d946f4d",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d30d5e1846552a95a62dd64fb44f36cf";
+(node as any).hash = "eaf23636f246f59b11dc88fb2106e5c6";
 
 export default node;
