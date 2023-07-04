@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {VeryBigTitleText} from '../Text/VeryBigTitleText';
-import {TextProps} from '../../props/ChildrenOnlyProps';
+import {TextProps} from '../../props/TextProps';
 
 /**
  *  A block of VeryBigTitleText for to make it center screen, only using for SignIn, SignUp Screen

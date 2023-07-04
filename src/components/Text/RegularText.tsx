@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {fontSizes, fonts} from '../../styles/typography';
-import {TextProps} from '../../props/ChildrenOnlyProps';
+import {TextProps} from '../../props/TextProps';
 import colors from '../../styles/colors';
 
 export function RegularText(props: TextProps): JSX.Element {
