@@ -56,8 +56,10 @@ export function JustReleasedMovieList(
         <MovieGridItem
           movie={item?.node ?? null}
           onPress={() => {
-            preloadedQueries?.MovieDetails.loadQuery({id: item?.node.id});
-            props.onItemPressed?.();
+            if (item?.node.id) {
+              preloadedQueries?.MovieDetails.loadQuery({id: item.node.id});
+              props.onItemPressed?.();
+            }
           }}
           containerStyle={styles.verticalGridItem}
         />
