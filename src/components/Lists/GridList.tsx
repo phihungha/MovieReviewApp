@@ -12,7 +12,9 @@ export function GridList(props: GridListProps): JSX.Element {
       columnWrapperStyle={styles.gridRow}
       numColumns={2}
       ItemSeparatorComponent={VerticalListItemSeparator}
-      ListFooterComponent={<StandardLoadingIcon isLoading={props.isLoading} />}
+      ListFooterComponent={
+        <StandardLoadingIcon isLoading={props.isLoading ?? false} />
+      }
       {...props}
     />
   );

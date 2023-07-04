@@ -11,7 +11,9 @@ export function HorizontalList(props: HorizontalListProps): JSX.Element {
       ListHeaderComponent={props.ListHeaderComponent}
       horizontal
       ItemSeparatorComponent={HorizontalListItemSeparator}
-      ListFooterComponent={<StandardLoadingIcon isLoading={props.isLoading} />}
+      ListFooterComponent={
+        <StandardLoadingIcon isLoading={props.isLoading ?? false} />
+      }
       {...props}
     />
   );
