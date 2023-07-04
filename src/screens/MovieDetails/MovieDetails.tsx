@@ -1,16 +1,11 @@
 import React, {useContext, useState} from 'react';
-import {FlatList, Pressable} from 'react-native';
+import {FlatList} from 'react-native';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {CrewListItem} from '../../components/Items/CrewListItem';
-import {ActorListItem} from '../../components/Items/ActorListItem';
 import {ReviewListItem} from '../../components/Items/ReviewListItem';
 import {BigTitleText} from '../../components/Text/BigTitleText';
 import {SubtitleText} from '../../components/Text/SubtitleText';
 import {TitleText} from '../../components/Text/TitleText';
-import {CriticReviewScoreIndicator} from '../../components/Display/CriticReviewScoreIndicator';
-import colors from '../../styles/colors';
 import {Button} from '@rneui/base';
-import {RegularReviewScoreIndicator} from '../../components/Display/RegularReviewScoreIndicator';
 import {graphql} from 'relay-runtime';
 import {MoviePoster} from '../../components/Display/MoviePoster';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -18,14 +13,8 @@ import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
 import type {MovieDetailsQuery as MovieDetailsQueryType} from './__generated__/MovieDetailsQuery.graphql';
-
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
-}
-
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
-}
+import {HorizontalList} from '../../components/Lists/HorizontalList';
+import {ActorListItem} from './components/ActorListItem';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -34,6 +23,10 @@ export const MovieDetailsQuery = graphql`
       releaseDate
       runningTime
       posterUrl
+      actingCredits {
+        id
+        ...ActorListItem
+      }
     }
   }
 `;
@@ -89,113 +82,97 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
   };
 
   return (
-    <View>
-      <ScrollView>
-        <View style={styles.background1} />
-        <View style={styles.background2}>
-          <MoviePoster
-            style={styles.MoviePoster}
-            imageUrl={data.movie?.posterUrl}
-          />
+    <ScrollView>
+      <View style={styles.background1} />
+      <View style={styles.background2}>
+        <MoviePoster
+          style={styles.MoviePoster}
+          imageUrl={data.movie?.posterUrl}
+        />
 
-          <View style={styles.MovieInfo}>
-            <BigTitleText>{data.movie?.title}</BigTitleText>
-            <SubtitleText>{data.movie?.releaseDate}</SubtitleText>
-          </View>
+        <View style={styles.topInfoContainer}>
+          <BigTitleText>{data.movie?.title}</BigTitleText>
+          <SubtitleText>{data.movie?.releaseDate}</SubtitleText>
+        </View>
 
-          <View style={styles.MovieInfo2}>
-            <SubtitleText>Genre: Thriller, Action</SubtitleText>
-            <SubtitleText>
-              Synopsis: Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        <View style={styles.detailsInfoContainer}>
+          <InfoItem name="Genres" value="Thriller, Action" />
+
+          <InfoItem
+            name="Synopsis"
+            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.{' '}
-            </SubtitleText>
-          </View>
-
-          <View style={styles.padding}>
-            <TitleText>Crew</TitleText>
-          </View>
-          <FlatList
-            style={styles.padding}
-            data={arr}
-            renderItem={CrewListItem}
-            horizontal
-            ItemSeparatorComponent={HorizontalItemSeparator}
+              nisi ut aliquip ex ea commodo consequat"
           />
 
-          <View style={styles.padding}>
-            <TitleText>Cast</TitleText>
-          </View>
-          <FlatList
-            style={styles.padding}
-            data={arr}
-            renderItem={ActorListItem}
-            horizontal
-            ItemSeparatorComponent={HorizontalItemSeparator}
-          />
+          <InfoItem name="Running time" value={data.movie?.runningTime} />
+        </View>
 
-          <View style={styles.ScoreContainer}>
-            <View style={styles.CriticScoreInfoContainer}>
-              <View style={styles.padding}>
-                <CriticReviewScoreIndicator score={5} />
-                <TitleText>Critic score</TitleText>
-                <SubtitleText>2222 reviews</SubtitleText>
-              </View>
-            </View>
-            <View style={styles.RegularScoreInfoContainer}>
-              <View style={styles.padding}>
-                <RegularReviewScoreIndicator score={5} />
-                <TitleText>Regular score</TitleText>
-                <SubtitleText>2222 reviews</SubtitleText>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.padding}>
-            <TitleText>Reviews</TitleText>
-          </View>
-
-          <View style={styles.ButtonContainer}>
-            <Button
-              onPress={() => navigation.navigate('CreateReview')}
-              title="Create a new review"
-              color="#EF3651"
-            />
-          </View>
-
-          <View style={styles.TabContainer}>
-            <View style={styles.tabs}>
-              <Button onPress={HandleAllButton} title="All" color={colorAll} />
-            </View>
-            <View style={styles.tabs}>
-              <Button
-                onPress={HandleCriticButton}
-                title="Critic user"
-                color={colorCritic}
-              />
-            </View>
-            <View style={styles.tabs}>
-              <Button
-                onPress={HandleRegularButton}
-                title="Regular user"
-                color={colorRegular}
-              />
-            </View>
-          </View>
-
-          <FlatList
-            style={styles.ReviewList}
-            data={arr}
-            renderItem={() => (
-              <Pressable onPress={() => navigation.navigate('ReviewDetails')}>
-                <ReviewListItem />
-              </Pressable>
-            )}
-            ItemSeparatorComponent={ItemSeparatorComponent}
+        <View style={styles.crewListContainer}>
+          <TitleText>Crew</TitleText>
+          <HorizontalList
+            data={data.movie?.actingCredits}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => <ActorListItem actingCredit={item} />}
           />
         </View>
-      </ScrollView>
+
+        <View style={styles.ScoreContainer} />
+
+        <View style={styles.crewListContainer}>
+          <TitleText>Reviews</TitleText>
+        </View>
+
+        <View style={styles.ButtonContainer}>
+          <Button
+            onPress={() => navigation.navigate('CreateReview')}
+            title="Create a new review"
+            color="#EF3651"
+          />
+        </View>
+
+        <View style={styles.TabContainer}>
+          <View style={styles.tabs}>
+            <Button onPress={HandleAllButton} title="All" color={colorAll} />
+          </View>
+          <View style={styles.tabs}>
+            <Button
+              onPress={HandleCriticButton}
+              title="Critic user"
+              color={colorCritic}
+            />
+          </View>
+          <View style={styles.tabs}>
+            <Button
+              onPress={HandleRegularButton}
+              title="Regular user"
+              color={colorRegular}
+            />
+          </View>
+        </View>
+
+        <FlatList
+          style={styles.ReviewList}
+          data={arr}
+          renderItem={() => <ReviewListItem />}
+        />
+      </View>
+    </ScrollView>
+  );
+}
+
+interface InfoItemProps {
+  name: string;
+  value?: string | number;
+}
+
+function InfoItem({name, value}: InfoItemProps) {
+  return (
+    <View>
+      <SubtitleText>
+        {name}: {value}
+      </SubtitleText>
     </View>
   );
 }
@@ -216,25 +193,15 @@ const styles = StyleSheet.create({
     width: 100,
     marginHorizontal: 10,
   },
-  MovieInfo: {
-    alignItems: 'flex-start',
+  topInfoContainer: {
     marginLeft: 125,
     marginTop: 5,
   },
-  MovieInfo2: {
-    alignItems: 'flex-start',
+  detailsInfoContainer: {
     padding: 10,
   },
-  padding: {
-    padding: 10,
-  },
-  ItemSeparator: {
-    height: 20,
-    width: 20,
-  },
-  HorizontalItemSeparator: {
-    height: '100%',
-    width: 20,
+  crewListContainer: {
+    gap: 5,
   },
   ScoreContainer: {
     flexDirection: 'row',
@@ -243,28 +210,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
     padding: 10,
-  },
-  CriticScoreInfoContainer: {
-    width: 160,
-    height: 100,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    gap: 4,
-    borderRadius: 5,
-    backgroundColor: colors.mediumBlack,
-  },
-  RegularScoreInfoContainer: {
-    width: 160,
-    height: 100,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    gap: 4,
-    borderRadius: 5,
-    backgroundColor: colors.mediumBlack,
   },
   ButtonContainer: {
     width: 350,

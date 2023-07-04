@@ -7,7 +7,7 @@ import {TitleText} from '../Text/TitleText';
 
 /**
  * Display basic profile info (image, name, role) of a user, crew member,...
- * @param {string} imageUrl Image URL
+ * @param {string?} imageUrl Image URL
  * @param {string?} name Name
  * @param {string?} role Role (user type, crew role,...)
  * @param {StyleProp<ViewStyle>?} style Style
@@ -17,7 +17,7 @@ export function VerticalProfileDisplay(
 ): JSX.Element {
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <Avatar size={60} rounded source={{uri: props.imageUrl}} />
+      <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
       <View style={styles.infoContainer}>
         {props.name ? <TitleText>{props.name}</TitleText> : null}
         {props.role ? <RegularText>{props.role}</RegularText> : null}

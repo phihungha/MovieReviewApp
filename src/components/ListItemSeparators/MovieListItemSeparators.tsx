@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
-export function VerticalMovieListItemSeparator(): JSX.Element {
+export function VerticalListItemSeparator(): JSX.Element {
   return <View style={styles.verticalSeparator} />;
 }
 
-export function HorizontalMovieListItemSeparator(): JSX.Element {
+export function HorizontalListItemSeparator(): JSX.Element {
   return <View style={styles.horizontalSeparator} />;
 }
 

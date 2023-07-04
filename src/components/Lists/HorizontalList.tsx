@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, FlatListProps} from 'react-native';
-import {HorizontalMovieListItemSeparator} from '../ListItemSeparators/MovieListItemSeparators';
+import {HorizontalListItemSeparator} from '../ListItemSeparators/MovieListItemSeparators';
 import {StandardLoadingIcon} from '../Display/StandardLoadingIcon';
 
 export type HorizontalListProps = FlatListProps<any> & {isLoading?: boolean};
@@ -10,7 +10,7 @@ export function HorizontalList(props: HorizontalListProps): JSX.Element {
     <FlatList
       ListHeaderComponent={props.ListHeaderComponent}
       horizontal
-      ItemSeparatorComponent={HorizontalMovieListItemSeparator}
+      ItemSeparatorComponent={HorizontalListItemSeparator}
       ListFooterComponent={<StandardLoadingIcon isLoading={props.isLoading} />}
       {...props}
     />

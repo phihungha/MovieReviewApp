@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, FlatListProps, StyleSheet} from 'react-native';
-import {VerticalMovieListItemSeparator} from '../ListItemSeparators/MovieListItemSeparators';
+import {VerticalListItemSeparator} from '../ListItemSeparators/MovieListItemSeparators';
 import {StandardLoadingIcon} from '../Display/StandardLoadingIcon';
 
 export type GridListProps = FlatListProps<any> & {isLoading?: boolean};
@@ -11,7 +11,7 @@ export function GridList(props: GridListProps): JSX.Element {
       ListHeaderComponent={props.ListHeaderComponent}
       columnWrapperStyle={styles.gridRow}
       numColumns={2}
-      ItemSeparatorComponent={VerticalMovieListItemSeparator}
+      ItemSeparatorComponent={VerticalListItemSeparator}
       ListFooterComponent={<StandardLoadingIcon isLoading={props.isLoading} />}
       {...props}
     />
