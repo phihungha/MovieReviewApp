@@ -36,6 +36,6 @@ export function ActorListItem({actingCredit}: ActorListItemProps): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    width: 100,
+    width: 120,
   },
 });

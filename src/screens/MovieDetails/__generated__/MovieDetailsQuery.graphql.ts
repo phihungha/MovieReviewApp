@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<db8340a0cfbf0c4625ea771ea3c4cdf6>>
+ * @generated SignedSource<<8bdeb4c20736e4a32619ece008db32b0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,10 +19,18 @@ export type MovieDetailsQuery$data = {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"ActorListItem">;
     }>;
+    readonly directors: ReadonlyArray<{
+      readonly id: string;
+      readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
+    }>;
     readonly posterUrl: string | null;
     readonly releaseDate: any;
     readonly runningTime: number;
     readonly title: string;
+    readonly writers: ReadonlyArray<{
+      readonly id: string;
+      readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
+    }>;
   } | null;
 };
 export type MovieDetailsQuery = {
@@ -79,7 +87,34 @@ v6 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v7 = [
+  (v6/*: any*/),
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "CrewListItem"
+  }
+],
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "avatarUrl",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v10 = [
+  (v6/*: any*/),
+  (v9/*: any*/),
+  (v8/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -114,6 +149,26 @@ return {
                 "name": "ActorListItem"
               }
             ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CrewMember",
+            "kind": "LinkedField",
+            "name": "directors",
+            "plural": true,
+            "selections": (v7/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CrewMember",
+            "kind": "LinkedField",
+            "name": "writers",
+            "plural": true,
+            "selections": (v7/*: any*/),
             "storageKey": null
           }
         ],
@@ -158,20 +213,8 @@ return {
                 "name": "actor",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "avatarUrl",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
+                  (v8/*: any*/),
+                  (v9/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -186,6 +229,26 @@ return {
             ],
             "storageKey": null
           },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CrewMember",
+            "kind": "LinkedField",
+            "name": "directors",
+            "plural": true,
+            "selections": (v10/*: any*/),
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CrewMember",
+            "kind": "LinkedField",
+            "name": "writers",
+            "plural": true,
+            "selections": (v10/*: any*/),
+            "storageKey": null
+          },
           (v6/*: any*/)
         ],
         "storageKey": null
@@ -193,16 +256,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b12bbe9442c9d62e73c52fce72de2565",
+    "cacheID": "fce890fd48c82c44593bda989265256b",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    writers {\n      id\n      ...CrewListItem\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b4e757000dcaa2e327d6cfccbd87bb3c";
+(node as any).hash = "20b8e36a9bbaf166067190e62b551096";
 
 export default node;

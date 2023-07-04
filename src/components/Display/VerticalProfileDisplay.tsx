@@ -19,8 +19,8 @@ export function VerticalProfileDisplay(
     <View style={[styles.container, props.style]}>
       <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
       <View style={styles.infoContainer}>
-        {props.name ? <ItemTitleText>{props.name}</ItemTitleText> : null}
-        {props.role ? <ItemSubtitleText>{props.role}</ItemSubtitleText> : null}
+        <ItemTitleText style={styles.text}>{props.name}</ItemTitleText>
+        <ItemSubtitleText style={styles.text}>{props.role}</ItemSubtitleText>
       </View>
     </View>
   );
@@ -35,5 +35,8 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     alignItems: 'center',
+  },
+  text: {
+    textAlign: 'center',
   },
 });
