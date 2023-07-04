@@ -77,6 +77,14 @@ export const theme = createTheme({
         backgroundColor: 'transparent',
       },
     },
+    TabItem: {
+      buttonStyle: {
+        padding: 0,
+      },
+      titleStyle: {
+        fontFamily: fonts.primaryBold,
+      },
+    },
     TabView: {
       tabItemContainerStyle: {
         padding: 10,

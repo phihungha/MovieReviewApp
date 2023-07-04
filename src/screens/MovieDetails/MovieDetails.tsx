@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {SubtitleText} from '../../components/Text/SubtitleText';
 import {TitleText} from '../../components/Text/TitleText';
-import {Button} from '@rneui/base';
 import {graphql} from 'relay-runtime';
 import {MoviePoster} from '../../components/Display/MoviePoster';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -24,7 +23,7 @@ import {
 import {CrewListItem} from './components/CrewListItem';
 import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
-import {Tab, TabView} from '@rneui/themed';
+import {Button, Tab, TabView} from '@rneui/themed';
 import {ReviewListItem} from '../../components/Items/ReviewListItem';
 
 export const MovieDetailsQuery = graphql`
@@ -152,16 +151,12 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
           <InfoSection>
             <SectionText>Reviews</SectionText>
-            <ReviewsOverview data={data} />
-          </InfoSection>
-
-          <View style={styles.ButtonContainer}>
             <Button
               onPress={() => navigation.navigate('CreateReview')}
               title="Create a new review"
-              color="#EF3651"
             />
-          </View>
+            <ReviewsOverview data={data} />
+          </InfoSection>
         </View>
       </View>
     </ScrollView>
@@ -177,7 +172,7 @@ function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
         <Tab.Item title="Regular" />
       </Tab>
       <TabView
-        containerStyle={{height: 1350}}
+        containerStyle={styles.reviewOverviewContainer}
         value={index}
         onChange={setIndex}>
         <TabView.Item>
@@ -258,6 +253,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: 'center',
     padding: 10,
+  },
+  reviewOverviewContainer: {
+    height: 980,
   },
   reviewList: {
     gap: 10,
