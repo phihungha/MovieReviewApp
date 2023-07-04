@@ -4,10 +4,10 @@ import {fontSizes, fonts} from '../../styles/typography';
 import colors from '../../styles/colors';
 
 export function RegularText(props: TextProps): JSX.Element {
-  return <Text style={[regularStyles.text, props.style]} {...props} />;
+  return <Text style={[styles.text, props.style]}>{props.children}</Text>;
 }
 
-const regularStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.primary,
     fontSize: fontSizes.md,

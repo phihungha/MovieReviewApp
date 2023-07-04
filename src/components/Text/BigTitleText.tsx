@@ -1,14 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, TextProps} from 'react-native';
 import {fontSizes, fonts} from '../../styles/typography';
-import {TextProps} from '../../props/TextProps';
 import colors from '../../styles/colors';
 
 export function BigTitleText(props: TextProps): JSX.Element {
-  return <Text style={[titleStyles.text, props.style]}>{props.children}</Text>;
+  return <Text style={[styles.text, props.style]}>{props.children}</Text>;
 }
 
-const titleStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   text: {
     fontFamily: fonts.primaryBold,
     fontSize: fontSizes.xl,
