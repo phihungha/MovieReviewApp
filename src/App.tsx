@@ -17,8 +17,8 @@ import {PreloadedQueriesContext} from './relay/PreloadedQueriesContext';
 import {HomeQuery} from './screens/Home/Home';
 import type {HomeQuery as HomeQueryType} from './screens/Home/__generated__/HomeQuery.graphql';
 import {OperationType} from 'relay-runtime';
-import type {MovieDetailsQuery as MovieDetailsQueryType} from './screens/__generated__/MovieDetailsQuery.graphql';
-import {MovieDetailsQuery} from './screens/MovieDetails';
+import type {MovieDetailsQuery as MovieDetailsQueryType} from './screens/MovieDetails/__generated__/MovieDetailsQuery.graphql';
+import {MovieDetailsQuery} from './screens/MovieDetails/MovieDetails';
 import type {MoviesListQuery as MoviesListQueryType} from './screens/MoviesList/__generated__/MoviesListQuery.graphql';
 import {MoviesListQuery} from './screens/MoviesList/MoviesList';
 

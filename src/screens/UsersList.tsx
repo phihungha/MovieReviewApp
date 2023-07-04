@@ -1,6 +1,6 @@
 import React from 'react';
 import {UsersListStackNavigator} from '../navigators/UsersListStackNavigator';
-import {MovieDetailsScreen} from './MovieDetails';
+import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewsListScreen} from './MovieReviewsList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';

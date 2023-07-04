@@ -3,7 +3,7 @@ import {
   HomeStackNavigator,
   HomeStackParams,
 } from '../../navigators/HomeStackNavigator';
-import {MovieDetailsScreen} from '../MovieDetails';
+import {MovieDetailsScreen} from '../MovieDetails/MovieDetails';
 import {MovieReviewsListScreen} from '../MovieReviewsList';
 import {ReviewDetailsScreen} from '../ReviewDetails';
 import {UserWatchedListScreen} from '../UserWatchedList';
@@ -20,8 +20,8 @@ import type {
   HomeQuery as HomeQueryType,
   HomeQuery$data,
 } from './__generated__/HomeQuery.graphql';
-import {TrendingMovieList} from './TrendingMovieList';
-import {JustReleasedMovieList} from './JustReleasedMovieList';
+import {TrendingMovieList} from './components/TrendingMovieList';
+import {JustReleasedMovieList} from './components/JustReleasedMovieList';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
 export const HomeQuery = graphql`

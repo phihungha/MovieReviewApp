@@ -1,9 +1,9 @@
 import React from 'react';
 import {graphql} from 'relay-runtime';
 import {TrendingMovieList$key} from './__generated__/TrendingMovieList.graphql';
-import {HorizontalList} from '../../components/Lists/HorizontalList';
+import {HorizontalList} from '../../../components/Lists/HorizontalList';
 import {usePaginationFragment} from 'react-relay';
-import {MovieGridItem} from '../../components/Items/MovieGridItem';
+import {MovieGridItem} from '../../../components/Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
 import type {TrendingMovieListRefetchQuery} from './__generated__/TrendingMovieListRefetchQuery.graphql';
 

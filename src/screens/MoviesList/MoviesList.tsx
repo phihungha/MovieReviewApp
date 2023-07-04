@@ -9,7 +9,7 @@ import {
   MoviesListStackNavigator,
   MoviesListStackParams,
 } from '../../navigators/MoviesListStackNavigator';
-import {MovieDetailsScreen} from '../MovieDetails';
+import {MovieDetailsScreen} from '../MovieDetails/MovieDetails';
 import {MovieReviewsListScreen} from '../MovieReviewsList';
 import {ReviewDetailsScreen} from '../ReviewDetails';
 import {UserDetailsScreen} from '../UserDetails';
@@ -23,7 +23,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {usePreloadedQuery} from 'react-relay';
 import type {MoviesListQuery as MoviesListQueryType} from './__generated__/MoviesListQuery.graphql';
-import {AllMovieList} from './AllMovieList';
+import {AllMovieList} from './components/AllMovieList';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {
   MoviesListOptions,
