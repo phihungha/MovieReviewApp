@@ -14,9 +14,9 @@ import {TitleText} from '../Text/TitleText';
  */
 export function VerticalProfileDisplay(
   props: ProfileDisplayProps,
-): JSX.Element {
+): React.JSX.Element {
   return (
-    <View style={StyleSheet.compose(styles.container, props.style)}>
+    <View style={[styles.container, props.style]}>
       <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
       <View style={styles.infoContainer}>
         {props.name ? <TitleText>{props.name}</TitleText> : null}

@@ -3,6 +3,7 @@ import {VerticalProfileDisplay} from '../../../components/Display/VerticalProfil
 import {graphql} from 'relay-runtime';
 import {ActorListItem$key} from './__generated__/ActorListItem.graphql';
 import {useFragment} from 'react-relay';
+import {StyleSheet} from 'react-native';
 
 const ActorListItemFragment = graphql`
   fragment ActorListItem on ActingCredit {
@@ -25,9 +26,16 @@ export function ActorListItem({actingCredit}: ActorListItemProps): JSX.Element {
   const data = useFragment(ActorListItemFragment, actingCredit);
   return (
     <VerticalProfileDisplay
+      style={styles.container}
       imageUrl={data.actor.avatarUrl}
       name={data.actor.name}
       role={data.characterName}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: 100,
+  },
+});
