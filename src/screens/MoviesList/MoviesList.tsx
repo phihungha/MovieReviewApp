@@ -1,4 +1,10 @@
-import React, {Suspense, useContext, useEffect, useState} from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   MoviesListStackNavigator,
   MoviesListStackParams,
@@ -27,6 +33,7 @@ import {ListScreenHeader} from '../../components/Headers/ListScreenHeader';
 import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
 import {HeaderButton} from '../../components/Buttons/HeaderButton';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import {ActionCb} from '../../types/ActionCb';
 
 export const MoviesListQuery = graphql`
   query MoviesListQuery {
@@ -63,25 +70,19 @@ function MoviesListScreenWithData({
     sortDirection: 'Desc',
   });
 
-  const customHeader = (
-    <ListScreenHeader>
-      <HeaderSearchBar
-        value={search}
-        onChangeText={setSearch}
-        placeholder="Search movies..."
+  const customHeader = useCallback(
+    () => (
+      <Header
+        search={search}
+        setSearch={setSearch}
+        options={options}
+        setOptions={setOptions}
       />
-      <MoviesListOptionsDialog
-        customOpenButton={onPress => (
-          <HeaderButton
-            onPress={onPress}
-            icon={<Icon color="white" type="font-awesome" name="filter" />}
-          />
-        )}
-        onOk={opts => setOptions(opts)}
-      />
-    </ListScreenHeader>
+    ),
+    [search, options],
   );
-  useEffect(() => navigation.setOptions({header: () => customHeader}));
+
+  useEffect(() => navigation.setOptions({header: () => customHeader()}));
 
   return (
     <View style={styles.container}>
@@ -94,6 +95,40 @@ function MoviesListScreenWithData({
         />
       </Suspense>
     </View>
+  );
+}
+
+interface HeaderProps {
+  search: string;
+  setSearch: (i: string) => void;
+  options: MoviesListOptions;
+  setOptions: (i: MoviesListOptions) => void;
+}
+
+function Header(props: HeaderProps) {
+  const headerBtn = useCallback(
+    (onPress: ActionCb) => (
+      <HeaderButton
+        onPress={onPress}
+        icon={<Icon color="white" type="font-awesome" name="filter" />}
+      />
+    ),
+    [],
+  );
+
+  return (
+    <ListScreenHeader>
+      <HeaderSearchBar
+        value={props.search}
+        onChangeText={i => props.setSearch(i)}
+        placeholder="Search movies..."
+      />
+      <MoviesListOptionsDialog
+        options={props.options}
+        onOptionsChanged={i => props.setOptions(i)}
+        customOpenButton={onPress => headerBtn(onPress)}
+      />
+    </ListScreenHeader>
   );
 }
 

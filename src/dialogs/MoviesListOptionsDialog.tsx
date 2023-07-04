@@ -3,11 +3,11 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {GenericDialog} from './GenericDialog';
 import {useState} from 'react';
 import {Input} from '@rneui/themed';
-import type {
-  SortDirection,
-  MovieSortBy,
-} from '../components/Lists/__generated__/AllMovieListRefetchQuery.graphql';
 import {CustomButtonCb} from '../types/CustomButtonCb';
+import {
+  MovieSortBy,
+  SortDirection,
+} from '../screens/MoviesList/__generated__/AllMovieListRefetchQuery.graphql';
 export type MoviesListSortDirection = 'Asc' | 'Desc';
 
 export interface MoviesListOptions {
@@ -24,17 +24,15 @@ export interface MoviesListOptions {
 type MovieListOptionsKey = keyof MoviesListOptions;
 
 export interface MoviesListOptionsDialogProps {
-  onOk?: (selectedOptions: MoviesListOptions) => void;
+  options: MoviesListOptions;
+  onOptionsChanged?: (selectedOptions: MoviesListOptions) => void;
   customOpenButton?: CustomButtonCb;
 }
 
 export function MoviesListOptionsDialog(
   props: MoviesListOptionsDialogProps,
 ): React.JSX.Element {
-  const [options, setOptions] = useState<MoviesListOptions>({
-    sortBy: 'releaseDate',
-    sortDirection: 'Desc',
-  });
+  const [options, setOptions] = useState<MoviesListOptions>(props.options);
 
   function updateOption(
     optionName: MovieListOptionsKey,
@@ -46,7 +44,7 @@ export function MoviesListOptionsDialog(
   return (
     <GenericDialog
       title="Options"
-      onOk={() => props.onOk?.(options)}
+      onOk={() => props.onOptionsChanged?.(options)}
       containerStyle={styles.mainContainer}
       customOpenButton={props.customOpenButton}>
       <ScrollView>
