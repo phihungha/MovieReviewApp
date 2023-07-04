@@ -1,11 +1,11 @@
 import React from 'react';
 import {graphql} from 'relay-runtime';
-import {GridList} from './GridList';
 import {JustReleasedMovieList$key} from './__generated__/JustReleasedMovieList.graphql';
 import {usePaginationFragment} from 'react-relay';
-import {MovieGridItem} from '../Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
 import type {JustReleasedMovieListRefetchQuery} from './__generated__/JustReleasedMovieListRefetchQuery.graphql';
+import {GridList} from '../../components/Lists/GridList';
+import {MovieGridItem} from '../../components/Items/MovieGridItem';
 
 const JustReleasedMovieListFragment = graphql`
   fragment JustReleasedMovieList on Query

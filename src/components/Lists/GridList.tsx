@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  FlatListProps,
-  StyleSheet,
-} from 'react-native';
+import {FlatList, FlatListProps, StyleSheet} from 'react-native';
 import {VerticalMovieListItemSeparator} from '../ListItemSeparators/MovieListItemSeparators';
+import {StandardLoadingIcon} from '../Display/StandardLoadingIcon';
 
 export type GridListProps = FlatListProps<any> & {isLoading?: boolean};
 
@@ -16,9 +12,7 @@ export function GridList(props: GridListProps): JSX.Element {
       columnWrapperStyle={styles.gridRow}
       numColumns={2}
       ItemSeparatorComponent={VerticalMovieListItemSeparator}
-      ListFooterComponent={
-        <ActivityIndicator hidesWhenStopped animating={props.isLoading} />
-      }
+      ListFooterComponent={<StandardLoadingIcon isLoading={props.isLoading} />}
       {...props}
     />
   );

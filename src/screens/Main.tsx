@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
-import {MoviesListStackScreen} from './MoviesList';
+import {MoviesListStackScreen} from './MoviesList/MoviesList';
 import {MyAccountStackScreen} from './MyAccount';
-import {HomeStackScreen} from './Home';
+import {HomeStackScreen} from './Home/Home';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
 import {UsersListStackScreen} from './UsersList';

@@ -2,17 +2,17 @@ import React, {useContext} from 'react';
 import {
   HomeStackNavigator,
   HomeStackParams,
-} from '../navigators/HomeStackNavigator';
-import {MovieDetailsScreen} from './MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
-import {ReviewDetailsScreen} from './ReviewDetails';
-import {UserWatchedListScreen} from './UserWatchedList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
-import {CreateReviewScreen} from './CreateReview';
+} from '../../navigators/HomeStackNavigator';
+import {MovieDetailsScreen} from '../MovieDetails';
+import {MovieReviewsListScreen} from '../MovieReviewsList';
+import {ReviewDetailsScreen} from '../ReviewDetails';
+import {UserWatchedListScreen} from '../UserWatchedList';
+import {UserReviewsListScreen} from '../UserReviewsList';
+import {UserDetailsScreen} from '../UserDetails';
+import {UserLikedCommentsListScreen} from '../UserLikedCommentsList';
+import {CreateReviewScreen} from '../CreateReview';
 import {StyleSheet, View} from 'react-native';
-import {BigTitleText} from '../components/Text/BigTitleText';
+import {BigTitleText} from '../../components/Text/BigTitleText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {usePreloadedQuery} from 'react-relay';
@@ -20,9 +20,9 @@ import type {
   HomeQuery as HomeQueryType,
   HomeQuery$data,
 } from './__generated__/HomeQuery.graphql';
-import {TrendingMovieList} from '../components/Lists/TrendingMovieList';
-import {JustReleasedMovieList} from '../components/Lists/JustReleasedMovieList';
-import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
+import {TrendingMovieList} from './TrendingMovieList';
+import {JustReleasedMovieList} from './JustReleasedMovieList';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
 export const HomeQuery = graphql`
   query HomeQuery {

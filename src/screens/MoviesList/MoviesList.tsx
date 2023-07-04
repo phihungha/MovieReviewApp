@@ -2,30 +2,30 @@ import React, {Suspense, useEffect, useState} from 'react';
 import {
   MoviesListStackNavigator,
   MoviesListStackParams,
-} from '../navigators/MoviesListStackNavigator';
-import {MovieDetailsScreen} from './MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
-import {ReviewDetailsScreen} from './ReviewDetails';
-import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
-import {CreateReviewScreen} from './CreateReview';
+} from '../../navigators/MoviesListStackNavigator';
+import {MovieDetailsScreen} from '../MovieDetails';
+import {MovieReviewsListScreen} from '../MovieReviewsList';
+import {ReviewDetailsScreen} from '../ReviewDetails';
+import {UserDetailsScreen} from '../UserDetails';
+import {UserLikedCommentsListScreen} from '../UserLikedCommentsList';
+import {UserReviewsListScreen} from '../UserReviewsList';
+import {UserWatchedListScreen} from '../UserWatchedList';
+import {CreateReviewScreen} from '../CreateReview';
 import {StyleSheet, View} from 'react-native';
 import {Icon} from '@rneui/themed';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {useLazyLoadQuery} from 'react-relay';
 import type {MoviesListQuery} from './__generated__/MoviesListQuery.graphql';
-import {AllMovieList} from '../components/Lists/AllMovieList';
-import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
+import {AllMovieList} from './AllMovieList';
+import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {
   MoviesListOptions,
   MoviesListOptionsDialog,
-} from '../dialogs/MoviesListOptionsDialog';
-import {ListScreenHeader} from '../components/Headers/ListScreenHeader';
-import {HeaderSearchBar} from '../components/Inputs/HeaderSearchBar';
-import {HeaderButton} from '../components/Buttons/HeaderButton';
+} from '../../dialogs/MoviesListOptionsDialog';
+import {ListScreenHeader} from '../../components/Headers/ListScreenHeader';
+import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
+import {HeaderButton} from '../../components/Buttons/HeaderButton';
 
 const MoviesListQuery = graphql`
   query MoviesListQuery {

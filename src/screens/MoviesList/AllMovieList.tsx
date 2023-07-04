@@ -3,8 +3,8 @@ import {graphql} from 'relay-runtime';
 import {AllMovieList$key} from './__generated__/AllMovieList.graphql';
 import {usePaginationFragment} from 'react-relay';
 import {AllMovieListRefetchQuery} from './__generated__/AllMovieListRefetchQuery.graphql';
-import {GridList} from './GridList';
-import {MovieGridItem} from '../Items/MovieGridItem';
+import {GridList} from '../../components/Lists/GridList';
+import {MovieGridItem} from '../../components/Items/MovieGridItem';
 import {StyleSheet} from 'react-native';
 import {MoviesListOptions} from '../../dialogs/MoviesListOptionsDialog';
 
