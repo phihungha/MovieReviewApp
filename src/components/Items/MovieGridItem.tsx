@@ -55,7 +55,9 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
         <MoviePoster imageUrl={data?.posterUrl} />
         <View style={styles.infoContainer}>
           <ItemTitleText>{data?.title}</ItemTitleText>
-          <ItemSubtitleText>{data?.releaseDate}</ItemSubtitleText>
+          <ItemSubtitleText>
+            {new Date(data?.releaseDate).getFullYear()}
+          </ItemSubtitleText>
           <View style={styles.scoresContainer}>
             <CriticReviewScoreIndicator score={data?.criticScore} />
             <RegularReviewScoreIndicator score={data?.regularScore} />

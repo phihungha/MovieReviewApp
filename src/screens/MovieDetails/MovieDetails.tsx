@@ -37,7 +37,7 @@ export const MovieDetailsQuery = graphql`
         id
         ...ActorListItem
       }
-      directors {
+      workCredits {
         id
         ...CrewListItem
       }
@@ -133,11 +133,9 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
           <InfoSection>
             <SectionText>Crews</SectionText>
             <HorizontalList
-              data={data.movie?.directors}
+              data={data.movie?.workCredits}
               keyExtractor={item => item.id}
-              renderItem={({item}) => (
-                <CrewListItem roleName="Director" crewMember={item} />
-              )}
+              renderItem={({item}) => <CrewListItem crewMember={item} />}
             />
           </InfoSection>
 

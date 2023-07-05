@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f24a4b4d5e49f381d56b82abeebeeee>>
+ * @generated SignedSource<<093b51a6d5accbf859f57b8cd84dacc9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,10 +27,6 @@ export type MovieDetailsQuery$data = {
         };
       } | null>;
     };
-    readonly directors: ReadonlyArray<{
-      readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
-    }>;
     readonly posterUrl: string | null;
     readonly regularReviews: {
       readonly edges: ReadonlyArray<{
@@ -43,6 +39,10 @@ export type MovieDetailsQuery$data = {
     readonly releaseDate: any;
     readonly runningTime: number;
     readonly title: string;
+    readonly workCredits: ReadonlyArray<{
+      readonly id: string;
+      readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
+    }>;
     readonly " $fragmentSpreads": FragmentRefs<"CriticAggregateScoreIndicator" | "RegularAggregateScoreIndicator">;
   } | null;
 };
@@ -264,9 +264,9 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "CrewMember",
+            "concreteType": "WorkCredit",
             "kind": "LinkedField",
-            "name": "directors",
+            "name": "workCredits",
             "plural": true,
             "selections": [
               (v6/*: any*/),
@@ -369,14 +369,33 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "CrewMember",
+            "concreteType": "WorkCredit",
             "kind": "LinkedField",
-            "name": "directors",
+            "name": "workCredits",
             "plural": true,
             "selections": [
               (v6/*: any*/),
-              (v10/*: any*/),
-              (v9/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "CrewMember",
+                "kind": "LinkedField",
+                "name": "crew",
+                "plural": false,
+                "selections": [
+                  (v10/*: any*/),
+                  (v9/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "role",
+                "storageKey": null
+              }
             ],
             "storageKey": null
           },
@@ -435,16 +454,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "12f1428839ea5c27ecac89997d946f4d",
+    "cacheID": "f399ba2c09c9f30e6a62512136a773de",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    directors {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on CrewMember {\n  name\n  avatarUrl\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "eaf23636f246f59b11dc88fb2106e5c6";
+(node as any).hash = "404ef24ab41031cbf956da9beee9652f";
 
 export default node;

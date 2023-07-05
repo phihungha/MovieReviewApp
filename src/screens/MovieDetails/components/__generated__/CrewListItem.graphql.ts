@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0658d476e560143d33e879d72c2dc777>>
+ * @generated SignedSource<<d7e03914ebb06b7bc9a293baa4a32a3e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,10 +9,14 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type CrewWorkRole = "Composer" | "Director" | "DoP" | "Editor" | "Writer" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CrewListItem$data = {
-  readonly avatarUrl: string | null;
-  readonly name: string;
+  readonly crew: {
+    readonly avatarUrl: string | null;
+    readonly name: string;
+  };
+  readonly role: CrewWorkRole;
   readonly " $fragmentType": "CrewListItem";
 };
 export type CrewListItem$key = {
@@ -29,22 +33,40 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
+      "concreteType": "CrewMember",
+      "kind": "LinkedField",
+      "name": "crew",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "avatarUrl",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "avatarUrl",
+      "name": "role",
       "storageKey": null
     }
   ],
-  "type": "CrewMember",
+  "type": "WorkCredit",
   "abstractKey": null
 };
 
-(node as any).hash = "8f7cd1efd9a340de392f4a2b617ed59c";
+(node as any).hash = "d29a64d4121bbf1bbc060131d6ff20a8";
 
 export default node;

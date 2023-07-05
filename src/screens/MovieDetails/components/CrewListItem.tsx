@@ -5,15 +5,17 @@ import {useFragment} from 'react-relay';
 import {CrewListItem$key} from './__generated__/CrewListItem.graphql';
 
 const CrewListItemFragment = graphql`
-  fragment CrewListItem on CrewMember {
-    name
-    avatarUrl
+  fragment CrewListItem on WorkCredit {
+    crew {
+      name
+      avatarUrl
+    }
+    role
   }
 `;
 
 export interface CrewListItemProps {
   crewMember: CrewListItem$key;
-  roleName: string;
 }
 
 /**
@@ -21,14 +23,13 @@ export interface CrewListItemProps {
  */
 export function CrewListItem({
   crewMember,
-  roleName,
-}: CrewListItemProps): JSX.Element {
+}: CrewListItemProps): React.JSX.Element {
   const data = useFragment(CrewListItemFragment, crewMember);
   return (
     <VerticalProfileDisplay
-      imageUrl={data.avatarUrl}
-      name={data.name}
-      role={roleName}
+      imageUrl={data.crew.avatarUrl}
+      name={data.crew.name}
+      role={data.role}
     />
   );
 }
