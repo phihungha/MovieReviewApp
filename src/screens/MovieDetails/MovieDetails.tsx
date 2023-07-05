@@ -32,6 +32,7 @@ export const MovieDetailsQuery = graphql`
       runningTime
       posterUrl
       genres {
+        id
         ...GenreListItem
       }
       actingCredits {
@@ -99,7 +100,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
             <SectionText>Genres</SectionText>
             <View style={styles.genresList}>
               {data.movie?.genres.map(i => (
-                <GenreListItem genre={i} />
+                <GenreListItem key={i.id} genre={i} />
               ))}
             </View>
           </InfoSection>
