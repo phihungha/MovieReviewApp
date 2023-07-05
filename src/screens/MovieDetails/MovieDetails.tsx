@@ -25,6 +25,7 @@ import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIn
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
 import {Button, Tab, TabView} from '@rneui/themed';
 import {ReviewListItem} from '../../components/Items/ReviewListItem';
+import {GenreListItem} from './components/GenreListItem';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -33,6 +34,9 @@ export const MovieDetailsQuery = graphql`
       releaseDate
       runningTime
       posterUrl
+      genres {
+        ...GenreListItem
+      }
       actingCredits {
         id
         ...ActorListItem
@@ -108,7 +112,16 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
             name="Released on"
             value={dateToStandardDateFormat(releaseDate)}
           />
-          <SimpleInfoSection name="Genres" value="Thriller, Action" />
+
+          <InfoSection>
+            <SectionText>Genres</SectionText>
+            <View style={styles.genresList}>
+              {data.movie?.genres.map(i => (
+                <GenreListItem genre={i} />
+              ))}
+            </View>
+          </InfoSection>
+
           <SimpleInfoSection
             name="Synopsis"
             value="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -174,14 +187,14 @@ function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
         value={index}
         onChange={setIndex}>
         <TabView.Item>
-          <View style={styles.reviewList}>
+          <View style={styles.reviewOverviewList}>
             {data.movie?.criticReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
           </View>
         </TabView.Item>
         <TabView.Item>
-          <View style={styles.reviewList}>
+          <View style={styles.reviewOverviewList}>
             {data.movie?.regularReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
@@ -246,16 +259,14 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 10,
   },
-  ButtonContainer: {
-    width: 350,
-    borderRadius: 5,
-    alignSelf: 'center',
-    padding: 10,
+  genresList: {
+    flexDirection: 'row',
+    gap: 10,
   },
   reviewOverviewContainer: {
     height: 980,
   },
-  reviewList: {
+  reviewOverviewList: {
     gap: 10,
   },
 });

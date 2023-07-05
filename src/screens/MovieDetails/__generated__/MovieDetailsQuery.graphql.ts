@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<093b51a6d5accbf859f57b8cd84dacc9>>
+ * @generated SignedSource<<49ad4c3e1974ccc6683545489643890b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,9 @@ export type MovieDetailsQuery$data = {
         };
       } | null>;
     };
+    readonly genres: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"GenreListItem">;
+    }>;
     readonly posterUrl: string | null;
     readonly regularReviews: {
       readonly edges: ReadonlyArray<{
@@ -147,14 +150,14 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "avatarUrl",
+  "name": "name",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "avatarUrl",
   "storageKey": null
 },
 v11 = [
@@ -205,8 +208,8 @@ v11 = [
             "name": "author",
             "plural": false,
             "selections": [
-              (v9/*: any*/),
               (v10/*: any*/),
+              (v9/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -244,6 +247,22 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Genre",
+            "kind": "LinkedField",
+            "name": "genres",
+            "plural": true,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "GenreListItem"
+              }
+            ],
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -336,6 +355,19 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "Genre",
+            "kind": "LinkedField",
+            "name": "genres",
+            "plural": true,
+            "selections": [
+              (v9/*: any*/),
+              (v6/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "ActingCredit",
             "kind": "LinkedField",
             "name": "actingCredits",
@@ -350,8 +382,8 @@ return {
                 "name": "actor",
                 "plural": false,
                 "selections": [
-                  (v9/*: any*/),
                   (v10/*: any*/),
+                  (v9/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -383,8 +415,8 @@ return {
                 "name": "crew",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
                   (v9/*: any*/),
+                  (v10/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -454,16 +486,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f399ba2c09c9f30e6a62512136a773de",
+    "cacheID": "0be9c646a9165a5674097a43798527cb",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      ...GenreListItem\n      id\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "404ef24ab41031cbf956da9beee9652f";
+(node as any).hash = "0ad4c7040a8b94af5b8d059512440a76";
 
 export default node;
