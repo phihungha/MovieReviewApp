@@ -1,25 +1,51 @@
 import React, {useState} from 'react';
-import {MovieDetailsQuery$data} from '../__generated__/MovieDetailsQuery.graphql';
 import {Button, Tab, TabView} from '@rneui/themed';
 import {StyleSheet, View} from 'react-native';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem';
 import {MainStackParams} from '../../../navigators/MainStackParams';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {graphql} from 'relay-runtime';
+import {ReviewOverview$key} from './__generated__/ReviewOverview.graphql';
+import {useFragment} from 'react-relay';
+
+const ReviewOverviewFragment = graphql`
+  fragment ReviewOverview on Movie {
+    criticReviews(first: 3, sortBy: ThankCount) {
+      edges {
+        node {
+          id
+          ...ReviewListItem
+        }
+      }
+    }
+    regularReviews(first: 3, sortBy: ThankCount) {
+      edges {
+        node {
+          id
+          ...ReviewListItem
+        }
+      }
+    }
+  }
+`;
 
 type Navigation = NativeStackScreenProps<
   MainStackParams,
   'MovieDetails'
 >['navigation'];
 
-export function ReviewsOverview({
-  data,
-  navigation,
-}: {
-  data: MovieDetailsQuery$data;
+export interface ReviewOverviewProps {
+  movie: ReviewOverview$key | null;
   navigation: Navigation;
-}): React.JSX.Element {
-  const [index, setIndex] = useState(0);
+}
 
+export function ReviewOverview({
+  movie,
+  navigation,
+}: ReviewOverviewProps): React.JSX.Element {
+  const data = useFragment(ReviewOverviewFragment, movie);
+
+  const [index, setIndex] = useState(0);
   // ScrollView doesn't increase height automatically
   // on list additions in TabView
   const [tab1Height, setTab1Height] = useState(0);
@@ -40,7 +66,7 @@ export function ReviewsOverview({
           <View
             style={styles.reviewOverviewList}
             onLayout={e => setTab1Height(e.nativeEvent.layout.height)}>
-            {data.movie?.criticReviews.edges.map(i => (
+            {data?.criticReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
             <Button
@@ -55,7 +81,7 @@ export function ReviewsOverview({
           <View
             style={styles.reviewOverviewList}
             onLayout={e => setTab2Height(e.nativeEvent.layout.height)}>
-            {data.movie?.regularReviews.edges.map(i => (
+            {data?.regularReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
             <Button

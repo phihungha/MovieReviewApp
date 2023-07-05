@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<49ad4c3e1974ccc6683545489643890b>>
+ * @generated SignedSource<<d47872bc02e1068730ac5103b6bb8881>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,26 +19,10 @@ export type MovieDetailsQuery$data = {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"ActorListItem">;
     }>;
-    readonly criticReviews: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
-        };
-      } | null>;
-    };
     readonly genres: ReadonlyArray<{
       readonly " $fragmentSpreads": FragmentRefs<"GenreListItem">;
     }>;
     readonly posterUrl: string | null;
-    readonly regularReviews: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
-        };
-      } | null>;
-    };
     readonly releaseDate: any;
     readonly runningTime: number;
     readonly title: string;
@@ -46,7 +30,7 @@ export type MovieDetailsQuery$data = {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"CrewListItem">;
     }>;
-    readonly " $fragmentSpreads": FragmentRefs<"CriticAggregateScoreIndicator" | "RegularAggregateScoreIndicator">;
+    readonly " $fragmentSpreads": FragmentRefs<"CriticAggregateScoreIndicator" | "RegularAggregateScoreIndicator" | "ReviewOverview">;
   } | null;
 };
 export type MovieDetailsQuery = {
@@ -104,7 +88,21 @@ v6 = {
   "name": "id",
   "storageKey": null
 },
-v7 = [
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "avatarUrl",
+  "storageKey": null
+},
+v9 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -116,51 +114,7 @@ v7 = [
     "value": "ThankCount"
   }
 ],
-v8 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "ReviewEdge",
-    "kind": "LinkedField",
-    "name": "edges",
-    "plural": true,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "Review",
-        "kind": "LinkedField",
-        "name": "node",
-        "plural": false,
-        "selections": [
-          (v6/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ReviewListItem"
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-],
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "avatarUrl",
-  "storageKey": null
-},
-v11 = [
+v10 = [
   {
     "alias": null,
     "args": null,
@@ -208,8 +162,8 @@ v11 = [
             "name": "author",
             "plural": false,
             "selections": [
-              (v10/*: any*/),
-              (v9/*: any*/),
+              (v8/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -308,24 +262,9 @@ return {
             "name": "RegularAggregateScoreIndicator"
           },
           {
-            "alias": null,
-            "args": (v7/*: any*/),
-            "concreteType": "ReviewConnection",
-            "kind": "LinkedField",
-            "name": "criticReviews",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
-          },
-          {
-            "alias": null,
-            "args": (v7/*: any*/),
-            "concreteType": "ReviewConnection",
-            "kind": "LinkedField",
-            "name": "regularReviews",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ReviewOverview"
           }
         ],
         "storageKey": null
@@ -360,7 +299,7 @@ return {
             "name": "genres",
             "plural": true,
             "selections": [
-              (v9/*: any*/),
+              (v7/*: any*/),
               (v6/*: any*/)
             ],
             "storageKey": null
@@ -382,8 +321,8 @@ return {
                 "name": "actor",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
-                  (v9/*: any*/),
+                  (v8/*: any*/),
+                  (v7/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -415,8 +354,8 @@ return {
                 "name": "crew",
                 "plural": false,
                 "selections": [
-                  (v9/*: any*/),
-                  (v10/*: any*/),
+                  (v7/*: any*/),
+                  (v8/*: any*/),
                   (v6/*: any*/)
                 ],
                 "storageKey": null
@@ -461,22 +400,22 @@ return {
           },
           {
             "alias": null,
-            "args": (v7/*: any*/),
+            "args": (v9/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "criticReviews",
             "plural": false,
-            "selections": (v11/*: any*/),
+            "selections": (v10/*: any*/),
             "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
           },
           {
             "alias": null,
-            "args": (v7/*: any*/),
+            "args": (v9/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "regularReviews",
             "plural": false,
-            "selections": (v11/*: any*/),
+            "selections": (v10/*: any*/),
             "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
           },
           (v6/*: any*/)
@@ -486,16 +425,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0be9c646a9165a5674097a43798527cb",
+    "cacheID": "13b95e5a2c386bb199d54b0bfa78f670",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      ...GenreListItem\n      id\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    criticReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    regularReviews(first: 3, sortBy: ThankCount) {\n      edges {\n        node {\n          id\n          ...ReviewListItem\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      ...GenreListItem\n      id\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n}\n\nfragment ReviewOverview on Movie {\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0ad4c7040a8b94af5b8d059512440a76";
+(node as any).hash = "6c0d2a57b549ad5589981c2d11206293";
 
 export default node;

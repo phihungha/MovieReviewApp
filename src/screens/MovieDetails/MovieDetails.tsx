@@ -22,7 +22,7 @@ import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIn
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
 import {Button} from '@rneui/themed';
 import {GenreListItem} from './components/GenreListItem';
-import {ReviewsOverview} from './components/ReviewOverview';
+import {ReviewOverview} from './components/ReviewOverview';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -44,22 +44,7 @@ export const MovieDetailsQuery = graphql`
       }
       ...CriticAggregateScoreIndicator
       ...RegularAggregateScoreIndicator
-      criticReviews(first: 3, sortBy: ThankCount) {
-        edges {
-          node {
-            id
-            ...ReviewListItem
-          }
-        }
-      }
-      regularReviews(first: 3, sortBy: ThankCount) {
-        edges {
-          node {
-            id
-            ...ReviewListItem
-          }
-        }
-      }
+      ...ReviewOverview
     }
   }
 `;
@@ -163,7 +148,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
               onPress={() => navigation.navigate('CreateReview')}
               title="Create a new review"
             />
-            <ReviewsOverview data={data} navigation={navigation} />
+            <ReviewOverview movie={data.movie} navigation={navigation} />
           </InfoSection>
         </View>
       </View>
