@@ -1,10 +1,13 @@
 import {Avatar, AvatarProps} from '@rneui/themed';
+import {StyleSheet} from 'react-native';
+import colors from '../../styles/colors';
 
 export type StandardAvatarProps = AvatarProps & {uri?: string | null};
 
 export function StandardAvatar(props: StandardAvatarProps) {
   return (
     <Avatar
+      containerStyle={styles.container}
       size={60}
       rounded
       icon={{name: 'account'}}
@@ -13,3 +16,9 @@ export function StandardAvatar(props: StandardAvatarProps) {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.darkBlack,
+  },
+});
