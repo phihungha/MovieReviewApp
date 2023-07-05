@@ -1,10 +1,11 @@
+import React from 'react';
 import {Avatar, AvatarProps} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
 import colors from '../../styles/colors';
 
 export type StandardAvatarProps = AvatarProps & {uri?: string | null};
 
-export function StandardAvatar(props: StandardAvatarProps) {
+export function StandardAvatar(props: StandardAvatarProps): React.JSX.Element {
   return (
     <Avatar
       containerStyle={styles.container}

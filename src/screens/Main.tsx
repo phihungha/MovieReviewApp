@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
-import {MoviesListStackScreen} from './MoviesList/MoviesList';
-import {MyAccountStackScreen} from './MyAccount';
-import {HomeStackScreen} from './Home/Home';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
-import {UsersListStackScreen} from './UsersList';
 import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
+import {HomeStackScreen} from './HomeStack';
+import {MyAccountStackScreen} from './UserDetails';
+import {MovieListStackScreen} from './MovieListStack';
+import {UserListStackScreen} from './UserListStack';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {
@@ -61,12 +61,12 @@ export function MainScreen(): JSX.Element {
         listeners={{
           tabPress: () => preloadedQueries?.MoviesList.loadQuery({}),
         }}
-        component={MoviesListStackScreen}
+        component={MovieListStackScreen}
       />
       <MainTabNavigator.Screen
         name="UsersListStack"
         options={{title: 'Users'}}
-        component={UsersListStackScreen}
+        component={UserListStackScreen}
       />
       <MainTabNavigator.Screen
         name="MyAccountStack"
