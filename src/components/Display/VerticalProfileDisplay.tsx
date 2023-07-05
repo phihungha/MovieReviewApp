@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Avatar} from '@rneui/themed';
 import {ProfileDisplayProps} from '../../props/ProfileDisplayProps';
 import {ItemTitleText} from '../Text/ItemTitleText';
 import {ItemSubtitleText} from '../Text/ItemSubtitleText';
+import {StandardAvatar} from './StandardAvatar';
 
 /**
  * Display basic profile info (image, name, role) of a user, crew member,...
@@ -17,7 +17,7 @@ export function VerticalProfileDisplay(
 ): React.JSX.Element {
   return (
     <View style={[styles.container, props.style]}>
-      <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />
+      <StandardAvatar uri={props.imageUrl} />
       <View style={styles.infoContainer}>
         <ItemTitleText style={styles.text}>{props.name}</ItemTitleText>
         <ItemSubtitleText style={styles.text}>{props.role}</ItemSubtitleText>
