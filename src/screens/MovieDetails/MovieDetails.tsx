@@ -87,7 +87,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
     preloadedQueries!.MovieDetails.queryRef!,
   );
 
-  const releaseDate = new Date(data.movie?.releaseDate ?? '0001-01-01');
+  const releaseDate = new Date(data.movie?.releaseDate);
 
   return (
     <ScrollView>
