@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {SubtitleText} from '../../components/Text/SubtitleText';
 import {TitleText} from '../../components/Text/TitleText';
@@ -8,10 +8,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
-import type {
-  MovieDetailsQuery$data,
-  MovieDetailsQuery as MovieDetailsQueryType,
-} from './__generated__/MovieDetailsQuery.graphql';
+import type {MovieDetailsQuery as MovieDetailsQueryType} from './__generated__/MovieDetailsQuery.graphql';
 import {HorizontalList} from '../../components/Lists/HorizontalList';
 import {ActorListItem} from './components/ActorListItem';
 import {RegularText} from '../../components/Text/RegularText';
@@ -23,9 +20,9 @@ import {
 import {CrewListItem} from './components/CrewListItem';
 import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
-import {Button, Tab, TabView} from '@rneui/themed';
-import {ReviewListItem} from '../../components/Items/ReviewListItem';
+import {Button} from '@rneui/themed';
 import {GenreListItem} from './components/GenreListItem';
+import {ReviewsOverview} from './components/ReviewOverview';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -174,66 +171,6 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
   );
 }
 
-function ReviewsOverview({
-  data,
-  navigation,
-}: {
-  data: MovieDetailsQuery$data;
-  navigation: MovieDetailsScreenProps['navigation'];
-}) {
-  const [index, setIndex] = useState(0);
-
-  // ScrollView doesn't increase height automatically
-  // on list additions in TabView
-  const [tab1Height, setTab1Height] = useState(0);
-  const [tab2Height, setTab2Height] = useState(0);
-  const tabViewHeight = index === 0 ? tab1Height : tab2Height;
-
-  return (
-    <>
-      <Tab value={index} onChange={i => setIndex(i)}>
-        <Tab.Item title="Critic" />
-        <Tab.Item title="Regular" />
-      </Tab>
-      <TabView
-        containerStyle={{height: tabViewHeight}}
-        value={index}
-        onChange={setIndex}>
-        <TabView.Item>
-          <View
-            style={styles.reviewOverviewList}
-            onLayout={e => setTab1Height(e.nativeEvent.layout.height)}>
-            {data.movie?.criticReviews.edges.map(i => (
-              <ReviewListItem review={i?.node ?? null} />
-            ))}
-            <Button
-              onPress={() =>
-                navigation.navigate('MovieReviewList', {firstTab: 'critic'})
-              }
-              title="All reviews"
-            />
-          </View>
-        </TabView.Item>
-        <TabView.Item>
-          <View
-            style={styles.reviewOverviewList}
-            onLayout={e => setTab2Height(e.nativeEvent.layout.height)}>
-            {data.movie?.regularReviews.edges.map(i => (
-              <ReviewListItem review={i?.node ?? null} />
-            ))}
-            <Button
-              onPress={() =>
-                navigation.navigate('MovieReviewList', {firstTab: 'regular'})
-              }
-              title="All reviews"
-            />
-          </View>
-        </TabView.Item>
-      </TabView>
-    </>
-  );
-}
-
 function SimpleInfoSection({
   name,
   value,
@@ -273,6 +210,10 @@ const styles = StyleSheet.create({
     marginLeft: 135,
     marginTop: 5,
   },
+  genresList: {
+    flexDirection: 'row',
+    gap: 10,
+  },
   detailsInfoContainer: {
     padding: 10,
     paddingBottom: 25,
@@ -288,12 +229,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
     padding: 10,
-  },
-  genresList: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  reviewOverviewList: {
-    gap: 10,
   },
 });
