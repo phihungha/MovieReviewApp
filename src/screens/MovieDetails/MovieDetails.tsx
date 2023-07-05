@@ -176,14 +176,14 @@ function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
         <TabView.Item>
           <View style={styles.reviewList}>
             {data.movie?.criticReviews.edges.map(i => (
-              <ReviewListItem review={i?.node} />
+              <ReviewListItem review={i?.node ?? null} />
             ))}
           </View>
         </TabView.Item>
         <TabView.Item>
           <View style={styles.reviewList}>
             {data.movie?.regularReviews.edges.map(i => (
-              <ReviewListItem review={i?.node} />
+              <ReviewListItem review={i?.node ?? null} />
             ))}
           </View>
         </TabView.Item>

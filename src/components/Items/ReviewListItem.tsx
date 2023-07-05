@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ReviewInfoDisplay} from '../Display/ReviewInfoDisplay';
-import {HorizontalProfileDisplay} from '../Display/HorizontalProfileDisplay';
 import colors from '../../styles/colors';
 import {ReviewCommentButton} from '../Buttons/ReviewCommentButton';
 import {ReviewLikeButton} from '../Buttons/ReviewLikeButton';
@@ -20,39 +19,19 @@ const ReviewListItemFragment = graphql`
 `;
 
 export interface ReviewListItemProps {
-  review?: ReviewListItem$key | null;
+  review: ReviewListItem$key | null;
 }
 
 /**
  * Item for a list of reviews.
  */
-export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
-  if (!props.review) {
-    return (
-      <View style={styles.container}>
-        <HorizontalProfileDisplay
-          imageUrl="https://cinerate-movie-review.s3.amazonaws.com/public/userProfileImages/1.jpg"
-          name="Roger Ebert"
-          role="Critic"
-        />
-        <ReviewInfoDisplay style={styles.infoContainer} />
-        <View style={styles.buttonsContainer}>
-          <ReviewLikeButton />
-          <ReviewCommentButton />
-        </View>
-      </View>
-    );
-  }
-  return <ReviewListItemWithData {...props} />;
-}
-
-function ReviewListItemWithData({
+export function ReviewListItem({
   review,
 }: ReviewListItemProps): React.JSX.Element {
-  const data = useFragment(ReviewListItemFragment, review!);
+  const data = useFragment(ReviewListItemFragment, review);
   return (
     <View style={styles.container}>
-      <HorizontalUserDisplay user={data.author} />
+      <HorizontalUserDisplay user={data?.author ?? null} />
       <ReviewInfoDisplay
         review={data}
         maxContentLineCount={3}

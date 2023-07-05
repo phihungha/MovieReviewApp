@@ -15,43 +15,23 @@ const RegularAggregateScoreIndicatorFragment = graphql`
 `;
 
 export interface RegularAggregateScoreIndicatorProps {
-  movie?: RegularAggregateScoreIndicator$key | null;
+  movie: RegularAggregateScoreIndicator$key | null;
 }
 
 /**
  * Display regular users' aggregate score and review count.
  */
-export function RegularAggregateScoreIndicator(
-  props: RegularAggregateScoreIndicatorProps,
-): JSX.Element {
-  if (!props.movie) {
-    return (
-      <AggregateScoreIndicator
-        iconName="star"
-        title="Regular"
-        isLeft={true}
-        iconStyle={styles.regularIcon}
-        textStyle={styles.scoreText}
-      />
-    );
-  }
-  return <RegularAggregateScoreIndicatorWithData {...props} />;
-}
-
-function RegularAggregateScoreIndicatorWithData(
-  props: RegularAggregateScoreIndicatorProps,
-): JSX.Element {
-  const data = useFragment(
-    RegularAggregateScoreIndicatorFragment,
-    props.movie!,
-  );
+export function RegularAggregateScoreIndicator({
+  movie,
+}: RegularAggregateScoreIndicatorProps): JSX.Element {
+  const data = useFragment(RegularAggregateScoreIndicatorFragment, movie);
 
   return (
     <AggregateScoreIndicator
       iconName="star"
       title="Regular"
-      score={data.regularScore}
-      reviewCount={data.regularReviewCount}
+      score={data?.regularScore}
+      reviewCount={data?.regularReviewCount}
       isLeft={false}
       iconStyle={styles.regularIcon}
       textStyle={styles.scoreText}

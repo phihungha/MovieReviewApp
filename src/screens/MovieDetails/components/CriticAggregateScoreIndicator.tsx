@@ -15,39 +15,22 @@ const CriticAggregateScoreIndicatorFragment = graphql`
 `;
 
 export interface CriticAggregateScoreIndicatorProps {
-  movie?: CriticAggregateScoreIndicator$key | null;
+  movie: CriticAggregateScoreIndicator$key | null;
 }
 
 /**
  * Display critics' aggregate score and review count.
  */
-export function CriticAggregateScoreIndicator(
-  props: CriticAggregateScoreIndicatorProps,
-): React.JSX.Element {
-  if (!props.movie) {
-    return (
-      <AggregateScoreIndicator
-        iconName="star"
-        title="Critic"
-        isLeft={true}
-        iconStyle={styles.criticIcon}
-        textStyle={styles.scoreText}
-      />
-    );
-  }
-  return <CriticAggregateScoreIndicatorWithData {...props} />;
-}
-
-function CriticAggregateScoreIndicatorWithData(
-  props: CriticAggregateScoreIndicatorProps,
-) {
-  const data = useFragment(CriticAggregateScoreIndicatorFragment, props.movie!);
+export function CriticAggregateScoreIndicator({
+  movie,
+}: CriticAggregateScoreIndicatorProps): React.JSX.Element {
+  const data = useFragment(CriticAggregateScoreIndicatorFragment, movie);
   return (
     <AggregateScoreIndicator
       iconName="star"
       title="Critic"
-      score={data.criticScore}
-      reviewCount={data.criticReviewCount}
+      score={data?.criticScore}
+      reviewCount={data?.criticReviewCount}
       isLeft={true}
       iconStyle={styles.criticIcon}
       textStyle={styles.scoreText}

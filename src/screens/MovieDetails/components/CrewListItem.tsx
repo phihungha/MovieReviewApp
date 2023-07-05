@@ -16,7 +16,7 @@ const CrewListItemFragment = graphql`
 `;
 
 export interface CrewListItemProps {
-  crewMember: CrewListItem$key;
+  crewMember: CrewListItem$key | null;
 }
 
 /**
@@ -29,9 +29,9 @@ export function CrewListItem({
   return (
     <VerticalProfileDisplay
       style={styles.container}
-      imageUrl={data.crew.avatarUrl}
-      name={data.crew.name}
-      role={data.role}
+      imageUrl={data?.crew.avatarUrl}
+      name={data?.crew.name}
+      role={data?.role}
     />
   );
 }

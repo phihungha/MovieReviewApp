@@ -7,14 +7,14 @@ import {ItemSubtitleText} from '../Text/ItemSubtitleText';
 
 /**
  * Display basic profile info (image, name, role) of a user, crew member,...
- * @param {string} imageUrl Image URL
+ * @param {string?} imageUrl Image URL
  * @param {string?} name Name
  * @param {string?} role Role (user type, crew role,...)
  * @param {StyleProp<ViewStyle>?} style Style
  */
 export function HorizontalProfileDisplay(
   props: ProfileDisplayProps,
-): JSX.Element {
+): React.JSX.Element {
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
       <Avatar size={60} rounded source={{uri: props.imageUrl ?? ''}} />

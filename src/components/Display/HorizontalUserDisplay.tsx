@@ -13,7 +13,7 @@ const HorizontalUserDisplayFragment = graphql`
 `;
 
 export interface HorizontalUserDisplayProps {
-  user: HorizontalUserDisplay$key;
+  user: HorizontalUserDisplay$key | null;
 }
 
 export function HorizontalUserDisplay({
@@ -22,9 +22,9 @@ export function HorizontalUserDisplay({
   const data = useFragment(HorizontalUserDisplayFragment, user);
   return (
     <HorizontalProfileDisplay
-      name={data.name}
-      imageUrl={data.avatarUrl}
-      role={data.userType}
+      name={data?.name}
+      imageUrl={data?.avatarUrl}
+      role={data?.userType}
     />
   );
 }

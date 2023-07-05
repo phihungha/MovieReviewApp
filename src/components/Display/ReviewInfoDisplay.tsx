@@ -1,10 +1,8 @@
 import React from 'react';
 import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {CriticReviewScoreIndicator} from '../Display/CriticReviewScoreIndicator';
-import {SubtitleText} from '../Text/SubtitleText';
 import {RegularText} from '../Text/RegularText';
 import colors from '../../styles/colors';
-import {TitleText} from '../Text/TitleText';
 import {graphql} from 'relay-runtime';
 import {ReviewInfoDisplay$key} from './__generated__/ReviewInfoDisplay.graphql';
 import {useFragment} from 'react-relay';
@@ -21,7 +19,7 @@ const ReviewInfoDisplayFragment = graphql`
 `;
 
 export interface ReviewInfoDisplayProps {
-  review?: ReviewInfoDisplay$key | null;
+  review: ReviewInfoDisplay$key | null;
   maxContentLineCount?: number;
   style?: StyleProp<ViewStyle>;
 }
@@ -30,32 +28,19 @@ export interface ReviewInfoDisplayProps {
  * Displays info of a review.
  * @param {StyleProp<ViewStyle>?} style Style
  */
-export function ReviewInfoDisplay(props: ReviewInfoDisplayProps): JSX.Element {
-  if (!props.review) {
-    return (
-      <View style={StyleSheet.compose(styles.container, props.style)}>
-        <TitleText>N/A</TitleText>
-        <SubtitleText>N/A</SubtitleText>
-        <CriticReviewScoreIndicator />
-        <RegularText>N/A</RegularText>
-      </View>
-    );
-  }
-
-  return <ReviewInfoDisplayWithData {...props} />;
-}
-
-function ReviewInfoDisplayWithData(props: ReviewInfoDisplayProps) {
-  const data = useFragment(ReviewInfoDisplayFragment, props.review!);
+export function ReviewInfoDisplay(
+  props: ReviewInfoDisplayProps,
+): React.JSX.Element {
+  const data = useFragment(ReviewInfoDisplayFragment, props.review);
   return (
     <View style={StyleSheet.compose(styles.container, props.style)}>
-      <SectionText>{data.title}</SectionText>
+      <SectionText>{data?.title ?? 'N/A'}</SectionText>
       <RegularText>
-        {dateToStandardDateFormat(new Date(data.postTime))}
+        {dateToStandardDateFormat(new Date(data?.postTime))}
       </RegularText>
-      <CriticReviewScoreIndicator score={data.score} />
+      <CriticReviewScoreIndicator score={data?.score} />
       <RegularText numberOfLines={props.maxContentLineCount}>
-        {data.content}
+        {data?.content ?? 'N/A'}
       </RegularText>
     </View>
   );

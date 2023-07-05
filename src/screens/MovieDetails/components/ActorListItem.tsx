@@ -16,7 +16,7 @@ const ActorListItemFragment = graphql`
 `;
 
 export interface ActorListItemProps {
-  actingCredit: ActorListItem$key;
+  actingCredit: ActorListItem$key | null;
 }
 
 /**
@@ -27,9 +27,9 @@ export function ActorListItem({actingCredit}: ActorListItemProps): JSX.Element {
   return (
     <VerticalProfileDisplay
       style={styles.container}
-      imageUrl={data.actor.avatarUrl}
-      name={data.actor.name}
-      role={data.characterName}
+      imageUrl={data?.actor.avatarUrl}
+      name={data?.actor.name}
+      role={data?.characterName}
     />
   );
 }
