@@ -166,7 +166,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
               onPress={() => navigation.navigate('CreateReview')}
               title="Create a new review"
             />
-            <ReviewsOverview data={data} />
+            <ReviewsOverview data={data} navigation={navigation} />
           </InfoSection>
         </View>
       </View>
@@ -174,8 +174,21 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
   );
 }
 
-function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
+function ReviewsOverview({
+  data,
+  navigation,
+}: {
+  data: MovieDetailsQuery$data;
+  navigation: MovieDetailsScreenProps['navigation'];
+}) {
   const [index, setIndex] = useState(0);
+
+  // ScrollView doesn't increase height automatically
+  // on list additions in TabView
+  const [tab1Height, setTab1Height] = useState(0);
+  const [tab2Height, setTab2Height] = useState(0);
+  const tabViewHeight = index === 0 ? tab1Height : tab2Height;
+
   return (
     <>
       <Tab value={index} onChange={i => setIndex(i)}>
@@ -183,21 +196,37 @@ function ReviewsOverview({data}: {data: MovieDetailsQuery$data}) {
         <Tab.Item title="Regular" />
       </Tab>
       <TabView
-        containerStyle={styles.reviewOverviewContainer}
+        containerStyle={{height: tabViewHeight}}
         value={index}
         onChange={setIndex}>
         <TabView.Item>
-          <View style={styles.reviewOverviewList}>
+          <View
+            style={styles.reviewOverviewList}
+            onLayout={e => setTab1Height(e.nativeEvent.layout.height)}>
             {data.movie?.criticReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
+            <Button
+              onPress={() =>
+                navigation.navigate('MovieReviewList', {firstTab: 'critic'})
+              }
+              title="All reviews"
+            />
           </View>
         </TabView.Item>
         <TabView.Item>
-          <View style={styles.reviewOverviewList}>
+          <View
+            style={styles.reviewOverviewList}
+            onLayout={e => setTab2Height(e.nativeEvent.layout.height)}>
             {data.movie?.regularReviews.edges.map(i => (
               <ReviewListItem review={i?.node ?? null} />
             ))}
+            <Button
+              onPress={() =>
+                navigation.navigate('MovieReviewList', {firstTab: 'regular'})
+              }
+              title="All reviews"
+            />
           </View>
         </TabView.Item>
       </TabView>
@@ -246,6 +275,7 @@ const styles = StyleSheet.create({
   },
   detailsInfoContainer: {
     padding: 10,
+    paddingBottom: 25,
     gap: 10,
   },
   crewListContainer: {
@@ -262,9 +292,6 @@ const styles = StyleSheet.create({
   genresList: {
     flexDirection: 'row',
     gap: 10,
-  },
-  reviewOverviewContainer: {
-    height: 980,
   },
   reviewOverviewList: {
     gap: 10,
