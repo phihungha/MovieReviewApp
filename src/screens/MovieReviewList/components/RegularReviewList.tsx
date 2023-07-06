@@ -76,6 +76,7 @@ export function RegularReviewList(
     <VerticalList
       data={data?.regularReviews.edges}
       isLoading={isLoadingNext}
+      keyExtractor={item => item?.node.id ?? '0'}
       onEndReached={() => loadNext(4)}
       renderItem={({item}) => (
         <ReviewListItem

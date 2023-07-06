@@ -77,6 +77,7 @@ export function CriticReviewList(
       data={data?.criticReviews.edges}
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
+      keyExtractor={item => item?.node.id ?? '0'}
       renderItem={({item}) => (
         <ReviewListItem
           review={item?.node ?? null}

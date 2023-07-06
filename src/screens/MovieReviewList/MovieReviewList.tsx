@@ -21,7 +21,6 @@ import {ActionCb} from '../../types/ActionCb';
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
     movie(id: $id) {
-      id
       ...CriticReviewList
       ...RegularReviewList
     }

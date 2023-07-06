@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<267df8d228c13f7536658b74437fccd7>>
+ * @generated SignedSource<<c7016ab85504094f503e1473ce512e34>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type MovieReviewListQuery$variables = {
 };
 export type MovieReviewListQuery$data = {
   readonly movie: {
-    readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"CriticReviewList" | "RegularReviewList">;
   } | null;
 };
@@ -39,20 +38,20 @@ v1 = [
     "variableName": "id"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = [
+v2 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 4
   }
 ],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v4 = [
   {
     "alias": null,
@@ -70,7 +69,7 @@ v4 = [
         "name": "node",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -135,7 +134,7 @@ v4 = [
                 "name": "userType",
                 "storageKey": null
               },
-              (v2/*: any*/)
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
@@ -228,7 +227,6 @@ return {
         "name": "movie",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -260,10 +258,9 @@ return {
         "name": "movie",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v2/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "criticReviews",
@@ -273,16 +270,17 @@ return {
           },
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v2/*: any*/),
             "filters": (v5/*: any*/),
             "handle": "connection",
             "key": "CriticReviewListFragment_criticReviews",
             "kind": "LinkedHandle",
             "name": "criticReviews"
           },
+          (v3/*: any*/),
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v2/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "regularReviews",
@@ -292,7 +290,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v2/*: any*/),
             "filters": (v5/*: any*/),
             "handle": "connection",
             "key": "RegularReviewListFragment_regularReviews",
@@ -305,16 +303,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "21f201c39ead9a21506ea14b1ff1e764",
+    "cacheID": "dde6309b6118da99bf253e0e1ec2cbcc",
     "id": null,
     "metadata": {},
     "name": "MovieReviewListQuery",
     "operationKind": "query",
-    "text": "query MovieReviewListQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    ...CriticReviewList\n    ...RegularReviewList\n  }\n}\n\nfragment CriticReviewList on Movie {\n  criticReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularReviewList on Movie {\n  regularReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query MovieReviewListQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    ...CriticReviewList\n    ...RegularReviewList\n    id\n  }\n}\n\nfragment CriticReviewList on Movie {\n  criticReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularReviewList on Movie {\n  regularReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6e056688b8f9045694f6041e40d25230";
+(node as any).hash = "d26afc2b34c0b6ef0f4887e8d11cfde1";
 
 export default node;
