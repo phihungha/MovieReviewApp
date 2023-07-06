@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.lightGrey,
     fontFamily: fonts.primary,
-    fontSize: fontSizes.md,
+    fontSize: fontSizes.sm,
   },
   icon: {
     color: colors.lightGrey,

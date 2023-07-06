@@ -48,7 +48,7 @@ export function ReviewListItem({
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    gap: 5,
+    gap: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
