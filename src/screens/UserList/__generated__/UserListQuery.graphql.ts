@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c6124a89d04f7ba4ebae7f5825a86e2d>>
+ * @generated SignedSource<<d0f4e113469aa8a5713528ac24549e97>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -163,12 +163,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b835914243beff794d91261a7af514b9",
+    "cacheID": "e94137bff6d1f6eb750c2ce304c88fd4",
     "id": null,
     "metadata": {},
     "name": "UserListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery {\n  ...AllUserList\n}\n\nfragment AllUserList on Query {\n  users(first: 10) {\n    edges {\n      node {\n        id\n        ...UserListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment UserListItem on User {\n  avatarUrl\n  name\n  userType\n}\n"
+    "text": "query UserListQuery {\n  ...AllUserList\n}\n\nfragment AllUserList on Query {\n  users(first: 10) {\n    edges {\n      node {\n        id\n        ...UserListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment UserListItem on User {\n  id\n  avatarUrl\n  name\n  userType\n}\n"
   }
 };
 })();

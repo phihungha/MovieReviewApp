@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import colors from '../../styles/colors';
 import {graphql} from 'relay-runtime';
@@ -9,9 +9,11 @@ import {ItemTitleText} from '../Text/ItemTitleText';
 import {ItemSubtitleText} from '../Text/ItemSubtitleText';
 import {ActionCb} from '../../types/ActionCb';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 
 const UserListItemFragment = graphql`
   fragment UserListItem on User {
+    id
     avatarUrl
     name
     userType
@@ -26,8 +28,13 @@ export interface UserListItemProps {
 
 export function UserListItem(props: UserListItemProps): JSX.Element {
   const data = useFragment(UserListItemFragment, props.user);
+
+  const preloadedQueries = useContext(PreloadedQueriesContext);
   const defaultOnPress = () => {
     if (props.onNavigate) {
+      if (data?.id) {
+        preloadedQueries?.UserDetails.loadQuery({id: data.id});
+      }
       props.onNavigate();
     }
   };

@@ -27,6 +27,8 @@ import type {ReviewDetailsQuery as ReviewDetailsQueryType} from './screens/Revie
 import {ReviewDetailsQuery} from './screens/ReviewDetails/ReviewDetails';
 import type {UserListQuery as UserListQueryType} from './screens/UserList/__generated__/UserListQuery.graphql';
 import {UserListQuery} from './screens/UserList/UserList';
+import type {UserDetailsQuery as UserDetailsQueryType} from './screens/UserDetails/__generated__/UserDetailsQuery.graphql';
+import {UserDetailsQuery} from './screens/UserDetails/UserDetails';
 
 function useQueryLoaderAsDict<T extends OperationType>(
   query: GraphQLTaggedNode,
@@ -46,6 +48,7 @@ function usePreloadedQueries() {
     ReviewDetails:
       useQueryLoaderAsDict<ReviewDetailsQueryType>(ReviewDetailsQuery),
     UserList: useQueryLoaderAsDict<UserListQueryType>(UserListQuery),
+    UserDetails: useQueryLoaderAsDict<UserDetailsQueryType>(UserDetailsQuery),
   };
 }
 

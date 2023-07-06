@@ -36,6 +36,7 @@ export function UserListStackScreen(): React.JSX.Element {
       />
       <UsersListStackNavigator.Screen
         name="UserDetails"
+        options={{headerShown: false}}
         component={UserDetailsScreen}
       />
       <UsersListStackNavigator.Screen

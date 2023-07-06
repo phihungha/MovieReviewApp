@@ -9,11 +9,13 @@ export function secondsToLongFormat(inputSeconds: number) {
   return `${hours} ${hoursWord} ${minutes} ${minutesWord} ${seconds} ${secondsWord}`;
 }
 
-export function dateToStandardDateFormat(date: Date) {
-  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+export function dateToStandardDateFormat(dateInput: Date | string) {
+  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 }
 
-export function dateToStandardDateTimeFormat(date: Date) {
+export function dateToStandardDateTimeFormat(dateInput: Date | string) {
+  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
   const formattedDate = dateToStandardDateFormat(date);
   const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
   return `${formattedDate} ${formattedTime}`;

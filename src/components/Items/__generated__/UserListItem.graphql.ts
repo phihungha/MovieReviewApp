@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<494ee83510abce2da1119dcfa89b8c65>>
+ * @generated SignedSource<<f3991023c94e8a5c541bc05fbb22c4a1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type UserType = "Critic" | "Regular" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type UserListItem$data = {
   readonly avatarUrl: string | null;
+  readonly id: string;
   readonly name: string;
   readonly userType: UserType;
   readonly " $fragmentType": "UserListItem";
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "UserListItem",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -54,6 +62,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "45b176cdaf9e70cc24edc73a03bd004b";
+(node as any).hash = "2f4c75625b6f5f9d11604d45700e999c";
 
 export default node;

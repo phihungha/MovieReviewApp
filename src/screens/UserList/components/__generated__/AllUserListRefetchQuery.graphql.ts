@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf3546d29b1904f486d25c5a185fd0b1>>
+ * @generated SignedSource<<e5f4d38a5c06692312c9e636248a424c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -207,12 +207,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "df171f9dec0aadacf6959626fbdf9d40",
+    "cacheID": "4b1d0070c609ebb07e27d3b5b54c501f",
     "id": null,
     "metadata": {},
     "name": "AllUserListRefetchQuery",
     "operationKind": "query",
-    "text": "query AllUserListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $nameContains: String\n) {\n  ...AllUserList_1SsGi2\n}\n\nfragment AllUserList_1SsGi2 on Query {\n  users(after: $cursor, first: $count, nameContains: $nameContains) {\n    edges {\n      node {\n        id\n        ...UserListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment UserListItem on User {\n  avatarUrl\n  name\n  userType\n}\n"
+    "text": "query AllUserListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $nameContains: String\n) {\n  ...AllUserList_1SsGi2\n}\n\nfragment AllUserList_1SsGi2 on Query {\n  users(after: $cursor, first: $count, nameContains: $nameContains) {\n    edges {\n      node {\n        id\n        ...UserListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment UserListItem on User {\n  id\n  avatarUrl\n  name\n  userType\n}\n"
   }
 };
 })();
