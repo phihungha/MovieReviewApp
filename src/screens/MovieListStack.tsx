@@ -2,7 +2,7 @@ import React from 'react';
 import {MoviesListStackNavigator} from '../navigators/MoviesListStackNavigator';
 import {CreateReviewScreen} from './CreateReview';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewListScreen} from './MovieReviewList';
+import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {MoviesListScreen} from './MoviesList/MoviesList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';

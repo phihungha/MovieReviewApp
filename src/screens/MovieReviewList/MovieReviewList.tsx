@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
-import {TitleText} from '../components/Text/TitleText';
+import {TitleText} from '../../components/Text/TitleText';
 import {FlatList, Pressable} from 'react-native';
-import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
+import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MainStackParams} from '../navigators/MainStackParams';
+import {MainStackParams} from '../../navigators/MainStackParams';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;

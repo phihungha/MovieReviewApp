@@ -3,7 +3,7 @@ import {HomeStackNavigator} from '../navigators/HomeStackNavigator';
 import {CreateReviewScreen} from './CreateReview';
 import {HomeScreen} from './Home/Home';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewListScreen} from './MovieReviewList';
+import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
