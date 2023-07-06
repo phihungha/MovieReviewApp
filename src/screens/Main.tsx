@@ -66,6 +66,10 @@ export function MainScreen(): JSX.Element {
       <MainTabNavigator.Screen
         name="UsersListStack"
         options={{title: 'Users'}}
+        listeners={{
+          tabPress: () => preloadedQueries?.UserList.loadQuery({}),
+          state: () => preloadedQueries?.UserList.loadQuery({}),
+        }}
         component={UserListStackScreen}
       />
       <MainTabNavigator.Screen

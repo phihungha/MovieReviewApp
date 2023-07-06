@@ -1,56 +1,74 @@
-import React from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
-import {FlatList} from 'react-native';
-import {TitleText} from '../../components/Text/TitleText';
-import {UserListItem} from '../../components/Items/UserListItem';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {graphql} from 'relay-runtime';
+import {usePreloadedQuery} from 'react-relay';
+import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import {UsersListStackParams} from '../../navigators/UsersListStackNavigator';
+import type {UserListQuery as UserListQueryType} from './__generated__/UserListQuery.graphql';
+import {UserListHeader} from './components/UserListHeader';
+import {AllUserList} from './components/AllUserList';
 
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
+export const UserListQuery = graphql`
+  query UserListQuery {
+    ...AllUserList
+  }
+`;
+
+type UserListScreenProps = NativeStackScreenProps<
+  UsersListStackParams,
+  'UserList'
+>;
+
+export function UserListScreen(props: UserListScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.UserList.queryRef) {
+    return <></>;
+  }
+  return <MoviesListScreenWithData {...props} />;
 }
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
-}
-export function UserListScreen(): JSX.Element {
-  const arr: number[] = [1, 2, 3, 4];
+
+function MoviesListScreenWithData({
+  navigation,
+}: UserListScreenProps): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<UserListQueryType>(
+    UserListQuery,
+    preloadedQueries!.UserList.queryRef!,
+  );
+
+  const [search, setSearch] = useState('');
+
+  const customHeader = useCallback(
+    () => <UserListHeader search={search} setSearch={setSearch} />,
+    [search],
+  );
+
+  useEffect(() => navigation.setOptions({header: () => customHeader()}));
+
   return (
-    <ScrollView>
-      <SafeAreaView>
-        <View style={styles.container}>
-          <View style={styles.text}>
-            <TitleText>All Users</TitleText>
-          </View>
-        </View>
-        <FlatList
-          style={styles.padding}
-          data={arr}
-          renderItem={UserListItem}
-          ItemSeparatorComponent={HorizontalItemSeparator}
+    <View style={styles.container}>
+      <Suspense fallback={<StandardLoadingIcon />}>
+        <AllUserList
+          nameContains={search}
+          users={data}
+          onNavigate={() => navigation.navigate('UserDetails')}
         />
-      </SafeAreaView>
-    </ScrollView>
+      </Suspense>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
-  padding: {
-    padding: 10,
-  },
   container: {
-    flex: 1,
-    backgroundColor: '#2A2C36',
-    height: 50,
-  },
-  ItemSeparator: {
-    height: 20,
-    width: '100%',
-  },
-  HorizontalItemSeparator: {
-    marginVertical: 10,
-    width: 1,
-  },
-  text: {
-    padding: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
+    margin: 6,
   },
 });

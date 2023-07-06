@@ -14,7 +14,7 @@ export function UserListStackScreen(): React.JSX.Element {
   return (
     <UsersListStackNavigator.Navigator>
       <UsersListStackNavigator.Screen
-        name="UsersList"
+        name="UserList"
         component={UserListScreen}
       />
       <UsersListStackNavigator.Screen
