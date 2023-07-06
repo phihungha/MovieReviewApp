@@ -16,7 +16,6 @@ export function HorizontalItemSeparator(): JSX.Element {
 export function ReviewDetailsScreen(): JSX.Element {
   const [_, setComment] = useState('');
   const arr: number[] = [1];
-  const arr1: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -33,7 +32,7 @@ export function ReviewDetailsScreen(): JSX.Element {
       <FlatList
         style={styles.padding}
         data={arr}
-        renderItem={ReviewListItem}
+        renderItem={() => <ReviewListItem review={null} />}
         ItemSeparatorComponent={HorizontalItemSeparator}
       />
       <View style={styles.commentContainer}>
@@ -51,12 +50,6 @@ export function ReviewDetailsScreen(): JSX.Element {
           />
         </View>
       </View>
-      <FlatList
-        style={styles.padding}
-        data={arr1}
-        renderItem={ReviewListItem}
-        ItemSeparatorComponent={HorizontalItemSeparator}
-      />
     </ScrollView>
   );
 }

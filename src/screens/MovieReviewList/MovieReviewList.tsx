@@ -7,14 +7,15 @@ import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
 import type {MovieReviewListQuery as MovieReviewListQueryType} from './__generated__/MovieReviewListQuery.graphql';
 import {Tab, TabView} from '@rneui/themed';
-import {Text} from 'react-native';
 import {CriticReviewList} from './components/CriticReviewList';
+import {RegularReviewList} from './components/RegularReviewList';
 
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
     movie(id: $id) {
       id
       ...CriticReviewList
+      ...RegularReviewList
     }
   }
 `;
@@ -56,7 +57,10 @@ function MovieReviewListScreenWithData({
           />
         </TabView.Item>
         <TabView.Item>
-          <Text>Testing</Text>
+          <RegularReviewList
+            movie={data.movie}
+            onNavigate={() => navigation.navigate('ReviewDetails')}
+          />
         </TabView.Item>
       </TabView>
     </View>

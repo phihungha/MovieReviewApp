@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a16e753838728fe37aefcb2cc4f24317>>
+ * @generated SignedSource<<7895deafc3879c81c674199d07776492>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,9 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CriticReviewList$data = {
-  readonly criticReviews: {
+export type RegularReviewList$data = {
+  readonly id: string;
+  readonly regularReviews: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
@@ -19,17 +20,16 @@ export type CriticReviewList$data = {
       };
     } | null>;
   };
-  readonly id: string;
-  readonly " $fragmentType": "CriticReviewList";
+  readonly " $fragmentType": "RegularReviewList";
 };
-export type CriticReviewList$key = {
-  readonly " $data"?: CriticReviewList$data;
-  readonly " $fragmentSpreads": FragmentRefs<"CriticReviewList">;
+export type RegularReviewList$key = {
+  readonly " $data"?: RegularReviewList$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RegularReviewList">;
 };
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "criticReviews"
+  "regularReviews"
 ],
 v1 = {
   "alias": null,
@@ -98,14 +98,14 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./CriticReviewListRefetchQuery.graphql'),
+      "operation": require('./RegularReviewListRefetchQuery.graphql'),
       "identifierField": "id"
     }
   },
-  "name": "CriticReviewList",
+  "name": "RegularReviewList",
   "selections": [
     {
-      "alias": "criticReviews",
+      "alias": "regularReviews",
       "args": [
         {
           "kind": "Variable",
@@ -135,7 +135,7 @@ return {
       ],
       "concreteType": "ReviewConnection",
       "kind": "LinkedField",
-      "name": "__CriticReviewListFragment_criticReviews_connection",
+      "name": "__RegularReviewListFragment_regularReviews_connection",
       "plural": false,
       "selections": [
         {
@@ -215,6 +215,6 @@ return {
 };
 })();
 
-(node as any).hash = "5e53711dcd7a993543d0248a3cdaaeaf";
+(node as any).hash = "d79c539d673cf6922817f4894a9400e7";
 
 export default node;

@@ -3,11 +3,11 @@ import {graphql} from 'relay-runtime';
 import {VerticalList} from '../../../components/Lists/VerticalList';
 import {usePaginationFragment} from 'react-relay';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
-import {CriticReviewList$key} from './__generated__/CriticReviewList.graphql';
-import {CriticReviewListRefetchQuery} from './__generated__/CriticReviewListRefetchQuery.graphql';
+import {RegularReviewList$key} from './__generated__/RegularReviewList.graphql';
+import {RegularReviewListRefetchQuery} from './__generated__/RegularReviewListRefetchQuery.graphql';
 
-const CriticReviewListFragment = graphql`
-  fragment CriticReviewList on Movie
+const RegularReviewListFragment = graphql`
+  fragment RegularReviewList on Movie
   @argumentDefinitions(
     cursor: {type: "ID"}
     count: {type: "Int", defaultValue: 4}
@@ -17,8 +17,8 @@ const CriticReviewListFragment = graphql`
     sortBy: {type: "ReviewSortBy"}
     sortDirection: {type: "SortDirection"}
   )
-  @refetchable(queryName: "CriticReviewListRefetchQuery") {
-    criticReviews(
+  @refetchable(queryName: "RegularReviewListRefetchQuery") {
+    regularReviews(
       after: $cursor
       first: $count
       sortBy: $sortBy
@@ -26,7 +26,7 @@ const CriticReviewListFragment = graphql`
       textContains: $textContains
       minScore: $minScore
       maxScore: $maxScore
-    ) @connection(key: "CriticReviewListFragment_criticReviews") {
+    ) @connection(key: "RegularReviewListFragment_regularReviews") {
       edges {
         node {
           id
@@ -37,19 +37,19 @@ const CriticReviewListFragment = graphql`
   }
 `;
 
-export interface CriticReviewListProps {
-  movie: CriticReviewList$key | null;
+export interface RegularReviewListProps {
+  movie: RegularReviewList$key | null;
   textContains?: string;
   onNavigate?: () => void;
 }
 
-export function CriticReviewList(
-  props: CriticReviewListProps,
+export function RegularReviewList(
+  props: RegularReviewListProps,
 ): React.JSX.Element {
   const {data, loadNext, isLoadingNext, refetch} = usePaginationFragment<
-    CriticReviewListRefetchQuery,
-    CriticReviewList$key
-  >(CriticReviewListFragment, props.movie);
+    RegularReviewListRefetchQuery,
+    RegularReviewList$key
+  >(RegularReviewListFragment, props.movie);
 
   useEffect(() => {
     refetch({
@@ -59,7 +59,7 @@ export function CriticReviewList(
 
   return (
     <VerticalList
-      data={data?.criticReviews.edges}
+      data={data?.regularReviews.edges}
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
       renderItem={({item}) => (
