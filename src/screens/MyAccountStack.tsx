@@ -4,11 +4,9 @@ import {CreateReviewScreen} from './CreateReview/CreateReview';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {MyAccountScreen} from './MyAccount';
-import {MyReviewsListScreen} from './MyReviewsList';
-import {MyWatchedListScreen} from './MyWatchedList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
+import {UserLikedCommentsListScreen} from './UserThankedReviewList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
 
@@ -46,20 +44,12 @@ export function MyAccountStackScreen(): React.JSX.Element {
         component={UserWatchedListScreen}
       />
       <MyAccountStackNavigator.Screen
-        name="UserReviewsList"
+        name="UserReviewList"
         component={UserReviewsListScreen}
       />
       <MyAccountStackNavigator.Screen
-        name="UserLikedCommentsList"
+        name="UserThankedReviewList"
         component={UserLikedCommentsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyWatchedList"
-        component={MyWatchedListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyReviewsList"
-        component={MyReviewsListScreen}
       />
     </MyAccountStackNavigator.Navigator>
   );

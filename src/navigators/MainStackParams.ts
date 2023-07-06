@@ -5,8 +5,8 @@ export type MainStackParams = {
   };
   ReviewDetails: undefined;
   UserDetails: undefined;
-  UserWatchedList: undefined;
-  UserReviewsList: undefined;
-  UserLikedCommentsList: undefined;
+  UserWatchedList: {isPersonal?: boolean};
+  UserReviewList: {isPersonal?: boolean};
+  UserThankedReviewList: {isPersonal?: boolean};
   CreateReview: undefined;
 };
