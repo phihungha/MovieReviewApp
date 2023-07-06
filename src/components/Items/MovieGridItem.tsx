@@ -47,7 +47,7 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
   const onPress = props.onPress ?? defaultOnPress;
 
   return (
-    <View style={StyleSheet.compose(styles.container, props.containerStyle)}>
+    <View style={[styles.container, props.containerStyle]}>
       <Pressable
         style={styles.contentContainer}
         onPress={onPress}
