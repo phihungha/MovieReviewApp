@@ -6,7 +6,7 @@ import {ReviewCommentButton} from './components/ReviewCommentButton';
 import {ReviewLikeButton} from './components/ReviewLikeButton';
 import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
-import {ReviewListItem$key} from '../__generated__/ReviewListItem.graphql';
+import {ReviewListItem$key} from './__generated__/ReviewListItem.graphql';
 import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
 
 const ReviewListItemFragment = graphql`

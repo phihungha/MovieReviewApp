@@ -1,5 +1,5 @@
 import React from 'react';
-import {LikeButton} from './LikeButton';
+import {LikeButton} from '../../../Buttons/LikeButton';
 
 export function ReviewLikeButton(): JSX.Element {
   return (
