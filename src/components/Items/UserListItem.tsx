@@ -1,41 +1,66 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
+import {Pressable, StyleSheet, View} from 'react-native';
 import colors from '../../styles/colors';
-import {Image} from '@rneui/base';
+import {graphql} from 'relay-runtime';
+import {useFragment} from 'react-relay';
+import {UserListItem$key} from './__generated__/UserListItem.graphql';
+import {StandardAvatar} from '../Display/StandardAvatar';
+import {ItemTitleText} from '../Text/ItemTitleText';
+import {ItemSubtitleText} from '../Text/ItemSubtitleText';
+import {ActionCb} from '../../types/ActionCb';
+import {pressableRippleConfig} from '../../styles/pressable-ripple';
 
-export function UserListItem(): JSX.Element {
+const UserListItemFragment = graphql`
+  fragment UserListItem on User {
+    avatarUrl
+    name
+    userType
+  }
+`;
+
+export interface UserListItemProps {
+  user: UserListItem$key | null;
+  onNavigate?: ActionCb;
+  onPress?: ActionCb;
+}
+
+export function UserListItem(props: UserListItemProps): JSX.Element {
+  const data = useFragment(UserListItemFragment, props.user);
+  const defaultOnPress = () => {
+    if (props.onNavigate) {
+      props.onNavigate();
+    }
+  };
+  const onPress = props.onPress ?? defaultOnPress;
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
-        }}
-      />
-      <View style={styles.infoContainer}>
-        <TitleText>John Wick</TitleText>
-      </View>
+      <Pressable
+        style={styles.contentContainer}
+        onPress={onPress}
+        android_ripple={pressableRippleConfig}>
+        <StandardAvatar uri={data?.avatarUrl} />
+        <View style={styles.infoContainer}>
+          <ItemTitleText>{data?.name}</ItemTitleText>
+          <ItemSubtitleText>{data?.userType}</ItemSubtitleText>
+        </View>
+      </Pressable>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
-    width: '100%',
-    marginHorizontal: 'auto',
-  },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 5,
-    resizeMode: 'cover',
   },
   infoContainer: {
-    paddingLeft: 15,
+    gap: 5,
+  },
+  contentContainer: {
+    gap: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

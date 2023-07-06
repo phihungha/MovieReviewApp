@@ -8,14 +8,14 @@ import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserThankedReviewList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
-import {UsersListScreen} from './UsersList';
+import {UserListScreen} from './UserList/UserList';
 
 export function UserListStackScreen(): React.JSX.Element {
   return (
     <UsersListStackNavigator.Navigator>
       <UsersListStackNavigator.Screen
         name="UsersList"
-        component={UsersListScreen}
+        component={UserListScreen}
       />
       <UsersListStackNavigator.Screen
         name="MovieDetails"

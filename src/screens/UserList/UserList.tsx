@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {FlatList} from 'react-native';
-import {TitleText} from '../components/Text/TitleText';
-import {UserListItem} from '../components/Items/UserListItem';
+import {TitleText} from '../../components/Text/TitleText';
+import {UserListItem} from '../../components/Items/UserListItem';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 export function ItemSeparatorComponent(): JSX.Element {
@@ -11,7 +11,7 @@ export function ItemSeparatorComponent(): JSX.Element {
 export function HorizontalItemSeparator(): JSX.Element {
   return <View style={styles.HorizontalItemSeparator} />;
 }
-export function UsersListScreen(): JSX.Element {
+export function UserListScreen(): JSX.Element {
   const arr: number[] = [1, 2, 3, 4];
   return (
     <ScrollView>
