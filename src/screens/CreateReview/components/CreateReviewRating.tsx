@@ -1,7 +1,7 @@
 import {AirbnbRating} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
+import {TitleText} from '../../../components/Text/TitleText';
 
 export type OnRating = (rating: number) => void;
 

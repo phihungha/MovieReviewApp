@@ -6,7 +6,7 @@ import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
-import {CreateReviewScreen} from './CreateReview';
+import {CreateReviewScreen} from './CreateReview/CreateReview';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {FlatList, Pressable} from 'react-native';
 import {VeryBigTitleText} from '../components/Text/VeryBigTitleText';

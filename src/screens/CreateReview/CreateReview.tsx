@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {TitleText} from '../components/Text/TitleText';
-import {CreateReviewInfoDisplay} from '../components/Display/CreateReviewInfoDisplay';
+import {TitleText} from '../../components/Text/TitleText';
+import {CreateReviewInfoDisplay} from './components/CreateReviewInfoDisplay';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;

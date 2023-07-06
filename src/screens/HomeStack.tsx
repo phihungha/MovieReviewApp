@@ -1,6 +1,6 @@
 import React from 'react';
 import {HomeStackNavigator} from '../navigators/HomeStackNavigator';
-import {CreateReviewScreen} from './CreateReview';
+import {CreateReviewScreen} from './CreateReview/CreateReview';
 import {HomeScreen} from './Home/Home';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';

@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {RegularText} from '../Text/RegularText';
-import colors from '../../styles/colors';
 import {CreateReviewInfoDetail} from './CreateReviewInfoDetail';
 import {CreateReviewRating, OnRating} from './CreateReviewRating';
+import {RegularText} from '../../../components/Text/RegularText';
+import colors from '../../../styles/colors';
 
 interface CreateReviewInfoDisplayProps {
   imageUri?: string;

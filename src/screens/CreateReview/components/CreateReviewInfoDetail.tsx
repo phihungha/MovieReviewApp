@@ -1,11 +1,11 @@
 import {Avatar} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
-import {RegularText} from '../Text/RegularText';
-import colors from '../../styles/colors';
-import {CriticReviewScoreIndicator} from './CriticReviewScoreIndicator';
-import {RegularReviewScoreIndicator} from './RegularReviewScoreIndicator';
+import {TitleText} from '../../../components/Text/TitleText';
+import {RegularText} from '../../../components/Text/RegularText';
+import colors from '../../../styles/colors';
+import {CriticReviewScoreIndicator} from '../../../components/Display/CriticReviewScoreIndicator';
+import {RegularReviewScoreIndicator} from '../../../components/Display/RegularReviewScoreIndicator';
 
 interface CreateReviewInfoDetailProps {
   imageUri?: string;
