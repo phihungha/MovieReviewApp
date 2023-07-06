@@ -15,6 +15,8 @@ const ReviewListItemFragment = graphql`
     author {
       ...HorizontalUserDisplay
     }
+    ...ReviewLikeButton
+    ...ReviewCommentButton
   }
 `;
 
@@ -38,8 +40,8 @@ export function ReviewListItem({
         style={styles.infoContainer}
       />
       <View style={styles.buttonsContainer}>
-        <ReviewLikeButton />
-        <ReviewCommentButton />
+        <ReviewLikeButton review={data} />
+        <ReviewCommentButton review={data} />
       </View>
     </View>
   );

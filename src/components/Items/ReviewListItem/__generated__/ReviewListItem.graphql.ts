@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c25d5319f27254d2f86ea66f4292867d>>
+ * @generated SignedSource<<4c32acbe5de0cce22ff0b47af3ff5a37>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type ReviewListItem$data = {
   readonly author: {
     readonly " $fragmentSpreads": FragmentRefs<"HorizontalUserDisplay">;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"ReviewInfoDisplay">;
+  readonly " $fragmentSpreads": FragmentRefs<"ReviewCommentButton" | "ReviewInfoDisplay" | "ReviewLikeButton">;
   readonly " $fragmentType": "ReviewListItem";
 };
 export type ReviewListItem$key = {
@@ -48,12 +48,22 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ReviewLikeButton"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ReviewCommentButton"
     }
   ],
   "type": "Review",
   "abstractKey": null
 };
 
-(node as any).hash = "07cbaba33f2e92f11a0834f24ac3e8cd";
+(node as any).hash = "b24b735379e2f64e7d968f39e86ef6df";
 
 export default node;

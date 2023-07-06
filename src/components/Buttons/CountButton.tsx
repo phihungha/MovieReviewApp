@@ -14,20 +14,20 @@ import {ActionCb} from '../../types/ActionCb';
 
 interface IconButtonProps {
   iconName: string;
-  count: number;
   text: string;
-  onPress: ActionCb;
-  isActive?: boolean;
+  count?: number | null;
+  isActive?: boolean | null;
+  onPress?: ActionCb;
   style?: StyleProp<ViewStyle>;
 }
 
 /**
  * Button that displays a count of something (e.g. comments, likes).
  * @param {string} iconName Icon name
- * @param {number} count Count value
  * @param {string} text Text
- * @param {ActionCb} onPress Action on press
- * @param {boolean} isActive True if button is active
+ * @param {number | null | undefined} count Count value
+ * @param {boolean | null | undefined} isActive True if button is active
+ * @param {ActionCb?} onPress Action on press
  * @param {StyleProp<ViewStyle>} style Style
  */
 export function CountButton(props: IconButtonProps) {
@@ -45,7 +45,7 @@ export function CountButton(props: IconButtonProps) {
           name={props.iconName}
         />
         <Text style={[styles.text, props.isActive ? styles.activeText : {}]}>
-          {props.count} {props.text}
+          {props.count ?? 'N/A'} {props.text}
         </Text>
       </Pressable>
     </View>
