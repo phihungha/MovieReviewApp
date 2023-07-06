@@ -51,15 +51,15 @@ export function UserListItem(props: UserListItemProps): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
   infoContainer: {
-    gap: 5,
+    gap: 3,
   },
   contentContainer: {
-    gap: 5,
+    padding: 10,
+    gap: 15,
     flexDirection: 'row',
     alignItems: 'center',
   },
