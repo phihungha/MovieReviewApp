@@ -37,7 +37,6 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
   const data = useFragment(MovieGridItemFragment, props.movie);
 
   const preloadedQueries = useContext(PreloadedQueriesContext);
-
   const defaultOnPress = () => {
     if (data?.id) {
       preloadedQueries?.MovieDetails.loadQuery({id: data.id});

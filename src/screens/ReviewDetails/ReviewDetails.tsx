@@ -1,27 +1,67 @@
-import React, {useState} from 'react';
-import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import React, {useContext} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {TitleText} from '../../components/Text/TitleText';
-import {FlatList} from 'react-native';
 import {BigTitleText} from '../../components/Text/BigTitleText';
 import {Input} from '@rneui/themed';
 import {Image} from '@rneui/base';
+import {MainStackParams} from '../../navigators/MainStackParams';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {CommentList} from './components/CommentList';
+import {graphql} from 'relay-runtime';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import {usePreloadedQuery} from 'react-relay';
 
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
+export const ReviewDetailsQuery = graphql`
+  query ReviewDetailsQuery($id: ID!) {
+    review(id: $id) {
+      ...ReviewListItem
+      ...CommentList
+    }
+  }
+`;
+
+type ReviewDetailsScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'ReviewDetails'
+>;
+
+export function ReviewDetailsScreen(
+  props: ReviewDetailsScreenProps,
+): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.ReviewDetails.queryRef) {
+    return <></>;
+  }
+
+  return <ReviewDetailsScreenWithData {...props} />;
 }
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
-}
-export function ReviewDetailsScreen(): JSX.Element {
-  const [_, setComment] = useState('');
-  const arr: number[] = [1];
+
+export function ReviewDetailsScreenWithData({
+  navigation,
+}: ReviewDetailsScreenProps): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery(
+    ReviewDetailsQuery,
+    preloadedQueries!.ReviewDetails.queryRef!,
+  );
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.text}>
-          <TitleText>Someone's Review</TitleText>
-        </View>
+    <CommentList
+      review={data.review}
+      ListHeaderComponent={<ListHeader navigation={navigation} />}
+    />
+  );
+}
+
+interface ListHeaderProps {
+  navigation: ReviewDetailsScreenProps['navigation'];
+}
+
+function ListHeader(_: ListHeaderProps): React.JSX.Element {
+  return (
+    <View style={styles.container}>
+      <View style={styles.text}>
+        <TitleText>Someone's Review</TitleText>
       </View>
       <View style={styles.text}>
         <BigTitleText>Movie Name</BigTitleText>
@@ -29,30 +69,19 @@ export function ReviewDetailsScreen(): JSX.Element {
       <View style={styles.text}>
         <TitleText>Review Title</TitleText>
       </View>
-      <FlatList
-        style={styles.padding}
-        data={arr}
-        renderItem={() => <ReviewListItem review={null} />}
-        ItemSeparatorComponent={HorizontalItemSeparator}
+      <Image
+        source={{
+          uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
+        }}
+        style={styles.avatar}
       />
-      <View style={styles.commentContainer}>
-        <Image
-          source={{
-            uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
-          }}
-          style={styles.avatar}
-        />
-
-        <View style={styles.commentInputContainer}>
-          <Input
-            placeholder="Write a Comment"
-            onChangeText={value => setComment(value)}
-          />
-        </View>
+      <View style={styles.commentInputContainer}>
+        <Input placeholder="Write a Comment" />
       </View>
-    </ScrollView>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   padding: {
     padding: 10,

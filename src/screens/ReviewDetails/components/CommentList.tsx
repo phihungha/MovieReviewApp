@@ -26,15 +26,20 @@ const CommentListFragment = graphql`
 
 export interface CommentListProps {
   review: CommentList$key | null;
+  ListHeaderComponent?:
+    | React.ComponentType<any>
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | null;
 }
 
-export function CommentList({review}: CommentListProps) {
+export function CommentList(props: CommentListProps) {
   const {data, loadNext, isLoadingNext} = usePaginationFragment(
     CommentListFragment,
-    review,
+    props.review,
   );
   return (
     <VerticalList
+      ListHeaderComponent={props.ListHeaderComponent}
       data={data?.comments.edges}
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(8)}

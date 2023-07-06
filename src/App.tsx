@@ -23,6 +23,8 @@ import type {MoviesListQuery as MoviesListQueryType} from './screens/MoviesList/
 import {MoviesListQuery} from './screens/MoviesList/MoviesList';
 import type {MovieReviewListQuery as MovieReviewListQueryType} from './screens/MovieReviewList/__generated__/MovieReviewListQuery.graphql';
 import {MovieReviewListQuery} from './screens/MovieReviewList/MovieReviewList';
+import type {ReviewDetailsQuery as ReviewDetailsQueryType} from './screens/ReviewDetails/__generated__/ReviewDetailsQuery.graphql';
+import {ReviewDetailsQuery} from './screens/ReviewDetails/ReviewDetails';
 
 function useQueryLoaderAsDict<T extends OperationType>(
   query: GraphQLTaggedNode,
@@ -39,6 +41,8 @@ function usePreloadedQueries() {
       useQueryLoaderAsDict<MovieDetailsQueryType>(MovieDetailsQuery),
     MovieReviewList:
       useQueryLoaderAsDict<MovieReviewListQueryType>(MovieReviewListQuery),
+    ReviewDetails:
+      useQueryLoaderAsDict<ReviewDetailsQueryType>(ReviewDetailsQuery),
   };
 }
 

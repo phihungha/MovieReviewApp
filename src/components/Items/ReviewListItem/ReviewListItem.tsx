@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {ReviewInfoDisplay} from '../../Display/ReviewInfoDisplay';
 import colors from '../../../styles/colors';
@@ -10,6 +10,7 @@ import {ReviewListItem$key} from './__generated__/ReviewListItem.graphql';
 import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
 import {ActionCb} from '../../../types/ActionCb';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
+import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {
@@ -36,9 +37,10 @@ export interface ReviewListItemProps {
 export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   const data = useFragment(ReviewListItemFragment, props.review);
 
+  const preloadedQueries = useContext(PreloadedQueriesContext);
   const defaultOnPress = () => {
     if (data?.id) {
-      console.log('default preloaded query here');
+      preloadedQueries?.ReviewDetails.loadQuery({id: data.id});
     }
     props.onNavigate?.();
   };
