@@ -25,6 +25,7 @@ export function HorizontalUserDisplay({
       name={data?.name}
       imageUrl={data?.avatarUrl}
       role={data?.userType}
+      nameInitialsAsPlaceholder
     />
   );
 }
