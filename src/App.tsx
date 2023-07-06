@@ -1,18 +1,64 @@
 import React from 'react';
 import environment from './relay/environment';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {RelayEnvironmentProvider} from 'react-relay';
+import {
+  GraphQLTaggedNode,
+  RelayEnvironmentProvider,
+  useQueryLoader,
+} from 'react-relay';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
-import {SignUpScreen} from './screens/SignUp';
+import {SignUpScreen} from './screens/SignUp/SignUp';
 import {LoginScreen} from './screens/Login';
 import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
 import {theme} from './styles/theme';
 import colors from './styles/colors';
+import {PreloadedQueriesContext} from './relay/PreloadedQueriesContext';
+import {HomeQuery} from './screens/Home/Home';
+import type {HomeQuery as HomeQueryType} from './screens/Home/__generated__/HomeQuery.graphql';
+import {OperationType} from 'relay-runtime';
+import type {MovieDetailsQuery as MovieDetailsQueryType} from './screens/MovieDetails/__generated__/MovieDetailsQuery.graphql';
+import {MovieDetailsQuery} from './screens/MovieDetails/MovieDetails';
+import type {MoviesListQuery as MoviesListQueryType} from './screens/MoviesList/__generated__/MoviesListQuery.graphql';
+import {MoviesListQuery} from './screens/MoviesList/MoviesList';
+import type {MovieReviewListQuery as MovieReviewListQueryType} from './screens/MovieReviewList/__generated__/MovieReviewListQuery.graphql';
+import {MovieReviewListQuery} from './screens/MovieReviewList/MovieReviewList';
+import type {ReviewDetailsQuery as ReviewDetailsQueryType} from './screens/ReviewDetails/__generated__/ReviewDetailsQuery.graphql';
+import {ReviewDetailsQuery} from './screens/ReviewDetails/ReviewDetails';
+import type {UserListQuery as UserListQueryType} from './screens/UserList/__generated__/UserListQuery.graphql';
+import {UserListQuery} from './screens/UserList/UserList';
+import type {UserDetailsQuery as UserDetailsQueryType} from './screens/UserDetails/__generated__/UserDetailsQuery.graphql';
+import {UserDetailsQuery} from './screens/UserDetails/UserDetails';
 
-function App(): JSX.Element {
+function useQueryLoaderAsDict<T extends OperationType>(
+  query: GraphQLTaggedNode,
+) {
+  const [queryRef, loadQuery] = useQueryLoader<T>(query);
+  return {queryRef, loadQuery};
+}
+
+function usePreloadedQueries() {
+  return {
+    Home: useQueryLoaderAsDict<HomeQueryType>(HomeQuery),
+    MoviesList: useQueryLoaderAsDict<MoviesListQueryType>(MoviesListQuery),
+    MovieDetails:
+      useQueryLoaderAsDict<MovieDetailsQueryType>(MovieDetailsQuery),
+    MovieReviewList:
+      useQueryLoaderAsDict<MovieReviewListQueryType>(MovieReviewListQuery),
+    ReviewDetails:
+      useQueryLoaderAsDict<ReviewDetailsQueryType>(ReviewDetailsQuery),
+    UserList: useQueryLoaderAsDict<UserListQueryType>(UserListQuery),
+    UserDetails: useQueryLoaderAsDict<UserDetailsQueryType>(UserDetailsQuery),
+  };
+}
+
+export type PreloadedQueries =
+  | ReturnType<typeof usePreloadedQueries>
+  | undefined;
+
+function AppUI() {
   return (
-    <RelayEnvironmentProvider environment={environment}>
+    <PreloadedQueriesContext.Provider value={usePreloadedQueries()}>
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={navigationContainerTheme}>
           <RootStackNavigator.Navigator
@@ -36,6 +82,14 @@ function App(): JSX.Element {
           </RootStackNavigator.Navigator>
         </NavigationContainer>
       </ThemeProvider>
+    </PreloadedQueriesContext.Provider>
+  );
+}
+
+function App(): JSX.Element {
+  return (
+    <RelayEnvironmentProvider environment={environment}>
+      <AppUI />
     </RelayEnvironmentProvider>
   );
 }

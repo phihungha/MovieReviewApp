@@ -1,12 +1,12 @@
 export type MainStackParams = {
   MovieDetails: undefined;
-  MovieReviewList: undefined;
+  MovieReviewList: {
+    firstTab: 'regular' | 'critic';
+  };
   ReviewDetails: undefined;
   UserDetails: undefined;
-  UserWatchedList: undefined;
-  UserReviewsList: undefined;
-  UserLikedCommentsList: undefined;
-  CreateReviewScreen: undefined;
-  // MyWatchedList: undefined;
-  // MyReviewsList: undefined;
+  UserWatchedList: {isPersonal?: boolean};
+  UserReviewList: {isPersonal?: boolean};
+  UserThankedReviewList: {isPersonal?: boolean};
+  CreateReview: undefined;
 };

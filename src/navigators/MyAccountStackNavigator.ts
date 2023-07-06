@@ -3,8 +3,6 @@ import {MainStackParams} from './MainStackParams';
 
 export type MyAccountStackParams = MainStackParams & {
   MyAccount: undefined;
-  MyWatchedList: undefined;
-  MyReviewsList: undefined;
 };
 
 export const MyAccountStackNavigator =

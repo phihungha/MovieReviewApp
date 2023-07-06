@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
-import {MoviesListStackScreen} from './MoviesList';
-import {MyAccountStackScreen} from './MyAccount';
-import {HomeStackScreen} from './Home';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
-import {UsersListStackScreen} from './UsersList';
+import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
+import {HomeStackScreen} from './HomeStack';
+import {MovieListStackScreen} from './MovieListStack';
+import {UserListStackScreen} from './UserListStack';
+import {MyAccountStackScreen} from './MyAccountStack';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {
@@ -41,24 +42,35 @@ const MainTabScreenOptions = ({route}: any) => ({
 });
 
 export function MainScreen(): JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
   return (
-    <MainTabNavigator.Navigator
-      initialRouteName="HomeStack"
-      screenOptions={MainTabScreenOptions}>
+    <MainTabNavigator.Navigator screenOptions={MainTabScreenOptions}>
       <MainTabNavigator.Screen
         name="HomeStack"
         options={{title: 'Home'}}
+        listeners={{
+          tabPress: () => preloadedQueries?.Home.loadQuery({}),
+          state: () => preloadedQueries?.Home.loadQuery({}),
+        }}
         component={HomeStackScreen}
       />
       <MainTabNavigator.Screen
         name="MoviesListStack"
         options={{title: 'Movies'}}
-        component={MoviesListStackScreen}
+        listeners={{
+          tabPress: () => preloadedQueries?.MoviesList.loadQuery({}),
+        }}
+        component={MovieListStackScreen}
       />
       <MainTabNavigator.Screen
         name="UsersListStack"
         options={{title: 'Users'}}
-        component={UsersListStackScreen}
+        listeners={{
+          tabPress: () => preloadedQueries?.UserList.loadQuery({}),
+          state: () => preloadedQueries?.UserList.loadQuery({}),
+        }}
+        component={UserListStackScreen}
       />
       <MainTabNavigator.Screen
         name="MyAccountStack"

@@ -1,10 +1,10 @@
 export const fontSizes = {
-  xs: 8, // Super small. For super small text such as footnotes.
-  sm: 10, // Small. For smaller text such as list items' time.
-  md: 12, // Medium. For regular text.
-  lg: 16, // Large. For title of list items.
-  xl: 24, // Very large. For title.
-  xl2: 36, // Super large. For large title.
+  xs: 10, // Super small. For super small text such as footnotes.
+  sm: 14, // Small. For smaller text such as list items' time.
+  md: 16, // Medium. For regular text.
+  lg: 18, // Large. For title of list items.
+  xl: 22, // Very large. For title.
+  xl2: 33, // Super large. For large title.
 };
 
 export const fonts = {

@@ -7,8 +7,9 @@ import colors from '../../styles/colors';
 
 export interface GenericReviewScoreIndicatorProps {
   iconName: string;
-  score: number;
-  isLeft: boolean;
+  score?: number | null;
+  fullScore?: boolean;
+  isRight?: boolean;
   style?: StyleProp<ViewStyle>;
   iconStyle?: StyleProp<TextStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -17,8 +18,9 @@ export interface GenericReviewScoreIndicatorProps {
 /**
  * Generic review score indicator.
  * @param {string} iconName Icon name
- * @param {number} score Score value
- * @param {isLeft} boolean True if icon is on the left of score value
+ * @param {number | null | undefined} score Score value
+ * @param {fullScore?} boolean True if the score format is x/10
+ * @param {isRight?} boolean True if icon is on the right of score value
  * @param {StyleProp<ViewStyle>?} style Style
  * @param {StyleProp<TextStyle>?} iconStyle Style of icon
  * @param {StyleProp<ViewStyle>?} textStyle Style of score value
@@ -28,14 +30,18 @@ export function ReviewScoreIndicator(props: GenericReviewScoreIndicatorProps) {
     <View
       style={[
         styles.container,
-        props.isLeft ? {} : styles.rightIcon,
+        props.isRight ? styles.rightIcon : {},
         props.style,
       ]}>
       <Icon
         name={props.iconName}
         style={[styles.defaultIcon, props.iconStyle]}
       />
-      <Text style={[styles.scoreText, props.textStyle]}>{props.score}</Text>
+      <Text style={[styles.scoreText, props.textStyle]}>
+        {props.score ?? 'N/A'}
+        {''}
+        {props.fullScore ? ' / 10' : ''}
+      </Text>
     </View>
   );
 }
@@ -48,7 +54,6 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   scoreText: {
-    color: colors.lightGrey,
     paddingTop: 4,
   },
   rightIcon: {

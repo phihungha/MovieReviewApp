@@ -23,39 +23,19 @@ type Collection implements Node {
   id: ID!
   lastUpdateTime: DateTime
   likeCount: Int!
-  likeUsers(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CollectionLikeUsersConnection!
-  movies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CollectionMoviesConnection!
+  likeUsers(after: ID, before: ID, first: Int, last: Int): UserConnection!
+  movies(after: ID, before: ID, first: Int, last: Int): MovieConnection!
   name: String!
 }
 
-type CollectionLikeUsersConnection {
-  edges: [CollectionLikeUsersConnectionEdge]!
+type CollectionConnection {
+  edges: [CollectionEdge]!
   pageInfo: PageInfo!
 }
 
-type CollectionLikeUsersConnectionEdge {
+type CollectionEdge {
   cursor: ID!
-  node: User!
-}
-
-type CollectionMoviesConnection {
-  edges: [CollectionMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CollectionMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
+  node: Collection!
 }
 
 enum CollectionSortBy {
@@ -68,9 +48,20 @@ type Comment implements Node {
   author: User!
   content: String!
   id: ID!
+  isMine: Boolean
   lastUpdateTime: DateTime
   postTime: DateTime!
   review: Review!
+}
+
+type CommentConnection {
+  edges: [CommentEdge]!
+  pageInfo: PageInfo!
+}
+
+type CommentEdge {
+  cursor: ID!
+  node: Comment!
 }
 
 type Company implements Node {
@@ -79,35 +70,10 @@ type Company implements Node {
     before: ID
     first: Int
     last: Int
-  ): CompanyDistributedMoviesConnection!
+  ): MovieConnection!
   id: ID!
   name: String!
-  producedMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CompanyProducedMoviesConnection!
-}
-
-type CompanyDistributedMoviesConnection {
-  edges: [CompanyDistributedMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CompanyDistributedMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type CompanyProducedMoviesConnection {
-  edges: [CompanyProducedMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CompanyProducedMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
+  producedMovies(after: ID, before: ID, first: Int, last: Int): MovieConnection!
 }
 
 input CreateCommentInput {
@@ -124,89 +90,49 @@ input CreateReviewInput {
 }
 
 type CrewMember implements Node {
+  actedMovies(
+    after: ID
+    before: ID
+    first: Int
+    last: Int
+  ): CrewMemberActedMoviesConnection!
   avatarUrl: String
-  directedMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CrewMemberDirectedMoviesConnection!
-  dopMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CrewMemberDopMoviesConnection!
-  editedMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CrewMemberEditedMoviesConnection!
   id: ID!
   name: String!
-  scoredMovies(
+  workedOnMovies(
     after: ID
     before: ID
     first: Int
     last: Int
-  ): CrewMemberScoredMoviesConnection!
-  writtenMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): CrewMemberWrittenMoviesConnection!
+  ): CrewMemberWorkedOnMoviesConnection!
 }
 
-type CrewMemberDirectedMoviesConnection {
-  edges: [CrewMemberDirectedMoviesConnectionEdge]!
+type CrewMemberActedMoviesConnection {
+  edges: [CrewMemberActedMoviesConnectionEdge]!
   pageInfo: PageInfo!
 }
 
-type CrewMemberDirectedMoviesConnectionEdge {
+type CrewMemberActedMoviesConnectionEdge {
   cursor: ID!
-  node: Movie!
+  node: ActingCredit!
 }
 
-type CrewMemberDopMoviesConnection {
-  edges: [CrewMemberDopMoviesConnectionEdge]!
+type CrewMemberWorkedOnMoviesConnection {
+  edges: [CrewMemberWorkedOnMoviesConnectionEdge]!
   pageInfo: PageInfo!
 }
 
-type CrewMemberDopMoviesConnectionEdge {
+type CrewMemberWorkedOnMoviesConnectionEdge {
   cursor: ID!
-  node: Movie!
+  node: WorkCredit!
 }
 
-type CrewMemberEditedMoviesConnection {
-  edges: [CrewMemberEditedMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CrewMemberEditedMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type CrewMemberScoredMoviesConnection {
-  edges: [CrewMemberScoredMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CrewMemberScoredMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type CrewMemberWrittenMoviesConnection {
-  edges: [CrewMemberWrittenMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type CrewMemberWrittenMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
+enum CrewWorkRole {
+  Composer
+  Director
+  DoP
+  Editor
+  Writer
 }
 
 input CriticSignUpInput {
@@ -262,18 +188,8 @@ enum Gender {
 
 type Genre implements Node {
   id: ID!
-  movies(after: ID, before: ID, first: Int, last: Int): GenreMoviesConnection!
+  movies(after: ID, before: ID, first: Int, last: Int): MovieConnection!
   name: String!
-}
-
-type GenreMoviesConnection {
-  edges: [GenreMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type GenreMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
 }
 
 type Movie implements Node {
@@ -283,8 +199,7 @@ type Movie implements Node {
     before: ID
     first: Int
     last: Int
-  ): MovieCollectionsConnection!
-  composers: [CrewMember!]!
+  ): CollectionConnection!
   criticReviewCount: Int!
   criticReviews(
     after: ID
@@ -296,12 +211,9 @@ type Movie implements Node {
     sortBy: ReviewSortBy
     sortDirection: SortDirection
     textContains: String
-  ): MovieCriticReviewsConnection!
+  ): ReviewConnection!
   criticScore: Float
-  directors: [CrewMember!]!
   distributedCompanies: [Company!]!
-  dops: [CrewMember!]!
-  editors: [CrewMember!]!
   genres: [Genre!]!
   id: ID!
   isViewedByViewer: Boolean
@@ -319,50 +231,26 @@ type Movie implements Node {
     sortBy: ReviewSortBy
     sortDirection: SortDirection
     textContains: String
-  ): MovieRegularReviewsConnection!
+  ): ReviewConnection!
   regularScore: Float
   regularScoreByCriteria(gender: Gender, maxAge: Int, minAge: Int): Float
   releaseDate: Date!
   runningTime: Int!
   title: String!
   viewedUserCount: Int!
-  viewedUsers(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): MovieViewedUsersConnection!
-  writers: [CrewMember!]!
+  viewedUsers(after: ID, before: ID, first: Int, last: Int): UserConnection!
+  viewerReview: Review
+  workCredits: [WorkCredit!]!
 }
 
-type MovieCollectionsConnection {
-  edges: [MovieCollectionsConnectionEdge]!
+type MovieConnection {
+  edges: [MovieEdge]!
   pageInfo: PageInfo!
 }
 
-type MovieCollectionsConnectionEdge {
+type MovieEdge {
   cursor: ID!
-  node: Collection!
-}
-
-type MovieCriticReviewsConnection {
-  edges: [MovieCriticReviewsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type MovieCriticReviewsConnectionEdge {
-  cursor: ID!
-  node: Review!
-}
-
-type MovieRegularReviewsConnection {
-  edges: [MovieRegularReviewsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type MovieRegularReviewsConnectionEdge {
-  cursor: ID!
-  node: Review!
+  node: Movie!
 }
 
 enum MovieSortBy {
@@ -371,16 +259,6 @@ enum MovieSortBy {
   releaseDate
   title
   viewedUserCount
-}
-
-type MovieViewedUsersConnection {
-  edges: [MovieViewedUsersConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type MovieViewedUsersConnectionEdge {
-  cursor: ID!
-  node: User!
 }
 
 type Mutation {
@@ -405,8 +283,12 @@ type Mutation {
     movieIds: [ID!]!
   ): MutationRemoveFromCollectionResult!
   thankReview(reviewId: ID!, thank: Boolean!): MutationThankReviewResult!
-  updateCriticUser(input: CriticUserUpdateInput!): User!
-  updateRegularUser(input: RegularUserUpdateInput!): User!
+  updateCriticUser(
+    input: CriticUserUpdateInput!
+  ): MutationUpdateCriticUserResult!
+  updateRegularUser(
+    input: RegularUserUpdateInput!
+  ): MutationUpdateRegularUserResult!
 }
 
 union MutationAddToCollectionResult =
@@ -564,6 +446,26 @@ type MutationThankReviewSuccess {
   data: Review!
 }
 
+union MutationUpdateCriticUserResult =
+    AuthError
+  | BaseError
+  | MutationUpdateCriticUserSuccess
+  | ValidationError
+
+type MutationUpdateCriticUserSuccess {
+  data: User!
+}
+
+union MutationUpdateRegularUserResult =
+    AuthError
+  | BaseError
+  | MutationUpdateRegularUserSuccess
+  | ValidationError
+
+type MutationUpdateRegularUserSuccess {
+  data: User!
+}
+
 interface Node {
   id: ID!
 }
@@ -589,13 +491,13 @@ type Query {
     nameContains: String
     sortBy: CollectionSortBy
     sortDirection: SortDirection
-  ): QueryCollectionsConnection!
+  ): CollectionConnection!
   justReleasedMovies(
     after: ID
     before: ID
     first: Int
     last: Int
-  ): QueryJustReleasedMoviesConnection!
+  ): MovieConnection!
   movie(id: ID!): Movie
   movies(
     after: ID
@@ -611,16 +513,11 @@ type Query {
     sortBy: MovieSortBy
     sortDirection: SortDirection
     titleContains: String
-  ): QueryMoviesConnection!
+  ): MovieConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
   review(id: ID!): Review
-  trendingMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): QueryTrendingMoviesConnection!
+  trendingMovies(after: ID, before: ID, first: Int, last: Int): MovieConnection!
   user(id: ID!): User
   userProfileImageUploadUrl: String!
   users(
@@ -629,58 +526,8 @@ type Query {
     first: Int
     last: Int
     nameContains: String
-  ): QueryUsersConnection!
+  ): UserConnection!
   viewer: User
-}
-
-type QueryCollectionsConnection {
-  edges: [QueryCollectionsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryCollectionsConnectionEdge {
-  cursor: ID!
-  node: Collection!
-}
-
-type QueryJustReleasedMoviesConnection {
-  edges: [QueryJustReleasedMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryJustReleasedMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type QueryMoviesConnection {
-  edges: [QueryMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type QueryTrendingMoviesConnection {
-  edges: [QueryTrendingMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryTrendingMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
-type QueryUsersConnection {
-  edges: [QueryUsersConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type QueryUsersConnectionEdge {
-  cursor: ID!
-  node: User!
 }
 
 input RegularSignUpInput {
@@ -700,37 +547,28 @@ type Review implements Node {
   author: User!
   authorType: UserType!
   commentCount: Int!
-  comments(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): ReviewCommentsConnection!
+  comments(after: ID, before: ID, first: Int, last: Int): CommentConnection!
   content: String!
   externalUrl: String
   id: ID!
+  isMine: Boolean
   isThankedByViewer: Boolean
   movie: Movie!
   postTime: DateTime!
   score: Int!
   thankCount: Int!
-  thankUsers(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): ReviewThankUsersConnection!
+  thankUsers(after: ID, before: ID, first: Int, last: Int): UserConnection!
   title: String!
 }
 
-type ReviewCommentsConnection {
-  edges: [ReviewCommentsConnectionEdge]!
+type ReviewConnection {
+  edges: [ReviewEdge]!
   pageInfo: PageInfo!
 }
 
-type ReviewCommentsConnectionEdge {
+type ReviewEdge {
   cursor: ID!
-  node: Comment!
+  node: Review!
 }
 
 enum ReviewSortBy {
@@ -738,16 +576,6 @@ enum ReviewSortBy {
   PostTime
   Score
   ThankCount
-}
-
-type ReviewThankUsersConnection {
-  edges: [ReviewThankUsersConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type ReviewThankUsersConnectionEdge {
-  cursor: ID!
-  node: User!
 }
 
 enum SortDirection {
@@ -763,14 +591,14 @@ type User implements Node {
     before: ID
     first: Int
     last: Int
-  ): UserCollectionsConnection!
+  ): CollectionConnection!
   comments(
     after: ID
     before: ID
     contentContains: String
     first: Int
     last: Int
-  ): UserCommentsConnection!
+  ): CommentConnection!
   dateOfBirth: Date
   gender: Gender
   id: ID!
@@ -779,14 +607,9 @@ type User implements Node {
     before: ID
     first: Int
     last: Int
-  ): UserLikedCollectionsConnection!
+  ): CollectionConnection!
   name: String!
-  reviewThanks(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): UserReviewThanksConnection!
+  reviewThanks(after: ID, before: ID, first: Int, last: Int): ReviewConnection!
   reviews(
     after: ID
     before: ID
@@ -797,65 +620,20 @@ type User implements Node {
     sortBy: ReviewSortBy
     sortDirection: SortDirection
     textContains: String
-  ): UserReviewsConnection!
+  ): ReviewConnection!
   userType: UserType!
   username: String!
-  viewedMovies(
-    after: ID
-    before: ID
-    first: Int
-    last: Int
-  ): UserViewedMoviesConnection!
+  viewedMovies(after: ID, before: ID, first: Int, last: Int): MovieConnection!
 }
 
-type UserCollectionsConnection {
-  edges: [UserCollectionsConnectionEdge]!
+type UserConnection {
+  edges: [UserEdge]!
   pageInfo: PageInfo!
 }
 
-type UserCollectionsConnectionEdge {
+type UserEdge {
   cursor: ID!
-  node: Collection!
-}
-
-type UserCommentsConnection {
-  edges: [UserCommentsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type UserCommentsConnectionEdge {
-  cursor: ID!
-  node: Comment!
-}
-
-type UserLikedCollectionsConnection {
-  edges: [UserLikedCollectionsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type UserLikedCollectionsConnectionEdge {
-  cursor: ID!
-  node: Collection!
-}
-
-type UserReviewThanksConnection {
-  edges: [UserReviewThanksConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type UserReviewThanksConnectionEdge {
-  cursor: ID!
-  node: Review!
-}
-
-type UserReviewsConnection {
-  edges: [UserReviewsConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type UserReviewsConnectionEdge {
-  cursor: ID!
-  node: Review!
+  node: User!
 }
 
 enum UserType {
@@ -863,17 +641,14 @@ enum UserType {
   Regular
 }
 
-type UserViewedMoviesConnection {
-  edges: [UserViewedMoviesConnectionEdge]!
-  pageInfo: PageInfo!
-}
-
-type UserViewedMoviesConnectionEdge {
-  cursor: ID!
-  node: Movie!
-}
-
 type ValidationError implements Error {
   fieldErrors: [FieldValidationError!]!
   message: String!
+}
+
+type WorkCredit implements Node {
+  crew: CrewMember!
+  id: ID!
+  movie: Movie!
+  role: CrewWorkRole!
 }

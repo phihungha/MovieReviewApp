@@ -58,5 +58,40 @@ export const theme = createTheme({
         marginStart: 20,
       },
     },
+
+    SearchBar: {
+      inputContainerStyle: {
+        backgroundColor: colors.mediumBlack,
+      },
+    },
+
+    Tab: {
+      variant: 'primary',
+      indicatorStyle: {
+        backgroundColor: colors.primary,
+        height: '100%',
+        zIndex: 0,
+      },
+      containerStyle: {
+        zIndex: 1,
+        backgroundColor: 'transparent',
+      },
+    },
+    TabItem: {
+      buttonStyle: {
+        padding: 0,
+      },
+      titleStyle: {
+        fontFamily: fonts.primaryBold,
+      },
+    },
+    TabView: {
+      tabItemContainerStyle: {
+        padding: 10,
+      },
+    },
+    TabViewItem: {
+      style: {width: '100%'},
+    },
   },
 });

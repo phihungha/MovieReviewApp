@@ -1,13 +1,4 @@
 import React from 'react';
-import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
-import {MovieDetailsScreen} from './MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
-import {ReviewDetailsScreen} from './ReviewDetails';
-import {UserDetailsScreen} from './UserDetails';
-import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
-import {CreateReviewScreen} from './CreateReview';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {FlatList, Pressable} from 'react-native';
 import {VeryBigTitleText} from '../components/Text/VeryBigTitleText';
@@ -17,10 +8,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Button} from '@rneui/themed';
 import {BigTitleText} from '../components/Text/BigTitleText';
-import {MyWatchedListScreen} from './MyWatchedList';
 import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
-import {MyReviewsListScreen} from './MyReviewsList';
-import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -152,7 +141,7 @@ export function MyAccountScreen({navigation}: {navigation: any}): JSX.Element {
           renderItem={({item}) => (
             <Pressable
               onPress={() => navigation.navigate('MyReviewsList', item)}>
-              <ReviewListItem />
+              <ReviewListItem review={null} />
             </Pressable>
           )}
           ItemSeparatorComponent={HorizontalItemSeparator}
@@ -174,7 +163,7 @@ export function MyAccountScreen({navigation}: {navigation: any}): JSX.Element {
           renderItem={({item}) => (
             <Pressable
               onPress={() => navigation.navigate('MyReviewsList', item)}>
-              <ReviewListItem />
+              <ReviewListItem review={null} />
             </Pressable>
           )}
           ItemSeparatorComponent={HorizontalItemSeparator}
@@ -255,54 +244,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export function MyAccountStackScreen(): JSX.Element {
-  return (
-    <MyAccountStackNavigator.Navigator screenOptions={{headerShown: false}}>
-      <MyAccountStackNavigator.Screen
-        name="MyAccount"
-        component={MyAccountScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MovieDetails"
-        component={MovieDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="CreateReviewScreen"
-        component={CreateReviewScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MovieReviewList"
-        component={MovieReviewsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="ReviewDetails"
-        component={ReviewDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserDetails"
-        component={UserDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserWatchedList"
-        component={UserWatchedListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserReviewsList"
-        component={UserReviewsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserLikedCommentsList"
-        component={UserLikedCommentsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyWatchedList"
-        component={MyWatchedListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyReviewsList"
-        component={MyReviewsListScreen}
-      />
-    </MyAccountStackNavigator.Navigator>
-  );
-}
