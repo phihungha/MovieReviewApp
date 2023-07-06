@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   headerContainer: {
-    alignItems: 'flex-start',
     gap: 15,
     marginBottom: 15,
   },
