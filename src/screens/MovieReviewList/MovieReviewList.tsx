@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {Suspense, useCallback, useContext, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
@@ -17,6 +17,7 @@ import {
 } from './dialogs/MovieReviewListOptionsDialog';
 import {HeaderButton} from '../../components/Buttons/HeaderButton';
 import {ActionCb} from '../../types/ActionCb';
+import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
@@ -67,7 +68,7 @@ function MovieReviewListScreenWithData({
     [search, options],
   );
 
-  useEffect(() => navigation.setOptions({header: () => customHeader()}));
+  navigation.setOptions({headerShown: true, header: () => customHeader()});
 
   const [index, setIndex] = useState(0);
 
@@ -79,20 +80,24 @@ function MovieReviewListScreenWithData({
       </Tab>
       <TabView value={index} onChange={setIndex}>
         <TabView.Item>
-          <CriticReviewList
-            movie={data.movie}
-            textContains={search}
-            options={options}
-            onNavigate={() => navigation.navigate('ReviewDetails')}
-          />
+          <Suspense fallback={<StandardLoadingIcon />}>
+            <CriticReviewList
+              movie={data.movie}
+              textContains={search}
+              options={options}
+              onNavigate={() => navigation.navigate('ReviewDetails')}
+            />
+          </Suspense>
         </TabView.Item>
         <TabView.Item>
-          <RegularReviewList
-            movie={data.movie}
-            textContains={search}
-            options={options}
-            onNavigate={() => navigation.navigate('ReviewDetails')}
-          />
+          <Suspense fallback={<StandardLoadingIcon />}>
+            <RegularReviewList
+              movie={data.movie}
+              textContains={search}
+              options={options}
+              onNavigate={() => navigation.navigate('ReviewDetails')}
+            />
+          </Suspense>
         </TabView.Item>
       </TabView>
     </View>
