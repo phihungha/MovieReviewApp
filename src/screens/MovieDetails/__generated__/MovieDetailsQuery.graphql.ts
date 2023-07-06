@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a4feea38654ded3ad260c289df40fe54>>
+ * @generated SignedSource<<3645e5864bbcf58e1145de4d68a11bc8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -455,12 +455,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "09986d240f14dd1ae66c2a86b37cf9aa",
+    "cacheID": "5ae6225744f5536d440b778db0dfce82",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
   }
 };
 })();

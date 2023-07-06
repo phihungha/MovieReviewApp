@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c32acbe5de0cce22ff0b47af3ff5a37>>
+ * @generated SignedSource<<30b593252fac30fc786134292fefc06c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type ReviewListItem$data = {
   readonly author: {
     readonly " $fragmentSpreads": FragmentRefs<"HorizontalUserDisplay">;
   };
+  readonly id: string;
   readonly " $fragmentSpreads": FragmentRefs<"ReviewCommentButton" | "ReviewInfoDisplay" | "ReviewLikeButton">;
   readonly " $fragmentType": "ReviewListItem";
 };
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "ReviewListItem",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "args": null,
       "kind": "FragmentSpread",
@@ -64,6 +72,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "b24b735379e2f64e7d968f39e86ef6df";
+(node as any).hash = "d90f559130cf25126f2f7b88466cf5fe";
 
 export default node;

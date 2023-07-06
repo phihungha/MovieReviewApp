@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {ReviewInfoDisplay} from '../../Display/ReviewInfoDisplay';
 import colors from '../../../styles/colors';
 import {ReviewCommentButton} from './components/ReviewCommentButton';
@@ -8,9 +8,12 @@ import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
 import {ReviewListItem$key} from './__generated__/ReviewListItem.graphql';
 import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
+import {ActionCb} from '../../../types/ActionCb';
+import {pressableRippleConfig} from '../../../styles/pressable-ripple';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {
+    id
     ...ReviewInfoDisplay
     author {
       ...HorizontalUserDisplay
@@ -22,37 +25,54 @@ const ReviewListItemFragment = graphql`
 
 export interface ReviewListItemProps {
   review: ReviewListItem$key | null;
+  onPress?: ActionCb;
+  onNavigate?: ActionCb;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 /**
  * Item for a list of reviews.
  */
-export function ReviewListItem({
-  review,
-}: ReviewListItemProps): React.JSX.Element {
-  const data = useFragment(ReviewListItemFragment, review);
+export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
+  const data = useFragment(ReviewListItemFragment, props.review);
+
+  const defaultOnPress = () => {
+    if (data?.id) {
+      console.log('default preloaded query here');
+    }
+    props.onNavigate?.();
+  };
+  const onPress = props.onPress ?? defaultOnPress;
+
   return (
     <View style={styles.container}>
-      <HorizontalUserDisplay user={data?.author ?? null} />
-      <ReviewInfoDisplay
-        review={data}
-        maxContentLineCount={3}
-        style={styles.infoContainer}
-      />
-      <View style={styles.buttonsContainer}>
-        <ReviewLikeButton review={data} />
-        <ReviewCommentButton review={data} />
-      </View>
+      <Pressable
+        style={styles.contentContainer}
+        onPress={onPress}
+        android_ripple={pressableRippleConfig}>
+        <HorizontalUserDisplay user={data?.author ?? null} />
+        <ReviewInfoDisplay
+          review={data}
+          maxContentLineCount={3}
+          style={styles.infoContainer}
+        />
+        <View style={styles.buttonsContainer}>
+          <ReviewLikeButton review={data} />
+          <ReviewCommentButton review={data} />
+        </View>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
-    gap: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
+  },
+  contentContainer: {
+    padding: 15,
+    gap: 10,
   },
   infoContainer: {
     padding: 0,
