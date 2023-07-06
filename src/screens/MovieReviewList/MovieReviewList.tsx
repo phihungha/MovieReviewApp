@@ -1,4 +1,10 @@
-import React, {Suspense, useCallback, useContext, useState} from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
@@ -68,7 +74,7 @@ function MovieReviewListScreenWithData({
     [search, options],
   );
 
-  navigation.setOptions({headerShown: true, header: () => customHeader()});
+  useEffect(() => navigation.setOptions({header: () => customHeader()}));
 
   const [index, setIndex] = useState(0);
 
