@@ -1,6 +1,6 @@
 import React from 'react';
-import {OnPressItem} from '../../dialogs/GenericBottomSheetHandleItemPressDialog';
-import {GenericMoreButton} from './GenericMoreButton';
+import {OnPressItem} from '../../../../dialogs/GenericBottomSheetHandleItemPressDialog';
+import {GenericMoreButton} from '../../../Buttons/GenericMoreButton';
 import {StyleProp, ViewStyle} from 'react-native';
 
 interface CommentListItemMoreButtonProps {
@@ -9,10 +9,8 @@ interface CommentListItemMoreButtonProps {
 }
 
 const list = [
-  {id: 'hide', title: 'Hide this comment'},
-  {id: 'delete', title: 'Delete this comment'},
-  {id: 'report', title: 'Report this comment'},
-  {id: 'edit', title: 'Edit this comment'},
+  {id: 'delete', title: 'Delete'},
+  {id: 'edit', title: 'Edit'},
 ];
 /**
  * @using display moreButton, when toggle button it will show the option of CommentListItem

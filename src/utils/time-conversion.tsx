@@ -12,3 +12,9 @@ export function secondsToLongFormat(inputSeconds: number) {
 export function dateToStandardDateFormat(date: Date) {
   return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 }
+
+export function dateToStandardDateTimeFormat(date: Date) {
+  const formattedDate = dateToStandardDateFormat(date);
+  const formattedTime = `${date.getHours()}:${date.getMinutes()}}`;
+  return `${formattedDate} ${formattedTime}`;
+}
