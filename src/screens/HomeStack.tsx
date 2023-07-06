@@ -5,7 +5,7 @@ import {HomeScreen} from './Home/Home';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
-import {UserDetailsScreen} from './UserDetails';
+import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserLikedCommentsListScreen} from './UserThankedReviewList';
 import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
