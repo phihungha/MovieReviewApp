@@ -1,7 +1,7 @@
 import React from 'react';
 import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
+import {MovieReviewListScreen} from './MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {UserReviewsListScreen} from './UserReviewsList';
@@ -229,7 +229,7 @@ export function MyAccountStackScreen(): JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="MovieReviewList"
-        component={MovieReviewsListScreen}
+        component={MovieReviewListScreen}
       />
       <MyAccountStackNavigator.Screen
         name="ReviewDetails"

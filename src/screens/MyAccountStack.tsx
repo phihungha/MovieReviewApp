@@ -2,7 +2,7 @@ import React from 'react';
 import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
 import {CreateReviewScreen} from './CreateReview';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
+import {MovieReviewListScreen} from './MovieReviewList';
 import {MyAccountScreen} from './MyAccount';
 import {MyReviewsListScreen} from './MyReviewsList';
 import {MyWatchedListScreen} from './MyWatchedList';
@@ -29,7 +29,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="MovieReviewList"
-        component={MovieReviewsListScreen}
+        component={MovieReviewListScreen}
       />
       <MyAccountStackNavigator.Screen
         name="ReviewDetails"

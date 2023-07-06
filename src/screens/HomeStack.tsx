@@ -3,7 +3,7 @@ import {HomeStackNavigator} from '../navigators/HomeStackNavigator';
 import {CreateReviewScreen} from './CreateReview';
 import {HomeScreen} from './Home/Home';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewsListScreen} from './MovieReviewsList';
+import {MovieReviewListScreen} from './MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
@@ -20,7 +20,7 @@ export function HomeStackScreen(): React.JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="MovieReviewList"
-        component={MovieReviewsListScreen}
+        component={MovieReviewListScreen}
       />
       <HomeStackNavigator.Screen
         name="CreateReview"
