@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {TitleText} from '../components/Text/TitleText';
 import {FlatList} from 'react-native';

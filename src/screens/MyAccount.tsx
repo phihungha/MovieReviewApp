@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Button} from '@rneui/themed';
 import {BigTitleText} from '../components/Text/BigTitleText';
 import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
-import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;

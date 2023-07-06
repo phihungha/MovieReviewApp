@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Tab, TabView} from '@rneui/themed';
 import {StyleSheet, View} from 'react-native';
-import {ReviewListItem} from '../../../components/Items/ReviewListItem';
+import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
 import {MainStackParams} from '../../../navigators/MainStackParams';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';

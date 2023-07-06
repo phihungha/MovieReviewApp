@@ -1,13 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {ReviewInfoDisplay} from '../Display/ReviewInfoDisplay';
-import colors from '../../styles/colors';
-import {ReviewCommentButton} from '../Buttons/ReviewCommentButton';
-import {ReviewLikeButton} from '../Buttons/ReviewLikeButton';
+import {ReviewInfoDisplay} from '../../Display/ReviewInfoDisplay';
+import colors from '../../../styles/colors';
+import {ReviewCommentButton} from './components/ReviewCommentButton';
+import {ReviewLikeButton} from './components/ReviewLikeButton';
 import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
-import {ReviewListItem$key} from './__generated__/ReviewListItem.graphql';
-import {HorizontalUserDisplay} from '../Display/HorizontalUserDisplay';
+import {ReviewListItem$key} from '../__generated__/ReviewListItem.graphql';
+import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {

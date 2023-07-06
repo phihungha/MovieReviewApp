@@ -18,7 +18,7 @@ import {BigTitleText} from '../components/Text/BigTitleText';
 import {MyWatchedListScreen} from './MyWatchedList';
 import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
 import {MyReviewsListScreen} from './MyReviewsList';
-import {ReviewListItem} from '../components/Items/ReviewListItem';
+import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
