@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {ItemTitleOnly} from '../components/Items/BottomSheetListItem';
+import {ItemTitleOnly} from '../../../components/Items/BottomSheetListItem';
 import {
   GenericBottomSheetHandleItemPressDialog,
   OnPressItem,
-} from './GenericBottomSheetHandleItemPressDialog';
+} from '../../../dialogs/GenericBottomSheetHandleItemPressDialog';
 
 export const typeList = [
   {id: 1, title: 'Critic'},

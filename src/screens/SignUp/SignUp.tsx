@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Input} from '@rneui/themed';
-import {TitleBlock} from '../components/Display/TitleBlock';
+import {TitleBlock} from '../../components/Display/TitleBlock';
 
-import {TextLink} from '../components/Buttons/TextLink';
-import {DatePickerDialog} from '../dialogs/DatePickerDialog';
-import colors from '../styles/colors';
-import {ChooseCountryBottomSheetDialog} from '../dialogs/ChooseCountryBottomSheet';
-import {ItemTitleOnly} from '../components/Items/BottomSheetListItem';
-import {ChooseFavoriteGenresBottomSheetDialog} from '../dialogs/ChooseFavoriteGenresBottomSheet';
-import {ChooseTypeBottomSheet} from '../dialogs/ChooseTypeBottomSheet';
+import {TextLink} from '../../components/Buttons/TextLink';
+import {DatePickerDialog} from '../../dialogs/DatePickerDialog';
+import colors from '../../styles/colors';
+import {ItemTitleOnly} from '../../components/Items/BottomSheetListItem';
+import {ChooseTypeBottomSheet} from './dialogs/ChooseTypeBottomSheet';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParams} from '../navigators/RootStackNavigator';
+import {RootStackParams} from '../../navigators/RootStackNavigator';
 
 type Props = NativeStackScreenProps<RootStackParams, 'SignUp'>;
 
@@ -21,9 +19,7 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [birthdayText, setBirthdayText] = useState('');
-  const [country, setCountry] = useState('');
   const [type, setType] = useState('');
-  const [favoriteGenre, setFavoriteGenre] = useState('');
 
   const navigateToLoginScreen = () => {
     navigation.navigate('Login');
@@ -46,12 +42,6 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
     setBirthdayText(dateToText);
   };
 
-  const onSelectedCountry = (countryItem: ItemTitleOnly) => {
-    setCountry(countryItem.title);
-  };
-  const onSelectedGenre = (genreItem: ItemTitleOnly) => {
-    setFavoriteGenre(genreItem.title);
-  };
   const onSelectedType = (typeItem: ItemTitleOnly) => {
     setType(typeItem.title);
   };
@@ -93,35 +83,6 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
             }
           />
 
-          <Input
-            label="Country"
-            value={country}
-            disabled
-            onChangeText={setCountry}
-            placeholder="Choose your country..."
-            rightIcon={
-              <ChooseCountryBottomSheetDialog
-                onSelectedCountry={onSelectedCountry}
-                iconColor={colors.white}
-                iconSize={24}
-              />
-            }
-          />
-
-          <Input
-            label="Favorite genre"
-            value={favoriteGenre}
-            disabled
-            onChangeText={setFavoriteGenre}
-            placeholder="Choose your favorite genre..."
-            rightIcon={
-              <ChooseFavoriteGenresBottomSheetDialog
-                onSelectedGenre={onSelectedGenre}
-                iconColor={colors.white}
-                iconSize={24}
-              />
-            }
-          />
           <Input
             label="User type"
             value={type}

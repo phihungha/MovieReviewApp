@@ -7,7 +7,7 @@ import {
   useQueryLoader,
 } from 'react-relay';
 import {RootStackNavigator} from './navigators/RootStackNavigator';
-import {SignUpScreen} from './screens/SignUp';
+import {SignUpScreen} from './screens/SignUp/SignUp';
 import {LoginScreen} from './screens/Login';
 import {MainScreen} from './screens/Main';
 import {ThemeProvider} from '@rneui/themed';
