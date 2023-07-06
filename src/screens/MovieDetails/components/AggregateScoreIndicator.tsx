@@ -38,7 +38,7 @@ export function AggregateScoreIndicator(props: AggregateScoreIndicatorProps) {
       <ReviewScoreIndicator
         iconName="star"
         score={props.score}
-        isLeft={props.isLeft ?? true}
+        isRight={props.isLeft ?? true}
         style={styles.scoreIndicator}
         iconStyle={props.iconStyle}
         textStyle={props.textStyle}

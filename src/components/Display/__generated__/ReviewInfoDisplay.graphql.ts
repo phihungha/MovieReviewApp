@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<22ebfb737ea93c3488babd534f4e6d41>>
+ * @generated SignedSource<<56b43ccc7518bf2a1cbf59231d45d0d9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,8 +9,10 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type UserType = "Critic" | "Regular" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ReviewInfoDisplay$data = {
+  readonly authorType: UserType;
   readonly content: string;
   readonly postTime: any;
   readonly score: number;
@@ -55,12 +57,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "score",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "authorType",
+      "storageKey": null
     }
   ],
   "type": "Review",
   "abstractKey": null
 };
 
-(node as any).hash = "d3e5ccf0eaf8293105c544631e7b444a";
+(node as any).hash = "3f424e69082d2c4ae9a86ff6e473fabb";
 
 export default node;
