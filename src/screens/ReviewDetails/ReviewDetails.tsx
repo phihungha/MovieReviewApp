@@ -46,10 +46,12 @@ export function ReviewDetailsScreenWithData({
     preloadedQueries!.ReviewDetails.queryRef!,
   );
   return (
-    <CommentList
-      review={data.review}
-      ListHeaderComponent={<ListHeader navigation={navigation} />}
-    />
+    <View style={styles.container}>
+      <CommentList
+        review={data.review}
+        ListHeaderComponent={<ListHeader navigation={navigation} />}
+      />
+    </View>
   );
 }
 
@@ -59,16 +61,10 @@ interface ListHeaderProps {
 
 function ListHeader(_: ListHeaderProps): React.JSX.Element {
   return (
-    <View style={styles.container}>
-      <View style={styles.text}>
-        <TitleText>Someone's Review</TitleText>
-      </View>
-      <View style={styles.text}>
-        <BigTitleText>Movie Name</BigTitleText>
-      </View>
-      <View style={styles.text}>
-        <TitleText>Review Title</TitleText>
-      </View>
+    <View style={styles.headerContainer}>
+      <TitleText>Someone's Review</TitleText>
+      <BigTitleText>Movie Name</BigTitleText>
+      <TitleText>Review Title</TitleText>
       <Image
         source={{
           uri: 'https://image.tmdb.org/t/p/w440_and_h660_face/wXqWR7dHncNRbxoEGybEy7QTe9h.jpg',
@@ -83,31 +79,12 @@ function ListHeader(_: ListHeaderProps): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  padding: {
-    padding: 10,
-  },
   container: {
-    flex: 1,
+    margin: 10,
+  },
+  headerContainer: {
     backgroundColor: '#2A2C36',
-    height: 50,
     alignItems: 'flex-start',
-  },
-  ItemSeparator: {
-    height: 20,
-    width: '100%',
-  },
-  HorizontalItemSeparator: {
-    marginVertical: 10,
-    width: 1,
-  },
-  text: {
-    paddingLeft: 10,
-    paddingTop: 10,
-  },
-  commentContainer: {
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingLeft: 10,
   },
   avatar: {
     width: 40,

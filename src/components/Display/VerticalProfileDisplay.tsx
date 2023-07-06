@@ -19,8 +19,12 @@ export function VerticalProfileDisplay(
     <View style={[styles.container, props.style]}>
       <StandardAvatar uri={props.imageUrl} />
       <View style={styles.infoContainer}>
-        <ItemTitleText style={styles.text}>{props.name}</ItemTitleText>
-        <ItemSubtitleText style={styles.text}>{props.role}</ItemSubtitleText>
+        {props.name ? (
+          <ItemTitleText style={styles.text}>{props.name}</ItemTitleText>
+        ) : undefined}
+        {props.name ? (
+          <ItemSubtitleText style={styles.text}>{props.role}</ItemSubtitleText>
+        ) : undefined}
       </View>
     </View>
   );
@@ -28,7 +32,6 @@ export function VerticalProfileDisplay(
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'flex-start',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 5,

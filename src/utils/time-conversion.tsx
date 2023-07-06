@@ -15,6 +15,6 @@ export function dateToStandardDateFormat(date: Date) {
 
 export function dateToStandardDateTimeFormat(date: Date) {
   const formattedDate = dateToStandardDateFormat(date);
-  const formattedTime = `${date.getHours()}:${date.getMinutes()}}`;
+  const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
   return `${formattedDate} ${formattedTime}`;
 }

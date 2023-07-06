@@ -59,11 +59,11 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
       <View style={styles.infoContainer}>
         <ItemTitleText>{data?.author.name ?? 'N/A'}</ItemTitleText>
         <ItemSubtitleText>
-          {dateToStandardDateTimeFormat(data?.postTime)}
+          {dateToStandardDateTimeFormat(new Date(data?.postTime))}
         </ItemSubtitleText>
         <RegularText>{data?.content ?? 'N/A'}</RegularText>
+        <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
       </View>
-      <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
     </View>
   );
 }
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: 5,
     gap: 10,
   },
   infoContainer: {
@@ -82,6 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.mediumBlack,
   },
   avatarContainer: {
-    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
   },
 });
