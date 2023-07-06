@@ -6,7 +6,7 @@ import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {MyAccountScreen} from './MyAccount';
 import {MyReviewsListScreen} from './MyReviewsList';
 import {MyWatchedListScreen} from './MyWatchedList';
-import {ReviewDetailsScreen} from './ReviewDetails';
+import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails';
 import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
 import {UserReviewsListScreen} from './UserReviewsList';

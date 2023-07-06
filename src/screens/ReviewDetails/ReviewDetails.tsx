@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
+import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {TitleText} from '../components/Text/TitleText';
+import {TitleText} from '../../components/Text/TitleText';
 import {FlatList} from 'react-native';
-import {BigTitleText} from '../components/Text/BigTitleText';
+import {BigTitleText} from '../../components/Text/BigTitleText';
 import {Input} from '@rneui/themed';
 import {Image} from '@rneui/base';
 
