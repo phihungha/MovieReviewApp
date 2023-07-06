@@ -12,7 +12,7 @@ import {UserWatchedListScreen} from './UserWatchedList';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
-    <MoviesListStackNavigator.Navigator>
+    <MoviesListStackNavigator.Navigator screenOptions={{headerShown: false}}>
       <MoviesListStackNavigator.Screen
         name="MoviesList"
         component={MoviesListScreen}
