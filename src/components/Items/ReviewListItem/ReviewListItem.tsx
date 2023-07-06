@@ -69,6 +69,7 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
