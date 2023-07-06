@@ -1,58 +1,71 @@
-import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
-import {TitleText} from '../../components/Text/TitleText';
-import {FlatList, Pressable} from 'react-native';
-import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
+import React, {useContext, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
+import {graphql} from 'relay-runtime';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import {usePreloadedQuery} from 'react-relay';
+import type {MovieReviewListQuery as MovieReviewListQueryType} from './__generated__/MovieReviewListQuery.graphql';
+import {Tab, TabView} from '@rneui/themed';
+import {Text} from 'react-native';
+import {CriticReviewList} from './components/CriticReviewList';
 
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
-}
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
-}
+export const MovieReviewListQuery = graphql`
+  query MovieReviewListQuery($id: ID!) {
+    movie(id: $id) {
+      id
+      ...CriticReviewList
+    }
+  }
+`;
 
 type MovieReviewListScreenProps = NativeStackScreenProps<MainStackParams>;
 
-export function MovieReviewListScreen({
+export function MovieReviewListScreen(
+  props: MovieReviewListScreenProps,
+): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.MovieReviewList.queryRef) {
+    return <></>;
+  }
+  return <MovieReviewListScreenWithData {...props} />;
+}
+
+function MovieReviewListScreenWithData({
   navigation,
-}: MovieReviewListScreenProps): JSX.Element {
-  const arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+}: MovieReviewListScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<MovieReviewListQueryType>(
+    MovieReviewListQuery,
+    preloadedQueries!.MovieReviewList.queryRef!,
+  );
+  const [index, setIndex] = useState(0);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <TitleText>Reviews of John Wick</TitleText>
-      </View>
-      <FlatList
-        style={styles.padding}
-        data={arr}
-        renderItem={() => (
-          <Pressable onPress={() => navigation.navigate('ReviewDetails')}>
-            <ReviewListItem review={null} />
-          </Pressable>
-        )}
-        ItemSeparatorComponent={HorizontalItemSeparator}
-      />
-    </ScrollView>
+    <View style={styles.container}>
+      <Tab value={index} onChange={i => setIndex(i)}>
+        <Tab.Item title="Critic" />
+        <Tab.Item title="Regular" />
+      </Tab>
+      <TabView value={index} onChange={setIndex}>
+        <TabView.Item>
+          <CriticReviewList
+            movie={data.movie}
+            onNavigate={() => navigation.navigate('ReviewDetails')}
+          />
+        </TabView.Item>
+        <TabView.Item>
+          <Text>Testing</Text>
+        </TabView.Item>
+      </TabView>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
-  padding: {
-    padding: 10,
-  },
   container: {
-    flex: 1,
-    backgroundColor: '#2A2C36',
-    height: 50,
-    alignItems: 'flex-start',
-  },
-  ItemSeparator: {
-    height: 20,
-    width: '100%',
-  },
-  HorizontalItemSeparator: {
-    marginVertical: 10,
-    width: 1,
+    height: '100%',
+    margin: 6,
   },
 });

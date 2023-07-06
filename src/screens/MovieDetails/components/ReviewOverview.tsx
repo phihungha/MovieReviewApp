@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Tab, TabView} from '@rneui/themed';
 import {StyleSheet, View} from 'react-native';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
@@ -7,9 +7,11 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {ReviewOverview$key} from './__generated__/ReviewOverview.graphql';
 import {useFragment} from 'react-relay';
+import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 
 const ReviewOverviewFragment = graphql`
   fragment ReviewOverview on Movie {
+    id
     criticReviews(first: 3, sortBy: ThankCount) {
       edges {
         node {
@@ -44,6 +46,14 @@ export function ReviewOverview({
   navigation,
 }: ReviewOverviewProps): React.JSX.Element {
   const data = useFragment(ReviewOverviewFragment, movie);
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  const onAllReviewBtnPressed = (firstTab: 'regular' | 'critic') => {
+    if (data?.id) {
+      preloadedQueries?.MovieReviewList.loadQuery({id: data.id});
+    }
+    navigation.navigate('MovieReviewList', {firstTab});
+  };
 
   const [index, setIndex] = useState(0);
   // ScrollView doesn't increase height automatically
@@ -70,9 +80,7 @@ export function ReviewOverview({
               <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
             ))}
             <Button
-              onPress={() =>
-                navigation.navigate('MovieReviewList', {firstTab: 'critic'})
-              }
+              onPress={() => onAllReviewBtnPressed('critic')}
               title="All reviews"
             />
           </View>
@@ -85,9 +93,7 @@ export function ReviewOverview({
               <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
             ))}
             <Button
-              onPress={() =>
-                navigation.navigate('MovieReviewList', {firstTab: 'regular'})
-              }
+              onPress={() => onAllReviewBtnPressed('regular')}
               title="All reviews"
             />
           </View>

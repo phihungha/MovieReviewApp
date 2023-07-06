@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4cd54f7a6f66c7b84b160835fbd28cf7>>
+ * @generated SignedSource<<94bb12141dc2e0ea23ce5f65dc08096a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,7 @@ export type ReviewOverview$data = {
       };
     } | null>;
   };
+  readonly id: string;
   readonly regularReviews: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -35,7 +36,14 @@ export type ReviewOverview$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -47,7 +55,7 @@ var v0 = [
     "value": "ThankCount"
   }
 ],
-v1 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -64,13 +72,7 @@ v1 = [
         "name": "node",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v0/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -89,24 +91,25 @@ return {
   "metadata": null,
   "name": "ReviewOverview",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
-      "args": (v0/*: any*/),
+      "args": (v1/*: any*/),
       "concreteType": "ReviewConnection",
       "kind": "LinkedField",
       "name": "criticReviews",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
     },
     {
       "alias": null,
-      "args": (v0/*: any*/),
+      "args": (v1/*: any*/),
       "concreteType": "ReviewConnection",
       "kind": "LinkedField",
       "name": "regularReviews",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
     }
   ],
@@ -115,6 +118,6 @@ return {
 };
 })();
 
-(node as any).hash = "fc6a831275d8b2315bd402ebc0b5fc3e";
+(node as any).hash = "58547d0b21fdd8d207d21ed98044d659";
 
 export default node;
