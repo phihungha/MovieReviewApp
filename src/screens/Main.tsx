@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
 import {PreloadedQueriesContext} from '../relay/PreloadedQueriesContext';
 import {HomeStackScreen} from './HomeStack';
-import {MyAccountStackScreen} from './UserDetails';
 import {MovieListStackScreen} from './MovieListStack';
 import {UserListStackScreen} from './UserListStack';
+import {MyAccountStackScreen} from './MyAccountStack';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {

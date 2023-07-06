@@ -1,12 +1,4 @@
 import React from 'react';
-import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
-import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
-import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
-import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
-import {UserLikedCommentsListScreen} from './UserLikedCommentsList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
-import {CreateReviewScreen} from './CreateReview/CreateReview';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {FlatList, Pressable} from 'react-native';
 import {VeryBigTitleText} from '../components/Text/VeryBigTitleText';
@@ -15,9 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {BigTitleText} from '../components/Text/BigTitleText';
-import {MyWatchedListScreen} from './MyWatchedList';
 import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
-import {MyReviewsListScreen} from './MyReviewsList';
 import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
 
 export function ItemSeparatorComponent(): JSX.Element {
@@ -216,49 +206,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export function MyAccountStackScreen(): JSX.Element {
-  return (
-    <MyAccountStackNavigator.Navigator screenOptions={{headerShown: false}}>
-      <MyAccountStackNavigator.Screen
-        name="MovieDetails"
-        component={MovieDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="CreateReviewScreen"
-        component={CreateReviewScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MovieReviewList"
-        component={MovieReviewListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="ReviewDetails"
-        component={ReviewDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserDetails"
-        component={UserDetailsScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserWatchedList"
-        component={UserWatchedListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserReviewsList"
-        component={UserReviewsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="UserLikedCommentsList"
-        component={UserLikedCommentsListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyWatchedList"
-        component={MyWatchedListScreen}
-      />
-      <MyAccountStackNavigator.Screen
-        name="MyReviewsList"
-        component={MyReviewsListScreen}
-      />
-    </MyAccountStackNavigator.Navigator>
-  );
-}
