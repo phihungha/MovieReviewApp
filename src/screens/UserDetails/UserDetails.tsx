@@ -1,5 +1,5 @@
 import React, {Suspense, useContext} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView, Linking} from 'react-native';
 import {TitleText} from '../../components/Text/TitleText';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {SectionText} from '../../components/Text/SectionText';
@@ -82,7 +82,7 @@ function UserDetailsScreenWithData(): JSX.Element {
         />
 
         {user?.userType === 'Critic' ? (
-          <InfoSection
+          <LinkInfoSection
             name="Website"
             value={user?.blogUrl}
             icon={
@@ -129,13 +129,25 @@ function InfoSection({name, value, icon}: InfoSectionProps) {
   );
 }
 
+function LinkInfoSection({name, value, icon}: InfoSectionProps) {
+  return (
+    <View style={styles.infoSection}>
+      {icon}
+      <SmallSectionText>{name}:</SmallSectionText>
+      <RegularText onPress={() => (value ? Linking.openURL(value) : undefined)}>
+        {value}
+      </RegularText>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     padding: 15,
     gap: 15,
   },
   header: {
-    paddingVertical: 30,
+    paddingVertical: 15,
     alignItems: 'center',
   },
   infoBox: {
