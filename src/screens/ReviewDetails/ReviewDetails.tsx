@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {Suspense, useContext, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {MainStackParams} from '../../navigators/MainStackParams';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import {usePreloadedQuery} from 'react-relay';
 import {ReviewDetailsQuery$data} from './__generated__/ReviewDetailsQuery.graphql';
 import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
 import {CommentCreator} from './components/CommentCreator';
+import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 
 export const ReviewDetailsQuery = graphql`
   query ReviewDetailsQuery($id: ID!) {
@@ -56,10 +57,14 @@ export function ReviewDetailsScreenWithData({
 
   return (
     <View style={styles.container}>
-      <CommentList
-        review={review}
-        ListHeaderComponent={<ListHeader navigation={navigation} data={data} />}
-      />
+      <Suspense fallback={<StandardLoadingIcon />}>
+        <CommentList
+          review={review}
+          ListHeaderComponent={
+            <ListHeader navigation={navigation} data={data} />
+          }
+        />
+      </Suspense>
     </View>
   );
 }
