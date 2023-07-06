@@ -12,13 +12,14 @@ import {UsersListScreen} from './UsersList';
 
 export function UserListStackScreen(): React.JSX.Element {
   return (
-    <UsersListStackNavigator.Navigator screenOptions={{headerShown: false}}>
+    <UsersListStackNavigator.Navigator>
       <UsersListStackNavigator.Screen
         name="UsersList"
         component={UsersListScreen}
       />
       <UsersListStackNavigator.Screen
         name="MovieDetails"
+        options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
       <UsersListStackNavigator.Screen

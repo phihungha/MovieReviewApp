@@ -14,13 +14,15 @@ import {UserWatchedListScreen} from './UserWatchedList';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
-    <MyAccountStackNavigator.Navigator screenOptions={{headerShown: false}}>
+    <MyAccountStackNavigator.Navigator>
       <MyAccountStackNavigator.Screen
         name="MyAccount"
+        options={{headerShown: false}}
         component={MyAccountScreen}
       />
       <MyAccountStackNavigator.Screen
         name="MovieDetails"
+        options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
       <MyAccountStackNavigator.Screen

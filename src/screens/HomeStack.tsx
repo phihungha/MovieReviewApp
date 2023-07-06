@@ -12,10 +12,15 @@ import {UserWatchedListScreen} from './UserWatchedList';
 
 export function HomeStackScreen(): React.JSX.Element {
   return (
-    <HomeStackNavigator.Navigator screenOptions={{headerShown: false}}>
-      <HomeStackNavigator.Screen name="Home" component={HomeScreen} />
+    <HomeStackNavigator.Navigator>
+      <HomeStackNavigator.Screen
+        name="Home"
+        options={{headerShown: false}}
+        component={HomeScreen}
+      />
       <HomeStackNavigator.Screen
         name="MovieDetails"
+        options={{headerShown: false}}
         component={MovieDetailsScreen}
       />
       <HomeStackNavigator.Screen
