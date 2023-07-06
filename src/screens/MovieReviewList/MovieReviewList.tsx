@@ -12,18 +12,12 @@ import {graphql} from 'relay-runtime';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
 import type {MovieReviewListQuery as MovieReviewListQueryType} from './__generated__/MovieReviewListQuery.graphql';
-import {Button, Icon, Tab, TabView} from '@rneui/themed';
+import {Button, Tab, TabView} from '@rneui/themed';
 import {CriticReviewList} from './components/CriticReviewList';
 import {RegularReviewList} from './components/RegularReviewList';
-import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
-import {ListScreenHeader} from '../../components/Headers/ListScreenHeader';
-import {
-  MovieReviewListOptions,
-  MovieReviewListOptionsDialog,
-} from './dialogs/MovieReviewListOptionsDialog';
-import {HeaderButton} from '../../components/Buttons/HeaderButton';
-import {ActionCb} from '../../types/ActionCb';
+import {MovieReviewListOptions} from './dialogs/MovieReviewListOptionsDialog';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
+import {MovieReviewListHeader} from './components/MovieReviewListHeader';
 
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
@@ -64,7 +58,7 @@ function MovieReviewListScreenWithData({
 
   const customHeader = useCallback(
     () => (
-      <Header
+      <MovieReviewListHeader
         search={search}
         setSearch={setSearch}
         options={options}
@@ -113,40 +107,6 @@ function MovieReviewListScreenWithData({
         </TabView.Item>
       </TabView>
     </View>
-  );
-}
-
-interface HeaderProps {
-  search: string;
-  setSearch: (i: string) => void;
-  options: MovieReviewListOptions;
-  setOptions: (i: MovieReviewListOptions) => void;
-}
-
-function Header(props: HeaderProps) {
-  const headerBtn = useCallback(
-    (onPress: ActionCb) => (
-      <HeaderButton
-        onPress={onPress}
-        icon={<Icon color="white" type="font-awesome" name="filter" />}
-      />
-    ),
-    [],
-  );
-
-  return (
-    <ListScreenHeader>
-      <HeaderSearchBar
-        value={props.search}
-        onChangeText={i => props.setSearch(i)}
-        placeholder="Search reviews..."
-      />
-      <MovieReviewListOptionsDialog
-        options={props.options}
-        onOptionsChanged={i => props.setOptions(i)}
-        customOpenButton={onPress => headerBtn(onPress)}
-      />
-    </ListScreenHeader>
   );
 }
 
