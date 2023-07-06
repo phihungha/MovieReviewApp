@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button} from '@rneui/themed';
-import {ManageAccountProfilePictureDisplay} from '../components/Display/ManageAccountProfilePictureDisplay';
-import {ManageAccountInformationDisplay} from '../components/Display/ManageAccountInformationDisplay';
+import {ManageAccountProfilePictureDisplay} from './components/ManageAccountProfilePictureDisplay';
+import {ManageAccountInformationDisplay} from './components/ManageAccountInformationDisplay';
 
 export function ManageAccountInfo(): JSX.Element {
   const [birthdayText, setBirthdayText] = useState('');

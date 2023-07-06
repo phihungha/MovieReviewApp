@@ -1,11 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Avatar} from '@rneui/themed';
-import {BigTitleText} from '../Text/BigTitleText';
-import {TextLink} from '../Buttons/TextLink';
-import {TitleText} from '../Text/TitleText';
-import {ActionCb} from '../../types/ActionCb';
-import {ChangeNameDialog, OnSelectedName} from '../../dialogs/ChangeNameDialog';
+import {TextLink} from '../../../components/Buttons/TextLink';
+import {BigTitleText} from '../../../components/Text/BigTitleText';
+import {TitleText} from '../../../components/Text/TitleText';
+import {OnSelectedName, ChangeNameDialog} from '../dialogs/ChangeNameDialog';
+import {ActionCb} from '../../../types/ActionCb';
 
 interface ManageAccountProfilePictureProps {
   imageUri?: string;

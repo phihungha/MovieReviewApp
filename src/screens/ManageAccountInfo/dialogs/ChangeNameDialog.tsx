@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {GenericDialog} from './GenericDialog';
+import {GenericDialog} from '../../../dialogs/GenericDialog';
 import {Input} from '@rneui/themed';
-import colors from '../styles/colors';
+import colors from '../../../styles/colors';
 
 export type OnSelectedName = (name: string) => void;
 

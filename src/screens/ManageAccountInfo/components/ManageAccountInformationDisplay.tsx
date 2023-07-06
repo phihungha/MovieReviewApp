@@ -1,15 +1,11 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-
-import {BigTitleText} from '../Text/BigTitleText';
+import {BigTitleText} from '../../../components/Text/BigTitleText';
+import colors from '../../../styles/colors';
 import {
-  ManageBirthdayItem,
-  ManageCountryItem,
-  ManageFavoriteGenreItem,
-  ManageTypeItem,
   OnSelectedManageInformation,
-} from '../Items/ManageAccountInformationItem';
-import colors from '../../styles/colors';
+  ManageBirthdayItem,
+} from './ManageAccountInformationItem';
 
 interface ManageAccountInformationProps {
   iconSize?: number;
@@ -50,24 +46,6 @@ export function ManageAccountInformationDisplay(
         iconColor={colors.white}
         value={props.birthdayValue}
         onSelected={props.onSelectedDate}
-      />
-      <ManageCountryItem
-        iconSize={24}
-        iconColor={colors.white}
-        value={props.countryValue}
-        onSelected={props.onSelectedCountry}
-      />
-      <ManageTypeItem
-        iconSize={24}
-        iconColor={colors.white}
-        value={props.typeValue}
-        onSelected={props.onSelectedType}
-      />
-      <ManageFavoriteGenreItem
-        iconSize={24}
-        iconColor={colors.white}
-        value={props.favoriteGenreValue}
-        onSelected={props.onSelectedFavoriteGenre}
       />
     </View>
   );
