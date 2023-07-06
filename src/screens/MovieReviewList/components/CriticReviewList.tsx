@@ -5,6 +5,7 @@ import {usePaginationFragment} from 'react-relay';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
 import {CriticReviewList$key} from './__generated__/CriticReviewList.graphql';
 import {CriticReviewListRefetchQuery} from './__generated__/CriticReviewListRefetchQuery.graphql';
+import {MovieReviewListOptions} from '../dialogs/MovieReviewListOptionsDialog';
 
 const CriticReviewListFragment = graphql`
   fragment CriticReviewList on Movie
@@ -40,6 +41,7 @@ const CriticReviewListFragment = graphql`
 export interface CriticReviewListProps {
   movie: CriticReviewList$key | null;
   textContains?: string;
+  options?: MovieReviewListOptions;
   onNavigate?: () => void;
 }
 
@@ -51,11 +53,24 @@ export function CriticReviewList(
     CriticReviewList$key
   >(CriticReviewListFragment, props.movie);
 
+  const options = props.options;
+
   useEffect(() => {
     refetch({
       textContains: props.textContains,
+      minScore: options?.minScore,
+      maxScore: options?.maxScore,
+      sortBy: options?.sortBy,
+      sortDirection: options?.sortDirection,
     });
-  }, [props.textContains, refetch]);
+  }, [
+    props.textContains,
+    options?.minScore,
+    options?.maxScore,
+    options?.sortBy,
+    options?.sortDirection,
+    refetch,
+  ]);
 
   return (
     <VerticalList

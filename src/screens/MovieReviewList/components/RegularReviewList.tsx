@@ -5,6 +5,7 @@ import {usePaginationFragment} from 'react-relay';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
 import {RegularReviewList$key} from './__generated__/RegularReviewList.graphql';
 import {RegularReviewListRefetchQuery} from './__generated__/RegularReviewListRefetchQuery.graphql';
+import {MovieReviewListOptions} from '../dialogs/MovieReviewListOptionsDialog';
 
 const RegularReviewListFragment = graphql`
   fragment RegularReviewList on Movie
@@ -40,6 +41,7 @@ const RegularReviewListFragment = graphql`
 export interface RegularReviewListProps {
   movie: RegularReviewList$key | null;
   textContains?: string;
+  options?: MovieReviewListOptions;
   onNavigate?: () => void;
 }
 
@@ -51,11 +53,24 @@ export function RegularReviewList(
     RegularReviewList$key
   >(RegularReviewListFragment, props.movie);
 
+  const options = props.options;
+
   useEffect(() => {
     refetch({
       textContains: props.textContains,
+      minScore: options?.minScore,
+      maxScore: options?.maxScore,
+      sortBy: options?.sortBy,
+      sortDirection: options?.sortDirection,
     });
-  }, [props.textContains, refetch]);
+  }, [
+    props.textContains,
+    options?.minScore,
+    options?.maxScore,
+    options?.sortBy,
+    options?.sortDirection,
+    refetch,
+  ]);
 
   return (
     <VerticalList
