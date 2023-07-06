@@ -6,7 +6,7 @@ import {graphql} from 'relay-runtime';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
 import type {MovieReviewListQuery as MovieReviewListQueryType} from './__generated__/MovieReviewListQuery.graphql';
-import {Icon, Tab, TabView} from '@rneui/themed';
+import {Button, Icon, Tab, TabView} from '@rneui/themed';
 import {CriticReviewList} from './components/CriticReviewList';
 import {RegularReviewList} from './components/RegularReviewList';
 import {HeaderSearchBar} from '../../components/Inputs/HeaderSearchBar';
@@ -74,10 +74,16 @@ function MovieReviewListScreenWithData({
 
   return (
     <View style={styles.container}>
+      <Button
+        onPress={() => navigation.navigate('CreateReview')}
+        title="Create a new review"
+      />
+
       <Tab value={index} onChange={i => setIndex(i)}>
         <Tab.Item title="Critic" />
         <Tab.Item title="Regular" />
       </Tab>
+
       <TabView value={index} onChange={setIndex}>
         <TabView.Item>
           <Suspense fallback={<StandardLoadingIcon />}>
@@ -142,5 +148,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     margin: 6,
+    gap: 10,
   },
 });
