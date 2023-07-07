@@ -1,8 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {StandardAvatar} from '../../../components/Display/StandardAvatar';
-import {Input} from '@rneui/themed';
+import {Icon, Input} from '@rneui/themed';
 import {useState} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../../styles/colors';
 import {Pressable} from 'react-native';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
@@ -17,7 +16,7 @@ function SendCommentIconButton(props: SendCommentProps) {
     <Pressable
       android_ripple={pressableRippleConfig}
       onPress={props.onPressSendComment}>
-      <Icon name="send" size={20} color={colors.white} />
+      <Icon name="send" type="font-awesome" size={20} color={colors.white} />
     </Pressable>
   );
 }
