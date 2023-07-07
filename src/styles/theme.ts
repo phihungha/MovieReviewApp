@@ -34,10 +34,12 @@ export const theme = createTheme({
     },
 
     Input: {
-      containerStyle: {},
+      containerStyle: {
+        paddingHorizontal: 0,
+      },
       inputContainerStyle: {
         backgroundColor: colors.mediumBlack,
-        borderRadius: 4,
+        borderRadius: 12,
         borderColor: 'transparent',
         paddingHorizontal: 16,
         paddingTop: 16,
