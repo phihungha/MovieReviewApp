@@ -34,6 +34,7 @@ export const theme = createTheme({
     },
 
     Input: {
+      containerStyle: {},
       inputContainerStyle: {
         backgroundColor: colors.mediumBlack,
         borderRadius: 4,

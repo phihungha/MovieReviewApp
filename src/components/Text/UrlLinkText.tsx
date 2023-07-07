@@ -1,17 +1,20 @@
 import React from 'react';
-import {StyleSheet, TextProps, TouchableOpacity} from 'react-native';
+import {Pressable, StyleSheet, TextProps} from 'react-native';
 import colors from '../../styles/colors';
 import {RegularText} from './RegularText';
 import {ActionCb} from '../../types/ActionCb';
+import {pressableRippleConfig} from '../../styles/pressable-ripple';
 
-interface UrlLinkTextProps {
+type UrlLinkTextProps = TextProps & {
   isVisited: boolean;
   onPressLink: ActionCb;
-}
+};
 
-export function UrlLinkText(props: TextProps & UrlLinkTextProps): JSX.Element {
+export function UrlLinkText(props: UrlLinkTextProps): JSX.Element {
   return (
-    <TouchableOpacity onPress={props.onPressLink}>
+    <Pressable
+      onPress={props.onPressLink}
+      android_ripple={pressableRippleConfig}>
       <RegularText
         {...props}
         style={[
@@ -20,7 +23,7 @@ export function UrlLinkText(props: TextProps & UrlLinkTextProps): JSX.Element {
           props.style,
         ]}
       />
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

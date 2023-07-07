@@ -69,12 +69,12 @@ export function ReviewInfoDisplay(
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     backgroundColor: colors.mediumBlack,
-    gap: 5,
+    gap: 4,
   },
   scoreText: {
-    fontSize: fontSizes.md,
+    fontSize: fontSizes.sm,
     fontFamily: fonts.primaryBold,
   },
 });
