@@ -8,6 +8,8 @@ import {
   MovieSortBy,
   SortDirection,
 } from '../components/__generated__/AllMovieListRefetchQuery.graphql';
+import DropDownPicker from 'react-native-dropdown-picker';
+import colors from '../../../styles/colors';
 export type MoviesListSortDirection = 'Asc' | 'Desc';
 
 export interface MoviesListOptions {
@@ -33,6 +35,21 @@ export function MoviesListOptionsDialog(
   props: MoviesListOptionsDialogProps,
 ): React.JSX.Element {
   const [options, setOptions] = useState<MoviesListOptions>(props.options);
+  const minScore = 0;
+  const maxScore = 10;
+  const [sortByOpen, setSortByOpen] = useState(false);
+  const [sortByItems, setSortByItems] = useState([
+    {label: 'Comment Count', value: 'CommentCount'},
+    {label: 'Post Time', value: 'PostTime'},
+    {label: 'Score', value: 'Score'},
+    {label: 'Thank Count', value: 'ThankCount'},
+  ]);
+
+  const [sortDirectionOpen, setSortDirectionOpen] = useState(false);
+  const [sortDirectionItems, setSortDirectionItems] = useState([
+    {label: 'Ascending', value: 'Asc'},
+    {label: 'Descending', value: 'Desc'},
+  ]);
 
   function updateOption(
     optionName: MovieListOptionsKey,
@@ -47,41 +64,97 @@ export function MoviesListOptionsDialog(
       onOk={() => props.onOptionsChanged?.(options)}
       containerStyle={styles.mainContainer}
       customOpenButton={props.customOpenButton}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
         <Input
+          keyboardType="numeric"
           label="Release year"
           value={options.releaseYear?.toString()}
           onChangeText={i => updateOption('releaseYear', +i)}
+          renderErrorMessage={false}
+          inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
+
         <Input
+          keyboardType="numeric"
           label="Min critic score"
           value={options.minCriticScore?.toString()}
-          onChangeText={i => updateOption('minCriticScore', +i)}
+          onChangeText={i => {
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
+            updateOption('minCriticScore', +value);
+          }}
+          renderErrorMessage={false}
+          inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
         <Input
+          keyboardType="numeric"
           label="Max critic score"
           value={options.maxCriticScore?.toString()}
-          onChangeText={i => updateOption('maxCriticScore', +i)}
+          onChangeText={i => {
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
+            updateOption('maxCriticScore', +value);
+          }}
+          renderErrorMessage={false}
+          inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
+
         <Input
+          keyboardType="numeric"
           label="Min user score"
           value={options.minRegularScore?.toString()}
-          onChangeText={i => updateOption('minRegularScore', +i)}
+          onChangeText={i => {
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
+            updateOption('minRegularScore', +value);
+          }}
+          renderErrorMessage={false}
+          inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
         <Input
+          keyboardType="numeric"
           label="Max user score"
           value={options.maxRegularScore?.toString()}
-          onChangeText={i => updateOption('maxRegularScore', +i)}
+          onChangeText={i => {
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
+            updateOption('maxRegularScore', +value);
+          }}
+          renderErrorMessage={false}
+          inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
-        <Input
-          label="Sort by"
+
+        <DropDownPicker
+          listMode="SCROLLVIEW"
+          placeholder="Sort by"
+          open={sortByOpen}
           value={options.sortBy}
-          onChangeText={i => updateOption('sortBy', i)}
+          items={sortByItems}
+          setOpen={setSortByOpen}
+          setValue={() => {}}
+          setItems={setSortByItems}
+          onSelectItem={i => {
+            updateOption('sortBy', i.value!);
+          }}
+          textStyle={styles.DropDownPicker_textStyle}
+          style={styles.DropDownPicker_style}
+          containerStyle={{zIndex: 10000}}
+          dropDownDirection="TOP"
+          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
-        <Input
-          label="Sort direction"
+        <DropDownPicker
+          listMode="SCROLLVIEW"
+          placeholder="Sort direction"
+          open={sortDirectionOpen}
           value={options.sortDirection}
-          onChangeText={i => updateOption('sortDirection', i)}
+          items={sortDirectionItems}
+          setOpen={setSortDirectionOpen}
+          setValue={() => {}}
+          setItems={setSortDirectionItems}
+          onSelectItem={i => {
+            updateOption('sortDirection', i.value!);
+          }}
+          textStyle={styles.DropDownPicker_textStyle}
+          style={styles.DropDownPicker_style}
+          containerStyle={{zIndex: 10001}}
+          dropDownDirection="TOP"
+          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
       </ScrollView>
     </GenericDialog>
@@ -102,5 +175,21 @@ function getUpdatedOptions(
 const styles = StyleSheet.create({
   mainContainer: {
     height: 450,
+  },
+  contentContainer: {
+    gap: 8,
+  },
+  DropDownPicker_textStyle: {
+    color: colors.white,
+  },
+  DropDownPicker_style: {
+    backgroundColor: colors.darkBlack,
+    borderRadius: 12,
+    borderColor: 'transparent',
+  },
+  DropDownPicker_dropDownContainerStyle: {
+    backgroundColor: colors.darkBlack,
+    borderColor: 'transparent',
+    borderRadius: 12,
   },
 });

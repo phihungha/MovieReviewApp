@@ -30,6 +30,8 @@ export function MovieReviewListOptionsDialog(
   props: MovieReviewListOptionsDialogProps,
 ): React.JSX.Element {
   const [options, setOptions] = useState<MovieReviewListOptions>(props.options);
+  const minScore = 0;
+  const maxScore = 10;
   const [sortByOpen, setSortByOpen] = useState(false);
   const [sortByItems, setSortByItems] = useState([
     {label: 'Comment Count', value: 'CommentCount'},
@@ -50,8 +52,7 @@ export function MovieReviewListOptionsDialog(
   ): void {
     setOptions(o => getUpdatedOptions(o, optionName, newValue));
   }
-  const min = 0;
-  const max = 10;
+
   return (
     <GenericDialog
       title="Options"
@@ -64,7 +65,7 @@ export function MovieReviewListOptionsDialog(
           label="Min score"
           value={options.minScore?.toString()}
           onChangeText={i => {
-            const value = Math.max(min, Math.min(max, Number(i)));
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
             updateOption('minScore', +value);
           }}
           renderErrorMessage={false}
@@ -75,7 +76,7 @@ export function MovieReviewListOptionsDialog(
           label="Max score"
           value={options.maxScore?.toString()}
           onChangeText={i => {
-            const value = Math.max(min, Math.min(max, Number(i)));
+            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
             updateOption('maxScore', +value);
           }}
           renderErrorMessage={false}
