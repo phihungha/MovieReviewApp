@@ -31,7 +31,7 @@ export function CreateReviewInfoDetail(
     <View style={styles.infoContainer}>
       <Avatar
         size={96}
-        avatarStyle={{borderRadius: 16}}
+        avatarStyle={styles.avatar}
         source={{uri: props.imageUri ? props.imageUri : uri}}
       />
 
@@ -61,4 +61,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 32,
   },
+  avatar: {borderRadius: 16},
 });

@@ -153,7 +153,7 @@ interface InfoSectionProps {
   icon?: React.ReactNode | null;
 }
 
-function InfoSection({name, value, icon}: InfoSectionProps) {
+export function InfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
       {icon}
@@ -163,7 +163,7 @@ function InfoSection({name, value, icon}: InfoSectionProps) {
   );
 }
 
-function LinkInfoSection({name, value, icon}: InfoSectionProps) {
+export function LinkInfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
       {icon}

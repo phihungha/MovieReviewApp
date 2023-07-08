@@ -96,7 +96,7 @@ export function MovieReviewListOptionsDialog(
           }}
           textStyle={styles.DropDownPicker_textStyle}
           style={styles.DropDownPicker_style}
-          containerStyle={{zIndex: 100}}
+          containerStyle={styles.aboveDropdown}
           dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
         <DropDownPicker
@@ -113,7 +113,7 @@ export function MovieReviewListOptionsDialog(
           }}
           textStyle={styles.DropDownPicker_textStyle}
           style={styles.DropDownPicker_style}
-          containerStyle={{zIndex: 1}}
+          containerStyle={styles.belowDropdown}
           dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
       </View>
@@ -152,4 +152,6 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderRadius: 12,
   },
+  aboveDropdown: {zIndex: 100},
+  belowDropdown: {zIndex: 1},
 });

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {Suspense, useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
-import {FlatList, Pressable} from 'react-native';
-import {VeryBigTitleText} from '../components/Text/VeryBigTitleText';
 import {TitleText} from '../components/Text/TitleText';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Button} from '@rneui/themed';
-import {BigTitleText} from '../components/Text/BigTitleText';
-import {WatchedMovieListItem} from '../components/Items/WatchedMovieListItem';
-import {ReviewListItem} from '../components/Items/ReviewListItem/ReviewListItem';
+import {Button, Icon} from '@rneui/themed';
+import {StandardAvatar} from '../components/Display/StandardAvatar';
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import colors from '../styles/colors';
+import {InfoSection, LinkInfoSection} from './UserDetails/UserDetails';
+import {SectionText} from '../components/Text/SectionText';
+import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -18,161 +19,168 @@ export function HorizontalItemSeparator(): JSX.Element {
   return <View style={styles.HorizontalItemSeparator} />;
 }
 export function MyAccountScreen({navigation}: {navigation: any}): JSX.Element {
-  const arr: number[] = [1];
+  const [uri, setUri] = useState('');
+  const userName = 'Don Weak';
+  const userBirthday = '1/1/2023';
+  const userCountry = 'VietNam';
+  const userFavoriteGenres = 'Drama, Action';
+  const userType = 'Critic';
+  const userBlogUrl = 'www.aaaaaa.com';
+
+  const options: ImageLibraryOptions = {
+    mediaType: 'photo',
+    selectionLimit: 1,
+  };
+  const onPressImage = async () => {
+    const result = await launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorCode) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      }
+    });
+    const uriResult = result.assets?.at(0)?.uri;
+    setUri(uriResult ? uriResult : '');
+  };
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.header} />
-        <View style={styles.avatarContainer}>
-          <View style={styles.avatar} />
-          <VeryBigTitleText>John Weed</VeryBigTitleText>
-        </View>
-        <View style={styles.box}>
-          <View style={styles.info}>
-            <View style={styles.Icon}>
-              <FontAwesome
-                name="birthday-cake"
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.header}>
+        <StandardAvatar size={150} uri={uri} onPress={onPressImage} />
+        <TitleText>{userName ?? 'N/A'}</TitleText>
+      </View>
+
+      <View style={styles.infoBox}>
+        <InfoSection
+          name="Birthday"
+          value={userBirthday}
+          icon={
+            <Icon
+              type="font-awesome"
+              name="birthday-cake"
+              size={20}
+              color={colors.primary}
+            />
+          }
+        />
+
+        <InfoSection
+          name="Country"
+          value={userCountry}
+          icon={
+            <Icon
+              type="fontisto"
+              name="earth"
+              size={20}
+              color={colors.primary}
+            />
+          }
+        />
+
+        <InfoSection
+          name="Favorite genres"
+          value={userFavoriteGenres}
+          icon={
+            <Icon
+              type="antdesign"
+              name="heart"
+              size={20}
+              color={colors.primary}
+            />
+          }
+        />
+
+        <InfoSection
+          name="User type"
+          value={userType}
+          icon={
+            <Icon
+              type="material-community"
+              name="account-tie"
+              size={20}
+              color={colors.primary}
+            />
+          }
+        />
+
+        {userType === 'Critic' ? (
+          <LinkInfoSection
+            name="Website"
+            value={userBlogUrl}
+            icon={
+              <Icon
+                type="material-community"
+                name="web"
                 size={20}
-                color="#F6F6F6"
-                style={{
-                  marginHorizontal: 10,
-                  // marginVertical: 10,
-                }}
+                color={colors.primary}
               />
-              <TitleText>Birthday : 1/1/2000</TitleText>
-            </View>
-            <View style={styles.Icon}>
-              <Fontisto
-                name="earth"
-                size={20}
-                color="#F6F6F6"
-                style={{
-                  marginHorizontal: 10,
-                  // marginVertical: 10,
-                }}
-              />
-              <TitleText>Country : Viet Nam </TitleText>
-            </View>
-            <View style={styles.Icon}>
-              <AntDesign
-                name="heart"
-                size={20}
-                color="#F6F6F6"
-                style={{
-                  marginHorizontal: 10,
-                  // marginVertical: 10,
-                }}
-              />
-              <TitleText>Favourite genres : Action,Thriller </TitleText>
-            </View>
-          </View>
-        </View>
+            }
+          />
+        ) : undefined}
       </View>
       <View style={styles.buttonsContainer}>
         <Button
-          title="EDIT PROFILE"
+          title="Edit profile"
           icon={{
             name: 'user',
             type: 'font-awesome',
             size: 15,
             color: 'white',
           }}
-          iconRight
-          iconContainerStyle={{marginLeft: 5}}
-          titleStyle={{fontWeight: '800'}}
-          buttonStyle={{
-            backgroundColor: '#2A2C36',
-            borderColor: 'transparent',
-            borderWidth: 0,
-            borderRadius: 20,
-          }}
-          containerStyle={{
-            width: 180,
-            marginHorizontal: 10,
-            marginVertical: 10,
-          }}
+          titleStyle={styles.titleStyle}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.containerButtonStyle}
         />
         <Button
-          title="LOG OUT"
-          titleStyle={{fontWeight: '800'}}
-          buttonStyle={{
-            backgroundColor: '#2A2C36',
-            borderColor: 'transparent',
-            borderWidth: 0,
-            borderRadius: 20,
+          title="Log out"
+          icon={{
+            name: 'logout',
+            type: 'material-community',
+            size: 15,
+            color: 'white',
           }}
-          containerStyle={{
-            width: 180,
-            marginHorizontal: 4,
-            marginVertical: 10,
-          }}
+          iconRight
+          titleStyle={styles.titleStyle}
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.containerButtonStyle}
         />
       </View>
-      <View>
-        <View style={styles.padding}>
-          <BigTitleText>Recently Watched</BigTitleText>
-        </View>
-        <FlatList
-          key={'#'}
-          style={styles.padding}
-          data={arr}
-          renderItem={({item}) => (
-            <Pressable
-              onPress={() => navigation.navigate('MyWatchedList', item)}>
-              <WatchedMovieListItem />
-            </Pressable>
-          )}
-          ItemSeparatorComponent={HorizontalItemSeparator}
+
+      <View style={styles.listSection}>
+        <SectionText>Recently Watched</SectionText>
+        <Suspense fallback={<StandardLoadingIcon />}>
+          {/* <UserReviewOverviewList user={user} /> */}
+        </Suspense>
+        <Button
+          title="More..."
+          buttonStyle={styles.buttonStyle}
+          containerStyle={[styles.containerButtonStyle]}
+          onPress={() => navigation.navigate('MyReviewsList')}
         />
       </View>
-      <View>
-        <View style={styles.text}>
-          <BigTitleText>More...</BigTitleText>
-        </View>
-      </View>
-      <View>
-        <View style={styles.padding}>
-          <BigTitleText>Recently Reviewed</BigTitleText>
-        </View>
-        <FlatList
-          key={'&'}
-          style={styles.padding}
-          data={arr}
-          renderItem={({item}) => (
-            <Pressable
-              onPress={() => navigation.navigate('MyReviewsList', item)}>
-              <ReviewListItem review={null} />
-            </Pressable>
-          )}
-          ItemSeparatorComponent={HorizontalItemSeparator}
+
+      <View style={styles.listSection}>
+        <SectionText>Recently Reviewed</SectionText>
+        <Suspense fallback={<StandardLoadingIcon />}>
+          {/* <UserReviewOverviewList user={user} /> */}
+        </Suspense>
+        <Button
+          title="More..."
+          buttonStyle={styles.buttonStyle}
+          containerStyle={[styles.containerButtonStyle]}
         />
       </View>
-      <View>
-        <View style={styles.text}>
-          <BigTitleText>More...</BigTitleText>
-        </View>
-      </View>
-      <View>
-        <View style={styles.padding}>
-          <BigTitleText>Recently Liked</BigTitleText>
-        </View>
-        <FlatList
-          key={'#'}
-          style={styles.padding}
-          data={arr}
-          renderItem={({item}) => (
-            <Pressable
-              onPress={() => navigation.navigate('MyReviewsList', item)}>
-              <ReviewListItem review={null} />
-            </Pressable>
-          )}
-          ItemSeparatorComponent={HorizontalItemSeparator}
+
+      <View style={styles.listSection}>
+        <SectionText>Recently Liked</SectionText>
+        <Suspense fallback={<StandardLoadingIcon />}>
+          {/* <UserReviewOverviewList user={user} /> */}
+        </Suspense>
+        <Button
+          title="More..."
+          buttonStyle={styles.buttonStyle}
+          containerStyle={[styles.containerButtonStyle]}
         />
-      </View>
-      <View>
-        <View style={styles.text}>
-          <BigTitleText>More...</BigTitleText>
-        </View>
       </View>
     </ScrollView>
   );
@@ -187,60 +195,35 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 1,
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#2A2C36',
-  },
-  header: {
-    width: 375,
-    height: 240,
-  },
-  avatarContainer: {
-    alignItems: 'center',
-    marginTop: -200,
-  },
-  box: {
-    width: '100%',
-    height: 200,
-    backgroundColor: '#1E1F28',
-    borderWidth: 10,
-    borderColor: '#1E1F28',
-    justifyContent: 'center',
-  },
-  info: {
-    height: '100%',
-    borderColor: '#2A2C36',
-    backgroundColor: '#2A2C36',
-    borderTopWidth: 10,
-    borderLeftWidth: 15,
-    borderRadius: 10,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginVertical: 10,
-    paddingLeft: 10,
-    padding: 20,
-  },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    backgroundColor: 'white',
-  },
-  Icon: {
-    flexDirection: 'row',
-  },
   buttonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginHorizontal: 10,
+    justifyContent: 'space-between',
+    gap: 5,
   },
-  padding: {
-    // paddingTop: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
+  container: {
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    gap: 12,
   },
-  text: {
-    padding: 10,
+  header: {
+    paddingVertical: 15,
     alignItems: 'center',
   },
+  infoBox: {
+    padding: 15,
+    backgroundColor: colors.mediumBlack,
+    borderRadius: 15,
+    gap: 10,
+  },
+  listSection: {
+    gap: 5,
+  },
+  buttonStyle: {
+    backgroundColor: colors.mediumBlack,
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 20,
+  },
+  containerButtonStyle: {marginHorizontal: 4, marginVertical: 10, flex: 1},
+  titleStyle: {marginTop: 4},
 });

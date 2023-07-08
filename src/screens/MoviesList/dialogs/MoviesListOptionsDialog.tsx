@@ -134,7 +134,7 @@ export function MoviesListOptionsDialog(
           }}
           textStyle={styles.DropDownPicker_textStyle}
           style={styles.DropDownPicker_style}
-          containerStyle={{zIndex: 10000}}
+          containerStyle={styles.belowDropdown}
           dropDownDirection="TOP"
           dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
@@ -152,7 +152,7 @@ export function MoviesListOptionsDialog(
           }}
           textStyle={styles.DropDownPicker_textStyle}
           style={styles.DropDownPicker_style}
-          containerStyle={{zIndex: 10001}}
+          containerStyle={styles.aboveDropdown}
           dropDownDirection="TOP"
           dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
         />
@@ -192,4 +192,6 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderRadius: 12,
   },
+  aboveDropdown: {zIndex: 10001},
+  belowDropdown: {zIndex: 10000},
 });

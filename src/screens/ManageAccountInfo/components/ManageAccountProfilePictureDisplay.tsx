@@ -37,6 +37,7 @@ export function ManageAccountProfilePictureDisplay(
           size={128}
           rounded
           source={{uri: props.imageUri ? props.imageUri : uri}}
+          onPress={props.onSelectedImage}
         />
 
         <TitleText>{props.nameValue}</TitleText>

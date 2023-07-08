@@ -6,7 +6,7 @@ import colors from '../../../styles/colors';
 import {Pressable} from 'react-native';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
 import {ActionCb} from '../../../types/ActionCb';
-
+import React from 'react';
 type SendCommentProps = {
   onPressSendComment: ActionCb;
 };
@@ -33,8 +33,8 @@ export function CommentCreator() {
         value={content}
         onChangeText={i => setContent(i)}
         placeholder="Write a comment..."
-        containerStyle={{flex: 1}}
-        inputContainerStyle={{paddingTop: 8}}
+        containerStyle={styles.input_containerStyle}
+        inputContainerStyle={styles.input_inputContainerStyle}
         renderErrorMessage={false}
         rightIcon={
           <SendCommentIconButton onPressSendComment={onPressSendComment} />
@@ -51,4 +51,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 5,
   },
+  input_containerStyle: {flex: 1},
+  input_inputContainerStyle: {paddingTop: 8},
 });
