@@ -36,6 +36,7 @@ export function CommentCreator() {
         containerStyle={styles.input_containerStyle}
         inputContainerStyle={styles.input_inputContainerStyle}
         renderErrorMessage={false}
+        rightIconContainerStyle={styles.sendIcon}
         rightIcon={
           <SendCommentIconButton onPressSendComment={onPressSendComment} />
         }
@@ -52,5 +53,8 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   input_containerStyle: {flex: 1},
-  input_inputContainerStyle: {paddingTop: 8},
+  input_inputContainerStyle: {
+    paddingTop: 8,
+  },
+  sendIcon: {marginTop: -4},
 });

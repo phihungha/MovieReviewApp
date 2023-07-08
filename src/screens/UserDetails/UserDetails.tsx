@@ -65,7 +65,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="user"
-              size={20}
+              size={18}
               color={colors.primary}
             />
           }
@@ -78,7 +78,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="foundation"
               name="male-female"
-              size={20}
+              size={18}
               color={colors.primary}
             />
           }
@@ -91,7 +91,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="birthday-cake"
-              size={20}
+              size={18}
               color={colors.primary}
             />
           }
@@ -104,7 +104,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="material-community"
               name="account-tie"
-              size={20}
+              size={18}
               color={colors.primary}
             />
           }
@@ -118,7 +118,7 @@ function UserDetailsScreenWithData(): JSX.Element {
               <Icon
                 type="material-community"
                 name="web"
-                size={20}
+                size={18}
                 color={colors.primary}
               />
             }
@@ -156,7 +156,7 @@ interface InfoSectionProps {
 export function InfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
-      {icon}
+      <View style={styles.icon}>{icon}</View>
       <SmallSectionText>{name}:</SmallSectionText>
       <RegularText style={{color: colors.lightGrey}}>{value}</RegularText>
     </View>
@@ -166,7 +166,7 @@ export function InfoSection({name, value, icon}: InfoSectionProps) {
 export function LinkInfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
-      {icon}
+      <View style={styles.icon}>{icon}</View>
       <SmallSectionText>{name}:</SmallSectionText>
       <UrlLinkText
         isVisited={false}
@@ -199,5 +199,10 @@ const styles = StyleSheet.create({
   },
   listSection: {
     gap: 5,
+  },
+  icon: {
+    marginBottom: 5,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });

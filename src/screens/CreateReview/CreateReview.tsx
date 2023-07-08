@@ -68,6 +68,10 @@ export function CreateReviewScreen({
         onChangeText={i => setContent(i)}
         placeholder="Enter content..."
         label={'Content'}
+        inputStyle={{
+          height: 100,
+        }}
+        multiline
         renderErrorMessage={false}
       />
 
