@@ -32,15 +32,16 @@ export function MyAccountScreen({navigation}: {navigation: any}): JSX.Element {
     selectionLimit: 1,
   };
   const onPressImage = async () => {
-    const result = await launchImageLibrary(options, response => {
+    await launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
-      } else if (response.errorCode) {
+      } else if (response?.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
+      } else if (response?.assets) {
+        const uriResult = response.assets?.at(0)?.uri;
+        setUri(uriResult ? uriResult : '');
       }
     });
-    const uriResult = result.assets?.at(0)?.uri;
-    setUri(uriResult ? uriResult : '');
   };
 
   return (

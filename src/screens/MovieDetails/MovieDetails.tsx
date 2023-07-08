@@ -23,6 +23,7 @@ import {RegularAggregateScoreIndicator} from './components/RegularAggregateScore
 import {Button} from '@rneui/themed';
 import {GenreListItem} from './components/GenreListItem';
 import {ReviewOverview} from './components/ReviewOverview';
+import {MarkMovieButton} from './components/MarkMovieButton';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -84,11 +85,11 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
           style={styles.posterImage}
           imageUrl={data.movie?.posterUrl}
         />
-
         <View style={styles.topInfoContainer}>
           <TitleText>{data.movie?.title}</TitleText>
           <SubtitleText> {releaseDate.getFullYear()}</SubtitleText>
         </View>
+        <MarkMovieButton isViewed={false} />
 
         <View style={styles.detailsInfoContainer}>
           <SimpleInfoSection

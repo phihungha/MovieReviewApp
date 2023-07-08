@@ -1,5 +1,12 @@
 import React, {useContext} from 'react';
-import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {ReviewInfoDisplay} from '../../Display/ReviewInfoDisplay';
 import colors from '../../../styles/colors';
 import {ReviewCommentButton} from './components/ReviewCommentButton';
@@ -11,6 +18,7 @@ import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
 import {ActionCb} from '../../../types/ActionCb';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
 import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
+import {Icon} from '@rneui/themed';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {
@@ -29,6 +37,7 @@ export interface ReviewListItemProps {
   onPress?: ActionCb;
   onNavigate?: ActionCb;
   containerStyle?: StyleProp<ViewStyle>;
+  enabledEditButton?: boolean;
 }
 
 /**
@@ -48,6 +57,9 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
 
   return (
     <View style={styles.container}>
+      {props.enabledEditButton && (
+        <EditReviewIconButton onPress={props.onNavigate} />
+      )}
       <Pressable
         style={styles.contentContainer}
         onPress={onPress}
@@ -67,6 +79,18 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   );
 }
 
+type EditReviewIconButtonProps = PressableProps;
+function EditReviewIconButton(props: EditReviewIconButtonProps) {
+  return (
+    <Pressable
+      android_ripple={pressableRippleConfig}
+      {...props}
+      style={styles.editButton}>
+      <Icon name="edit" type="material" size={32} color={colors.white} />
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 5,
@@ -83,5 +107,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 5,
+  },
+  editButton: {
+    position: 'absolute',
+    right: 8,
+    top: 12,
   },
 });

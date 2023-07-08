@@ -74,10 +74,14 @@ interface ListHeaderProps {
   data: ReviewDetailsQuery$data;
 }
 
-function ListHeader({data}: ListHeaderProps): React.JSX.Element {
+function ListHeader({navigation, data}: ListHeaderProps): React.JSX.Element {
   return (
     <View style={styles.headerContainer}>
-      <ReviewListItem review={data.review} />
+      <ReviewListItem
+        onNavigate={() => navigation.navigate('CreateReview')}
+        enabledEditButton={true}
+        review={data.review}
+      />
       <CommentCreator />
     </View>
   );
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   headerContainer: {
-    gap: 15,
-    marginBottom: 15,
+    gap: 20,
+    paddingVertical: 12,
   },
 });

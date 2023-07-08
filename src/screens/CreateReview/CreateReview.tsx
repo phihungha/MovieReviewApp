@@ -3,6 +3,7 @@ import {View, StyleSheet, ScrollView} from 'react-native';
 import {TitleText} from '../../components/Text/TitleText';
 import {CreateReviewInfoDisplay} from './components/CreateReviewInfoDisplay';
 import {Button, Input} from '@rneui/themed';
+import colors from '../../styles/colors';
 
 export function ItemSeparatorComponent(): JSX.Element {
   return <View style={styles.ItemSeparator} />;
@@ -10,7 +11,12 @@ export function ItemSeparatorComponent(): JSX.Element {
 export function HorizontalItemSeparator(): JSX.Element {
   return <View style={styles.HorizontalItemSeparator} />;
 }
-export function CreateReviewScreen({}: {navigation: any}): JSX.Element {
+export function CreateReviewScreen({
+  navigation,
+}: {
+  navigation: any;
+}): JSX.Element {
+  const [enabledUpdateScreen, setEnabledUpdateScreen] = useState(false);
   const [title, setTitle] = useState('');
   const [externalUrl, setExternalUrl] = useState('');
   const [content, setContent] = useState('');
@@ -20,11 +26,16 @@ export function CreateReviewScreen({}: {navigation: any}): JSX.Element {
   };
   const onPressButton = () => {
     console.log('Call API');
+    setEnabledUpdateScreen(false);
   };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
-        <TitleText>Create review for</TitleText>
+        {enabledUpdateScreen ? (
+          <TitleText>Update</TitleText>
+        ) : (
+          <TitleText>Create review for</TitleText>
+        )}
       </View>
 
       <CreateReviewInfoDisplay
@@ -59,7 +70,23 @@ export function CreateReviewScreen({}: {navigation: any}): JSX.Element {
         label={'Content'}
         renderErrorMessage={false}
       />
-      <Button onPress={onPressButton} title="Post" />
+
+      <View style={styles.buttonContainer}>
+        {enabledUpdateScreen && (
+          <Button
+            containerStyle={styles.button}
+            buttonStyle={styles.cancelButton}
+            onPress={() => navigation.goBack()}
+            title="Cancel"
+          />
+        )}
+
+        <Button
+          containerStyle={styles.button}
+          onPress={onPressButton}
+          title="Post"
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -76,5 +103,18 @@ const styles = StyleSheet.create({
   HorizontalItemSeparator: {
     marginVertical: 10,
     width: 1,
+  },
+  cancelButton: {
+    backgroundColor: colors.mediumBlack,
+    flex: 1,
+  },
+  button: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    gap: 12,
+    justifyContent: 'space-between',
   },
 });
