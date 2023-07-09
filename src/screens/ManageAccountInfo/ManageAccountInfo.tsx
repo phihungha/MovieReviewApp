@@ -3,6 +3,10 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button} from '@rneui/themed';
 import {ManageAccountProfilePictureDisplay} from './components/ManageAccountProfilePictureDisplay';
 import {ManageAccountInformationDisplay} from './components/ManageAccountInformationDisplay';
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 
 export function ManageAccountInfo(): JSX.Element {
   const [birthdayText, setBirthdayText] = useState('');
@@ -10,12 +14,26 @@ export function ManageAccountInfo(): JSX.Element {
   const [type, setType] = useState('');
   const [favoriteGenre, setFavoriteGenre] = useState('');
   const [name, setName] = useState('Name');
+  const [uri, setUri] = useState('');
 
-  const onSelectedImage = () => {
-    console.log('Choose image');
+  const options: ImageLibraryOptions = {
+    mediaType: 'photo',
+    selectionLimit: 1,
   };
-  const onSelectedName = (name: string) => {
-    setName(name);
+  const onPressImage = async () => {
+    await launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response?.errorCode) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else if (response?.assets) {
+        const uriResult = response.assets?.at(0)?.uri;
+        setUri(uriResult ? uriResult : '');
+      }
+    });
+  };
+  const onSelectedName = (selectedName: string) => {
+    setName(selectedName);
   };
   const onSelectedCountry = (item: any) => {
     setCountry(item.title);
@@ -43,7 +61,8 @@ export function ManageAccountInfo(): JSX.Element {
         <ManageAccountProfilePictureDisplay
           nameValue={name}
           onSelectedName={onSelectedName}
-          onSelectedImage={onSelectedImage}
+          imageUri={uri}
+          onSelectedImage={onPressImage}
         />
         <ManageAccountInformationDisplay
           countryValue={country}

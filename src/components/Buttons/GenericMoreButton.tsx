@@ -3,8 +3,9 @@ import {
   GenericBottomSheetHandleItemPressDialog,
   OnPressItem,
 } from '../../dialogs/GenericBottomSheetHandleItemPressDialog';
-import {StyleProp, StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
+import {Pressable, StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import colors from '../../styles/colors';
+import {pressableRippleConfig} from '../../styles/pressable-ripple';
 
 interface GenericMoreButtonProps {
   onSelectedItem: OnPressItem;
@@ -20,8 +21,8 @@ interface GenericMoreButtonProps {
  */
 export function GenericMoreButton(props: GenericMoreButtonProps): JSX.Element {
   return (
-    <TouchableOpacity
-      activeOpacity={0.95}
+    <Pressable
+      android_ripple={pressableRippleConfig}
       style={[styles.buttonPosition, props.style]}>
       <GenericBottomSheetHandleItemPressDialog
         onPressItemBottomSheet={item => props.onSelectedItem(item)}
@@ -30,7 +31,7 @@ export function GenericMoreButton(props: GenericMoreButtonProps): JSX.Element {
         iconColor={colors.white}
         iconSize={24}
       />
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 

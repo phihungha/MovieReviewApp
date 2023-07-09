@@ -7,4 +7,7 @@ export default {
   yellow: '#FFCC33',
   darkBlue: '#1C5E7F',
   blue: '#0096D4',
+  standardLink: '#6777FF',
+  visitedLink: '#800080',
+  green: '#58FA9E',
 };

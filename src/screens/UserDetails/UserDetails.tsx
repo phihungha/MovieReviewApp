@@ -1,7 +1,6 @@
 import React, {Suspense, useContext} from 'react';
 import {StyleSheet, View, ScrollView, Linking} from 'react-native';
 import {TitleText} from '../../components/Text/TitleText';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {SectionText} from '../../components/Text/SectionText';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {UserReviewOverviewList} from './components/UserReviewOverviewList';
@@ -14,6 +13,8 @@ import {dateToStandardDateFormat} from '../../utils/time-conversion';
 import {RegularText} from '../../components/Text/RegularText';
 import colors from '../../styles/colors';
 import {SmallSectionText} from '../../components/Text/SmallSectionText';
+import {Icon} from '@rneui/themed';
+import {UrlLinkText} from '../../components/Text/UrlLinkText';
 
 export const UserDetailsQuery = graphql`
   query UserDetailsQuery($id: ID!) {
@@ -52,7 +53,7 @@ function UserDetailsScreenWithData(): JSX.Element {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <StandardAvatar uri={user?.avatarUrl} />
+        <StandardAvatar size={150} uri={user?.avatarUrl} />
         <TitleText>{user?.name ?? 'N/A'}</TitleText>
       </View>
 
@@ -60,25 +61,53 @@ function UserDetailsScreenWithData(): JSX.Element {
         <InfoSection
           name="Username"
           value={user?.username}
-          icon={<FontAwesome name="birthday-cake" size={20} color="#F6F6F6" />}
+          icon={
+            <Icon
+              type="font-awesome"
+              name="user"
+              size={18}
+              color={colors.primary}
+            />
+          }
         />
 
         <InfoSection
           name="Gender"
           value={user?.gender}
-          icon={<FontAwesome name="birthday-cake" size={20} color="#F6F6F6" />}
+          icon={
+            <Icon
+              type="foundation"
+              name="male-female"
+              size={18}
+              color={colors.primary}
+            />
+          }
         />
 
         <InfoSection
           name="Date of birth"
           value={dateToStandardDateFormat(user?.dateOfBirth)}
-          icon={<FontAwesome name="birthday-cake" size={20} color="#F6F6F6" />}
+          icon={
+            <Icon
+              type="font-awesome"
+              name="birthday-cake"
+              size={18}
+              color={colors.primary}
+            />
+          }
         />
 
         <InfoSection
           name="User type"
           value={user?.userType}
-          icon={<FontAwesome name="birthday-cake" size={20} color="#F6F6F6" />}
+          icon={
+            <Icon
+              type="material-community"
+              name="account-tie"
+              size={18}
+              color={colors.primary}
+            />
+          }
         />
 
         {user?.userType === 'Critic' ? (
@@ -86,7 +115,12 @@ function UserDetailsScreenWithData(): JSX.Element {
             name="Website"
             value={user?.blogUrl}
             icon={
-              <FontAwesome name="birthday-cake" size={20} color="#F6F6F6" />
+              <Icon
+                type="material-community"
+                name="web"
+                size={18}
+                color={colors.primary}
+              />
             }
           />
         ) : undefined}
@@ -119,24 +153,26 @@ interface InfoSectionProps {
   icon?: React.ReactNode | null;
 }
 
-function InfoSection({name, value, icon}: InfoSectionProps) {
+export function InfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
-      {icon}
+      <View style={styles.icon}>{icon}</View>
       <SmallSectionText>{name}:</SmallSectionText>
-      <RegularText>{value}</RegularText>
+      <RegularText style={{color: colors.lightGrey}}>{value}</RegularText>
     </View>
   );
 }
 
-function LinkInfoSection({name, value, icon}: InfoSectionProps) {
+export function LinkInfoSection({name, value, icon}: InfoSectionProps) {
   return (
     <View style={styles.infoSection}>
-      {icon}
+      <View style={styles.icon}>{icon}</View>
       <SmallSectionText>{name}:</SmallSectionText>
-      <RegularText onPress={() => (value ? Linking.openURL(value) : undefined)}>
+      <UrlLinkText
+        isVisited={false}
+        onPressLink={() => (value ? Linking.openURL(value) : undefined)}>
         {value}
-      </RegularText>
+      </UrlLinkText>
     </View>
   );
 }
@@ -163,5 +199,10 @@ const styles = StyleSheet.create({
   },
   listSection: {
     gap: 5,
+  },
+  icon: {
+    marginBottom: 5,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });

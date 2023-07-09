@@ -34,9 +34,12 @@ export const theme = createTheme({
     },
 
     Input: {
+      containerStyle: {
+        paddingHorizontal: 0,
+      },
       inputContainerStyle: {
         backgroundColor: colors.mediumBlack,
-        borderRadius: 4,
+        borderRadius: 12,
         borderColor: 'transparent',
         paddingHorizontal: 16,
         paddingTop: 16,
@@ -45,7 +48,7 @@ export const theme = createTheme({
       inputStyle: {
         fontWeight: 'normal',
         color: colors.white,
-        fontSize: fontSizes.md,
+        fontSize: fontSizes.sm,
         fontFamily: fonts.primary,
       },
       labelStyle: {
@@ -54,7 +57,7 @@ export const theme = createTheme({
         color: colors.lightGrey,
         zIndex: 100,
         fontSize: fontSizes.sm,
-        marginBottom: -24,
+        marginBottom: -28,
         marginStart: 20,
       },
     },

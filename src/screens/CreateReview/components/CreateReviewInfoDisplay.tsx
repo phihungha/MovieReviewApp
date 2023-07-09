@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     gap: 8,
-
-    paddingHorizontal: 32,
   },
   textContainer: {
     flexDirection: 'row',

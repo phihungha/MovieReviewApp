@@ -17,14 +17,27 @@ export function CreateReviewRating(
   props: CreateReviewRatingProps,
 ): JSX.Element {
   return (
-    <View style={styles.rateContainer}>
+    <View>
       <TitleText>Rating</TitleText>
 
       <AirbnbRating
-        showRating={false}
-        count={5}
-        defaultRating={3}
-        size={16}
+        reviews={[
+          '1/10',
+          '2/10',
+          '3/10',
+          '4/10',
+          '5/10',
+          '6/10',
+          '7/10',
+          '8/10',
+          '9/10',
+          '10/10',
+        ]}
+        showRating={false} // if true => display the review[] label in above
+        ratingContainerStyle={styles.rateContainer}
+        count={10}
+        defaultRating={5}
+        size={28}
         onFinishRating={props.onRating}
       />
     </View>
@@ -33,7 +46,8 @@ export function CreateReviewRating(
 
 const styles = StyleSheet.create({
   rateContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 0,
   },
 });

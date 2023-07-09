@@ -3,6 +3,7 @@ import {HeaderButton} from '../../../components/Buttons/HeaderButton';
 import {ListScreenHeader} from '../../../components/Headers/ListScreenHeader';
 import {HeaderSearchBar} from '../../../components/Inputs/HeaderSearchBar';
 import {ActionCb} from '../../../types/ActionCb';
+import React from 'react';
 import {
   MoviesListOptions,
   MoviesListOptionsDialog,
