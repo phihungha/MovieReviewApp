@@ -75,6 +75,10 @@ export function MainScreen(): JSX.Element {
       <MainTabNavigator.Screen
         name="MyAccountStack"
         options={{title: 'Account'}}
+        listeners={{
+          tabPress: () => preloadedQueries?.MyAccount.loadQuery({}),
+          state: () => preloadedQueries?.MyAccount.loadQuery({}),
+        }}
         component={MyAccountStackScreen}
       />
     </MainTabNavigator.Navigator>

@@ -21,6 +21,8 @@ import type {UserThankedReviewListQuery as UserThankedReviewListQueryType} from 
 import type {UserWatchedListQuery as UserWatchedListQueryType} from '../screens/UserWatchedList/__generated__/UserWatchedListQuery.graphql';
 import {UserWatchedListQuery} from '../screens/UserWatchedList/UserWatchedList';
 import {useQueryLoader} from 'react-relay';
+import type {MyAccountQuery as MyAccountQueryType} from '../screens/__generated__/MyAccountQuery.graphql';
+import {MyAccountQuery} from '../screens/MyAccount';
 
 export const PreloadedQueriesContext =
   createContext<PreloadedQueries>(undefined);
@@ -53,6 +55,7 @@ export function usePreloadedQueries() {
       ),
     UserWatchedList:
       usePreloadedQueryAsDict<UserWatchedListQueryType>(UserWatchedListQuery),
+    MyAccount: usePreloadedQueryAsDict<MyAccountQueryType>(MyAccountQuery),
   };
 }
 
