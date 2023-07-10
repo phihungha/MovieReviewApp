@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   headerContainer: {
-    gap: 10,
+    gap: 20,
     marginBottom: 10,
   },
   sectionContainer: {

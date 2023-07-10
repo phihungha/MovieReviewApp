@@ -20,7 +20,7 @@ function AppUI() {
       <ThemeProvider theme={theme}>
         <NavigationContainer theme={navigationContainerTheme}>
           <RootStackNavigator.Navigator
-            initialRouteName="Login"
+            initialRouteName="Main"
             screenOptions={{headerShown: false}}>
             <RootStackNavigator.Screen
               name="Login"
