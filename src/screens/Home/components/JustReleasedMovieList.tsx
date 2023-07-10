@@ -28,7 +28,6 @@ const JustReleasedMovieListFragment = graphql`
 
 export interface JustReleasedMovieListProps {
   justReleasedMovies: JustReleasedMovieList$key;
-  onNavigate?: () => void;
   ListHeaderComponent?:
     | React.ComponentType<any>
     | React.ReactElement<any, string | React.JSXElementConstructor<any>>
@@ -53,7 +52,6 @@ export function JustReleasedMovieList(
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}
-          onNavigate={props.onNavigate}
           containerStyle={styles.verticalGridItem}
         />
       )}

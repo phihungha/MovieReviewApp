@@ -28,7 +28,6 @@ const TrendingMovieListFragment = graphql`
 
 export interface TrendingMovieListProps {
   trendingMovies: TrendingMovieList$key;
-  onNavigate?: () => void;
 }
 
 export function TrendingMovieList(props: TrendingMovieListProps): JSX.Element {
@@ -45,7 +44,6 @@ export function TrendingMovieList(props: TrendingMovieListProps): JSX.Element {
       renderItem={({item}) => (
         <MovieGridItem
           movie={item?.node ?? null}
-          onNavigate={props.onNavigate}
           containerStyle={styles.horizontalGridItem}
         />
       )}

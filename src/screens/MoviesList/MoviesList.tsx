@@ -69,12 +69,7 @@ function MoviesListScreenWithData({
   return (
     <View style={styles.container}>
       <Suspense fallback={<StandardLoadingIcon />}>
-        <AllMovieList
-          titleContains={search}
-          options={options}
-          movies={data}
-          onNavigate={() => navigation.navigate('MovieDetails')}
-        />
+        <AllMovieList titleContains={search} options={options} movies={data} />
       </Suspense>
     </View>
   );

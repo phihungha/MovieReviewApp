@@ -11,6 +11,8 @@ import {MoviePoster} from '../Display/MoviePoster';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {ItemTitleText} from '../Text/ItemTitleText';
 import {ItemSubtitleText} from '../Text/ItemSubtitleText';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {MainStackParams} from '../../navigators/MainStackParams';
 
 const MovieGridItemFragment = graphql`
   fragment MovieGridItemFragment on Movie {
@@ -26,7 +28,7 @@ const MovieGridItemFragment = graphql`
 interface MovieGridItemProps {
   movie: MovieGridItemFragment$key | null;
   onPress?: ActionCb;
-  onNavigate?: ActionCb;
+  onNavigate?: ActionCb | null;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
@@ -36,15 +38,23 @@ interface MovieGridItemProps {
 export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
   const data = useFragment(MovieGridItemFragment, props.movie);
 
+  const navigation = useNavigation<NavigationProp<MainStackParams>>();
   const preloadedQueries = useContext(PreloadedQueriesContext);
+
   const defaultOnPress = () => {
-    if (props.onNavigate) {
-      if (data?.id) {
-        preloadedQueries?.MovieDetails.loadQuery({id: data.id});
-      }
-      props.onNavigate();
+    if (props.onNavigate === null) {
+      return;
     }
+
+    if (data?.id) {
+      preloadedQueries?.MovieDetails.loadQuery({id: data.id});
+    }
+
+    props.onNavigate !== undefined
+      ? props.onNavigate
+      : navigation.navigate('MovieDetails');
   };
+
   const onPress = props.onPress ?? defaultOnPress;
 
   return (
