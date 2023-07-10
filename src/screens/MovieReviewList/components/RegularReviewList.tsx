@@ -42,7 +42,6 @@ export interface RegularReviewListProps {
   movie: RegularReviewList$key | null;
   textContains?: string;
   options?: MovieReviewListOptions;
-  onNavigate?: () => void;
 }
 
 export function RegularReviewList(
@@ -78,12 +77,7 @@ export function RegularReviewList(
       isLoading={isLoadingNext}
       keyExtractor={item => item?.node.id ?? '0'}
       onEndReached={() => loadNext(4)}
-      renderItem={({item}) => (
-        <ReviewListItem
-          review={item?.node ?? null}
-          onNavigate={props.onNavigate}
-        />
-      )}
+      renderItem={({item}) => <ReviewListItem review={item?.node ?? null} />}
     />
   );
 }

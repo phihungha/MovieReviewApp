@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
-import {HomeStackParams} from '../../navigators/HomeStackNavigator';
 import {StyleSheet, View} from 'react-native';
 import {BigTitleText} from '../../components/Text/BigTitleText';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {graphql} from 'relay-runtime';
 import {usePreloadedQuery} from 'react-relay';
 import type {
@@ -20,18 +18,16 @@ export const HomeQuery = graphql`
   }
 `;
 
-type HomeScreenProps = NativeStackScreenProps<HomeStackParams, 'Home'>;
-
-export function HomeScreen(props: HomeScreenProps): JSX.Element {
+export function HomeScreen(): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.Home.queryRef) {
     return <></>;
   }
-  return <HomeScreenWithData {...props} />;
+  return <HomeScreenWithData />;
 }
 
-function HomeScreenWithData({navigation}: HomeScreenProps) {
+function HomeScreenWithData() {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<HomeQueryType>(
     HomeQuery,
@@ -41,10 +37,7 @@ function HomeScreenWithData({navigation}: HomeScreenProps) {
   return (
     <View style={styles.container}>
       <JustReleasedMovieList
-        ListHeaderComponent={
-          <ListHeader queryData={data} navigation={navigation} />
-        }
-        onNavigate={() => navigation.navigate('MovieDetails')}
+        ListHeaderComponent={<ListHeader queryData={data} />}
         justReleasedMovies={data}
       />
     </View>
@@ -52,19 +45,15 @@ function HomeScreenWithData({navigation}: HomeScreenProps) {
 }
 
 interface ListHeaderProps {
-  navigation: HomeScreenProps['navigation'];
   queryData: HomeQuery$data;
 }
 
-function ListHeader({queryData, navigation}: ListHeaderProps) {
+function ListHeader({queryData}: ListHeaderProps) {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.sectionContainer}>
         <BigTitleText>Popular</BigTitleText>
-        <TrendingMovieList
-          trendingMovies={queryData}
-          onNavigate={() => navigation.navigate('MovieDetails')}
-        />
+        <TrendingMovieList trendingMovies={queryData} />
       </View>
       <BigTitleText>Recently released</BigTitleText>
     </View>
@@ -76,7 +65,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   headerContainer: {
-    gap: 10,
+    gap: 20,
     marginBottom: 10,
   },
   sectionContainer: {

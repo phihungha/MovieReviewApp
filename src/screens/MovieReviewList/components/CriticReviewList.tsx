@@ -42,7 +42,6 @@ export interface CriticReviewListProps {
   movie: CriticReviewList$key | null;
   textContains?: string;
   options?: MovieReviewListOptions;
-  onNavigate?: () => void;
 }
 
 export function CriticReviewList(
@@ -78,12 +77,7 @@ export function CriticReviewList(
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
       keyExtractor={item => item?.node.id ?? '0'}
-      renderItem={({item}) => (
-        <ReviewListItem
-          review={item?.node ?? null}
-          onNavigate={props.onNavigate}
-        />
-      )}
+      renderItem={({item}) => <ReviewListItem review={item?.node ?? null} />}
     />
   );
 }

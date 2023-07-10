@@ -5,7 +5,6 @@ import {usePaginationFragment} from 'react-relay';
 import {AllUserList$key} from './__generated__/AllUserList.graphql';
 import {AllUserListRefetchQuery} from './__generated__/AllUserListRefetchQuery.graphql';
 import {UserListItem} from '../../../components/Items/UserListItem';
-import {ActionCb} from '../../../types/ActionCb';
 
 const AllUserListFragment = graphql`
   fragment AllUserList on Query
@@ -30,7 +29,6 @@ const AllUserListFragment = graphql`
 export interface AllUserListProps {
   users: AllUserList$key | null;
   nameContains?: string;
-  onNavigate?: ActionCb;
 }
 
 export function AllUserList(props: AllUserListProps): React.JSX.Element {
@@ -49,9 +47,7 @@ export function AllUserList(props: AllUserListProps): React.JSX.Element {
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
       keyExtractor={item => item?.node.id ?? '0'}
-      renderItem={({item}) => (
-        <UserListItem user={item?.node ?? null} onNavigate={props.onNavigate} />
-      )}
+      renderItem={({item}) => <UserListItem user={item?.node ?? null} />}
     />
   );
 }

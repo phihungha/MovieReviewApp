@@ -13,12 +13,16 @@ import {dateToStandardDateFormat} from '../../utils/time-conversion';
 import {RegularText} from '../../components/Text/RegularText';
 import colors from '../../styles/colors';
 import {SmallSectionText} from '../../components/Text/SmallSectionText';
-import {Icon} from '@rneui/themed';
+import {Button, Icon} from '@rneui/themed';
 import {UrlLinkText} from '../../components/Text/UrlLinkText';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParams} from '../../navigators/MainStackParams';
+import {UserWatchedOverviewList} from './components/UserWatchedOverviewList';
 
 export const UserDetailsQuery = graphql`
   query UserDetailsQuery($id: ID!) {
     user(id: $id) {
+      id
       name
       avatarUrl
       dateOfBirth
@@ -28,27 +32,36 @@ export const UserDetailsQuery = graphql`
       blogUrl
       ...UserReviewOverviewList
       ...UserThankedReviewOverviewList
+      ...UserWatchedOverviewList
     }
   }
 `;
 
-export function UserDetailsScreen() {
+type UserDetailsScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'UserDetails'
+>;
+
+export function UserDetailsScreen(props: UserDetailsScreenProps) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.UserDetails.queryRef) {
     return <></>;
   }
 
-  return <UserDetailsScreenWithData />;
+  return <UserDetailsScreenWithData {...props} />;
 }
 
-function UserDetailsScreenWithData(): JSX.Element {
+function UserDetailsScreenWithData({
+  navigation,
+}: UserDetailsScreenProps): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery(
     UserDetailsQuery,
     preloadedQueries!.UserDetails.queryRef!,
   );
   const user = data.user;
+  const userId = user?.id;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -65,7 +78,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="user"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -78,7 +91,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="foundation"
               name="male-female"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -91,7 +104,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="birthday-cake"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -104,7 +117,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="material-community"
               name="account-tie"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -118,7 +131,7 @@ function UserDetailsScreenWithData(): JSX.Element {
               <Icon
                 type="material-community"
                 name="web"
-                size={18}
+                size={20}
                 color={colors.primary}
               />
             }
@@ -131,6 +144,15 @@ function UserDetailsScreenWithData(): JSX.Element {
         <Suspense fallback={<StandardLoadingIcon />}>
           <UserReviewOverviewList user={user} />
         </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserReviewList', {});
+            if (userId) {
+              preloadedQueries?.UserReviewList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
 
       <View style={styles.listSection}>
@@ -138,10 +160,31 @@ function UserDetailsScreenWithData(): JSX.Element {
         <Suspense fallback={<StandardLoadingIcon />}>
           <UserThankedReviewOverviewList user={user} />
         </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserThankedReviewList', {});
+            if (userId) {
+              preloadedQueries?.UserThankedReviewList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
 
       <View style={styles.listSection}>
         <SectionText>Recently Watched</SectionText>
+        <Suspense fallback={<StandardLoadingIcon />}>
+          <UserWatchedOverviewList user={user} />
+        </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserWatchedList', {});
+            if (userId) {
+              preloadedQueries?.UserWatchedList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
     </ScrollView>
   );
@@ -184,6 +227,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingVertical: 15,
+    gap: 15,
     alignItems: 'center',
   },
   infoBox: {
@@ -198,11 +242,10 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   listSection: {
-    gap: 5,
+    gap: 10,
   },
   icon: {
     marginBottom: 5,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    width: 20,
   },
 });

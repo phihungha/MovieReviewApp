@@ -5,20 +5,21 @@ import {TitleBlock} from '../components/Display/TitleBlock';
 import {TextLink} from '../components/Buttons/TextLink';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../navigators/RootStackNavigator';
+import auth from '@react-native-firebase/auth';
+import {ButtonLoadingIcon} from '../components/Display/ButtonLoadingIcon';
 
-type Props = NativeStackScreenProps<RootStackParams, 'Login'>;
+type LoginScreenProps = NativeStackScreenProps<RootStackParams, 'Login'>;
 
-export function LoginScreen({navigation}: Props): JSX.Element {
+export function LoginScreen({navigation}: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigateToSignUpScreen = () => {
-    navigation.navigate('SignUp');
-  };
-
-  const login = (emailText: string, passwordText: string) => {
-    console.log(emailText + ' ' + passwordText);
-    console.log('Call API');
+  const [isLoading, setIsLoading] = useState(false);
+  const login = async () => {
+    setIsLoading(true);
+    await auth().signInWithEmailAndPassword(email, password);
+    navigation.navigate('Main');
+    setIsLoading(false);
   };
 
   return (
@@ -42,11 +43,13 @@ export function LoginScreen({navigation}: Props): JSX.Element {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button onPress={() => login(email, password)}>LOGIN</Button>
+        <Button onPress={login}>
+          {isLoading ? <ButtonLoadingIcon /> : 'LOGIN'}
+        </Button>
         <TextLink
-          text="Didn't have an account, "
-          textLink="sign up"
-          onClicked={navigateToSignUpScreen}
+          text="Don't have an account? "
+          textLink="Sign up now"
+          onClicked={() => navigation.navigate('SignUp')}
         />
       </View>
     </SafeAreaView>

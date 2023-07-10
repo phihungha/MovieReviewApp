@@ -6,9 +6,9 @@ import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
-import {UserLikedCommentsListScreen} from './UserThankedReviewList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
+import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
+import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
+import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 
 export function HomeStackScreen(): React.JSX.Element {
   return (
@@ -29,27 +29,33 @@ export function HomeStackScreen(): React.JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <HomeStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <HomeStackNavigator.Screen
         name="UserDetails"
+        options={{headerShown: false}}
         component={UserDetailsScreen}
       />
       <HomeStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <HomeStackNavigator.Screen
         name="UserReviewList"
-        component={UserReviewsListScreen}
+        options={{title: 'Reviews'}}
+        component={UserReviewListScreen}
       />
       <HomeStackNavigator.Screen
         name="UserThankedReviewList"
-        component={UserLikedCommentsListScreen}
+        options={{title: 'Thanked reviews'}}
+        component={UserThankedReviewListScreen}
       />
     </HomeStackNavigator.Navigator>
   );

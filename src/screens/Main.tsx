@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {MainTabNavigator} from '../navigators/MainTabNavigator';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../styles/colors';
@@ -7,6 +7,12 @@ import {HomeStackScreen} from './HomeStack';
 import {MovieListStackScreen} from './MovieListStack';
 import {UserListStackScreen} from './UserListStack';
 import {MyAccountStackScreen} from './MyAccountStack';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParams} from '../navigators/RootStackNavigator';
+import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
+import {StyleSheet, View} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const MainTabScreenOptions = ({route}: any) => ({
   tabBarIcon: ({focused, color, size}: any) => {
@@ -41,7 +47,31 @@ const MainTabScreenOptions = ({route}: any) => ({
   headerShown: false,
 });
 
-export function MainScreen(): JSX.Element {
+type MainScreenProps = NativeStackScreenProps<RootStackParams, 'Main'>;
+
+export function MainScreen({navigation}: MainScreenProps) {
+  const [authServiceInitialized, setAuthServiceInitialized] = useState(false);
+
+  function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
+    setAuthServiceInitialized(true);
+    if (!user) {
+      navigation.navigate('Login');
+    }
+  }
+
+  useEffect(() => auth().onAuthStateChanged(onAuthStateChanged));
+
+  if (!authServiceInitialized) {
+    return (
+      <View style={styles.container}>
+        <StandardLoadingIcon />
+      </View>
+    );
+  }
+  return <MainScreenAfterLogin />;
+}
+
+function MainScreenAfterLogin(): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   return (
@@ -75,8 +105,20 @@ export function MainScreen(): JSX.Element {
       <MainTabNavigator.Screen
         name="MyAccountStack"
         options={{title: 'Account'}}
+        listeners={{
+          tabPress: () => preloadedQueries?.MyAccount.loadQuery({}),
+          state: () => preloadedQueries?.MyAccount.loadQuery({}),
+        }}
         component={MyAccountStackScreen}
       />
     </MainTabNavigator.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+});

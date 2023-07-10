@@ -6,9 +6,9 @@ import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {MoviesListScreen} from './MoviesList/MoviesList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
-import {UserLikedCommentsListScreen} from './UserThankedReviewList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
+import {UserReviewListScreen} from './UserReviewList/UserReviewList';
+import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
+import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
@@ -24,6 +24,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <MoviesListStackNavigator.Screen
@@ -32,6 +33,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <MoviesListStackNavigator.Screen
@@ -40,15 +42,18 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <MoviesListStackNavigator.Screen
         name="UserReviewList"
-        component={UserReviewsListScreen}
+        options={{title: 'Reviews'}}
+        component={UserReviewListScreen}
       />
       <MoviesListStackNavigator.Screen
         name="UserThankedReviewList"
-        component={UserLikedCommentsListScreen}
+        options={{title: 'Thanked reviews'}}
+        component={UserThankedReviewListScreen}
       />
     </MoviesListStackNavigator.Navigator>
   );

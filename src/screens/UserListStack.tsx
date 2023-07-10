@@ -5,10 +5,10 @@ import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
-import {UserLikedCommentsListScreen} from './UserThankedReviewList';
-import {UserReviewsListScreen} from './UserReviewsList';
-import {UserWatchedListScreen} from './UserWatchedList';
+import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
+import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserListScreen} from './UserList/UserList';
+import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 
 export function UserListStackScreen(): React.JSX.Element {
   return (
@@ -24,6 +24,7 @@ export function UserListStackScreen(): React.JSX.Element {
       />
       <UsersListStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <UsersListStackNavigator.Screen
@@ -32,6 +33,7 @@ export function UserListStackScreen(): React.JSX.Element {
       />
       <UsersListStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <UsersListStackNavigator.Screen
@@ -41,15 +43,18 @@ export function UserListStackScreen(): React.JSX.Element {
       />
       <UsersListStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <UsersListStackNavigator.Screen
         name="UserReviewList"
-        component={UserReviewsListScreen}
+        options={{title: 'Reviews'}}
+        component={UserReviewListScreen}
       />
       <UsersListStackNavigator.Screen
         name="UserThankedReviewList"
-        component={UserLikedCommentsListScreen}
+        options={{title: 'Thanked reviews'}}
+        component={UserThankedReviewListScreen}
       />
     </UsersListStackNavigator.Navigator>
   );
