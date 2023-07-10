@@ -15,12 +15,12 @@ const UpdatableAvatarFragment = graphql`
   }
 `;
 
-async function uploadImage(imageUri: string) {
+async function uploadImage(imageUri: string, userId: string) {
   const body = new FormData();
   body.append('photo', {uri: imageUri});
   body.append('Content-Type', 'image/png');
 
-  await fetch('<s3 uri here>', {
+  await fetch(`aws s3 ${userId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -46,8 +46,8 @@ export function UpdatableAvatar({
   const onPressImage = async () => {
     await launchImageLibrary(options, response => {
       const uriResult = response.assets?.at(0)?.uri;
-      if (uriResult) {
-        uploadImage(uriResult);
+      if (uriResult && data) {
+        uploadImage(uriResult, data?.id);
       }
     });
   };
