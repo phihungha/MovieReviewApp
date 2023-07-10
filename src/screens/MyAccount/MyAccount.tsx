@@ -41,7 +41,9 @@ type MyAccountScreenProps = NativeStackScreenProps<
   'MyAccount'
 >;
 
-export function MyAccountScreen(props: MyAccountScreenProps) {
+export function MyAccountScreen(
+  props: MyAccountScreenProps,
+): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.MyAccount.queryRef) {
@@ -51,7 +53,9 @@ export function MyAccountScreen(props: MyAccountScreenProps) {
   return <MyAccountScreenWithData {...props} />;
 }
 
-function MyAccountScreenWithData(props: MyAccountScreenProps): JSX.Element {
+function MyAccountScreenWithData(
+  props: MyAccountScreenProps,
+): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery(
     MyAccountQuery,

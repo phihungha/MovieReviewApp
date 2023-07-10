@@ -33,7 +33,9 @@ export interface UpdatableAvatarProps {
   user: UpdatableAvatar$key | null;
 }
 
-export function UpdatableAvatar({user}: UpdatableAvatarProps) {
+export function UpdatableAvatar({
+  user,
+}: UpdatableAvatarProps): React.JSX.Element {
   const data = useFragment(UpdatableAvatarFragment, user);
 
   const options: ImageLibraryOptions = {

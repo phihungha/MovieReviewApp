@@ -11,7 +11,9 @@ type MyAccountScreenProps = NativeStackScreenProps<
   'MyAccount'
 >;
 
-export function ActionButtons({navigation}: MyAccountScreenProps) {
+export function ActionButtons({
+  navigation,
+}: MyAccountScreenProps): React.JSX.Element {
   async function onSignOut() {
     await auth().signOut();
     navigation.navigate('Login');
