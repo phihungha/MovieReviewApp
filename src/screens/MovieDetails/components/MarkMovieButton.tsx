@@ -18,21 +18,12 @@ export function MarkMovieButton(
     <Button
       onPress={onPress}
       containerStyle={style.containerStyle}
-      icon={
-        isViewed
-          ? {
-              type: 'ionicon',
-              name: 'md-checkmark-sharp',
-              size: 40,
-              color: colors.white,
-            }
-          : {
-              type: 'ionicon',
-              name: 'bookmark',
-              size: 40,
-              color: colors.white,
-            }
-      }
+      icon={{
+        type: 'ionicon',
+        name: 'eye',
+        size: 28,
+        color: colors.white,
+      }}
       buttonStyle={[
         style.buttonStyle,
         isViewed ? style.buttonStyle_marked : style.buttonStyle_not_marked,
@@ -46,11 +37,11 @@ const style = StyleSheet.create({
   containerStyle: {
     position: 'absolute',
     right: 30,
-    top: -48,
+    top: -30,
   },
   buttonStyle: {
-    width: 90,
-    height: 90,
+    width: 60,
+    height: 60,
     borderRadius: 60,
   },
   buttonStyle_not_marked: {
