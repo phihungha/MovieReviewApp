@@ -33,6 +33,8 @@ import type {UserReviewListQuery as UserReviewListQueryType} from './screens/Use
 import {UserReviewListQuery} from './screens/UserReviewList/UserReviewList';
 import {UserThankedReviewListQuery} from './screens/UserThankedReviewList/UserThankedReviewList';
 import type {UserThankedReviewListQuery as UserThankedReviewListQueryType} from './screens/UserThankedReviewList/__generated__/UserThankedReviewListQuery.graphql';
+import type {UserWatchedListQuery as UserWatchedListQueryType} from './screens/UserWatchedList/__generated__/UserWatchedListQuery.graphql';
+import {UserWatchedListQuery} from './screens/UserWatchedList/UserWatchedList';
 
 function useQueryLoaderAsDict<T extends OperationType>(
   query: GraphQLTaggedNode,
@@ -58,6 +60,8 @@ function usePreloadedQueries() {
     UserThankedReviewList: useQueryLoaderAsDict<UserThankedReviewListQueryType>(
       UserThankedReviewListQuery,
     ),
+    UserWatchedList:
+      useQueryLoaderAsDict<UserWatchedListQueryType>(UserWatchedListQuery),
   };
 }
 

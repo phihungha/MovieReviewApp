@@ -17,6 +17,7 @@ import {Button, Icon} from '@rneui/themed';
 import {UrlLinkText} from '../../components/Text/UrlLinkText';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
+import {UserWatchedOverviewList} from './components/UserWatchedOverviewList';
 
 export const UserDetailsQuery = graphql`
   query UserDetailsQuery($id: ID!) {
@@ -31,6 +32,7 @@ export const UserDetailsQuery = graphql`
       blogUrl
       ...UserReviewOverviewList
       ...UserThankedReviewOverviewList
+      ...UserWatchedOverviewList
     }
   }
 `;
@@ -171,6 +173,18 @@ function UserDetailsScreenWithData({
 
       <View style={styles.listSection}>
         <SectionText>Recently Watched</SectionText>
+        <Suspense fallback={<StandardLoadingIcon />}>
+          <UserWatchedOverviewList user={user} />
+        </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserWatchedList');
+            if (userId) {
+              preloadedQueries?.UserWatchedList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
     </ScrollView>
   );
