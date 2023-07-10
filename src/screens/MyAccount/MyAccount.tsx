@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   header: {
     paddingVertical: 15,
     alignItems: 'center',
+    gap: 15,
   },
   infoBox: {
     padding: 15,

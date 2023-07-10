@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingVertical: 15,
+    gap: 15,
     alignItems: 'center',
   },
   infoBox: {
