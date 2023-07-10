@@ -7,8 +7,8 @@ import {MyAccountScreen} from './MyAccount';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserLikedCommentsListScreen} from './UserThankedReviewList';
-import {UserReviewsListScreen} from './UserReviewsList';
 import {UserWatchedListScreen} from './UserWatchedList';
+import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
@@ -45,7 +45,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="UserReviewList"
-        component={UserReviewsListScreen}
+        component={UserReviewListScreen}
       />
       <MyAccountStackNavigator.Screen
         name="UserThankedReviewList"

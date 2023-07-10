@@ -13,12 +13,15 @@ import {dateToStandardDateFormat} from '../../utils/time-conversion';
 import {RegularText} from '../../components/Text/RegularText';
 import colors from '../../styles/colors';
 import {SmallSectionText} from '../../components/Text/SmallSectionText';
-import {Icon} from '@rneui/themed';
+import {Button, Icon} from '@rneui/themed';
 import {UrlLinkText} from '../../components/Text/UrlLinkText';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParams} from '../../navigators/MainStackParams';
 
 export const UserDetailsQuery = graphql`
   query UserDetailsQuery($id: ID!) {
     user(id: $id) {
+      id
       name
       avatarUrl
       dateOfBirth
@@ -32,23 +35,31 @@ export const UserDetailsQuery = graphql`
   }
 `;
 
-export function UserDetailsScreen() {
+type UserDetailsScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'UserDetails'
+>;
+
+export function UserDetailsScreen(props: UserDetailsScreenProps) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.UserDetails.queryRef) {
     return <></>;
   }
 
-  return <UserDetailsScreenWithData />;
+  return <UserDetailsScreenWithData {...props} />;
 }
 
-function UserDetailsScreenWithData(): JSX.Element {
+function UserDetailsScreenWithData({
+  navigation,
+}: UserDetailsScreenProps): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery(
     UserDetailsQuery,
     preloadedQueries!.UserDetails.queryRef!,
   );
   const user = data.user;
+  const userId = user?.id;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -131,6 +142,15 @@ function UserDetailsScreenWithData(): JSX.Element {
         <Suspense fallback={<StandardLoadingIcon />}>
           <UserReviewOverviewList user={user} />
         </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserReviewList');
+            if (userId) {
+              preloadedQueries?.UserReviewList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
 
       <View style={styles.listSection}>
