@@ -10,7 +10,9 @@ import {
 } from '../components/__generated__/AllMovieListRefetchQuery.graphql';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../../styles/colors';
-export type MoviesListSortDirection = 'Asc' | 'Desc';
+
+const minScore = 0;
+const maxScore = 10;
 
 export interface MoviesListOptions {
   releaseYear?: number;
@@ -35,14 +37,14 @@ export function MoviesListOptionsDialog(
   props: MoviesListOptionsDialogProps,
 ): React.JSX.Element {
   const [options, setOptions] = useState<MoviesListOptions>(props.options);
-  const minScore = 0;
-  const maxScore = 10;
+
   const [sortByOpen, setSortByOpen] = useState(false);
   const [sortByItems, setSortByItems] = useState([
-    {label: 'Comment Count', value: 'CommentCount'},
-    {label: 'Post Time', value: 'PostTime'},
-    {label: 'Score', value: 'Score'},
-    {label: 'Thank Count', value: 'ThankCount'},
+    {label: 'Title', value: 'title'},
+    {label: 'Release date', value: 'releaseDate'},
+    {label: 'Critic score', value: 'criticScore'},
+    {label: 'Regular score', value: 'regularScore'},
+    {label: 'Viewed user count', value: 'viewedUserCount'},
   ]);
 
   const [sortDirectionOpen, setSortDirectionOpen] = useState(false);
@@ -51,11 +53,25 @@ export function MoviesListOptionsDialog(
     {label: 'Descending', value: 'Desc'},
   ]);
 
-  function updateOption(
+  function updateStrOption(
     optionName: MovieListOptionsKey,
-    newValue: string | number,
+    newValue: string,
   ): void {
     setOptions(o => getUpdatedOptions(o, optionName, newValue));
+  }
+
+  function updateNumberOption(
+    optionName: MovieListOptionsKey,
+    newValue: string,
+  ): void {
+    setOptions(o => getUpdatedNumberOptions(o, optionName, newValue));
+  }
+
+  function updateScoreOption(
+    optionName: MovieListOptionsKey,
+    newValue: string,
+  ): void {
+    setOptions(o => getUpdatedScoreOptions(o, optionName, newValue));
   }
 
   return (
@@ -69,55 +85,43 @@ export function MoviesListOptionsDialog(
           keyboardType="numeric"
           label="Release year"
           value={options.releaseYear?.toString()}
-          onChangeText={i => updateOption('releaseYear', +i)}
+          onChangeText={i => updateNumberOption('releaseYear', i)}
           renderErrorMessage={false}
-          inputContainerStyle={{backgroundColor: colors.darkBlack}}
+          inputContainerStyle={styles.inputContainer}
         />
 
         <Input
           keyboardType="numeric"
           label="Min critic score"
           value={options.minCriticScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('minCriticScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('minCriticScore', i)}
           renderErrorMessage={false}
-          inputContainerStyle={{backgroundColor: colors.darkBlack}}
+          inputContainerStyle={styles.inputContainer}
         />
         <Input
           keyboardType="numeric"
           label="Max critic score"
           value={options.maxCriticScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('maxCriticScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('maxCriticScore', i)}
           renderErrorMessage={false}
-          inputContainerStyle={{backgroundColor: colors.darkBlack}}
+          inputContainerStyle={styles.inputContainer}
         />
 
         <Input
           keyboardType="numeric"
           label="Min user score"
           value={options.minRegularScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('minRegularScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('minRegularScore', i)}
           renderErrorMessage={false}
-          inputContainerStyle={{backgroundColor: colors.darkBlack}}
+          inputContainerStyle={styles.inputContainer}
         />
         <Input
           keyboardType="numeric"
           label="Max user score"
           value={options.maxRegularScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('maxRegularScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('maxRegularScore', i)}
           renderErrorMessage={false}
-          inputContainerStyle={{backgroundColor: colors.darkBlack}}
+          inputContainerStyle={styles.inputContainer}
         />
 
         <DropDownPicker
@@ -130,17 +134,17 @@ export function MoviesListOptionsDialog(
           setValue={() => {}}
           setItems={setSortByItems}
           onSelectItem={i => {
-            updateOption('sortBy', i.value!);
+            updateStrOption('sortBy', i.value!);
           }}
-          textStyle={styles.DropDownPicker_textStyle}
-          style={styles.DropDownPicker_style}
+          textStyle={styles.dropdownText}
+          style={styles.dropdownContainer}
           containerStyle={styles.belowDropdown}
           dropDownDirection="TOP"
-          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
         <DropDownPicker
           listMode="SCROLLVIEW"
-          placeholder="Sort direction"
+          placeholder="Sort order"
           open={sortDirectionOpen}
           value={options.sortDirection}
           items={sortDirectionItems}
@@ -148,13 +152,13 @@ export function MoviesListOptionsDialog(
           setValue={() => {}}
           setItems={setSortDirectionItems}
           onSelectItem={i => {
-            updateOption('sortDirection', i.value!);
+            updateStrOption('sortDirection', i.value!);
           }}
-          textStyle={styles.DropDownPicker_textStyle}
-          style={styles.DropDownPicker_style}
+          textStyle={styles.dropdownText}
+          style={styles.dropdownContainer}
           containerStyle={styles.aboveDropdown}
           dropDownDirection="TOP"
-          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
       </ScrollView>
     </GenericDialog>
@@ -166,28 +170,62 @@ function getUpdatedOptions(
   optionName: MovieListOptionsKey,
   newValue?: string | number,
 ): MoviesListOptions {
-  if (typeof newValue === 'number' && isNaN(newValue)) {
-    return oldOptions;
+  let value = newValue === '' ? undefined : newValue;
+  return {...oldOptions, [optionName]: value};
+}
+
+function getUpdatedNumberOptions(
+  oldOptions: MoviesListOptions,
+  optionName: MovieListOptionsKey,
+  newValue: string,
+) {
+  let value: number | undefined;
+  if (newValue === '') {
+    value = undefined;
+  } else {
+    value = +newValue;
+    if (isNaN(value)) {
+      value = undefined;
+    }
   }
-  return {...oldOptions, [optionName]: newValue};
+
+  return getUpdatedOptions(oldOptions, optionName, value);
+}
+
+function getUpdatedScoreOptions(
+  oldOptions: MoviesListOptions,
+  optionName: MovieListOptionsKey,
+  newValue: string,
+) {
+  let value: number | undefined;
+  if (newValue === '') {
+    value = undefined;
+  } else {
+    value = +newValue;
+    if (isNaN(value)) {
+      value = undefined;
+    } else {
+      value = Math.max(minScore, Math.min(maxScore, value));
+    }
+  }
+  return getUpdatedOptions(oldOptions, optionName, value);
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 450,
+    height: 550,
   },
   contentContainer: {
+    paddingTop: 5,
     gap: 8,
   },
-  DropDownPicker_textStyle: {
+  inputContainer: {
+    backgroundColor: colors.darkBlack,
+  },
+  dropdownText: {
     color: colors.white,
   },
-  DropDownPicker_style: {
-    backgroundColor: colors.darkBlack,
-    borderRadius: 12,
-    borderColor: 'transparent',
-  },
-  DropDownPicker_dropDownContainerStyle: {
+  dropdownContainer: {
     backgroundColor: colors.darkBlack,
     borderColor: 'transparent',
     borderRadius: 12,
