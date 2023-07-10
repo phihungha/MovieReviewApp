@@ -210,6 +210,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   listSection: {
-    gap: 5,
+    gap: 10,
   },
 });
