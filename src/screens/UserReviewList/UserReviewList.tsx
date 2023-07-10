@@ -48,10 +48,7 @@ function UserReviewList({
   return (
     <View style={styles.container}>
       <Suspense fallback={<StandardLoadingIcon />}>
-        <AllUserReviewList
-          user={data.user}
-          onNavigate={() => navigation.navigate('ReviewDetails')}
-        />
+        <AllUserReviewList user={data.user} />
       </Suspense>
     </View>
   );

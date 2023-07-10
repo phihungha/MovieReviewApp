@@ -77,11 +77,7 @@ export function ReviewOverview({
             style={styles.reviewOverviewList}
             onLayout={e => setTab1Height(e.nativeEvent.layout.height)}>
             {data?.criticReviews.edges.map(i => (
-              <ReviewListItem
-                key={i?.node.id}
-                review={i?.node ?? null}
-                onNavigate={() => navigation.navigate('ReviewDetails')}
-              />
+              <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
             ))}
             <Button
               onPress={() => onAllReviewBtnPressed('critic')}
@@ -94,11 +90,7 @@ export function ReviewOverview({
             style={styles.reviewOverviewList}
             onLayout={e => setTab2Height(e.nativeEvent.layout.height)}>
             {data?.regularReviews.edges.map(i => (
-              <ReviewListItem
-                key={i?.node.id}
-                review={i?.node ?? null}
-                onNavigate={() => navigation.navigate('ReviewDetails')}
-              />
+              <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
             ))}
             <Button
               onPress={() => onAllReviewBtnPressed('regular')}

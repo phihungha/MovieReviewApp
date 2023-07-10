@@ -50,10 +50,7 @@ function UserThankedReviewList({
   return (
     <View style={styles.container}>
       <Suspense fallback={<StandardLoadingIcon />}>
-        <AllUserThankedReviewList
-          user={data.user}
-          onNavigate={() => navigation.navigate('ReviewDetails')}
-        />
+        <AllUserThankedReviewList user={data.user} />
       </Suspense>
     </View>
   );

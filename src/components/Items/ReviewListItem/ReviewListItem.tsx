@@ -19,6 +19,8 @@ import {ActionCb} from '../../../types/ActionCb';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
 import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 import {Icon} from '@rneui/themed';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {MainStackParams} from '../../../navigators/MainStackParams';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {
@@ -35,7 +37,7 @@ const ReviewListItemFragment = graphql`
 export interface ReviewListItemProps {
   review: ReviewListItem$key | null;
   onPress?: ActionCb;
-  onNavigate?: ActionCb;
+  onNavigate?: ActionCb | null;
   containerStyle?: StyleProp<ViewStyle>;
   enabledEditButton?: boolean;
 }
@@ -46,13 +48,23 @@ export interface ReviewListItemProps {
 export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   const data = useFragment(ReviewListItemFragment, props.review);
 
+  const navigation = useNavigation<NavigationProp<MainStackParams>>();
   const preloadedQueries = useContext(PreloadedQueriesContext);
+
   const defaultOnPress = () => {
+    if (props.onNavigate === null) {
+      return;
+    }
+
     if (data?.id) {
       preloadedQueries?.ReviewDetails.loadQuery({id: data.id});
     }
-    props.onNavigate?.();
+
+    props.onNavigate !== undefined
+      ? props.onNavigate
+      : navigation.navigate('ReviewDetails');
   };
+
   const onPress = props.onPress ?? defaultOnPress;
 
   return (

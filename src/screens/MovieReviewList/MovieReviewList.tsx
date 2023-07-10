@@ -91,7 +91,6 @@ function MovieReviewListScreenWithData({
               movie={data.movie}
               textContains={search}
               options={options}
-              onNavigate={() => navigation.navigate('ReviewDetails')}
             />
           </Suspense>
         </TabView.Item>
@@ -101,7 +100,6 @@ function MovieReviewListScreenWithData({
               movie={data.movie}
               textContains={search}
               options={options}
-              onNavigate={() => navigation.navigate('ReviewDetails')}
             />
           </Suspense>
         </TabView.Item>

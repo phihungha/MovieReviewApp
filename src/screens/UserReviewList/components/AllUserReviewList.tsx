@@ -2,7 +2,6 @@ import React from 'react';
 import {graphql} from 'relay-runtime';
 import {VerticalList} from '../../../components/Lists/VerticalList';
 import {usePaginationFragment} from 'react-relay';
-import {ActionCb} from '../../../types/ActionCb';
 import {AllUserReviewList$key} from './__generated__/AllUserReviewList.graphql';
 import {AllUserReviewListRefetchQuery} from './__generated__/AllUserReviewListRefetchQuery.graphql';
 import {ReviewListItem} from '../../../components/Items/ReviewListItem/ReviewListItem';
@@ -28,7 +27,6 @@ const AllUserReviewListFragment = graphql`
 
 export interface AllUserReviewListProps {
   user: AllUserReviewList$key | null;
-  onNavigate?: ActionCb;
 }
 
 export function AllUserReviewList(
@@ -45,12 +43,7 @@ export function AllUserReviewList(
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
       keyExtractor={item => item?.node.id ?? '0'}
-      renderItem={({item}) => (
-        <ReviewListItem
-          review={item?.node ?? null}
-          onNavigate={props.onNavigate}
-        />
-      )}
+      renderItem={({item}) => <ReviewListItem review={item?.node ?? null} />}
     />
   );
 }
