@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "685332180536",
+    "project_id": "cinerate-eca8e",
+    "storage_bucket": "cinerate-eca8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685332180536:android:6af99196af685ed9e7c0cd",
+        "android_client_info": {
+          "package_name": "com.moviereviewapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685332180536-foprjbamj0j747ermf24va1vrb40mm2p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZjPx70Tl_x-p9ji82Fcl1_t3u_QJ77-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685332180536-foprjbamj0j747ermf24va1vrb40mm2p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
