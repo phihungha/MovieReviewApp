@@ -65,7 +65,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="user"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -78,7 +78,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="foundation"
               name="male-female"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -91,7 +91,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="font-awesome"
               name="birthday-cake"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -104,7 +104,7 @@ function UserDetailsScreenWithData(): JSX.Element {
             <Icon
               type="material-community"
               name="account-tie"
-              size={18}
+              size={20}
               color={colors.primary}
             />
           }
@@ -118,7 +118,7 @@ function UserDetailsScreenWithData(): JSX.Element {
               <Icon
                 type="material-community"
                 name="web"
-                size={18}
+                size={20}
                 color={colors.primary}
               />
             }
@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginBottom: 5,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    width: 20,
   },
 });
