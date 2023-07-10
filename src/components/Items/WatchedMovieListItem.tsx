@@ -1,7 +1,5 @@
 import React, {useContext} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
-import {RegularText} from '../Text/RegularText';
 import colors from '../../styles/colors';
 import {Image} from '@rneui/base';
 import {graphql} from 'relay-runtime';
@@ -12,6 +10,8 @@ import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {ActionCb} from '../../types/ActionCb';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
+import {ItemTitleText} from '../Text/ItemTitleText';
+import {ItemSubtitleText} from '../Text/ItemSubtitleText';
 
 const WatchedMovieListItemFragment = graphql`
   fragment WatchedMovieListItem on Movie {
@@ -63,11 +63,19 @@ export function WatchedMovieListItem(
         android_ripple={pressableRippleConfig}>
         <Image
           style={styles.image}
-          source={data?.posterUrl ? {uri: data.posterUrl} : {}}
+          source={
+            data?.posterUrl
+              ? {uri: data.posterUrl}
+              : {
+                  uri: 'https://m.media-amazon.com/images/M/MV5BMzU3YWYwNTQtZTdiMC00NjY5LTlmMTMtZDFlYTEyODBjMTk5XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg',
+                }
+          }
         />
         <View style={styles.infoContainer}>
-          <TitleText>{data?.title ?? 'N/A'}</TitleText>
-          <RegularText>{new Date(data?.releaseDate).getFullYear()}</RegularText>
+          <ItemTitleText>{data?.title ?? 'N/A'}</ItemTitleText>
+          <ItemSubtitleText>
+            {new Date(data?.releaseDate).getFullYear()}
+          </ItemSubtitleText>
         </View>
       </Pressable>
     </View>
@@ -83,6 +91,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
+    gap: 15,
   },
   image: {
     width: 80,
@@ -91,6 +100,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   infoContainer: {
-    paddingLeft: 15,
+    gap: 10,
   },
 });

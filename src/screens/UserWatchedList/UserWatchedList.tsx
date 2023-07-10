@@ -42,7 +42,7 @@ function UserWatchedList({
   );
 
   useEffect(() =>
-    navigation.setOptions({title: `Reviews ${data.user?.name} thanked`}),
+    navigation.setOptions({title: `Movies ${data.user?.name} watched`}),
   );
 
   return (
