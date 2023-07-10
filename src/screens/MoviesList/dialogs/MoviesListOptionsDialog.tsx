@@ -11,8 +11,8 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../../styles/colors';
 
-const minScore = 0;
-const maxScore = 10;
+const MIN_SCORE = 0;
+const MAX_SCORE = 10;
 
 export interface MoviesListOptions {
   releaseYear?: number;
@@ -205,7 +205,7 @@ function getUpdatedScoreOptions(
     if (isNaN(value)) {
       value = undefined;
     } else {
-      value = Math.max(minScore, Math.min(maxScore, value));
+      value = Math.max(MIN_SCORE, Math.min(MAX_SCORE, value));
     }
   }
   return getUpdatedOptions(oldOptions, optionName, value);
