@@ -34,6 +34,7 @@ export function UserWatchedListScreen(props: UserWatchedListScreenProps) {
 
 function UserWatchedList({
   navigation,
+  route,
 }: UserWatchedListScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<UserWatchedListQueryType>(
@@ -41,8 +42,13 @@ function UserWatchedList({
     preloadedQueries!.UserWatchedList.queryRef!,
   );
 
+  const isPersonal = route.params.isPersonal;
   useEffect(() =>
-    navigation.setOptions({title: `Movies ${data.user?.name} watched`}),
+    navigation.setOptions({
+      title: isPersonal
+        ? 'My watched movies'
+        : `Movies ${data.user?.name} watched`,
+    }),
   );
 
   return (

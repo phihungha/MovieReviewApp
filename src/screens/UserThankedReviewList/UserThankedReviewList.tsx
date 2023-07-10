@@ -36,6 +36,7 @@ export function UserThankedReviewListScreen(
 
 function UserThankedReviewList({
   navigation,
+  route,
 }: UserThankedReviewListScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<UserThankedReviewListQueryType>(
@@ -43,8 +44,13 @@ function UserThankedReviewList({
     preloadedQueries!.UserThankedReviewList.queryRef!,
   );
 
+  const isPersonal = route.params.isPersonal;
   useEffect(() =>
-    navigation.setOptions({title: `Reviews ${data.user?.name} thanked`}),
+    navigation.setOptions({
+      title: isPersonal
+        ? 'My thanked reviews'
+        : `Reviews ${data.user?.name} thanked`,
+    }),
   );
 
   return (

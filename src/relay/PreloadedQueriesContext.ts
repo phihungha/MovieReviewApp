@@ -22,7 +22,7 @@ import type {UserWatchedListQuery as UserWatchedListQueryType} from '../screens/
 import {UserWatchedListQuery} from '../screens/UserWatchedList/UserWatchedList';
 import {useQueryLoader} from 'react-relay';
 import type {MyAccountQuery as MyAccountQueryType} from '../screens/__generated__/MyAccountQuery.graphql';
-import {MyAccountQuery} from '../screens/MyAccount';
+import {MyAccountQuery} from '../screens/MyAccount/MyAccount';
 
 export const PreloadedQueriesContext =
   createContext<PreloadedQueries>(undefined);

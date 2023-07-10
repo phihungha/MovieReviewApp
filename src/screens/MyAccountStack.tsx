@@ -3,7 +3,7 @@ import {MyAccountStackNavigator} from '../navigators/MyAccountStackNavigator';
 import {CreateReviewScreen} from './CreateReview/CreateReview';
 import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
-import {MyAccountScreen} from './MyAccount';
+import {MyAccountScreen} from './MyAccount/MyAccount';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';

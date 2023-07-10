@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<848d6507e58664d0fd061fe5c6599604>>
+ * @generated SignedSource<<f80cc9bc4026d45ff24077c240cf75e1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type UserType = "Critic" | "Regular" | "%future added value";
 export type MyAccountQuery$variables = {};
 export type MyAccountQuery$data = {
   readonly viewer: {
-    readonly avatarUrl: string | null;
     readonly blogUrl: string | null;
     readonly dateOfBirth: any | null;
     readonly gender: Gender | null;
@@ -23,7 +22,7 @@ export type MyAccountQuery$data = {
     readonly name: string;
     readonly userType: UserType;
     readonly username: string;
-    readonly " $fragmentSpreads": FragmentRefs<"UserReviewOverviewList" | "UserThankedReviewOverviewList" | "UserWatchedOverviewList">;
+    readonly " $fragmentSpreads": FragmentRefs<"UpdatableAvatar" | "UserReviewOverviewList" | "UserThankedReviewOverviewList" | "UserWatchedOverviewList">;
   } | null;
 };
 export type MyAccountQuery = {
@@ -50,42 +49,42 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "avatarUrl",
+  "name": "dateOfBirth",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "dateOfBirth",
+  "name": "gender",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "gender",
+  "name": "username",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "username",
+  "name": "userType",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "userType",
+  "name": "blogUrl",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "blogUrl",
+  "name": "avatarUrl",
   "storageKey": null
 },
 v8 = [
@@ -157,9 +156,9 @@ v10 = [
             "name": "author",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
+              (v7/*: any*/),
               (v1/*: any*/),
-              (v6/*: any*/),
+              (v5/*: any*/),
               (v0/*: any*/)
             ],
             "storageKey": null
@@ -214,7 +213,11 @@ return {
           (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          (v7/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UpdatableAvatar"
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -334,16 +337,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7ed1d3a041dc7b3ebbaf63777778aa47",
+    "cacheID": "3d1e58ee0aab000b81de4e38734c2a41",
     "id": null,
     "metadata": {},
     "name": "MyAccountQuery",
     "operationKind": "query",
-    "text": "query MyAccountQuery {\n  viewer {\n    id\n    name\n    avatarUrl\n    dateOfBirth\n    gender\n    username\n    userType\n    blogUrl\n    ...UserReviewOverviewList\n    ...UserThankedReviewOverviewList\n    ...UserWatchedOverviewList\n  }\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment UserReviewOverviewList on User {\n  reviews(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserThankedReviewOverviewList on User {\n  reviewThanks(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserWatchedOverviewList on User {\n  viewedMovies(first: 3) {\n    edges {\n      node {\n        id\n        ...WatchedMovieListItem\n      }\n    }\n  }\n}\n\nfragment WatchedMovieListItem on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n}\n"
+    "text": "query MyAccountQuery {\n  viewer {\n    id\n    name\n    dateOfBirth\n    gender\n    username\n    userType\n    blogUrl\n    ...UpdatableAvatar\n    ...UserReviewOverviewList\n    ...UserThankedReviewOverviewList\n    ...UserWatchedOverviewList\n  }\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment UpdatableAvatar on User {\n  id\n  avatarUrl\n}\n\nfragment UserReviewOverviewList on User {\n  reviews(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserThankedReviewOverviewList on User {\n  reviewThanks(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserWatchedOverviewList on User {\n  viewedMovies(first: 3) {\n    edges {\n      node {\n        id\n        ...WatchedMovieListItem\n      }\n    }\n  }\n}\n\nfragment WatchedMovieListItem on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b7add1119d19fcae55c7520a89cbac9d";
+(node as any).hash = "bfcd912de7d233be06cd0c32718880f0";
 
 export default node;

@@ -34,6 +34,7 @@ export function UserReviewListScreen(props: UserReviewListScreenProps) {
 
 function UserReviewList({
   navigation,
+  route,
 }: UserReviewListScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<UserReviewListQueryType>(
@@ -41,8 +42,11 @@ function UserReviewList({
     preloadedQueries!.UserReviewList.queryRef!,
   );
 
+  const isPersonal = route.params.isPersonal;
   useEffect(() =>
-    navigation.setOptions({title: `Reviews of ${data.user?.name}`}),
+    navigation.setOptions({
+      title: isPersonal ? 'My reviews' : `Reviews of ${data.user?.name}`,
+    }),
   );
 
   return (

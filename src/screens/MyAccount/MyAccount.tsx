@@ -1,35 +1,34 @@
 import React, {Suspense, useContext} from 'react';
-import {StyleSheet, View, ScrollView, Linking} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {TitleText} from '../../components/Text/TitleText';
+import {Button, Icon} from '@rneui/themed';
+import colors from '../../styles/colors';
+import {InfoSection, LinkInfoSection} from '../UserDetails/UserDetails';
 import {SectionText} from '../../components/Text/SectionText';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
-import {UserReviewOverviewList} from './components/UserReviewOverviewList';
-import {UserThankedReviewOverviewList} from './components/UserThankedReviewOverviewList';
 import {graphql} from 'relay-runtime';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MyAccountStackParams} from '../../navigators/MyAccountStackNavigator';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
-import {StandardAvatar} from '../../components/Display/StandardAvatar';
 import {dateToStandardDateFormat} from '../../utils/time-conversion';
-import {RegularText} from '../../components/Text/RegularText';
-import colors from '../../styles/colors';
-import {SmallSectionText} from '../../components/Text/SmallSectionText';
-import {Button, Icon} from '@rneui/themed';
-import {UrlLinkText} from '../../components/Text/UrlLinkText';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MainStackParams} from '../../navigators/MainStackParams';
-import {UserWatchedOverviewList} from './components/UserWatchedOverviewList';
+import {UserThankedReviewOverviewList} from '../UserDetails/components/UserThankedReviewOverviewList';
+import {UserWatchedOverviewList} from '../UserDetails/components/UserWatchedOverviewList';
+import {UserReviewOverviewList} from '../UserDetails/components/UserReviewOverviewList';
+import {UpdatableAvatar} from './components/UpdatableAvatar';
+import {ActionButtons} from './components/ActionButtons';
 
-export const UserDetailsQuery = graphql`
-  query UserDetailsQuery($id: ID!) {
-    user(id: $id) {
+export const MyAccountQuery = graphql`
+  query MyAccountQuery {
+    viewer {
       id
       name
-      avatarUrl
       dateOfBirth
       gender
       username
       userType
       blogUrl
+      ...UpdatableAvatar
       ...UserReviewOverviewList
       ...UserThankedReviewOverviewList
       ...UserWatchedOverviewList
@@ -37,39 +36,37 @@ export const UserDetailsQuery = graphql`
   }
 `;
 
-type UserDetailsScreenProps = NativeStackScreenProps<
-  MainStackParams,
-  'UserDetails'
+type MyAccountScreenProps = NativeStackScreenProps<
+  MyAccountStackParams,
+  'MyAccount'
 >;
 
-export function UserDetailsScreen(props: UserDetailsScreenProps) {
+export function MyAccountScreen(props: MyAccountScreenProps) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
-  if (!preloadedQueries?.UserDetails.queryRef) {
+  if (!preloadedQueries?.MyAccount.queryRef) {
     return <></>;
   }
 
-  return <UserDetailsScreenWithData {...props} />;
+  return <MyAccountScreenWithData {...props} />;
 }
 
-function UserDetailsScreenWithData({
-  navigation,
-}: UserDetailsScreenProps): JSX.Element {
+function MyAccountScreenWithData(props: MyAccountScreenProps): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery(
-    UserDetailsQuery,
-    preloadedQueries!.UserDetails.queryRef!,
+    MyAccountQuery,
+    preloadedQueries!.MyAccount.queryRef!,
   );
-  const user = data.user;
+
+  const user = data.viewer;
   const userId = user?.id;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <StandardAvatar size={150} uri={user?.avatarUrl} />
+        <UpdatableAvatar user={user} />
         <TitleText>{user?.name ?? 'N/A'}</TitleText>
       </View>
-
       <View style={styles.infoBox}>
         <InfoSection
           name="Username"
@@ -139,6 +136,8 @@ function UserDetailsScreenWithData({
         ) : undefined}
       </View>
 
+      <ActionButtons {...props} />
+
       <View style={styles.listSection}>
         <SectionText>Reviews</SectionText>
         <Suspense fallback={<StandardLoadingIcon />}>
@@ -146,7 +145,7 @@ function UserDetailsScreenWithData({
         </Suspense>
         <Button
           onPress={() => {
-            navigation.navigate('UserReviewList', {});
+            props.navigation.navigate('UserReviewList', {isPersonal: true});
             if (userId) {
               preloadedQueries?.UserReviewList.loadQuery({id: userId});
             }
@@ -154,7 +153,6 @@ function UserDetailsScreenWithData({
           More...
         </Button>
       </View>
-
       <View style={styles.listSection}>
         <SectionText>Thanked reviews</SectionText>
         <Suspense fallback={<StandardLoadingIcon />}>
@@ -162,7 +160,9 @@ function UserDetailsScreenWithData({
         </Suspense>
         <Button
           onPress={() => {
-            navigation.navigate('UserThankedReviewList', {});
+            props.navigation.navigate('UserThankedReviewList', {
+              isPersonal: true,
+            });
             if (userId) {
               preloadedQueries?.UserThankedReviewList.loadQuery({id: userId});
             }
@@ -170,7 +170,6 @@ function UserDetailsScreenWithData({
           More...
         </Button>
       </View>
-
       <View style={styles.listSection}>
         <SectionText>Recently Watched</SectionText>
         <Suspense fallback={<StandardLoadingIcon />}>
@@ -178,7 +177,7 @@ function UserDetailsScreenWithData({
         </Suspense>
         <Button
           onPress={() => {
-            navigation.navigate('UserWatchedList', {});
+            props.navigation.navigate('UserWatchedList', {isPersonal: true});
             if (userId) {
               preloadedQueries?.UserWatchedList.loadQuery({id: userId});
             }
@@ -190,40 +189,11 @@ function UserDetailsScreenWithData({
   );
 }
 
-interface InfoSectionProps {
-  name: string;
-  value?: string | null;
-  icon?: React.ReactNode | null;
-}
-
-export function InfoSection({name, value, icon}: InfoSectionProps) {
-  return (
-    <View style={styles.infoSection}>
-      <View style={styles.icon}>{icon}</View>
-      <SmallSectionText>{name}:</SmallSectionText>
-      <RegularText style={{color: colors.lightGrey}}>{value}</RegularText>
-    </View>
-  );
-}
-
-export function LinkInfoSection({name, value, icon}: InfoSectionProps) {
-  return (
-    <View style={styles.infoSection}>
-      <View style={styles.icon}>{icon}</View>
-      <SmallSectionText>{name}:</SmallSectionText>
-      <UrlLinkText
-        isVisited={false}
-        onPressLink={() => (value ? Linking.openURL(value) : undefined)}>
-        {value}
-      </UrlLinkText>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
-    gap: 15,
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    gap: 12,
   },
   header: {
     paddingVertical: 15,
@@ -235,16 +205,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     gap: 10,
   },
-  infoSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
   listSection: {
-    gap: 10,
-  },
-  icon: {
-    marginBottom: 5,
-    width: 20,
+    gap: 5,
   },
 });
