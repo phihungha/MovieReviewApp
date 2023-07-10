@@ -7,6 +7,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../navigators/RootStackNavigator';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {StandardLoadingIcon} from '../components/Display/StandardLoadingIcon';
+import {ButtonLoadingIcon} from '../components/Display/ButtonLoadingIcon';
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParams, 'Login'>;
 
@@ -37,9 +38,12 @@ function LoginForm({navigation}: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isLoading, setIsLoading] = useState(false);
   const login = async () => {
+    setIsLoading(true);
     await auth().signInWithEmailAndPassword(email, password);
     navigation.navigate('Main');
+    setIsLoading(false);
   };
 
   return (
@@ -63,7 +67,9 @@ function LoginForm({navigation}: LoginScreenProps) {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button onPress={login}>LOGIN</Button>
+        <Button onPress={login}>
+          {isLoading ? <ButtonLoadingIcon /> : 'LOGIN'}
+        </Button>
         <TextLink
           text="Don't have an account? "
           textLink="Sign up now"
