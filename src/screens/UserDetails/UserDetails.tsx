@@ -158,6 +158,15 @@ function UserDetailsScreenWithData({
         <Suspense fallback={<StandardLoadingIcon />}>
           <UserThankedReviewOverviewList user={user} />
         </Suspense>
+        <Button
+          onPress={() => {
+            navigation.navigate('UserThankedReviewList');
+            if (userId) {
+              preloadedQueries?.UserThankedReviewList.loadQuery({id: userId});
+            }
+          }}>
+          More...
+        </Button>
       </View>
 
       <View style={styles.listSection}>
@@ -218,7 +227,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   listSection: {
-    gap: 5,
+    gap: 10,
   },
   icon: {
     marginBottom: 5,

@@ -6,7 +6,7 @@ import {MovieDetailsScreen} from './MovieDetails/MovieDetails';
 import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
-import {UserLikedCommentsListScreen} from './UserThankedReviewList';
+import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {UserWatchedListScreen} from './UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 
@@ -49,7 +49,7 @@ export function HomeStackScreen(): React.JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="UserThankedReviewList"
-        component={UserLikedCommentsListScreen}
+        component={UserThankedReviewListScreen}
       />
     </HomeStackNavigator.Navigator>
   );

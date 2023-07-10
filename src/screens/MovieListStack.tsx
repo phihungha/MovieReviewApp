@@ -6,9 +6,9 @@ import {MovieReviewListScreen} from './MovieReviewList/MovieReviewList';
 import {MoviesListScreen} from './MoviesList/MoviesList';
 import {ReviewDetailsScreen} from './ReviewDetails/ReviewDetails';
 import {UserDetailsScreen} from './UserDetails/UserDetails';
-import {UserLikedCommentsListScreen} from './UserThankedReviewList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {UserWatchedListScreen} from './UserWatchedList';
+import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
@@ -48,7 +48,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="UserThankedReviewList"
-        component={UserLikedCommentsListScreen}
+        component={UserThankedReviewListScreen}
       />
     </MoviesListStackNavigator.Navigator>
   );

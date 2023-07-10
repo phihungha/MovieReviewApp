@@ -6,49 +6,51 @@ import {usePreloadedQuery} from 'react-relay';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {UsersListStackParams} from '../../navigators/UsersListStackNavigator';
-import type {UserReviewListQuery as UserReviewListQueryType} from './__generated__/UserReviewListQuery.graphql';
-import {AllUserReviewList} from './components/AllUserReviewList';
+import type {UserThankedReviewListQuery as UserThankedReviewListQueryType} from './__generated__/UserThankedReviewListQuery.graphql';
+import {AllUserThankedReviewList} from './components/AllUserThankedReviewList';
 
-export const UserReviewListQuery = graphql`
-  query UserReviewListQuery($id: ID!) {
+export const UserThankedReviewListQuery = graphql`
+  query UserThankedReviewListQuery($id: ID!) {
     user(id: $id) {
       name
-      ...AllUserReviewList
+      ...AllUserThankedReviewList
     }
   }
 `;
 
-type UserReviewListScreenProps = NativeStackScreenProps<
+type UserThankedReviewListScreenProps = NativeStackScreenProps<
   UsersListStackParams,
-  'UserReviewList'
+  'UserThankedReviewList'
 >;
 
-export function UserReviewListScreen(props: UserReviewListScreenProps) {
+export function UserThankedReviewListScreen(
+  props: UserThankedReviewListScreenProps,
+) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
-  if (!preloadedQueries?.UserReviewList.queryRef) {
+  if (!preloadedQueries?.UserThankedReviewList.queryRef) {
     return <></>;
   }
-  return <UserReviewList {...props} />;
+  return <UserThankedReviewList {...props} />;
 }
 
-function UserReviewList({
+function UserThankedReviewList({
   navigation,
-}: UserReviewListScreenProps): React.JSX.Element {
+}: UserThankedReviewListScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
-  const data = usePreloadedQuery<UserReviewListQueryType>(
-    UserReviewListQuery,
-    preloadedQueries!.UserReviewList.queryRef!,
+  const data = usePreloadedQuery<UserThankedReviewListQueryType>(
+    UserThankedReviewListQuery,
+    preloadedQueries!.UserThankedReviewList.queryRef!,
   );
 
   useEffect(() =>
-    navigation.setOptions({title: `Reviews of ${data.user?.name}`}),
+    navigation.setOptions({title: `Reviews ${data.user?.name} thanked`}),
   );
 
   return (
     <View style={styles.container}>
       <Suspense fallback={<StandardLoadingIcon />}>
-        <AllUserReviewList
+        <AllUserThankedReviewList
           user={data.user}
           onNavigate={() => navigation.navigate('ReviewDetails')}
         />
