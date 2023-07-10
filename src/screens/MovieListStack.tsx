@@ -24,6 +24,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <MoviesListStackNavigator.Screen
@@ -32,6 +33,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <MoviesListStackNavigator.Screen
@@ -40,14 +42,17 @@ export function MovieListStackScreen(): React.JSX.Element {
       />
       <MoviesListStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <MoviesListStackNavigator.Screen
         name="UserReviewList"
+        options={{title: 'Reviews'}}
         component={UserReviewListScreen}
       />
       <MoviesListStackNavigator.Screen
         name="UserThankedReviewList"
+        options={{title: 'Thanked reviews'}}
         component={UserThankedReviewListScreen}
       />
     </MoviesListStackNavigator.Navigator>

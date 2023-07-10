@@ -29,26 +29,32 @@ export function HomeStackScreen(): React.JSX.Element {
       />
       <HomeStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <HomeStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <HomeStackNavigator.Screen
         name="UserDetails"
+        options={{headerShown: false}}
         component={UserDetailsScreen}
       />
       <HomeStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <HomeStackNavigator.Screen
         name="UserReviewList"
+        options={{title: 'Reviews'}}
         component={UserReviewListScreen}
       />
       <HomeStackNavigator.Screen
         name="UserThankedReviewList"
+        options={{title: 'Thanked reviews'}}
         component={UserThankedReviewListScreen}
       />
     </HomeStackNavigator.Navigator>

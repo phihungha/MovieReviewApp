@@ -25,6 +25,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="CreateReview"
+        options={{title: 'Create a review'}}
         component={CreateReviewScreen}
       />
       <MyAccountStackNavigator.Screen
@@ -33,6 +34,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="ReviewDetails"
+        options={{title: 'Review details'}}
         component={ReviewDetailsScreen}
       />
       <MyAccountStackNavigator.Screen
@@ -41,14 +43,17 @@ export function MyAccountStackScreen(): React.JSX.Element {
       />
       <MyAccountStackNavigator.Screen
         name="UserWatchedList"
+        options={{title: 'Watched movies'}}
         component={UserWatchedListScreen}
       />
       <MyAccountStackNavigator.Screen
         name="UserReviewList"
+        options={{title: 'Reviews'}}
         component={UserReviewListScreen}
       />
       <MyAccountStackNavigator.Screen
         name="UserThankedReviewList"
+        options={{title: 'Thanked reviews'}}
         component={UserThankedReviewListScreen}
       />
     </MyAccountStackNavigator.Navigator>
