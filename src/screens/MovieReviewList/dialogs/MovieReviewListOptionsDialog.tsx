@@ -11,6 +11,9 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../../styles/colors';
 
+const MIN_SCORE = 0;
+const MAX_SCORE = 10;
+
 export interface MovieReviewListOptions {
   minScore?: number;
   maxScore?: number;
@@ -30,8 +33,7 @@ export function MovieReviewListOptionsDialog(
   props: MovieReviewListOptionsDialogProps,
 ): React.JSX.Element {
   const [options, setOptions] = useState<MovieReviewListOptions>(props.options);
-  const minScore = 0;
-  const maxScore = 10;
+
   const [sortByOpen, setSortByOpen] = useState(false);
   const [sortByItems, setSortByItems] = useState([
     {label: 'Comment Count', value: 'CommentCount'},
@@ -48,26 +50,29 @@ export function MovieReviewListOptionsDialog(
 
   function updateOption(
     optionName: MovieReviewListOptionsKey,
-    newValue: string | number,
+    newValue: string,
   ): void {
     setOptions(o => getUpdatedOptions(o, optionName, newValue));
+  }
+
+  function updateScoreOption(
+    optionName: MovieReviewListOptionsKey,
+    newValue: string,
+  ): void {
+    setOptions(o => getUpdatedScoreOptions(o, optionName, newValue));
   }
 
   return (
     <GenericDialog
       title="Options"
       onOk={() => props.onOptionsChanged?.(options)}
-      containerStyle={styles.mainContainer}
       customOpenButton={props.customOpenButton}>
       <View style={styles.contentContainer}>
         <Input
           keyboardType="numeric"
           label="Min score"
           value={options.minScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('minScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('minScore', i)}
           renderErrorMessage={false}
           inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
@@ -75,10 +80,7 @@ export function MovieReviewListOptionsDialog(
           keyboardType="numeric"
           label="Max score"
           value={options.maxScore?.toString()}
-          onChangeText={i => {
-            const value = Math.max(minScore, Math.min(maxScore, Number(i)));
-            updateOption('maxScore', +value);
-          }}
+          onChangeText={i => updateScoreOption('maxScore', i)}
           renderErrorMessage={false}
           inputContainerStyle={{backgroundColor: colors.darkBlack}}
         />
@@ -91,30 +93,26 @@ export function MovieReviewListOptionsDialog(
           setOpen={setSortByOpen}
           setValue={() => {}}
           setItems={setSortByItems}
-          onSelectItem={i => {
-            updateOption('sortBy', i.value!);
-          }}
-          textStyle={styles.DropDownPicker_textStyle}
-          style={styles.DropDownPicker_style}
+          onSelectItem={i => updateOption('sortBy', i.value!)}
+          textStyle={styles.dropdownText}
+          style={styles.dropdownContainer}
           containerStyle={styles.aboveDropdown}
-          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
         <DropDownPicker
           listMode="SCROLLVIEW"
-          placeholder="Sort direction"
+          placeholder="Sort order"
           open={sortDirectionOpen}
           value={options.sortDirection}
           items={sortDirectionItems}
           setOpen={setSortDirectionOpen}
           setValue={() => {}}
           setItems={setSortDirectionItems}
-          onSelectItem={i => {
-            updateOption('sortDirection', i.value!);
-          }}
-          textStyle={styles.DropDownPicker_textStyle}
-          style={styles.DropDownPicker_style}
+          onSelectItem={i => updateOption('sortDirection', i.value!)}
+          textStyle={styles.dropdownText}
+          style={styles.dropdownContainer}
           containerStyle={styles.belowDropdown}
-          dropDownContainerStyle={styles.DropDownPicker_dropDownContainerStyle}
+          dropDownContainerStyle={styles.dropdownContainer}
         />
       </View>
     </GenericDialog>
@@ -126,31 +124,40 @@ function getUpdatedOptions(
   optionName: MovieReviewListOptionsKey,
   newValue?: string | number,
 ): MovieReviewListOptions {
-  if (typeof newValue === 'number' && isNaN(newValue)) {
-    return oldOptions;
+  let value = newValue === '' ? undefined : newValue;
+  return {...oldOptions, [optionName]: value};
+}
+
+function getUpdatedScoreOptions(
+  oldOptions: MovieReviewListOptions,
+  optionName: MovieReviewListOptionsKey,
+  newValue: string,
+) {
+  let value: number | undefined;
+  if (newValue === '') {
+    value = undefined;
+  } else {
+    value = +newValue;
+    if (isNaN(value)) {
+      value = undefined;
+    } else {
+      value = Math.max(MIN_SCORE, Math.min(MAX_SCORE, value));
+    }
   }
-  return {...oldOptions, [optionName]: newValue};
+  return getUpdatedOptions(oldOptions, optionName, value);
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    height: 450,
-  },
   contentContainer: {
     gap: 12,
   },
-  DropDownPicker_textStyle: {
+  dropdownText: {
     color: colors.white,
   },
-  DropDownPicker_style: {
+  dropdownContainer: {
     backgroundColor: colors.darkBlack,
     borderRadius: 12,
     borderColor: 'transparent',
-  },
-  DropDownPicker_dropDownContainerStyle: {
-    backgroundColor: colors.darkBlack,
-    borderColor: 'transparent',
-    borderRadius: 12,
   },
   aboveDropdown: {zIndex: 100},
   belowDropdown: {zIndex: 1},
