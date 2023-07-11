@@ -9,54 +9,61 @@ import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
+import {defaultOptionHeader} from './Main';
+import {EditReviewScreen} from './CreateReview/EditReview';
 
 export function HomeStackScreen(): React.JSX.Element {
   return (
     <HomeStackNavigator.Navigator>
-      <HomeStackNavigator.Screen
-        name="Home"
-        options={{headerShown: false}}
-        component={HomeScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="MovieDetails"
-        options={{headerShown: false}}
-        component={MovieDetailsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="MovieReviewList"
-        component={MovieReviewListScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="CreateReview"
-        options={{title: 'Create a review'}}
-        component={CreateReviewScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="ReviewDetails"
-        options={{title: 'Review details'}}
-        component={ReviewDetailsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="UserDetails"
-        options={{headerShown: false}}
-        component={UserDetailsScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="UserWatchedList"
-        options={{title: 'Watched movies'}}
-        component={UserWatchedListScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="UserReviewList"
-        options={{title: 'Reviews'}}
-        component={UserReviewListScreen}
-      />
-      <HomeStackNavigator.Screen
-        name="UserThankedReviewList"
-        options={{title: 'Thanked reviews'}}
-        component={UserThankedReviewListScreen}
-      />
+      <HomeStackNavigator.Group screenOptions={defaultOptionHeader}>
+        <HomeStackNavigator.Screen
+          name="Home"
+          options={{headerShown: false}}
+          component={HomeScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="MovieDetails"
+          component={MovieDetailsScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="MovieReviewList"
+          component={MovieReviewListScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="CreateReview"
+          options={{title: 'Create a review'}}
+          component={CreateReviewScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="ReviewDetails"
+          options={{title: 'Review details'}}
+          component={ReviewDetailsScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="EditReview"
+          options={{title: 'Edit review'}}
+          component={EditReviewScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="UserDetails"
+          component={UserDetailsScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="UserWatchedList"
+          options={{title: 'Watched movies'}}
+          component={UserWatchedListScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="UserReviewList"
+          options={{title: 'Reviews'}}
+          component={UserReviewListScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="UserThankedReviewList"
+          options={{title: 'Thanked reviews'}}
+          component={UserThankedReviewListScreen}
+        />
+      </HomeStackNavigator.Group>
     </HomeStackNavigator.Navigator>
   );
 }

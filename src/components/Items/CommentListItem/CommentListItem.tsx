@@ -34,15 +34,12 @@ export interface CommentListItemProps {
  */
 export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
   const [isEnabledEdit, setEnabledEdit] = useState(false);
-
   const onSelectedItem = (item: ItemTitleOnly) => {
     switch (item.id) {
       case 'delete':
-        console.log('delete comment');
         break;
       case 'edit':
         setEnabledEdit(true);
-        console.log('edit comment');
         break;
     }
   };

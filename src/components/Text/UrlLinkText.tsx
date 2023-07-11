@@ -1,27 +1,18 @@
 import React from 'react';
-import {Pressable, StyleSheet, TextProps} from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 import colors from '../../styles/colors';
 import {RegularText} from './RegularText';
-import {ActionCb} from '../../types/ActionCb';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
+import {TextProps} from '@rneui/themed';
 
-type UrlLinkTextProps = TextProps & {
-  isVisited: boolean;
-  onPressLink: ActionCb;
-};
+type UrlLinkTextProps = TextProps;
 
 export function UrlLinkText(props: UrlLinkTextProps): JSX.Element {
   return (
-    <Pressable
-      onPress={props.onPressLink}
-      android_ripple={pressableRippleConfig}>
+    <Pressable onPress={props.onPress} android_ripple={pressableRippleConfig}>
       <RegularText
         {...props}
-        style={[
-          styles.text,
-          props.isVisited ? styles.visited : styles.standard,
-          props.style,
-        ]}
+        style={[styles.text, styles.standard, props.style]}
       />
     </Pressable>
   );

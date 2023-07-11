@@ -211,9 +211,7 @@ export function LinkInfoSection({name, value, icon}: InfoSectionProps) {
     <View style={styles.infoSection}>
       <View style={styles.icon}>{icon}</View>
       <SmallSectionText>{name}:</SmallSectionText>
-      <UrlLinkText
-        isVisited={false}
-        onPressLink={() => (value ? Linking.openURL(value) : undefined)}>
+      <UrlLinkText onPress={() => (value ? Linking.openURL(value) : undefined)}>
         {value}
       </UrlLinkText>
     </View>

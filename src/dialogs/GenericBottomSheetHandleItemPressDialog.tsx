@@ -27,15 +27,22 @@ export function GenericBottomSheetHandleItemPressDialog(
   props: EventBottomSheetProps,
 ): JSX.Element {
   const [visible, setVisible] = useState(false);
-
   const renderItem = ({item}: {item: ItemTitleOnly}) => {
     return (
       <BottomSheetListItem
         item={item}
         onPressItem={() => onPressItem({item})}
+        onOk={() => onConfirmDialog()}
       />
     );
   };
+
+  const onConfirmDialog = () => {
+    console.log('Call API');
+    console.log('Delete');
+    closeDialog();
+  };
+
   const keyExtractor = (item: any) => {
     return item.title;
   };
