@@ -1,17 +1,12 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {View, StyleSheet, ScrollView, Dimensions} from 'react-native';
 import {CreateReviewInfoDisplay} from './components/CreateReviewInfoDisplay';
 import {Button, Input} from '@rneui/themed';
 import colors from '../../styles/colors';
+import {ConfirmDialog} from '../../dialogs/ConfirmDialog';
+import {ActionCb} from '../../types/ActionCb';
 
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
-}
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
-}
-
-export function CreateReviewScreen(): JSX.Element {
+export function EditReviewScreen(): JSX.Element {
   const [title, setTitle] = useState('');
   const [externalUrl, setExternalUrl] = useState('');
   const [content, setContent] = useState('');
@@ -19,13 +14,28 @@ export function CreateReviewScreen(): JSX.Element {
   const onRating = (rating: number) => {
     console.log(rating);
   };
-  const onPressButton = () => {
-    console.log('Call API');
+  const onSaveReview = () => {
+    console.log('Call API Save');
   };
+  const onDeleteReview = () => {
+    console.log('Call API Delete');
+  };
+
+  const customOpenButton = useCallback((onPress: ActionCb) => {
+    const buttonWidth = (Dimensions.get('window').width - 40) / 2 - 2;
+    return (
+      <Button
+        title={'Delete'}
+        containerStyle={[styles.deleteButton, {width: buttonWidth}]}
+        buttonStyle={{backgroundColor: colors.mediumBlack}}
+        onPress={onPress}
+      />
+    );
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <CreateReviewInfoDisplay
-        imageUri=""
         movieName={'name'}
         movieYear={2022}
         criticScore={8.0}
@@ -63,10 +73,18 @@ export function CreateReviewScreen(): JSX.Element {
       />
 
       <View style={styles.buttonContainer}>
+        <ConfirmDialog
+          onOk={onDeleteReview}
+          openBtnTitle={'Delete'}
+          title={'Warning!'}
+          message={'Do you want to delete this review?'}
+          customOpenButton={onPress => customOpenButton(onPress)}
+        />
+
         <Button
-          containerStyle={styles.button}
-          onPress={onPressButton}
-          title="Post"
+          containerStyle={[styles.saveButton]}
+          onPress={onSaveReview}
+          title="Save"
         />
       </View>
     </ScrollView>
@@ -86,17 +104,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 1,
   },
-  cancelButton: {
+  deleteButton: {
     backgroundColor: colors.mediumBlack,
-    flex: 1,
+    borderRadius: 8,
   },
-  button: {
+  saveButton: {
+    borderRadius: 8,
     flex: 1,
   },
   buttonContainer: {
     flexDirection: 'row',
     width: '100%',
-    gap: 12,
+    gap: 8,
     justifyContent: 'space-between',
   },
 });

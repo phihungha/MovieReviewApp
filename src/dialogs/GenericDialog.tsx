@@ -28,14 +28,12 @@ export interface DialogProps {
  * @param {StyleProp<ViewStyle>?} containerStyle Container style
  * @param {CustomButtonCb?} customOpenButton Custom open button component passed as a function
  * @param {React.ReactNode?} children Content to display in the dialog
- * @example
- * <DeleteCommentDialog
- *   openBtnTitle='Open Dialog'
- *   action={() => console.log('action')} />
  */
 export function GenericDialog(props: DialogProps): React.JSX.Element {
   const [visible, setVisible] = useState(false);
-  const toggleDialog = () => setVisible(!visible);
+  const toggleDialog = () => {
+    setVisible(!visible);
+  };
 
   const okPressed = () => {
     props.onOk?.();
