@@ -23,7 +23,7 @@ import {RegularAggregateScoreIndicator} from './components/RegularAggregateScore
 import {Button} from '@rneui/themed';
 import {GenreListItem} from './components/GenreListItem';
 import {ReviewOverview} from './components/ReviewOverview';
-import {MarkMovieButton} from './components/MarkMovieButton';
+import {MarkMovieWatchedButton} from './components/MarkMovieWatchedButton';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -48,6 +48,7 @@ export const MovieDetailsQuery = graphql`
       ...CriticAggregateScoreIndicator
       ...RegularAggregateScoreIndicator
       ...ReviewOverview
+      ...MarkMovieWatchedButton
     }
   }
 `;
@@ -100,7 +101,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
           <TitleText>{data.movie?.title}</TitleText>
           <SubtitleText> {releaseDate.getFullYear()}</SubtitleText>
         </View>
-        <MarkMovieButton isViewed={false} />
+        <MarkMovieWatchedButton movie={data.movie} />
 
         <View style={styles.detailsInfoContainer}>
           <SimpleInfoSection
