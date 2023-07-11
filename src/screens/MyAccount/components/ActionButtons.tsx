@@ -19,6 +19,10 @@ export function ActionButtons({
     navigation.navigate('Login');
   }
 
+  function goToEditScreen() {
+    navigation.navigate('ManageAccountInfo');
+  }
+
   return (
     <View style={styles.container}>
       <Button
@@ -32,6 +36,7 @@ export function ActionButtons({
         titleStyle={styles.title}
         buttonStyle={styles.button}
         containerStyle={styles.buttonContainer}
+        onPress={goToEditScreen}
       />
       <Button
         title="Log out"

@@ -9,6 +9,7 @@ import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
+import {ManageAccountInfo} from './ManageAccountInfo/ManageAccountInfo';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
@@ -55,6 +56,11 @@ export function MyAccountStackScreen(): React.JSX.Element {
         name="UserThankedReviewList"
         options={{title: 'Thanked reviews'}}
         component={UserThankedReviewListScreen}
+      />
+      <MyAccountStackNavigator.Screen
+        name="ManageAccountInfo"
+        options={{headerShown: false, animation: 'slide_from_right'}}
+        component={ManageAccountInfo}
       />
     </MyAccountStackNavigator.Navigator>
   );
