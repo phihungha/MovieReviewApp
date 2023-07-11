@@ -29,10 +29,10 @@ export function UserWatchedListScreen(props: UserWatchedListScreenProps) {
   if (!preloadedQueries?.UserWatchedList.queryRef) {
     return <></>;
   }
-  return <UserWatchedList {...props} />;
+  return <UserWatchedListScreenWithData {...props} />;
 }
 
-function UserWatchedList({
+function UserWatchedListScreenWithData({
   navigation,
   route,
 }: UserWatchedListScreenProps): React.JSX.Element {

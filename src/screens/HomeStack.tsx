@@ -11,6 +11,7 @@ import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
+import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
 
 export function HomeStackScreen(): React.JSX.Element {
   return (
@@ -30,19 +31,24 @@ export function HomeStackScreen(): React.JSX.Element {
           component={MovieReviewListScreen}
         />
         <HomeStackNavigator.Screen
+          name="ReviewBreakdown"
+          options={{title: 'Review breakdown'}}
+          component={ReviewBreakdownScreen}
+        />
+        <HomeStackNavigator.Screen
           name="CreateReview"
           options={{title: 'Create a review'}}
           component={CreateReviewScreen}
         />
         <HomeStackNavigator.Screen
-          name="ReviewDetails"
-          options={{title: 'Review details'}}
-          component={ReviewDetailsScreen}
-        />
-        <HomeStackNavigator.Screen
           name="EditReview"
           options={{title: 'Edit review'}}
           component={EditReviewScreen}
+        />
+        <HomeStackNavigator.Screen
+          name="ReviewDetails"
+          options={{title: 'Review details'}}
+          component={ReviewDetailsScreen}
         />
         <HomeStackNavigator.Screen
           name="UserDetails"

@@ -12,6 +12,7 @@ import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {ManageAccountInfo} from './ManageAccountInfo/ManageAccountInfo';
 import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
+import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
@@ -27,23 +28,28 @@ export function MyAccountStackScreen(): React.JSX.Element {
           component={MovieDetailsScreen}
         />
         <MyAccountStackNavigator.Screen
+          name="MovieReviewList"
+          component={MovieReviewListScreen}
+        />
+        <MyAccountStackNavigator.Screen
+          name="ReviewBreakdown"
+          options={{title: 'Review breakdown'}}
+          component={ReviewBreakdownScreen}
+        />
+        <MyAccountStackNavigator.Screen
           name="CreateReview"
           options={{title: 'Create a review'}}
           component={CreateReviewScreen}
         />
         <MyAccountStackNavigator.Screen
-          name="MovieReviewList"
-          component={MovieReviewListScreen}
+          name="EditReview"
+          options={{title: 'Edit review'}}
+          component={EditReviewScreen}
         />
         <MyAccountStackNavigator.Screen
           name="ReviewDetails"
           options={{title: 'Review details'}}
           component={ReviewDetailsScreen}
-        />
-        <MyAccountStackNavigator.Screen
-          name="EditReview"
-          options={{title: 'Edit review'}}
-          component={EditReviewScreen}
         />
         <MyAccountStackNavigator.Screen
           name="UserDetails"

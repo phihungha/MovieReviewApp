@@ -33,10 +33,10 @@ export function UserListScreen(props: UserListScreenProps) {
   if (!preloadedQueries?.UserList.queryRef) {
     return <></>;
   }
-  return <MoviesListScreenWithData {...props} />;
+  return <UserListScreenWithData {...props} />;
 }
 
-function MoviesListScreenWithData({
+function UserListScreenWithData({
   navigation,
 }: UserListScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);

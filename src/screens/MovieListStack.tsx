@@ -11,7 +11,7 @@ import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
-import ReviewBreakdownScreen from './ReviewBreakdown/ReviewBreakdown';
+import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
@@ -26,13 +26,13 @@ export function MovieListStackScreen(): React.JSX.Element {
           component={MovieDetailsScreen}
         />
         <MoviesListStackNavigator.Screen
+          name="MovieReviewList"
+          component={MovieReviewListScreen}
+        />
+        <MoviesListStackNavigator.Screen
           name="ReviewBreakdown"
           options={{title: 'Review breakdown'}}
           component={ReviewBreakdownScreen}
-        />
-        <MoviesListStackNavigator.Screen
-          name="MovieReviewList"
-          component={MovieReviewListScreen}
         />
         <MoviesListStackNavigator.Screen
           name="ReviewDetails"

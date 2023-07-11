@@ -29,10 +29,10 @@ export function UserReviewListScreen(props: UserReviewListScreenProps) {
   if (!preloadedQueries?.UserReviewList.queryRef) {
     return <></>;
   }
-  return <UserReviewList {...props} />;
+  return <UserReviewListScreenWithData {...props} />;
 }
 
-function UserReviewList({
+function UserReviewListScreenWithData({
   navigation,
   route,
 }: UserReviewListScreenProps): React.JSX.Element {

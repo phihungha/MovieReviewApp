@@ -31,10 +31,10 @@ export function UserThankedReviewListScreen(
   if (!preloadedQueries?.UserThankedReviewList.queryRef) {
     return <></>;
   }
-  return <UserThankedReviewList {...props} />;
+  return <UserThankedReviewListWithData {...props} />;
 }
 
-function UserThankedReviewList({
+function UserThankedReviewListWithData({
   navigation,
   route,
 }: UserThankedReviewListScreenProps): React.JSX.Element {

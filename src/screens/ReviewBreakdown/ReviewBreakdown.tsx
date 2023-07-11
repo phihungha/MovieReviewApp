@@ -60,6 +60,6 @@ function ReviewBreakdownScreenWithData(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     gap: 15,
-    margin: 10,
+    padding: 10,
   },
 });
