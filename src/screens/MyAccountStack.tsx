@@ -25,6 +25,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
         />
         <MyAccountStackNavigator.Screen
           name="MovieDetails"
+          options={{headerTitle: ''}}
           component={MovieDetailsScreen}
         />
         <MyAccountStackNavigator.Screen
@@ -53,6 +54,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
         />
         <MyAccountStackNavigator.Screen
           name="UserDetails"
+          options={{headerTitle: ''}}
           component={UserDetailsScreen}
         />
         <MyAccountStackNavigator.Screen

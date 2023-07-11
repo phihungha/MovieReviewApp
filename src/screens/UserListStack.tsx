@@ -23,6 +23,7 @@ export function UserListStackScreen(): React.JSX.Element {
         />
         <UserListStackNavigator.Screen
           name="MovieDetails"
+          options={{headerTitle: ''}}
           component={MovieDetailsScreen}
         />
         <UserListStackNavigator.Screen
@@ -51,6 +52,7 @@ export function UserListStackScreen(): React.JSX.Element {
         />
         <UserListStackNavigator.Screen
           name="UserDetails"
+          options={{headerTitle: ''}}
           component={UserDetailsScreen}
         />
         <UserListStackNavigator.Screen
