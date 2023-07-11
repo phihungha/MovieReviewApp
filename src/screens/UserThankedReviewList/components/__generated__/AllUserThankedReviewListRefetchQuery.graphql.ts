@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7f16a097583c6b9afa6e251c811ac71b>>
+ * @generated SignedSource<<e61e8ca9d3399b80bfe3bd4c620a8cf6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -308,12 +308,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "db4377dd5cf7b04f63032935e54c5eff",
+    "cacheID": "b855ae612a62ae163ab8b1dfaa244863",
     "id": null,
     "metadata": {},
     "name": "AllUserThankedReviewListRefetchQuery",
     "operationKind": "query",
-    "text": "query AllUserThankedReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserThankedReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserThankedReviewList_1G22uz on User {\n  reviewThanks(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query AllUserThankedReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserThankedReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserThankedReviewList_1G22uz on User {\n  reviewThanks(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
   }
 };
 })();
