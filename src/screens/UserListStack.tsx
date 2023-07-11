@@ -9,14 +9,14 @@ import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedRe
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserListScreen} from './UserList/UserList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
-import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
 import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
+import {stackNavHeaderOptions} from '../styles/nav-header';
 
 export function UserListStackScreen(): React.JSX.Element {
   return (
     <UserListStackNavigator.Navigator>
-      <UserListStackNavigator.Group screenOptions={defaultOptionHeader}>
+      <UserListStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <UserListStackNavigator.Screen
           name="UserList"
           component={UserListScreen}

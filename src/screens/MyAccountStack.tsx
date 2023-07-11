@@ -10,14 +10,14 @@ import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedRe
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {ManageAccountInfo} from './ManageAccountInfo/ManageAccountInfo';
-import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
 import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
+import {stackNavHeaderOptions} from '../styles/nav-header';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
     <MyAccountStackNavigator.Navigator>
-      <MyAccountStackNavigator.Group screenOptions={defaultOptionHeader}>
+      <MyAccountStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <MyAccountStackNavigator.Screen
           name="MyAccount"
           options={{headerShown: false}}

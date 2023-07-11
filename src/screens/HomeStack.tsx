@@ -9,14 +9,14 @@ import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
-import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
 import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
+import {stackNavHeaderOptions} from '../styles/nav-header';
 
 export function HomeStackScreen(): React.JSX.Element {
   return (
     <HomeStackNavigator.Navigator>
-      <HomeStackNavigator.Group screenOptions={defaultOptionHeader}>
+      <HomeStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <HomeStackNavigator.Screen
           name="Home"
           options={{headerShown: false}}

@@ -9,14 +9,14 @@ import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
-import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
 import {ReviewBreakdownScreen} from './ReviewBreakdown/ReviewBreakdown';
+import {stackNavHeaderOptions} from '../styles/nav-header';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
     <MoviesListStackNavigator.Navigator>
-      <MoviesListStackNavigator.Group screenOptions={defaultOptionHeader}>
+      <MoviesListStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <MoviesListStackNavigator.Screen
           name="MoviesList"
           component={MoviesListScreen}
