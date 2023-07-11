@@ -4,6 +4,7 @@ export type MainStackParams = {
     firstTab: 'regular' | 'critic';
   };
   ReviewDetails: undefined;
+  ReviewBreakdown: undefined;
   UserDetails: undefined;
   UserWatchedList: {isPersonal?: boolean};
   UserReviewList: {isPersonal?: boolean};

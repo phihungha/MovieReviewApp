@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<421fbe8d541ec1933c040924295cc734>>
+ * @generated SignedSource<<b8b8919b3baf233f67fc419309c4d80e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,7 @@ export type MovieDetailsQuery$data = {
       readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"GenreListItem">;
     }>;
+    readonly id: string;
     readonly posterUrl: string | null;
     readonly releaseDate: any;
     readonly runningTime: number;
@@ -58,35 +59,35 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "releaseDate",
+  "name": "title",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "runningTime",
+  "name": "releaseDate",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "posterUrl",
+  "name": "runningTime",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "posterUrl",
   "storageKey": null
 },
 v7 = {
@@ -132,8 +133,8 @@ v10 = [
         "name": "node",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -179,7 +180,7 @@ v10 = [
                 "name": "userType",
                 "storageKey": null
               },
-              (v6/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -230,6 +231,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -238,7 +240,7 @@ return {
             "name": "genres",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -255,7 +257,7 @@ return {
             "name": "actingCredits",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -272,7 +274,7 @@ return {
             "name": "workCredits",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -321,6 +323,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -329,7 +332,7 @@ return {
             "name": "genres",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               (v7/*: any*/)
             ],
             "storageKey": null
@@ -342,7 +345,7 @@ return {
             "name": "actingCredits",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -353,7 +356,7 @@ return {
                 "selections": [
                   (v8/*: any*/),
                   (v7/*: any*/),
-                  (v6/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -375,7 +378,7 @@ return {
             "name": "workCredits",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -386,7 +389,7 @@ return {
                 "selections": [
                   (v7/*: any*/),
                   (v8/*: any*/),
-                  (v6/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -428,7 +431,6 @@ return {
             "name": "regularReviewCount",
             "storageKey": null
           },
-          (v6/*: any*/),
           {
             "alias": null,
             "args": (v9/*: any*/),
@@ -455,16 +457,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5ab4fb0cf2011492c4a10a553b05b17c",
+    "cacheID": "be43fa22e466a97e66c9e2642415d258",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    id\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  id\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  id\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9ff973ea6000c0c6ecba4d9d02e91a56";
+(node as any).hash = "979507eb2e1eb4842d5a7f297f4f0eae";
 
 export default node;

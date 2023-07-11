@@ -11,6 +11,7 @@ import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
 import {defaultOptionHeader} from './Main';
 import {EditReviewScreen} from './CreateReview/EditReview';
+import ReviewBreakdownScreen from './ReviewBreakdown/ReviewBreakdown';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
@@ -25,9 +26,9 @@ export function MovieListStackScreen(): React.JSX.Element {
           component={MovieDetailsScreen}
         />
         <MoviesListStackNavigator.Screen
-          name="CreateReview"
-          options={{title: 'Create a review'}}
-          component={CreateReviewScreen}
+          name="ReviewBreakdown"
+          options={{title: 'Review breakdown'}}
+          component={ReviewBreakdownScreen}
         />
         <MoviesListStackNavigator.Screen
           name="MovieReviewList"
@@ -37,6 +38,11 @@ export function MovieListStackScreen(): React.JSX.Element {
           name="ReviewDetails"
           options={{title: 'Review details'}}
           component={ReviewDetailsScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="CreateReview"
+          options={{title: 'Create a review'}}
+          component={CreateReviewScreen}
         />
         <MoviesListStackNavigator.Screen
           name="EditReview"

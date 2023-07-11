@@ -28,6 +28,7 @@ import {MarkMovieButton} from './components/MarkMovieButton';
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
     movie(id: $id) {
+      id
       title
       releaseDate
       runningTime
@@ -75,7 +76,17 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
     preloadedQueries!.MovieDetails.queryRef!,
   );
 
+  const movieId = data.movie?.id;
   const releaseDate = new Date(data.movie?.releaseDate);
+
+  function onOpenReviewBreakdown() {
+    if (movieId) {
+      preloadedQueries?.ReviewBreakdown.loadQuery({
+        id: movieId,
+      });
+    }
+    navigation.navigate('ReviewBreakdown');
+  }
 
   return (
     <ScrollView>
@@ -142,6 +153,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
               <CriticAggregateScoreIndicator movie={data.movie} />
               <RegularAggregateScoreIndicator movie={data.movie} />
             </View>
+            <Button onPress={onOpenReviewBreakdown} title="Review breakdown" />
           </InfoSection>
 
           <InfoSection>
