@@ -12,22 +12,21 @@ export type HorizontalListProps = FlatListProps<any> & {
 };
 
 export function HorizontalList(props: HorizontalListProps): JSX.Element {
-  if (!props.data || props.data.length === 0) {
-    return (
-      <View style={styles.container}>
-        {props.emptyContent ? (
-          props.emptyContent
-        ) : (
-          <Text style={styles.emptyMessage}>There is nothing here!</Text>
-        )}
-      </View>
-    );
-  }
+  const emptyComponent = (
+    <View style={styles.container}>
+      {props.emptyContent ? (
+        props.emptyContent
+      ) : (
+        <Text style={styles.emptyMessage}>There is nothing here!</Text>
+      )}
+    </View>
+  );
 
   return (
     <FlatList
       style={styles.list}
       ListHeaderComponent={props.ListHeaderComponent}
+      ListEmptyComponent={emptyComponent}
       horizontal
       ItemSeparatorComponent={HorizontalListItemSeparator}
       ListFooterComponent={

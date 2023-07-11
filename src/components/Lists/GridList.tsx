@@ -11,21 +11,20 @@ export type GridListProps = FlatListProps<any> & {
 };
 
 export function GridList(props: GridListProps): JSX.Element {
-  if (!props.data || props.data.length === 0) {
-    return (
-      <View style={styles.container}>
-        {props.emptyContent ? (
-          props.emptyContent
-        ) : (
-          <Text style={styles.emptyMessage}>There is nothing here!</Text>
-        )}
-      </View>
-    );
-  }
+  const emptyComponent = (
+    <View style={styles.container}>
+      {props.emptyContent ? (
+        props.emptyContent
+      ) : (
+        <Text style={styles.emptyMessage}>There is nothing here!</Text>
+      )}
+    </View>
+  );
 
   return (
     <FlatList
       ListHeaderComponent={props.ListHeaderComponent}
+      ListEmptyComponent={emptyComponent}
       columnWrapperStyle={styles.gridRow}
       numColumns={2}
       ItemSeparatorComponent={VerticalListItemSeparator}
