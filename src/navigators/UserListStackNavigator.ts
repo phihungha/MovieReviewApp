@@ -1,9 +1,9 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {MainStackParams} from './MainStackParams';
 
-export type UsersListStackParams = MainStackParams & {
+export type UserListStackParams = MainStackParams & {
   UserList: undefined;
 };
 
-export const UsersListStackNavigator =
-  createNativeStackNavigator<UsersListStackParams>();
+export const UserListStackNavigator =
+  createNativeStackNavigator<UserListStackParams>();

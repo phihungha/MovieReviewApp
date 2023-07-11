@@ -5,7 +5,7 @@ import {graphql} from 'relay-runtime';
 import {usePreloadedQuery} from 'react-relay';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
-import {UsersListStackParams} from '../../navigators/UsersListStackNavigator';
+import {UserListStackParams} from '../../navigators/UserListStackNavigator';
 import type {UserReviewListQuery as UserReviewListQueryType} from './__generated__/UserReviewListQuery.graphql';
 import {AllUserReviewList} from './components/AllUserReviewList';
 
@@ -19,7 +19,7 @@ export const UserReviewListQuery = graphql`
 `;
 
 type UserReviewListScreenProps = NativeStackScreenProps<
-  UsersListStackParams,
+  UserListStackParams,
   'UserReviewList'
 >;
 

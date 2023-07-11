@@ -11,7 +11,7 @@ import {graphql} from 'relay-runtime';
 import {usePreloadedQuery} from 'react-relay';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
-import {UsersListStackParams} from '../../navigators/UsersListStackNavigator';
+import {UserListStackParams} from '../../navigators/UserListStackNavigator';
 import type {UserListQuery as UserListQueryType} from './__generated__/UserListQuery.graphql';
 import {UserListHeader} from './components/UserListHeader';
 import {AllUserList} from './components/AllUserList';
@@ -23,7 +23,7 @@ export const UserListQuery = graphql`
 `;
 
 type UserListScreenProps = NativeStackScreenProps<
-  UsersListStackParams,
+  UserListStackParams,
   'UserList'
 >;
 
