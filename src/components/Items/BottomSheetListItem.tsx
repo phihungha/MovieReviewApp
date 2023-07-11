@@ -36,7 +36,7 @@ export function BottomSheetListItem(props: ItemProps): JSX.Element {
       <ConfirmDialog
         onOk={() => props.onOk()}
         title={'Warning!'}
-        message={'Are your want to delete this comment?'}
+        message={'Do you want to delete this comment?'}
         openBtnTitle={'Delete'}
         customOpenButton={onPress => customOpenButton(onPress)}
       />

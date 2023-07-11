@@ -9,4 +9,5 @@ export type MainStackParams = {
   UserReviewList: {isPersonal?: boolean};
   UserThankedReviewList: {isPersonal?: boolean};
   CreateReview: undefined;
+  EditReview: undefined;
 };

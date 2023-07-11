@@ -61,7 +61,7 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
     }
 
     props.onNavigate !== undefined
-      ? props.onNavigate
+      ? props.onNavigate()
       : navigation.navigate('ReviewDetails');
   };
 

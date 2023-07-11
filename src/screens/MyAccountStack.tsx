@@ -11,6 +11,7 @@ import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {ManageAccountInfo} from './ManageAccountInfo/ManageAccountInfo';
 import {defaultOptionHeader} from './Main';
+import {EditReviewScreen} from './CreateReview/EditReview';
 
 export function MyAccountStackScreen(): React.JSX.Element {
   return (
@@ -38,6 +39,11 @@ export function MyAccountStackScreen(): React.JSX.Element {
           name="ReviewDetails"
           options={{title: 'Review details'}}
           component={ReviewDetailsScreen}
+        />
+        <MyAccountStackNavigator.Screen
+          name="EditReview"
+          options={{title: 'Edit review'}}
+          component={EditReviewScreen}
         />
         <MyAccountStackNavigator.Screen
           name="UserDetails"

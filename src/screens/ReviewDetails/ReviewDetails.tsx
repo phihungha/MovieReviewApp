@@ -78,7 +78,7 @@ function ListHeader({navigation, data}: ListHeaderProps): React.JSX.Element {
   return (
     <View style={styles.headerContainer}>
       <ReviewListItem
-        onNavigate={() => navigation.navigate('CreateReview')}
+        onNavigate={() => navigation.navigate('EditReview')}
         enabledEditButton={true}
         review={data.review}
       />
