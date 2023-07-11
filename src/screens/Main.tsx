@@ -71,6 +71,16 @@ export function MainScreen({navigation}: MainScreenProps) {
   return <MainScreenAfterLogin />;
 }
 
+export const defaultOptionHeader = {
+  headerStyle: {
+    backgroundColor: colors.darkBlack,
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    color: colors.white,
+  },
+};
+
 function MainScreenAfterLogin(): JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 

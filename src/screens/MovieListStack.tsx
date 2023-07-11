@@ -9,52 +9,54 @@ import {UserDetailsScreen} from './UserDetails/UserDetails';
 import {UserReviewListScreen} from './UserReviewList/UserReviewList';
 import {UserWatchedListScreen} from './UserWatchedList/UserWatchedList';
 import {UserThankedReviewListScreen} from './UserThankedReviewList/UserThankedReviewList';
+import {defaultOptionHeader} from './Main';
 
 export function MovieListStackScreen(): React.JSX.Element {
   return (
     <MoviesListStackNavigator.Navigator>
-      <MoviesListStackNavigator.Screen
-        name="MoviesList"
-        component={MoviesListScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="MovieDetails"
-        options={{headerShown: false}}
-        component={MovieDetailsScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="CreateReview"
-        options={{title: 'Create a review'}}
-        component={CreateReviewScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="MovieReviewList"
-        component={MovieReviewListScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="ReviewDetails"
-        options={{title: 'Review details'}}
-        component={ReviewDetailsScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="UserDetails"
-        component={UserDetailsScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="UserWatchedList"
-        options={{title: 'Watched movies'}}
-        component={UserWatchedListScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="UserReviewList"
-        options={{title: 'Reviews'}}
-        component={UserReviewListScreen}
-      />
-      <MoviesListStackNavigator.Screen
-        name="UserThankedReviewList"
-        options={{title: 'Thanked reviews'}}
-        component={UserThankedReviewListScreen}
-      />
+      <MoviesListStackNavigator.Group screenOptions={defaultOptionHeader}>
+        <MoviesListStackNavigator.Screen
+          name="MoviesList"
+          component={MoviesListScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="MovieDetails"
+          component={MovieDetailsScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="CreateReview"
+          options={{title: 'Create a review'}}
+          component={CreateReviewScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="MovieReviewList"
+          component={MovieReviewListScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="ReviewDetails"
+          options={{title: 'Review details'}}
+          component={ReviewDetailsScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="UserDetails"
+          component={UserDetailsScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="UserWatchedList"
+          options={{title: 'Watched movies'}}
+          component={UserWatchedListScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="UserReviewList"
+          options={{title: 'Reviews'}}
+          component={UserReviewListScreen}
+        />
+        <MoviesListStackNavigator.Screen
+          name="UserThankedReviewList"
+          options={{title: 'Thanked reviews'}}
+          component={UserThankedReviewListScreen}
+        />
+      </MoviesListStackNavigator.Group>
     </MoviesListStackNavigator.Navigator>
   );
 }
