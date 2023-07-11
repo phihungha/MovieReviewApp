@@ -3,6 +3,7 @@ import {FlatList, ListRenderItem, SafeAreaView} from 'react-native';
 import {BottomSheet} from '@rneui/themed';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../styles/colors';
 
 type RenderItem = ListRenderItem<any> | null | undefined;
 type KeyExtractor = ((item: any, index: number) => string) | undefined;
@@ -60,6 +61,7 @@ export function GenericBottomSheetDialog(
           scrollViewProps={{endFillColor: '#fff'}}
           onBackdropPress={props.onBackdropPress}>
           <FlatList
+            contentContainerStyle={{backgroundColor: colors.mediumBlack}}
             data={props.listItem}
             renderItem={props.renderItem}
             keyExtractor={props.keyExtractor}
