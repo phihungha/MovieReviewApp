@@ -40,11 +40,11 @@ export function MoviesListOptionsDialog(
 
   const [sortByOpen, setSortByOpen] = useState(false);
   const [sortByItems, setSortByItems] = useState([
-    {label: 'Title', value: 'title'},
-    {label: 'Release date', value: 'releaseDate'},
-    {label: 'Critic score', value: 'criticScore'},
-    {label: 'Regular score', value: 'regularScore'},
-    {label: 'Viewed user count', value: 'viewedUserCount'},
+    {label: 'Title', value: 'Title'},
+    {label: 'Release date', value: 'ReleaseDate'},
+    {label: 'Critic score', value: 'CriticScore'},
+    {label: 'Regular score', value: 'RegularScore'},
+    {label: 'Viewed user count', value: 'ViewedUserCount'},
   ]);
 
   const [sortDirectionOpen, setSortDirectionOpen] = useState(false);

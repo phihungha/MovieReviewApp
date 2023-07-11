@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d4bb9976dacc1592f6c8df20cfb3e4c0>>
+ * @generated SignedSource<<b55cfba9b59fe2079896405730ad9d11>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MovieSortBy = "criticScore" | "regularScore" | "releaseDate" | "title" | "viewedUserCount" | "%future added value";
+export type MovieSortBy = "CriticScore" | "RegularScore" | "ReleaseDate" | "Title" | "ViewedUserCount" | "%future added value";
 export type SortDirection = "Asc" | "Desc" | "%future added value";
 export type AllMovieListRefetchQuery$variables = {
   count?: number | null;

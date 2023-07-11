@@ -48,7 +48,7 @@ function MoviesListScreenWithData({
 
   const [search, setSearch] = useState('');
   const [options, setOptions] = useState<MoviesListOptions>({
-    sortBy: 'releaseDate',
+    sortBy: 'ReleaseDate',
     sortDirection: 'Desc',
   });
 
