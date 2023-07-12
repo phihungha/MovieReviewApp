@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d3babff02c2388611b0704bb458e646>>
+ * @generated SignedSource<<52a4aee1a0583b9819ba51f8c3cc6c26>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type CreateReviewQuery$variables = {
 export type CreateReviewQuery$data = {
   readonly movie: {
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"CreateReviewMovieInfo">;
+    readonly " $fragmentSpreads": FragmentRefs<"MovieInfoDisplay">;
   } | null;
 };
 export type CreateReviewQuery = {
@@ -65,7 +65,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CreateReviewMovieInfo"
+            "name": "MovieInfoDisplay"
           }
         ],
         "storageKey": null
@@ -130,16 +130,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "27e4d7b3d389c2ecbea9e460e5ef38ea",
+    "cacheID": "d3f8fc44650800c43bec4c9c960e9b9f",
     "id": null,
     "metadata": {},
     "name": "CreateReviewQuery",
     "operationKind": "query",
-    "text": "query CreateReviewQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    ...CreateReviewMovieInfo\n  }\n}\n\nfragment CreateReviewMovieInfo on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query CreateReviewQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    ...MovieInfoDisplay\n  }\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c68de9f7d469d36b2c227b661525f800";
+(node as any).hash = "8f76dbe25ae1f33a48ce07b01a98e36a";
 
 export default node;

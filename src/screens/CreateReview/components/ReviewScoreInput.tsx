@@ -5,14 +5,12 @@ import {TitleText} from '../../../components/Text/TitleText';
 
 export type OnRating = (rating: number) => void;
 
-interface CreateReviewRatingProps {
+interface ReviewScoreInputProps {
   score: number;
   onScoreChanged: (s: number) => void;
 }
 
-export function CreateReviewScoreInput(
-  props: CreateReviewRatingProps,
-): JSX.Element {
+export function ReviewScoreInput(props: ReviewScoreInputProps): JSX.Element {
   return (
     <View>
       <TitleText>Rating</TitleText>

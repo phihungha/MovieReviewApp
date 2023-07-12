@@ -1,22 +1,24 @@
 import React, {useContext, useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Button, Input} from '@rneui/themed';
+import {Button} from '@rneui/themed';
 import {graphql} from 'relay-runtime';
-import {CreateReviewScoreInput} from './components/CreateReviewScoreInput';
 import {useMutation, usePreloadedQuery} from 'react-relay';
 import type {CreateReviewMutation as CreateReviewMutationType} from './__generated__/CreateReviewMutation.graphql';
 import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
-import {CreateReviewMovieInfo} from './components/CreateReviewMovieInfo';
+import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import type {CreateReviewQuery as CreateReviewQueryType} from './__generated__/CreateReviewQuery.graphql';
+import Snackbar from 'react-native-snackbar';
+import {validateUrl} from '../../utils/url-check';
+import {ReviewEditor} from './components/ReviewEditor';
 
 export const CreateReviewQuery = graphql`
   query CreateReviewQuery($id: ID!) {
     movie(id: $id) {
       id
-      ...CreateReviewMovieInfo
+      ...MovieInfoDisplay
     }
   }
 `;
@@ -78,6 +80,18 @@ function CreateReviewScreenWithData({
   const [score, setScore] = useState(0);
 
   const onCreateReview = () => {
+    if (title.length < 1) {
+      return Snackbar.show({text: 'Title cannot be empty'});
+    }
+
+    if (content.length < 1) {
+      return Snackbar.show({text: 'Content cannot be empty'});
+    }
+
+    if (externalUrl && !validateUrl(externalUrl)) {
+      return Snackbar.show({text: 'Invalid external URL'});
+    }
+
     if (!data.movie) {
       return;
     }
@@ -85,21 +99,24 @@ function CreateReviewScreenWithData({
     commitMutation({
       variables: {
         input: {
+          movieId: data.movie.id,
           title,
           content,
           score,
           externalUrl,
-          movieId: data.movie.id,
         },
       },
       onCompleted: resp => {
         if (resp.createReview.message) {
-          console.log(resp.createReview.message);
-          return;
+          return Snackbar.show({text: resp.createReview.message});
         }
 
         if (data.movie) {
           preloadedQueries?.MovieReviewList.loadQuery(
+            {id: data.movie.id},
+            {fetchPolicy: 'network-only'},
+          );
+          preloadedQueries?.MyAccount.loadQuery(
             {id: data.movie.id},
             {fetchPolicy: 'network-only'},
           );
@@ -111,37 +128,18 @@ function CreateReviewScreenWithData({
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CreateReviewMovieInfo movie={data.movie} />
-
+      <MovieInfoDisplay movie={data.movie} />
       <View style={styles.inputContainer}>
-        <CreateReviewScoreInput score={score} onScoreChanged={setScore} />
-
-        <Input
-          value={title}
-          onChangeText={i => setTitle(i)}
-          placeholder="Enter a title..."
-          label={'Title'}
-          renderErrorMessage={false}
+        <ReviewEditor
+          title={title}
+          onTitleChanged={setTitle}
+          externalUrl={externalUrl}
+          onExternalUrlChanged={setExternalUrl}
+          score={score}
+          onScoreChanged={setScore}
+          content={content}
+          onContentChanged={setContent}
         />
-
-        <Input
-          value={externalUrl}
-          onChangeText={i => setExternalUrl(i === '' ? undefined : i)}
-          placeholder="Enter a external url..."
-          label={'External URL'}
-          renderErrorMessage={false}
-        />
-
-        <Input
-          value={content}
-          onChangeText={i => setContent(i)}
-          placeholder="Enter content..."
-          label={'Content'}
-          inputStyle={styles.contentInput}
-          multiline
-          renderErrorMessage={false}
-        />
-
         <Button containerStyle={styles.createButton} onPress={onCreateReview}>
           {isPending ? <ButtonLoadingIcon /> : 'Create'}
         </Button>
@@ -153,9 +151,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 15,
     gap: 20,
-  },
-  contentInput: {
-    height: 150,
   },
   inputContainer: {
     gap: 20,

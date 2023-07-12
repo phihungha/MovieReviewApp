@@ -1,16 +1,16 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../../../components/Text/TitleText';
-import {RegularText} from '../../../components/Text/RegularText';
-import {CriticReviewScoreIndicator} from '../../../components/Display/CriticReviewScoreIndicator';
-import {RegularReviewScoreIndicator} from '../../../components/Display/RegularReviewScoreIndicator';
+import {TitleText} from '../Text/TitleText';
+import {RegularText} from '../Text/RegularText';
+import {CriticReviewScoreIndicator} from './CriticReviewScoreIndicator';
+import {RegularReviewScoreIndicator} from './RegularReviewScoreIndicator';
 import {graphql} from 'relay-runtime';
-import {CreateReviewMovieInfo$key} from './__generated__/CreateReviewMovieInfo.graphql';
 import {useFragment} from 'react-relay';
-import {MoviePoster} from '../../../components/Display/MoviePoster';
+import {MoviePoster} from './MoviePoster';
+import {MovieInfoDisplay$key} from './__generated__/MovieInfoDisplay.graphql';
 
-const CreateReviewMovieInfoFragment = graphql`
-  fragment CreateReviewMovieInfo on Movie {
+const MovieInfoDisplayFragment = graphql`
+  fragment MovieInfoDisplay on Movie {
     posterUrl
     title
     releaseDate
@@ -19,14 +19,14 @@ const CreateReviewMovieInfoFragment = graphql`
   }
 `;
 
-interface CreateReviewMovieInfoProps {
-  movie: CreateReviewMovieInfo$key | null;
+interface MovieInfoDisplayProps {
+  movie: MovieInfoDisplay$key | null;
 }
 
-export function CreateReviewMovieInfo({
+export function MovieInfoDisplay({
   movie,
-}: CreateReviewMovieInfoProps): React.JSX.Element {
-  const data = useFragment(CreateReviewMovieInfoFragment, movie);
+}: MovieInfoDisplayProps): React.JSX.Element {
+  const data = useFragment(MovieInfoDisplayFragment, movie);
 
   return (
     <View style={styles.container}>
