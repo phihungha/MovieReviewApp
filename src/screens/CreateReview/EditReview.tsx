@@ -16,6 +16,7 @@ import type {EditReviewMutation as EditReviewMutationType} from './__generated__
 import Snackbar from 'react-native-snackbar';
 import {validateUrl} from '../../utils/url-check';
 import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
+import type {EditReviewDeleteMutation as EditReviewDeleteMutationType} from './__generated__/EditReviewDeleteMutation.graphql';
 
 export const EditReviewQuery = graphql`
   query EditReviewQuery($id: ID!) {
@@ -56,6 +57,24 @@ const EditReviewMutation = graphql`
   }
 `;
 
+const EditReviewDeleteMutation = graphql`
+  mutation EditReviewDeleteMutation($id: ID!) {
+    deleteReview(id: $id) {
+      ... on MutationDeleteReviewSuccess {
+        data {
+          movie {
+            ...CriticAggregateScoreIndicator
+            ...RegularAggregateScoreIndicator
+            ...ScoreCountChart
+            ...GenderScoreChart
+            ...AgeScoreChart
+          }
+        }
+      }
+    }
+  }
+`;
+
 type EditReviewScreenProps = NativeStackScreenProps<
   MainStackParams,
   'EditReview'
@@ -78,9 +97,13 @@ function EditReviewScreenWithData({
     EditReviewQuery,
     preloadedQueries!.EditReview.queryRef!,
   );
+  const review = data.review;
+  const reviewId = review?.id;
 
-  const [commitMutation, isPending] =
+  const [commitEditMutation, isEditPending] =
     useMutation<EditReviewMutationType>(EditReviewMutation);
+  const [commitDeleteMutation, isDeletePending] =
+    useMutation<EditReviewDeleteMutationType>(EditReviewDeleteMutation);
 
   const [title, setTitle] = useState('');
   const [externalUrl, setExternalUrl] = useState<string | undefined>(undefined);
@@ -94,7 +117,7 @@ function EditReviewScreenWithData({
     setScore(data.review?.score ?? 0);
   }, [data]);
 
-  const onSave = () => {
+  function onSave() {
     if (title.length < 1) {
       return Snackbar.show({text: 'Title cannot be empty'});
     }
@@ -107,13 +130,13 @@ function EditReviewScreenWithData({
       return Snackbar.show({text: 'Invalid external URL'});
     }
 
-    if (!data.review) {
+    if (!reviewId) {
       return;
     }
 
-    commitMutation({
+    commitEditMutation({
       variables: {
-        id: data.review.id,
+        id: reviewId,
         input: {
           title,
           content,
@@ -127,9 +150,9 @@ function EditReviewScreenWithData({
           return Snackbar.show({text: errorMessage});
         }
 
-        if (data.review) {
+        if (review) {
           preloadedQueries?.MovieReviewList.loadQuery(
-            {id: data.review.movie.id},
+            {id: review.movie.id},
             {fetchPolicy: 'network-only'},
           );
         }
@@ -137,23 +160,44 @@ function EditReviewScreenWithData({
         navigation.goBack();
       },
     });
-  };
+  }
 
-  const onDelete = () => {
-    console.log('Call API Delete');
-  };
+  function onDelete() {
+    if (reviewId) {
+      commitDeleteMutation({
+        variables: {id: reviewId},
+        onCompleted: () => {
+          if (review) {
+            preloadedQueries?.MovieReviewList.loadQuery(
+              {id: review.movie.id},
+              {fetchPolicy: 'network-only'},
+            );
+            preloadedQueries?.MyAccount.loadQuery(
+              {},
+              {fetchPolicy: 'network-only'},
+            );
+          }
+          Snackbar.show({text: 'Review deleted!'});
+          navigation.navigate('MovieReviewList', {});
+        },
+      });
+    }
+  }
 
-  const customOpenButton = useCallback((onPress: ActionCb) => {
-    const buttonWidth = (Dimensions.get('window').width - 40) / 2 - 2;
-    return (
-      <Button
-        title="Delete"
-        containerStyle={[styles.deleteButton, {width: buttonWidth}]}
-        buttonStyle={{backgroundColor: colors.mediumBlack}}
-        onPress={onPress}
-      />
-    );
-  }, []);
+  const customOpenButton = useCallback(
+    (onPress: ActionCb) => {
+      const buttonWidth = (Dimensions.get('window').width - 40) / 2 - 2;
+      return (
+        <Button
+          containerStyle={[styles.deleteButton, {width: buttonWidth}]}
+          buttonStyle={styles.deleteButton}
+          onPress={onPress}>
+          {isDeletePending ? <ButtonLoadingIcon /> : 'Delete'}
+        </Button>
+      );
+    },
+    [isDeletePending],
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -177,7 +221,7 @@ function EditReviewScreenWithData({
             customOpenButton={onPress => customOpenButton(onPress)}
           />
           <Button containerStyle={[styles.saveButton]} onPress={onSave}>
-            {isPending ? <ButtonLoadingIcon /> : 'Save'}
+            {isEditPending ? <ButtonLoadingIcon /> : 'Save'}
           </Button>
         </View>
       </View>
@@ -195,7 +239,6 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: colors.mediumBlack,
-    borderRadius: 8,
   },
   saveButton: {
     borderRadius: 8,

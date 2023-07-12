@@ -122,7 +122,7 @@ function CreateReviewScreenWithData({
             {fetchPolicy: 'network-only'},
           );
           preloadedQueries?.MyAccount.loadQuery(
-            {id: data.movie.id},
+            {},
             {fetchPolicy: 'network-only'},
           );
         }

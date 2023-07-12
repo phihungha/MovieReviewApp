@@ -22,6 +22,7 @@ import {MovieReviewListHeader} from './components/MovieReviewListHeader';
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
     movie(id: $id) {
+      id
       ...CriticReviewList
       ...RegularReviewList
     }
@@ -70,14 +71,21 @@ function MovieReviewListScreenWithData({
 
   useEffect(() => navigation.setOptions({header: () => customHeader()}));
 
+  function onCreateReview() {
+    if (data.movie) {
+      preloadedQueries?.CreateReview.loadQuery(
+        {id: data.movie.id},
+        {fetchPolicy: 'network-only'},
+      );
+    }
+    navigation.navigate('CreateReview');
+  }
+
   const [index, setIndex] = useState(0);
 
   return (
     <View style={styles.container}>
-      <Button
-        onPress={() => navigation.navigate('CreateReview')}
-        title="Create a new review"
-      />
+      <Button onPress={onCreateReview} title="Create a new review" />
 
       <Tab value={index} onChange={i => setIndex(i)}>
         <Tab.Item title="Critic" />
