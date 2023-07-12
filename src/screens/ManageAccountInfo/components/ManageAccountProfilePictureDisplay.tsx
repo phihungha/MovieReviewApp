@@ -29,9 +29,9 @@ export function ManageAccountProfilePictureDisplay(
   const uri = 'https://uifaces.co/our-content/donated/6MWH9Xi_.jpg';
   return (
     <View style={styles.container}>
-      <View style={styles.titleLine}>
-        <BigTitleText>Profile Picture</BigTitleText>
-      </View>
+      <BigTitleText style={styles.titleLine}>
+        Change profile picture
+      </BigTitleText>
 
       <View style={styles.avatarContainer}>
         <Avatar
@@ -60,9 +60,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   titleLine: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   avatarContainer: {
     justifyContent: 'center',
