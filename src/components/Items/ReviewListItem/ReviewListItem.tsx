@@ -64,8 +64,6 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   }
 
   function onEditPress() {
-    console.log('error');
-
     if (props.onEdit !== undefined) {
       return props.onEdit?.();
     }

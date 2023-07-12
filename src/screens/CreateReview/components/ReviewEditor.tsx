@@ -22,7 +22,6 @@ export function ReviewEditor(props: ReviewEditorProps) {
         score={props.score}
         onScoreChanged={props.onScoreChanged}
       />
-
       <Input
         value={props.title}
         onChangeText={props.onTitleChanged}
@@ -30,7 +29,6 @@ export function ReviewEditor(props: ReviewEditorProps) {
         label="Title"
         renderErrorMessage={false}
       />
-
       <Input
         value={props.externalUrl}
         onChangeText={i => props.onExternalUrlChanged(i === '' ? undefined : i)}
@@ -38,7 +36,6 @@ export function ReviewEditor(props: ReviewEditorProps) {
         label="External URL"
         renderErrorMessage={false}
       />
-
       <Input
         value={props.content}
         onChangeText={props.onContentChanged}

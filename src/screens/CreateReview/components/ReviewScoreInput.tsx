@@ -28,11 +28,11 @@ export function ReviewScoreInput(props: ReviewScoreInputProps): JSX.Element {
           '9/10',
           '10/10',
         ]}
-        showRating={false} // if true => display the review[] label in above
+        showRating={false}
         ratingContainerStyle={styles.rateContainer}
         count={10}
-        defaultRating={10}
         size={28}
+        defaultRating={props.score}
         onFinishRating={props.onScoreChanged}
       />
     </View>

@@ -1,23 +1,145 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, ScrollView, Dimensions} from 'react-native';
-import {CreateReviewInfoDisplay} from './components/CreateReviewInfoDisplay';
-import {Button, Input} from '@rneui/themed';
+import {Button} from '@rneui/themed';
 import colors from '../../styles/colors';
 import {ConfirmDialog} from '../../dialogs/ConfirmDialog';
 import {ActionCb} from '../../types/ActionCb';
+import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
+import {ReviewEditor} from './components/ReviewEditor';
+import {graphql} from 'relay-runtime';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParams} from '../../navigators/MainStackParams';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import type {EditReviewQuery as EditReviewQueryType} from './__generated__/EditReviewQuery.graphql';
+import {useMutation, usePreloadedQuery} from 'react-relay';
+import type {EditReviewMutation as EditReviewMutationType} from './__generated__/EditReviewMutation.graphql';
+import Snackbar from 'react-native-snackbar';
+import {validateUrl} from '../../utils/url-check';
+import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
 
-export function EditReviewScreen(): JSX.Element {
+export const EditReviewQuery = graphql`
+  query EditReviewQuery($id: ID!) {
+    review(id: $id) {
+      id
+      title
+      content
+      externalUrl
+      score
+      movie {
+        id
+        ...MovieInfoDisplay
+      }
+    }
+  }
+`;
+
+const EditReviewMutation = graphql`
+  mutation EditReviewMutation($id: ID!, $input: EditReviewInput!) {
+    editReview(id: $id, input: $input) {
+      ... on MutationEditReviewSuccess {
+        data {
+          ...ReviewListItem
+          movie {
+            ...CriticAggregateScoreIndicator
+            ...RegularAggregateScoreIndicator
+            ...ScoreCountChart
+            ...GenderScoreChart
+            ...AgeScoreChart
+          }
+        }
+      }
+
+      ... on ValidationError {
+        message
+      }
+    }
+  }
+`;
+
+type EditReviewScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'EditReview'
+>;
+
+export function EditReviewScreen(props: EditReviewScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.EditReview.queryRef) {
+    return <></>;
+  }
+  return <EditReviewScreenWithData {...props} />;
+}
+
+function EditReviewScreenWithData({
+  navigation,
+}: EditReviewScreenProps): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<EditReviewQueryType>(
+    EditReviewQuery,
+    preloadedQueries!.EditReview.queryRef!,
+  );
+
+  const [commitMutation, isPending] =
+    useMutation<EditReviewMutationType>(EditReviewMutation);
+
   const [title, setTitle] = useState('');
-  const [externalUrl, setExternalUrl] = useState('');
+  const [externalUrl, setExternalUrl] = useState<string | undefined>(undefined);
   const [content, setContent] = useState('');
+  const [score, setScore] = useState(0);
 
-  const onRating = (rating: number) => {
-    console.log(rating);
+  useEffect(() => {
+    setTitle(data.review?.title ?? '');
+    setExternalUrl(data.review?.externalUrl ?? undefined);
+    setContent(data.review?.content ?? '');
+    setScore(data.review?.score ?? 0);
+  }, [data]);
+
+  const onSave = () => {
+    if (title.length < 1) {
+      return Snackbar.show({text: 'Title cannot be empty'});
+    }
+
+    if (content.length < 1) {
+      return Snackbar.show({text: 'Content cannot be empty'});
+    }
+
+    if (externalUrl && !validateUrl(externalUrl)) {
+      return Snackbar.show({text: 'Invalid external URL'});
+    }
+
+    if (!data.review) {
+      return;
+    }
+
+    commitMutation({
+      variables: {
+        id: data.review.id,
+        input: {
+          title,
+          content,
+          score,
+          externalUrl,
+        },
+      },
+      onCompleted: resp => {
+        const errorMessage = resp.editReview.message;
+        if (errorMessage) {
+          return Snackbar.show({text: errorMessage});
+        }
+
+        if (data.review) {
+          preloadedQueries?.MovieReviewList.loadQuery(
+            {id: data.review.movie.id},
+            {fetchPolicy: 'network-only'},
+          );
+        }
+        Snackbar.show({text: 'Review edited!'});
+        navigation.goBack();
+      },
+    });
   };
-  const onSaveReview = () => {
-    console.log('Call API Save');
-  };
-  const onDeleteReview = () => {
+
+  const onDelete = () => {
     console.log('Call API Delete');
   };
 
@@ -25,7 +147,7 @@ export function EditReviewScreen(): JSX.Element {
     const buttonWidth = (Dimensions.get('window').width - 40) / 2 - 2;
     return (
       <Button
-        title={'Delete'}
+        title="Delete"
         containerStyle={[styles.deleteButton, {width: buttonWidth}]}
         buttonStyle={{backgroundColor: colors.mediumBlack}}
         onPress={onPress}
@@ -35,57 +157,29 @@ export function EditReviewScreen(): JSX.Element {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CreateReviewInfoDisplay
-        movieName={'name'}
-        movieYear={2022}
-        criticScore={8.0}
-        userScore={9.0}
-        genres={'Thriller'}
-        onRating={onRating}
-      />
-
-      <Input
-        value={title}
-        onChangeText={i => setTitle(i)}
-        placeholder="Enter a title..."
-        label={'Title'}
-        renderErrorMessage={false}
-      />
-
-      <Input
-        value={externalUrl}
-        onChangeText={i => setExternalUrl(i)}
-        placeholder="Enter a external url..."
-        label={'External URL'}
-        renderErrorMessage={false}
-      />
-
-      <Input
-        value={content}
-        onChangeText={i => setContent(i)}
-        placeholder="Enter content..."
-        label={'Content'}
-        inputStyle={{
-          height: 100,
-        }}
-        multiline
-        renderErrorMessage={false}
-      />
-
-      <View style={styles.buttonContainer}>
-        <ConfirmDialog
-          onOk={onDeleteReview}
-          openBtnTitle={'Delete'}
-          title={'Warning!'}
-          message={'Do you want to delete this review?'}
-          customOpenButton={onPress => customOpenButton(onPress)}
+      <MovieInfoDisplay movie={data.review?.movie ?? null} />
+      <View style={styles.inputContainer}>
+        <ReviewEditor
+          title={title}
+          onTitleChanged={setTitle}
+          externalUrl={externalUrl}
+          onExternalUrlChanged={setExternalUrl}
+          score={score}
+          onScoreChanged={setScore}
+          content={content}
+          onContentChanged={setContent}
         />
-
-        <Button
-          containerStyle={[styles.saveButton]}
-          onPress={onSaveReview}
-          title="Save"
-        />
+        <View style={styles.buttonContainer}>
+          <ConfirmDialog
+            onOk={onDelete}
+            title="Warning!"
+            message={'Do you want to delete this review?'}
+            customOpenButton={onPress => customOpenButton(onPress)}
+          />
+          <Button containerStyle={[styles.saveButton]} onPress={onSave}>
+            {isPending ? <ButtonLoadingIcon /> : 'Save'}
+          </Button>
+        </View>
       </View>
     </ScrollView>
   );
@@ -96,13 +190,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     gap: 20,
   },
-  ItemSeparator: {
-    height: 20,
-    width: '100%',
-  },
-  HorizontalItemSeparator: {
-    marginVertical: 10,
-    width: 1,
+  inputContainer: {
+    gap: 20,
   },
   deleteButton: {
     backgroundColor: colors.mediumBlack,
@@ -114,7 +203,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    width: '100%',
     gap: 8,
     justifyContent: 'space-between',
   },

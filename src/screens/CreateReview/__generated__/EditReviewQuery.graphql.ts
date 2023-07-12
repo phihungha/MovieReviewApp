@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da99dd4cb54791ef767ca557d11c10c1>>
+ * @generated SignedSource<<7d9d08713b1f66a08c9a0eb174b5c237>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,9 @@ export type EditReviewQuery$data = {
   readonly review: {
     readonly content: string;
     readonly externalUrl: string | null;
+    readonly id: string;
     readonly movie: {
+      readonly id: string;
       readonly " $fragmentSpreads": FragmentRefs<"MovieInfoDisplay">;
     };
     readonly score: number;
@@ -48,35 +50,35 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "content",
+  "name": "title",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "externalUrl",
+  "name": "content",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "score",
+  "name": "externalUrl",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "score",
   "storageKey": null
 };
 return {
@@ -98,6 +100,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -106,6 +109,7 @@ return {
             "name": "movie",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -139,6 +143,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -147,6 +152,7 @@ return {
             "name": "movie",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -154,7 +160,7 @@ return {
                 "name": "posterUrl",
                 "storageKey": null
               },
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -175,28 +181,26 @@ return {
                 "kind": "ScalarField",
                 "name": "regularScore",
                 "storageKey": null
-              },
-              (v6/*: any*/)
+              }
             ],
             "storageKey": null
-          },
-          (v6/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c92629b3350517f384f454f4975043c3",
+    "cacheID": "78da9ee074a9c2ca7e58a98fd769c164",
     "id": null,
     "metadata": {},
     "name": "EditReviewQuery",
     "operationKind": "query",
-    "text": "query EditReviewQuery(\n  $id: ID!\n) {\n  review(id: $id) {\n    title\n    content\n    externalUrl\n    score\n    movie {\n      ...MovieInfoDisplay\n      id\n    }\n    id\n  }\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n"
+    "text": "query EditReviewQuery(\n  $id: ID!\n) {\n  review(id: $id) {\n    id\n    title\n    content\n    externalUrl\n    score\n    movie {\n      id\n      ...MovieInfoDisplay\n    }\n  }\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8129661b8286f16d1983946184d12e8d";
+(node as any).hash = "2483872407754836f2575cc5b8b88549";
 
 export default node;

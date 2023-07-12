@@ -38,9 +38,11 @@ const CreateReviewMutation = graphql`
           }
         }
       }
+
       ... on AlreadyExistsError {
         message
       }
+
       ... on ValidationError {
         message
       }
@@ -81,7 +83,7 @@ function CreateReviewScreenWithData({
   const [content, setContent] = useState('');
   const [score, setScore] = useState(0);
 
-  const onCreateReview = () => {
+  function onCreateReview() {
     if (title.length < 1) {
       return Snackbar.show({text: 'Title cannot be empty'});
     }
@@ -109,8 +111,9 @@ function CreateReviewScreenWithData({
         },
       },
       onCompleted: resp => {
-        if (resp.createReview.message) {
-          return Snackbar.show({text: resp.createReview.message});
+        const errorMessage = resp.createReview.message;
+        if (errorMessage) {
+          return Snackbar.show({text: errorMessage});
         }
 
         if (data.movie) {
@@ -123,10 +126,11 @@ function CreateReviewScreenWithData({
             {fetchPolicy: 'network-only'},
           );
         }
+        Snackbar.show({text: 'Review posted!'});
         navigation.navigate('MovieReviewList', {});
       },
     });
-  };
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

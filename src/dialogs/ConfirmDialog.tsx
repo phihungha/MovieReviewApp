@@ -5,22 +5,23 @@ import {View} from 'react-native';
 import {CustomButtonCb} from '../types/CustomButtonCb';
 
 export interface ConfirmDialogProps {
-  onOk: ActionCb;
-  openBtnTitle: string;
   title: string;
-  message: string;
+  onOk?: ActionCb;
+  message?: string;
+  openBtnTitle?: string;
   customOpenButton?: CustomButtonCb;
 }
 
 /**
  * Dialog to confirm something.
- * @param {string} openBtnTitle Title of dialog open button
  * @param {string} title Title of the dialog
- * @param {string} message Message
- * @param {ActionCb} onOk Action on pressing Ok
+ * @param {string?} message Message
+ * @param {string?} openBtnTitle Title of dialog open button
+ * @param {ActionCb?} onOk Action on pressing Ok
+ * @param {CustomButtonCb} customOpenButton Custom open button
  */
 export function ConfirmDialog(props: ConfirmDialogProps): JSX.Element {
-  const yesPressed = () => props.onOk();
+  const yesPressed = () => props.onOk?.();
 
   return (
     <View>
