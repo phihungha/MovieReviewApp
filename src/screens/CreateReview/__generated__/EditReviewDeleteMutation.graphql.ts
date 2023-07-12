@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<08532bff51eb77db6db17e6f3c867924>>
+ * @generated SignedSource<<6bb213f022df7bc2f0515a2f23e70b26>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,11 +11,13 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EditReviewDeleteMutation$variables = {
+  connections: ReadonlyArray<string>;
   id: string;
 };
 export type EditReviewDeleteMutation$data = {
   readonly deleteReview: {
     readonly data?: {
+      readonly id: string;
       readonly movie: {
         readonly " $fragmentSpreads": FragmentRefs<"AgeScoreChart" | "CriticAggregateScoreIndicator" | "GenderScoreChart" | "RegularAggregateScoreIndicator" | "ScoreCountChart">;
       };
@@ -28,42 +30,48 @@ export type EditReviewDeleteMutation = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "connections"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "id"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v2 = {
-  "kind": "Literal",
-  "name": "authorType",
-  "value": "Regular"
-},
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v4 = {
+  "kind": "Literal",
+  "name": "authorType",
+  "value": "Regular"
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "EditReviewDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteReview",
@@ -80,6 +88,7 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -132,13 +141,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "EditReviewDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteReview",
@@ -162,6 +174,23 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "filters": null,
+                    "handle": "deleteEdge",
+                    "key": "",
+                    "kind": "ScalarHandle",
+                    "name": "id",
+                    "handleArgs": [
+                      {
+                        "kind": "Variable",
+                        "name": "connections",
+                        "variableName": "connections"
+                      }
+                    ]
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -201,7 +230,7 @@ return {
                       {
                         "alias": "score0count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -215,7 +244,7 @@ return {
                       {
                         "alias": "score1count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -229,7 +258,7 @@ return {
                       {
                         "alias": "score2count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -243,7 +272,7 @@ return {
                       {
                         "alias": "score3count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -257,7 +286,7 @@ return {
                       {
                         "alias": "score4count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -271,7 +300,7 @@ return {
                       {
                         "alias": "score5count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -285,7 +314,7 @@ return {
                       {
                         "alias": "score6count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -299,7 +328,7 @@ return {
                       {
                         "alias": "score7count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -313,7 +342,7 @@ return {
                       {
                         "alias": "score8count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -327,7 +356,7 @@ return {
                       {
                         "alias": "score9count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -341,7 +370,7 @@ return {
                       {
                         "alias": "score10count",
                         "args": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -461,8 +490,7 @@ return {
                       (v3/*: any*/)
                     ],
                     "storageKey": null
-                  },
-                  (v3/*: any*/)
+                  }
                 ],
                 "storageKey": null
               }
@@ -476,16 +504,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3c9c664704ae22dfbe8a91f4509d6bd8",
+    "cacheID": "7738382d9bb4fadc9dac44c7aad082b9",
     "id": null,
     "metadata": {},
     "name": "EditReviewDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation EditReviewDeleteMutation(\n  $id: ID!\n) {\n  deleteReview(id: $id) {\n    __typename\n    ... on MutationDeleteReviewSuccess {\n      data {\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
+    "text": "mutation EditReviewDeleteMutation(\n  $id: ID!\n) {\n  deleteReview(id: $id) {\n    __typename\n    ... on MutationDeleteReviewSuccess {\n      data {\n        id\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7cfa4db63293d1724988d5c6a26c698d";
+(node as any).hash = "c74bfc8a1d122a8c3c41277b5138730c";
 
 export default node;
