@@ -60,28 +60,21 @@ export function ReviewDetailsScreenWithData({
       <Suspense fallback={<StandardLoadingIcon />}>
         <CommentList
           review={review}
-          ListHeaderComponent={
-            <ListHeader navigation={navigation} data={data} />
-          }
+          ListHeaderComponent={<ListHeader data={data} />}
         />
       </Suspense>
     </View>
   );
 }
 
-interface ListHeaderProps {
-  navigation: ReviewDetailsScreenProps['navigation'];
+function ListHeader({
+  data,
+}: {
   data: ReviewDetailsQuery$data;
-}
-
-function ListHeader({navigation, data}: ListHeaderProps): React.JSX.Element {
+}): React.JSX.Element {
   return (
     <View style={styles.headerContainer}>
-      <ReviewListItem
-        onNavigate={() => navigation.navigate('EditReview')}
-        enabledEditButton={true}
-        review={data.review}
-      />
+      <ReviewListItem canEdit={true} onPress={null} review={data.review} />
       <CommentCreator />
     </View>
   );

@@ -1,12 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  Pressable,
-  PressableProps,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from 'react-native';
+import {Pressable, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {ReviewInfoDisplay} from '../../Display/ReviewInfoDisplay';
 import colors from '../../../styles/colors';
 import {ReviewCommentButton} from './components/ReviewCommentButton';
@@ -18,7 +11,7 @@ import {HorizontalUserDisplay} from '../../Display/HorizontalUserDisplay';
 import {ActionCb} from '../../../types/ActionCb';
 import {pressableRippleConfig} from '../../../styles/pressable-ripple';
 import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
-import {Icon} from '@rneui/themed';
+import {Button} from '@rneui/themed';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {MainStackParams} from '../../../navigators/MainStackParams';
 
@@ -36,10 +29,11 @@ const ReviewListItemFragment = graphql`
 
 export interface ReviewListItemProps {
   review: ReviewListItem$key | null;
-  onPress?: ActionCb;
+  onPress?: ActionCb | null;
   onNavigate?: ActionCb | null;
+  canEdit?: boolean;
+  onEdit?: ActionCb | null;
   containerStyle?: StyleProp<ViewStyle>;
-  enabledEditButton?: boolean;
 }
 
 /**
@@ -51,7 +45,11 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<MainStackParams>>();
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
-  const defaultOnPress = () => {
+  function onPress() {
+    if (props.onPress !== undefined) {
+      return props.onPress?.();
+    }
+
     if (props.onNavigate === null) {
       return;
     }
@@ -63,20 +61,34 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
     props.onNavigate !== undefined
       ? props.onNavigate()
       : navigation.navigate('ReviewDetails');
-  };
+  }
 
-  const onPress = props.onPress ?? defaultOnPress;
+  function onEditPress() {
+    console.log('error');
+
+    if (props.onEdit !== undefined) {
+      return props.onEdit?.();
+    }
+
+    if (data?.id) {
+      preloadedQueries?.EditReview.loadQuery({id: data.id});
+    }
+    navigation.navigate('EditReview');
+  }
 
   return (
     <View style={styles.container}>
-      {props.enabledEditButton && (
-        <EditReviewIconButton onPress={props.onNavigate} />
-      )}
       <Pressable
         style={styles.contentContainer}
         onPress={onPress}
         android_ripple={pressableRippleConfig}>
-        <HorizontalUserDisplay user={data?.author ?? null} />
+        <View style={styles.header}>
+          <HorizontalUserDisplay
+            style={styles.userDisplay}
+            user={data?.author ?? null}
+          />
+          {props.canEdit && <EditReviewIconButton onPress={onEditPress} />}
+        </View>
         <ReviewInfoDisplay
           review={data}
           maxContentLineCount={3}
@@ -91,15 +103,14 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
   );
 }
 
-type EditReviewIconButtonProps = PressableProps;
-function EditReviewIconButton(props: EditReviewIconButtonProps) {
+function EditReviewIconButton({onPress}: {onPress: ActionCb}) {
   return (
-    <Pressable
-      android_ripple={pressableRippleConfig}
-      {...props}
-      style={styles.editButton}>
-      <Icon name="edit" type="material" size={32} color={colors.white} />
-    </Pressable>
+    <Button
+      onPress={onPress}
+      containerStyle={styles.editButtonContainer}
+      buttonStyle={styles.editButton}
+      icon={{name: 'edit', type: 'material', color: colors.white}}
+    />
   );
 }
 
@@ -115,14 +126,21 @@ const styles = StyleSheet.create({
   infoContainer: {
     padding: 0,
   },
+  header: {
+    flexDirection: 'row',
+  },
+  userDisplay: {
+    flex: 1,
+  },
+  editButtonContainer: {
+    width: 55,
+  },
+  editButton: {
+    backgroundColor: 'transparent',
+  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 5,
-  },
-  editButton: {
-    position: 'absolute',
-    right: 8,
-    top: 12,
   },
 });

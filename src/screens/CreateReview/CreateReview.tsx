@@ -53,7 +53,9 @@ type CreateReviewScreenProps = NativeStackScreenProps<
   'CreateReview'
 >;
 
-export function CreateReviewScreen(props: CreateReviewScreenProps) {
+export function CreateReviewScreen(
+  props: CreateReviewScreenProps,
+): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.CreateReview.queryRef) {
@@ -64,7 +66,7 @@ export function CreateReviewScreen(props: CreateReviewScreenProps) {
 
 function CreateReviewScreenWithData({
   navigation,
-}: CreateReviewScreenProps): JSX.Element {
+}: CreateReviewScreenProps): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<CreateReviewQueryType>(
     CreateReviewQuery,
