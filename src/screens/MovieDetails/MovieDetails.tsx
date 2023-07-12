@@ -89,6 +89,15 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
     navigation.navigate('ReviewBreakdown');
   }
 
+  function onCreateReview() {
+    if (movieId) {
+      preloadedQueries?.CreateReview.loadQuery({
+        id: movieId,
+      });
+    }
+    navigation.navigate('CreateReview');
+  }
+
   return (
     <ScrollView>
       <View style={styles.outerContainer} />
@@ -159,10 +168,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
           <InfoSection>
             <SectionText>Reviews</SectionText>
-            <Button
-              onPress={() => navigation.navigate('CreateReview')}
-              title="Create a new review"
-            />
+            <Button onPress={onCreateReview} title="Create a new review" />
             <ReviewOverview movie={data.movie} navigation={navigation} />
           </InfoSection>
         </View>

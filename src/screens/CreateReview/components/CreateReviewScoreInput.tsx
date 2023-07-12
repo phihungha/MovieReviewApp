@@ -6,14 +6,11 @@ import {TitleText} from '../../../components/Text/TitleText';
 export type OnRating = (rating: number) => void;
 
 interface CreateReviewRatingProps {
-  onRating: OnRating;
+  score: number;
+  onScoreChanged: (s: number) => void;
 }
 
-/**
- * @using display rating in CreateReviewScreen
- * @param {OnRating} onRating action when rating
- */
-export function CreateReviewRating(
+export function CreateReviewScoreInput(
   props: CreateReviewRatingProps,
 ): JSX.Element {
   return (
@@ -36,9 +33,9 @@ export function CreateReviewRating(
         showRating={false} // if true => display the review[] label in above
         ratingContainerStyle={styles.rateContainer}
         count={10}
-        defaultRating={5}
+        defaultRating={10}
         size={28}
-        onFinishRating={props.onRating}
+        onFinishRating={props.onScoreChanged}
       />
     </View>
   );

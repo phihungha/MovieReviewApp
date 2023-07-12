@@ -25,6 +25,8 @@ import {MyAccountQuery} from '../screens/MyAccount/MyAccount';
 import type {MyAccountQuery as MyAccountQueryType} from '../screens/MyAccount/__generated__/MyAccountQuery.graphql';
 import {ReviewBreakdownQuery} from '../screens/ReviewBreakdown/ReviewBreakdown';
 import type {ReviewBreakdownQuery as ReviewBreakdownQueryType} from '../screens/ReviewBreakdown/__generated__/ReviewBreakdownQuery.graphql';
+import type {CreateReviewQuery as CreateReviewQueryType} from '../screens/CreateReview/__generated__/CreateReviewQuery.graphql';
+import {CreateReviewQuery} from '../screens/CreateReview/CreateReview';
 
 export const PreloadedQueriesContext =
   createContext<PreloadedQueries>(undefined);
@@ -44,6 +46,8 @@ export function usePreloadedQueries() {
       usePreloadedQueryAsDict<MovieDetailsQueryType>(MovieDetailsQuery),
     MovieReviewList:
       usePreloadedQueryAsDict<MovieReviewListQueryType>(MovieReviewListQuery),
+    CreateReview:
+      usePreloadedQueryAsDict<CreateReviewQueryType>(CreateReviewQuery),
     ReviewDetails:
       usePreloadedQueryAsDict<ReviewDetailsQueryType>(ReviewDetailsQuery),
     UserList: usePreloadedQueryAsDict<UserListQueryType>(UserListQuery),

@@ -1,102 +1,166 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {CreateReviewInfoDisplay} from './components/CreateReviewInfoDisplay';
 import {Button, Input} from '@rneui/themed';
-import colors from '../../styles/colors';
+import {graphql} from 'relay-runtime';
+import {CreateReviewScoreInput} from './components/CreateReviewScoreInput';
+import {useMutation, usePreloadedQuery} from 'react-relay';
+import type {CreateReviewMutation as CreateReviewMutationType} from './__generated__/CreateReviewMutation.graphql';
+import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
+import {CreateReviewMovieInfo} from './components/CreateReviewMovieInfo';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {MainStackParams} from '../../navigators/MainStackParams';
+import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
+import type {CreateReviewQuery as CreateReviewQueryType} from './__generated__/CreateReviewQuery.graphql';
 
-export function ItemSeparatorComponent(): JSX.Element {
-  return <View style={styles.ItemSeparator} />;
-}
-export function HorizontalItemSeparator(): JSX.Element {
-  return <View style={styles.HorizontalItemSeparator} />;
+export const CreateReviewQuery = graphql`
+  query CreateReviewQuery($id: ID!) {
+    movie(id: $id) {
+      id
+      ...CreateReviewMovieInfo
+    }
+  }
+`;
+
+const CreateReviewMutation = graphql`
+  mutation CreateReviewMutation($input: CreateReviewInput!) {
+    createReview(input: $input) {
+      ... on MutationCreateReviewSuccess {
+        data {
+          ...ReviewListItem
+          movie {
+            ...CriticAggregateScoreIndicator
+            ...RegularAggregateScoreIndicator
+            ...ScoreCountChart
+            ...GenderScoreChart
+            ...AgeScoreChart
+          }
+        }
+      }
+      ... on AlreadyExistsError {
+        message
+      }
+      ... on ValidationError {
+        message
+      }
+    }
+  }
+`;
+
+type CreateReviewScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'CreateReview'
+>;
+
+export function CreateReviewScreen(props: CreateReviewScreenProps) {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
+  if (!preloadedQueries?.CreateReview.queryRef) {
+    return <></>;
+  }
+  return <CreateReviewScreenWithData {...props} />;
 }
 
-export function CreateReviewScreen(): JSX.Element {
+function CreateReviewScreenWithData({
+  navigation,
+}: CreateReviewScreenProps): JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+  const data = usePreloadedQuery<CreateReviewQueryType>(
+    CreateReviewQuery,
+    preloadedQueries!.CreateReview.queryRef!,
+  );
+
+  const [commitMutation, isPending] =
+    useMutation<CreateReviewMutationType>(CreateReviewMutation);
+
   const [title, setTitle] = useState('');
-  const [externalUrl, setExternalUrl] = useState('');
+  const [externalUrl, setExternalUrl] = useState<string | undefined>(undefined);
   const [content, setContent] = useState('');
+  const [score, setScore] = useState(0);
 
-  const onRating = (rating: number) => {
-    console.log(rating);
+  const onCreateReview = () => {
+    if (!data.movie) {
+      return;
+    }
+
+    commitMutation({
+      variables: {
+        input: {
+          title,
+          content,
+          score,
+          externalUrl,
+          movieId: data.movie.id,
+        },
+      },
+      onCompleted: resp => {
+        if (resp.createReview.message) {
+          console.log(resp.createReview.message);
+          return;
+        }
+
+        if (data.movie) {
+          preloadedQueries?.MovieReviewList.loadQuery(
+            {id: data.movie.id},
+            {fetchPolicy: 'network-only'},
+          );
+        }
+        navigation.navigate('MovieReviewList', {});
+      },
+    });
   };
-  const onPressButton = () => {
-    console.log('Call API');
-  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CreateReviewInfoDisplay
-        imageUri=""
-        movieName={'name'}
-        movieYear={2022}
-        criticScore={8.0}
-        userScore={9.0}
-        genres={'Thriller'}
-        onRating={onRating}
-      />
+      <CreateReviewMovieInfo movie={data.movie} />
 
-      <Input
-        value={title}
-        onChangeText={i => setTitle(i)}
-        placeholder="Enter a title..."
-        label={'Title'}
-        renderErrorMessage={false}
-      />
+      <View style={styles.inputContainer}>
+        <CreateReviewScoreInput score={score} onScoreChanged={setScore} />
 
-      <Input
-        value={externalUrl}
-        onChangeText={i => setExternalUrl(i)}
-        placeholder="Enter a external url..."
-        label={'External URL'}
-        renderErrorMessage={false}
-      />
-
-      <Input
-        value={content}
-        onChangeText={i => setContent(i)}
-        placeholder="Enter content..."
-        label={'Content'}
-        inputStyle={{
-          height: 100,
-        }}
-        multiline
-        renderErrorMessage={false}
-      />
-
-      <View style={styles.buttonContainer}>
-        <Button
-          containerStyle={styles.button}
-          onPress={onPressButton}
-          title="Post"
+        <Input
+          value={title}
+          onChangeText={i => setTitle(i)}
+          placeholder="Enter a title..."
+          label={'Title'}
+          renderErrorMessage={false}
         />
+
+        <Input
+          value={externalUrl}
+          onChangeText={i => setExternalUrl(i === '' ? undefined : i)}
+          placeholder="Enter a external url..."
+          label={'External URL'}
+          renderErrorMessage={false}
+        />
+
+        <Input
+          value={content}
+          onChangeText={i => setContent(i)}
+          placeholder="Enter content..."
+          label={'Content'}
+          inputStyle={styles.contentInput}
+          multiline
+          renderErrorMessage={false}
+        />
+
+        <Button containerStyle={styles.createButton} onPress={onCreateReview}>
+          {isPending ? <ButtonLoadingIcon /> : 'Create'}
+        </Button>
       </View>
     </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
+    padding: 15,
     gap: 20,
   },
-  ItemSeparator: {
-    height: 20,
-    width: '100%',
+  contentInput: {
+    height: 150,
   },
-  HorizontalItemSeparator: {
-    marginVertical: 10,
-    width: 1,
+  inputContainer: {
+    gap: 20,
   },
-  cancelButton: {
-    backgroundColor: colors.mediumBlack,
+  createButton: {
     flex: 1,
-  },
-  button: {
-    flex: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    gap: 12,
-    justifyContent: 'space-between',
   },
 });
