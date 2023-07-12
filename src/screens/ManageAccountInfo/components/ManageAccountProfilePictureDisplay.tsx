@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Avatar} from '@rneui/themed';
-import {TextLink} from '../../../components/Buttons/TextLink';
 import {BigTitleText} from '../../../components/Text/BigTitleText';
 import {TitleText} from '../../../components/Text/TitleText';
 import {OnSelectedName, ChangeNameDialog} from '../dialogs/ChangeNameDialog';
@@ -29,7 +28,6 @@ export function ManageAccountProfilePictureDisplay(
     <View style={styles.container}>
       <View style={styles.titleLine}>
         <BigTitleText>Profile Picture</BigTitleText>
-        <TextLink text="" textLink="EDIT" onClicked={props.onSelectedImage} />
       </View>
 
       <View style={styles.avatarContainer}>
