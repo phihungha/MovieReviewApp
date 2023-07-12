@@ -1,10 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Avatar} from '@rneui/themed';
+import {Avatar, Input} from '@rneui/themed';
 import {BigTitleText} from '../../../components/Text/BigTitleText';
 import {TitleText} from '../../../components/Text/TitleText';
-import {OnSelectedName, ChangeNameDialog} from '../dialogs/ChangeNameDialog';
+
 import {ActionCb} from '../../../types/ActionCb';
+import colors from '../../../styles/colors';
+
+export type OnSelectedName = (name: string) => void;
 
 interface ManageAccountProfilePictureProps {
   imageUri?: string;
@@ -40,9 +43,13 @@ export function ManageAccountProfilePictureDisplay(
 
         <TitleText>{props.nameValue}</TitleText>
 
-        <ChangeNameDialog
-          openBtnTitle="Change name"
-          onSelectedName={props.onSelectedName}
+        <Input
+          label="Name"
+          value={props.nameValue}
+          onChangeText={props.onSelectedName}
+          placeholder="Enter name..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
         />
       </View>
     </View>
@@ -61,5 +68,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
+  },
+  input: {
+    backgroundColor: colors.mediumBlack,
   },
 });
