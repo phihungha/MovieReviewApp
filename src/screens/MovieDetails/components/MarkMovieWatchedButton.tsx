@@ -1,11 +1,12 @@
 import {Button} from '@rneui/themed';
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet} from 'react-native';
 import colors from '../../../styles/colors';
 import {graphql} from 'relay-runtime';
 import {MarkMovieWatchedButton$key} from './__generated__/MarkMovieWatchedButton.graphql';
 import {useFragment, useMutation} from 'react-relay';
 import type {MarkMovieWatchedButtonMutation as MarkMovieWatchedButtonMutationType} from './__generated__/MarkMovieWatchedButtonMutation.graphql';
+import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 
 const MarkMovieWatchedButtonFragment = graphql`
   fragment MarkMovieWatchedButton on Movie {
@@ -38,6 +39,7 @@ export function MarkMovieWatchedButton({
   const [commitMutation] = useMutation<MarkMovieWatchedButtonMutationType>(
     MarkMovieWatchedButtonMutation,
   );
+  const preloadedQueries = useContext(PreloadedQueriesContext);
 
   function onMarkWatched() {
     if (!data) {
@@ -57,6 +59,11 @@ export function MarkMovieWatchedButton({
           },
         },
       },
+      onCompleted: () =>
+        preloadedQueries?.MyAccount.loadQuery(
+          {},
+          {fetchPolicy: 'network-only'},
+        ),
     });
   }
 

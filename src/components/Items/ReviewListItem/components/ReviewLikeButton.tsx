@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {LikeButton} from '../../../Buttons/LikeButton';
 import {graphql} from 'relay-runtime';
 import {ReviewLikeButton$key} from './__generated__/ReviewLikeButton.graphql';
 import {useFragment, useMutation} from 'react-relay';
 import type {ReviewLikeButtonMutation as ReviewLikeButtonMutationType} from './__generated__/ReviewLikeButtonMutation.graphql';
+import {PreloadedQueriesContext} from '../../../../relay/PreloadedQueriesContext';
 
 const ReviewLikeButtonFragment = graphql`
   fragment ReviewLikeButton on Review {
@@ -36,6 +37,7 @@ export function ReviewLikeButton({review}: ReviewLikeButtonProps): JSX.Element {
   const [commitMutation] = useMutation<ReviewLikeButtonMutationType>(
     ReviewLikeButtonMutation,
   );
+  const preloadedQueries = useContext(PreloadedQueriesContext);
 
   function onLike() {
     if (!data) {
@@ -54,6 +56,11 @@ export function ReviewLikeButton({review}: ReviewLikeButtonProps): JSX.Element {
           },
         },
       },
+      onCompleted: () =>
+        preloadedQueries?.MyAccount.loadQuery(
+          {},
+          {fetchPolicy: 'network-only'},
+        ),
     });
   }
 
