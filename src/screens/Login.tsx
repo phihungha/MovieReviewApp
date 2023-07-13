@@ -7,6 +7,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../navigators/RootStackNavigator';
 import auth from '@react-native-firebase/auth';
 import {ButtonLoadingIcon} from '../components/Display/ButtonLoadingIcon';
+import Snackbar from 'react-native-snackbar';
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParams, 'Login'>;
 
@@ -16,10 +17,18 @@ export function LoginScreen({navigation}: LoginScreenProps) {
 
   const [isLoading, setIsLoading] = useState(false);
   const login = async () => {
+    if (email === '' || password === '') {
+      return Snackbar.show({text: 'Empty email or password'});
+    }
     setIsLoading(true);
-    await auth().signInWithEmailAndPassword(email, password);
-    navigation.navigate('Main', {screen: 'HomeStack'});
-    setIsLoading(false);
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      navigation.navigate('Main', {screen: 'HomeStack'});
+    } catch (err) {
+      Snackbar.show({text: 'Incorrect email or password'});
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
