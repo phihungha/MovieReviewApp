@@ -47,7 +47,29 @@ export function ManageAccountInformationDisplay(
       <View style={styles.titleLine}>
         <BigTitleText>Information</BigTitleText>
       </View>
+      <View>
+        <ItemSubtitleText>Username</ItemSubtitleText>
+        <Input
+          inputMode="text"
+          value={props.usernameValue}
+          onChangeText={(item: string) => props.onSelectedUsername(item)}
+          placeholder="Enter username..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
 
+      <View>
+        <ItemSubtitleText>Email</ItemSubtitleText>
+        <Input
+          inputMode="email"
+          value={props.emailValue}
+          onChangeText={(item: string) => props.onSelectedEmail(item)}
+          placeholder="Enter your email..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
       <View>
         <ItemSubtitleText>Gender</ItemSubtitleText>
         <DropDownPicker
@@ -74,30 +96,6 @@ export function ManageAccountInformationDisplay(
           iconColor={colors.white}
           value={props.birthdayValue}
           onSelected={props.onSelectedDate}
-        />
-      </View>
-
-      <View>
-        <ItemSubtitleText>Username</ItemSubtitleText>
-        <Input
-          inputMode="text"
-          value={props.usernameValue}
-          onChangeText={(item: string) => props.onSelectedUsername(item)}
-          placeholder="Enter username..."
-          inputContainerStyle={styles.input}
-          renderErrorMessage={false}
-        />
-      </View>
-
-      <View>
-        <ItemSubtitleText>Email</ItemSubtitleText>
-        <Input
-          inputMode="email"
-          value={props.emailValue}
-          onChangeText={(item: string) => props.onSelectedEmail(item)}
-          placeholder="Enter your email..."
-          inputContainerStyle={styles.input}
-          renderErrorMessage={false}
         />
       </View>
 
