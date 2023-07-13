@@ -69,11 +69,14 @@ const ManageAccountInfoCriticMutation = graphql`
 `;
 
 async function uploadProfileImage(uploadUrl: string, imageUri: string) {
-  const resp = await fetch(uploadUrl, {
-    method: 'PUT',
-    body: {uri: imageUri, type: 'image/png', name: 'profile.png'},
-  });
-  console.log(resp.status, await resp.text());
+  try {
+    await fetch(uploadUrl, {
+      method: 'PUT',
+      body: {uri: imageUri, type: 'image/jpg', name: 'profile.jpg'},
+    });
+  } catch (err) {
+    Snackbar.show({text: 'Failed to upload image'});
+  }
 }
 
 type ManageAccountInfoProps = NativeStackScreenProps<
@@ -186,7 +189,8 @@ function ManageAccountInfoWithData({
     let newAvatarUrl;
     if (avatarUri !== '') {
       await uploadProfileImage(data.userProfileImageUploadUrl, avatarUri);
-      newAvatarUrl = BASE_AVATAR_URL + myFirebaseAccount.uid;
+      newAvatarUrl =
+        BASE_AVATAR_URL + myFirebaseAccount.uid + `?date=${new Date()}`;
     }
 
     if (myUserType === 'Critic') {

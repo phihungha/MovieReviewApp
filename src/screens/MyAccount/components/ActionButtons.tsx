@@ -6,6 +6,8 @@ import {MyAccountStackParams} from '../../../navigators/MyAccountStackNavigator'
 import auth from '@react-native-firebase/auth';
 import {Button} from '@rneui/themed';
 import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
+import {commitLocalUpdate} from 'relay-runtime';
+import environment from '../../../relay/environment';
 
 type MyAccountScreenProps = NativeStackScreenProps<
   MyAccountStackParams,
@@ -19,11 +21,15 @@ export function ActionButtons({
 
   async function onSignOut() {
     await auth().signOut();
+    commitLocalUpdate(environment, store => store.invalidateStore());
     navigation.navigate('Login');
   }
 
   function goToEditScreen() {
-    preloadedQueries?.ManageAccountInfo.loadQuery({});
+    preloadedQueries?.ManageAccountInfo.loadQuery(
+      {},
+      {fetchPolicy: 'network-only'},
+    );
     navigation.navigate('ManageAccountInfo');
   }
 

@@ -68,10 +68,7 @@ function MyAccountScreenWithData(
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <StandardAvatar
-          size={150}
-          uri={user ? user.avatarUrl + `?${new Date()}` : null}
-        />
+        <StandardAvatar size={150} uri={user?.avatarUrl} />
         <TitleText>{user?.name ?? 'N/A'}</TitleText>
       </View>
       <View style={styles.infoBox}>
