@@ -37,5 +37,6 @@ export function ActorListItem({actingCredit}: ActorListItemProps): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     width: 120,
+    justifyContent: 'flex-start',
   },
 });

@@ -39,5 +39,6 @@ export function CrewListItem({
 const styles = StyleSheet.create({
   container: {
     width: 120,
+    justifyContent: 'flex-start',
   },
 });

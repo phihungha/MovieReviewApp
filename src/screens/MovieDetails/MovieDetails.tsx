@@ -21,9 +21,9 @@ import {CrewListItem} from './components/CrewListItem';
 import {CriticAggregateScoreIndicator} from './components/CriticAggregateScoreIndicator';
 import {RegularAggregateScoreIndicator} from './components/RegularAggregateScoreIndicator';
 import {Button} from '@rneui/themed';
-import {GenreListItem} from './components/GenreListItem';
 import {ReviewOverview} from './components/ReviewOverview';
 import {MarkMovieWatchedButton} from './components/MarkMovieWatchedButton';
+import {ItemCard} from '../../components/Display/ItemCard';
 
 export const MovieDetailsQuery = graphql`
   query MovieDetailsQuery($id: ID!) {
@@ -36,7 +36,15 @@ export const MovieDetailsQuery = graphql`
       posterUrl
       genres {
         id
-        ...GenreListItem
+        name
+      }
+      productionCompanies {
+        id
+        name
+      }
+      distributedCompanies {
+        id
+        name
       }
       actingCredits {
         id
@@ -121,9 +129,9 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
           <InfoSection>
             <SectionText>Genres</SectionText>
-            <View style={styles.genresList}>
+            <View style={styles.infoCardList}>
               {data.movie?.genres.map(i => (
-                <GenreListItem key={i.id} genre={i} />
+                <ItemCard key={i.id} content={i.name} />
               ))}
             </View>
           </InfoSection>
@@ -138,8 +146,27 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
           />
 
           <InfoSection>
+            <SectionText>Production companies</SectionText>
+            <View style={styles.infoCardList}>
+              {data.movie?.productionCompanies.map(i => (
+                <ItemCard key={i.id} content={i.name} />
+              ))}
+            </View>
+          </InfoSection>
+
+          <InfoSection>
+            <SectionText>Distribution companies</SectionText>
+            <View style={styles.infoCardList}>
+              {data.movie?.distributedCompanies.map(i => (
+                <ItemCard key={i.id} content={i.name} />
+              ))}
+            </View>
+          </InfoSection>
+
+          <InfoSection>
             <SectionText>Actors</SectionText>
             <HorizontalList
+              contentContainerStyle={{alignItems: 'center'}}
               data={data.movie?.actingCredits}
               keyExtractor={item => item.id}
               renderItem={({item}) => <ActorListItem actingCredit={item} />}
@@ -212,10 +239,12 @@ const styles = StyleSheet.create({
   },
   topInfoContainer: {
     marginLeft: 135,
+    marginRight: 90,
     marginTop: 5,
   },
-  genresList: {
+  infoCardList: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     gap: 10,
   },
   detailsInfoContainer: {
