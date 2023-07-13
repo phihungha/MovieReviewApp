@@ -1,107 +1,217 @@
 import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import validator from 'validator';
 import {Button, Input} from '@rneui/themed';
 import {TitleBlock} from '../../components/Display/TitleBlock';
-
 import {TextLink} from '../../components/Text/TextLink';
-import {DatePickerDialog} from '../../dialogs/DatePickerDialog';
 import colors from '../../styles/colors';
-import {ItemTitleOnly} from '../../components/Items/BottomSheetListItem';
 import {ChooseTypeBottomSheet} from './dialogs/ChooseTypeBottomSheet';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParams} from '../../navigators/RootStackNavigator';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {graphql} from 'relay-runtime';
+import {useMutation} from 'react-relay';
+import type {SignUpRegularMutation as SignUpRegularMutationType} from './__generated__/SignUpRegularMutation.graphql';
+import type {SignUpCriticMutation as SignUpCriticMutationType} from './__generated__/SignUpCriticMutation.graphql';
+import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
+import Snackbar from 'react-native-snackbar';
 
-type Props = NativeStackScreenProps<RootStackParams, 'SignUp'>;
+async function firebaseSignUp(
+  name: string,
+  email: string,
+  password: string,
+): Promise<FirebaseAuthTypes.User> {
+  let result: FirebaseAuthTypes.UserCredential;
+  try {
+    result = await auth().createUserWithEmailAndPassword(email, password);
+  } catch (err) {
+    if ((err as any)?.code === 'auth/email-already-in-use') {
+      result = await auth().signInWithEmailAndPassword(email, password);
+    } else {
+      throw err;
+    }
+  }
+  await result.user.updateProfile({displayName: name});
+  return result.user;
+}
 
-export function SignUpScreen({navigation}: Props): JSX.Element {
+const SignUpRegularMutation = graphql`
+  mutation SignUpRegularMutation($input: RegularSignUpInput!) {
+    regularSignUp(input: $input) {
+      ... on MutationRegularSignUpSuccess {
+        data {
+          id
+        }
+      }
+      ... on AlreadyExistsError {
+        message
+      }
+      ... on ValidationError {
+        message
+      }
+    }
+  }
+`;
+
+const SignUpCriticMutation = graphql`
+  mutation SignUpCriticMutation($input: CriticSignUpInput!) {
+    criticSignUp(input: $input) {
+      ... on MutationCriticSignUpSuccess {
+        data {
+          id
+        }
+      }
+      ... on AlreadyExistsError {
+        message
+      }
+      ... on ValidationError {
+        message
+      }
+    }
+  }
+`;
+
+type SignUpScreenProps = NativeStackScreenProps<RootStackParams, 'SignUp'>;
+
+export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
+  const [commitRegularMutation, isRegularPending] =
+    useMutation<SignUpRegularMutationType>(SignUpRegularMutation);
+  const [commitCriticMutation, isCriticPending] =
+    useMutation<SignUpCriticMutationType>(SignUpCriticMutation);
+  const isPending = isRegularPending || isCriticPending;
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState('Regular');
+  const [website, setWebsite] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
-  const [birthdayText, setBirthdayText] = useState('');
-  const [type, setType] = useState('');
 
-  const navigateToLoginScreen = () => {
-    navigation.navigate('Login');
-  };
+  const [displayError, setDisplayError] = useState(false);
 
-  const signUp = (emailText: string, passwordText: string) => {
-    console.log(emailText + ' ' + passwordText);
-    console.log('Call API');
-  };
+  async function onSignUp() {
+    if (
+      !validator.isEmail ||
+      username.length < 1 ||
+      name.length < 1 ||
+      password.length < 1 ||
+      password !== rePassword ||
+      (userType === 'Critic' && !validator.isURL(website))
+    ) {
+      return setDisplayError(true);
+    }
 
-  const onSelectedDate = (date: Date) => {
-    let tempDate = new Date(date);
-    let dateToText =
-      tempDate.getMonth() +
-      1 +
-      '/' +
-      tempDate.getDate() +
-      '/' +
-      tempDate.getFullYear();
-    setBirthdayText(dateToText);
-  };
+    await firebaseSignUp(name, email, password);
 
-  const onSelectedType = (typeItem: ItemTitleOnly) => {
-    setType(typeItem.title);
-  };
+    if (userType === 'Critic') {
+      commitCriticMutation({
+        variables: {
+          input: {
+            username,
+            blogUrl: website,
+          },
+        },
+        onCompleted: resp => {
+          const errorMessage = resp.criticSignUp.message;
+          if (errorMessage) {
+            Snackbar.show({text: errorMessage});
+          } else {
+            Snackbar.show({text: 'Signed up successfully!'});
+          }
+        },
+      });
+    } else if (userType === 'Regular') {
+      commitRegularMutation({
+        variables: {
+          input: {username},
+        },
+        onCompleted: resp => {
+          const errorMessage = resp.regularSignUp.message;
+          if (errorMessage) {
+            Snackbar.show({text: errorMessage});
+          } else {
+            Snackbar.show({text: 'Signed up successfully!'});
+          }
+        },
+      });
+    }
+
+    await auth().signOut();
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}>
         <View style={styles.space} />
-
         <TitleBlock>SIGN UP</TitleBlock>
-
         <View>
           <Input
             label="Email"
             value={email}
             onChangeText={setEmail}
-            placeholder="Enter email..."
+            errorMessage={
+              displayError && !validator.isEmail(email) ? 'Invalid email' : ''
+            }
+            placeholder="Enter your email..."
           />
           <Input
-            label="Name"
+            label="Username"
+            value={username}
+            onChangeText={setUsername}
+            errorMessage={
+              displayError && username.length < 1
+                ? 'Username cannot be empty'
+                : ''
+            }
+            placeholder="Enter your username..."
+          />
+          <Input
+            label="Full name"
             value={name}
             onChangeText={setName}
+            errorMessage={
+              displayError && name.length < 1 ? 'Name cannot be empty' : ''
+            }
             placeholder="Enter your full name..."
           />
-
-          <Input
-            label="Birthday"
-            value={birthdayText}
-            disabled
-            onChangeText={setBirthdayText}
-            placeholder="Choose your date of birth..."
-            rightIcon={
-              <DatePickerDialog
-                onSelectedDate={onSelectedDate}
-                iconColor={colors.white}
-                iconSize={24}
-              />
-            }
-          />
-
           <Input
             label="User type"
-            value={type}
-            onChangeText={setType}
+            value={userType}
             disabled
             placeholder="Choose user type..."
             rightIcon={
               <ChooseTypeBottomSheet
-                onSelectedType={onSelectedType}
+                onSelectedType={i => setUserType(i.title)}
                 iconColor={colors.white}
                 iconSize={24}
               />
             }
           />
-
+          {userType === 'Critic' && (
+            <Input
+              label="Website"
+              value={website}
+              onChangeText={i => setWebsite(i)}
+              errorMessage={
+                displayError && !validator.isURL(website)
+                  ? 'Invalid website URL'
+                  : ''
+              }
+              placeholder="Enter your website..."
+            />
+          )}
           <Input
             label="Password"
             secureTextEntry={true}
             value={password}
+            errorMessage={
+              displayError && password.length < 1
+                ? 'Password cannot be empty'
+                : ''
+            }
             placeholder="Enter password..."
             onChangeText={setPassword}
           />
@@ -109,19 +219,28 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
             label="Re-enter password"
             secureTextEntry={true}
             value={rePassword}
+            errorMessage={
+              password !== '' && password !== rePassword
+                ? 'Password does not match'
+                : ''
+            }
             placeholder="Re enter your password..."
             onChangeText={setRePassword}
           />
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button onPress={() => signUp(email, password)} title="SIGN UP" />
-          <TextLink
-            text="Already have an account, "
-            textLink="login"
-            onClicked={navigateToLoginScreen}
-            isUnderline={false}
-          />
+          <Button onPress={onSignUp} title="SIGN UP" />
+          {isPending ? (
+            <ButtonLoadingIcon />
+          ) : (
+            <TextLink
+              text="Already have an account, "
+              textLink="login"
+              onClicked={() => navigation.navigate('Login')}
+              isUnderline={false}
+            />
+          )}
         </View>
         <View style={styles.space} />
       </ScrollView>
