@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c33adaf083614102fcd3be074d34d78>>
+ * @generated SignedSource<<2cda805b23e9f456f29b0de4d4ce8dca>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -157,6 +157,7 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -187,6 +188,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "isMine",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "postTime",
                     "storageKey": null
                   },
@@ -197,7 +205,6 @@ return {
                     "name": "content",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -251,12 +258,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9ae3727ad7e70aed5a97ef099ee8286d",
+    "cacheID": "f13db4d422a9fe30f0b6256dd6fa3612",
     "id": null,
     "metadata": {},
     "name": "CommentCreatorMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentCreatorMutation(\n  $input: CreateCommentInput!\n) {\n  createComment(input: $input) {\n    __typename\n    ... on MutationCreateCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewCommentButton\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  author {\n    avatarUrl\n    name\n    id\n  }\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n"
+    "text": "mutation CommentCreatorMutation(\n  $input: CreateCommentInput!\n) {\n  createComment(input: $input) {\n    __typename\n    ... on MutationCreateCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewCommentButton\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n"
   }
 };
 })();

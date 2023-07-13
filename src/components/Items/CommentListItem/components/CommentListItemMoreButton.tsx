@@ -12,11 +12,7 @@ const list = [
   {id: 'delete', title: 'Delete'},
   {id: 'edit', title: 'Edit'},
 ];
-/**
- * @using display moreButton, when toggle button it will show the option of CommentListItem
- * @param {OnPressItem} onSelectedType Receive selection result of the list
- * @param {StyleProp<ViewStyle>} style Style
- */
+
 export function CommentListItemMoreButton(
   props: CommentListItemMoreButtonProps,
 ): JSX.Element {

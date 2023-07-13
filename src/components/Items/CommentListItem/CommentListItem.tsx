@@ -6,22 +6,40 @@ import {CommentListItemMoreButton} from './components/CommentListItemMoreButton'
 import {ItemTitleText} from '../../Text/ItemTitleText';
 import {ItemSubtitleText} from '../../Text/ItemSubtitleText';
 import colors from '../../../styles/colors';
-import {graphql} from 'relay-runtime';
+import {ConnectionHandler, graphql} from 'relay-runtime';
 import {CommentListItem$key} from './__generated__/CommentListItem.graphql';
-import {useFragment} from 'react-relay';
+import {useFragment, useMutation} from 'react-relay';
 import {dateToStandardDateTimeFormat} from '../../../utils/time-conversion';
 import {CommentEditor} from './components/CommentEditor';
 import {CommentContent} from './components/CommentContent';
+import type {CommentListItemDeleteMutation as CommentListItemDeleteMutationType} from './__generated__/CommentListItemDeleteMutation.graphql';
 
 const CommentListItemFragment = graphql`
   fragment CommentListItem on Comment {
+    id
     author {
       avatarUrl
       name
     }
+    isMine
     postTime
     ...CommentContent
     ...CommentEditor
+  }
+`;
+
+const CommentListItemDeleteMutation = graphql`
+  mutation CommentListItemDeleteMutation($id: ID!, $connections: [ID!]!) {
+    deleteComment(id: $id) {
+      ... on MutationDeleteCommentSuccess {
+        data {
+          id @deleteEdge(connections: $connections)
+          review {
+            ...ReviewListItem
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -34,17 +52,39 @@ export interface CommentListItemProps {
  */
 export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
   const data = useFragment(CommentListItemFragment, comment);
+  const reviewId = data?.id;
 
   const [isEditMode, setEditMode] = useState(false);
   const onSelectedItem = (item: ItemTitleOnly) => {
     switch (item.id) {
       case 'delete':
+        onCommentDelete();
         break;
       case 'edit':
         setEditMode(true);
         break;
     }
   };
+
+  const [commitMutation] = useMutation<CommentListItemDeleteMutationType>(
+    CommentListItemDeleteMutation,
+  );
+
+  // Call this to delete comment
+  function onCommentDelete() {
+    if (reviewId) {
+      const commentListConnId = ConnectionHandler.getConnectionID(
+        reviewId,
+        'CommentListFragment_comments',
+      );
+      commitMutation({
+        variables: {
+          id: data.id,
+          connections: [commentListConnId],
+        },
+      });
+    }
+  }
 
   return (
     <View>
@@ -66,8 +106,9 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           ) : (
             <CommentContent comment={data} />
           )}
-
-          <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
+          {data?.isMine && (
+            <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
+          )}
         </View>
       </View>
     </View>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f19705bbb1b41b22ce52c42e4a657ef9>>
+ * @generated SignedSource<<f55ae24d9a4649cac4941b060cd3816d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -138,6 +138,7 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -168,6 +169,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "isMine",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "postTime",
                     "storageKey": null
                   },
@@ -177,8 +185,7 @@ return {
                     "kind": "ScalarField",
                     "name": "content",
                     "storageKey": null
-                  },
-                  (v2/*: any*/)
+                  }
                 ],
                 "storageKey": null
               }
@@ -192,12 +199,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f9671c6eaf1b52b9ec01b2803c0fe880",
+    "cacheID": "b9fa3b0a6e930bc957132a443562ab98",
     "id": null,
     "metadata": {},
     "name": "CommentEditorMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        ...CommentListItem\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  author {\n    avatarUrl\n    name\n    id\n  }\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
+    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        ...CommentListItem\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
   }
 };
 })();
