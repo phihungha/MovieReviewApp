@@ -29,6 +29,8 @@ import type {CreateReviewQuery as CreateReviewQueryType} from '../screens/Create
 import {CreateReviewQuery} from '../screens/CreateReview/CreateReview';
 import {EditReviewQuery} from '../screens/CreateReview/EditReview';
 import type {EditReviewQuery as EditReviewQueryType} from '../screens/CreateReview/__generated__/EditReviewQuery.graphql';
+import {ManageAccountInfoQuery} from '../screens/ManageAccountInfo/ManageAccountInfo';
+import type {ManageAccountInfoQuery as ManageAccountInfoQueryType} from '../screens/ManageAccountInfo/__generated__/ManageAccountInfoQuery.graphql';
 
 export const PreloadedQueriesContext =
   createContext<PreloadedQueries>(undefined);
@@ -65,6 +67,9 @@ export function usePreloadedQueries() {
     UserWatchedList:
       usePreloadedQueryAsDict<UserWatchedListQueryType>(UserWatchedListQuery),
     MyAccount: usePreloadedQueryAsDict<MyAccountQueryType>(MyAccountQuery),
+    ManageAccountInfo: usePreloadedQueryAsDict<ManageAccountInfoQueryType>(
+      ManageAccountInfoQuery,
+    ),
     ReviewBreakdown:
       usePreloadedQueryAsDict<ReviewBreakdownQueryType>(ReviewBreakdownQuery),
   };

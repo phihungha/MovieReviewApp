@@ -18,7 +18,7 @@ export function LoginScreen({navigation}: LoginScreenProps) {
   const login = async () => {
     setIsLoading(true);
     await auth().signInWithEmailAndPassword(email, password);
-    navigation.navigate('Main');
+    navigation.navigate('Main', {screen: 'HomeStack'});
     setIsLoading(false);
   };
 

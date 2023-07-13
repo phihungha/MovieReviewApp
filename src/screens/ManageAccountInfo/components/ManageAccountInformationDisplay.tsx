@@ -28,6 +28,7 @@ export function ManageAccountInformationDisplay(
   const [genderValue, setGenderValue] = useState('');
   const [isGenderOpen, setGenderOpen] = useState(false);
   const [genderItems, setGenderItems] = useState([
+    {label: 'None', value: undefined},
     {label: 'Male', value: 'Male'},
     {label: 'Female', value: 'Female'},
     {label: 'Other', value: 'Other'},
@@ -61,6 +62,7 @@ export function ManageAccountInformationDisplay(
           renderErrorMessage={false}
         />
       </View>
+
       <View>
         <ItemSubtitleText>Gender</ItemSubtitleText>
         <DropDownPicker
