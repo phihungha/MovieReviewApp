@@ -4,6 +4,28 @@ import {Button, Input} from '@rneui/themed';
 import {useState} from 'react';
 import colors from '../../../styles/colors';
 import React from 'react';
+import {ConnectionHandler, graphql} from 'relay-runtime';
+import type {CommentCreatorMutation as CommentCreatorMutationType} from './__generated__/CommentCreatorMutation.graphql';
+import {useMutation} from 'react-relay';
+
+const CommentCreatorMutation = graphql`
+  mutation CommentCreatorMutation(
+    $input: CreateCommentInput!
+    $connections: [ID!]!
+  ) {
+    createComment(input: $input) {
+      ... on MutationCreateCommentSuccess {
+        data
+          @prependNode(connections: $connections, edgeTypeName: "CommentEdge") {
+          ...CommentListItem
+          review {
+            ...ReviewCommentButton
+          }
+        }
+      }
+    }
+  }
+`;
 
 export interface CommentCreatorProps {
   reviewId?: string | null;
@@ -11,10 +33,30 @@ export interface CommentCreatorProps {
 }
 
 export function CommentCreator(props: CommentCreatorProps) {
+  const [commitMutation, _] = useMutation<CommentCreatorMutationType>(
+    CommentCreatorMutation,
+  );
+
+  const reviewId = props.reviewId;
+
   const [content, setContent] = useState('');
 
   const onCommentSend = () => {
-    console.log('send comment');
+    if (reviewId) {
+      const commentListConnId = ConnectionHandler.getConnectionID(
+        reviewId,
+        'CommentListFragment_comments',
+      );
+      commitMutation({
+        variables: {
+          input: {
+            reviewId: reviewId,
+            content,
+          },
+          connections: [commentListConnId],
+        },
+      });
+    }
   };
 
   return (
@@ -31,6 +73,8 @@ export function CommentCreator(props: CommentCreatorProps) {
         rightIconContainerStyle={styles.sendIcon}
         rightIcon={
           <Button
+            disabled={content.length < 1}
+            disabledStyle={styles.sendButtonDisable}
             containerStyle={styles.sendButtonContainer}
             buttonStyle={styles.sendButton}
             onPress={onCommentSend}
@@ -67,5 +111,9 @@ const styles = StyleSheet.create({
   },
   sendButtonContainer: {
     width: 60,
+  },
+  sendButtonDisable: {
+    backgroundColor: 'transparent',
+    opacity: 0.5,
   },
 });
