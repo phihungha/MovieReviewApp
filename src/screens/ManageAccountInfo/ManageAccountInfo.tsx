@@ -7,8 +7,10 @@ import {
   ImageLibraryOptions,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import {ManageAccountPasswordDisplay} from './components/ManageAccountPasswordDisplay';
 
 export function ManageAccountInfo(): JSX.Element {
+  const [birthdayValue, setBirthdayValue] = useState(new Date());
   const [birthdayText, setBirthdayText] = useState('');
   const [genderValue, setGenderValue] = useState('');
   const [usernameValue, setUsernameValue] = useState('');
@@ -36,16 +38,11 @@ export function ManageAccountInfo(): JSX.Element {
     });
   };
 
-  const onSelectedBirthday = (date: any) => {
-    let tempDate = new Date(date);
+  const onSelectedBirthday = (date: Date) => {
     let dateToText =
-      tempDate.getMonth() +
-      1 +
-      '/' +
-      tempDate.getDate() +
-      '/' +
-      tempDate.getFullYear();
+      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
     setBirthdayText(dateToText);
+    setBirthdayValue(date);
   };
 
   const onSaveInfo = () => {
@@ -54,6 +51,7 @@ export function ManageAccountInfo(): JSX.Element {
     console.log(name);
     console.log(genderValue);
     console.log(birthdayText);
+    console.log(birthdayValue);
     console.log(usernameValue);
     console.log(emailValue);
     console.log(passwordValue);
@@ -76,6 +74,8 @@ export function ManageAccountInfo(): JSX.Element {
           onSelectedUsername={(item: string) => setUsernameValue(item)}
           emailValue={emailValue}
           onSelectedEmail={(item: string) => setEmailValue(item)}
+        />
+        <ManageAccountPasswordDisplay
           passwordValue={passwordValue}
           onSelectedPassword={(item: string) => setPasswordValue(item)}
           rePasswordValue={rePasswordValue}
