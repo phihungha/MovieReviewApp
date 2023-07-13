@@ -1,7 +1,5 @@
-import React, {Suspense, useContext, useEffect} from 'react';
+import React, {Suspense, useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {MainStackParams} from '../../navigators/MainStackParams';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {CommentList} from './components/CommentList';
 import {graphql} from 'relay-runtime';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
@@ -10,13 +8,13 @@ import {ReviewDetailsQuery$data} from './__generated__/ReviewDetailsQuery.graphq
 import {ReviewListItem} from '../../components/Items/ReviewListItem/ReviewListItem';
 import {CommentCreator} from './components/CommentCreator';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
+import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
 
 export const ReviewDetailsQuery = graphql`
   query ReviewDetailsQuery($id: ID!) {
     review(id: $id) {
       movie {
-        title
-        releaseDate
+        ...MovieInfoDisplay
       }
       ...ReviewListItem
       ...CommentList
@@ -24,36 +22,23 @@ export const ReviewDetailsQuery = graphql`
   }
 `;
 
-type ReviewDetailsScreenProps = NativeStackScreenProps<
-  MainStackParams,
-  'ReviewDetails'
->;
-
-export function ReviewDetailsScreen(
-  props: ReviewDetailsScreenProps,
-): React.JSX.Element {
+export function ReviewDetailsScreen(): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
   if (!preloadedQueries?.ReviewDetails.queryRef) {
     return <></>;
   }
 
-  return <ReviewDetailsScreenWithData {...props} />;
+  return <ReviewDetailsScreenWithData />;
 }
 
-export function ReviewDetailsScreenWithData({
-  navigation,
-}: ReviewDetailsScreenProps): React.JSX.Element {
+export function ReviewDetailsScreenWithData(): React.JSX.Element {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery(
     ReviewDetailsQuery,
     preloadedQueries!.ReviewDetails.queryRef!,
   );
   const review = data.review;
-
-  const yearStr = new Date(review?.movie.releaseDate).getFullYear();
-  const headerTitle = `${review?.movie.title} (${yearStr})`;
-  useEffect(() => navigation.setOptions({headerTitle: headerTitle}));
 
   return (
     <View style={styles.container}>
@@ -74,6 +59,10 @@ function ListHeader({
 }): React.JSX.Element {
   return (
     <View style={styles.headerContainer}>
+      <MovieInfoDisplay
+        movie={data.review?.movie ?? null}
+        displayScore={true}
+      />
       <ReviewListItem canEdit={true} onPress={null} review={data.review} />
       <CommentCreator />
     </View>

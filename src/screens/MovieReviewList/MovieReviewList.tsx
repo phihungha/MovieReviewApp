@@ -12,19 +12,20 @@ import {graphql} from 'relay-runtime';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {usePreloadedQuery} from 'react-relay';
 import type {MovieReviewListQuery as MovieReviewListQueryType} from './__generated__/MovieReviewListQuery.graphql';
-import {Button, Tab, TabView} from '@rneui/themed';
+import {Tab, TabView} from '@rneui/themed';
 import {CriticReviewList} from './components/CriticReviewList';
 import {RegularReviewList} from './components/RegularReviewList';
 import {MovieReviewListOptions} from './dialogs/MovieReviewListOptionsDialog';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {MovieReviewListHeader} from './components/MovieReviewListHeader';
+import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
 
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
     movie(id: $id) {
-      id
       ...CriticReviewList
       ...RegularReviewList
+      ...MovieInfoDisplay
     }
   }
 `;
@@ -71,21 +72,16 @@ function MovieReviewListScreenWithData({
 
   useEffect(() => navigation.setOptions({header: () => customHeader()}));
 
-  function onCreateReview() {
-    if (data.movie) {
-      preloadedQueries?.CreateReview.loadQuery(
-        {id: data.movie.id},
-        {fetchPolicy: 'network-only'},
-      );
-    }
-    navigation.navigate('CreateReview');
-  }
-
   const [index, setIndex] = useState(0);
 
   return (
     <View style={styles.container}>
-      <Button onPress={onCreateReview} title="Create a new review" />
+      <MovieInfoDisplay
+        movie={data.movie}
+        moviePosterStyle={styles.moviePoster}
+        infoContainerStyle={styles.movieInfoContainer}
+        displayScore={true}
+      />
 
       <Tab value={index} onChange={i => setIndex(i)}>
         <Tab.Item title="Critic" />
@@ -121,5 +117,11 @@ const styles = StyleSheet.create({
     height: '100%',
     margin: 6,
     gap: 10,
+  },
+  moviePoster: {
+    width: 55,
+  },
+  movieInfoContainer: {
+    gap: 0,
   },
 });
