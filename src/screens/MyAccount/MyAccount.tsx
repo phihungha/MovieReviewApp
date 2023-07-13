@@ -15,20 +15,20 @@ import {dateToStandardDateFormat} from '../../utils/time-conversion';
 import {UserThankedReviewOverviewList} from '../UserDetails/components/UserThankedReviewOverviewList';
 import {UserWatchedOverviewList} from '../UserDetails/components/UserWatchedOverviewList';
 import {UserReviewOverviewList} from '../UserDetails/components/UserReviewOverviewList';
-import {UpdatableAvatar} from './components/UpdatableAvatar';
 import {ActionButtons} from './components/ActionButtons';
+import {StandardAvatar} from '../../components/Display/StandardAvatar';
 
 export const MyAccountQuery = graphql`
   query MyAccountQuery {
     viewer {
       id
+      avatarUrl
       name
       dateOfBirth
       gender
       username
       userType
       blogUrl
-      ...UpdatableAvatar
       ...UserReviewOverviewList
       ...UserThankedReviewOverviewList
       ...UserWatchedOverviewList
@@ -68,7 +68,10 @@ function MyAccountScreenWithData(
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <UpdatableAvatar user={user} />
+        <StandardAvatar
+          size={150}
+          uri={user ? user.avatarUrl + `?${new Date()}` : null}
+        />
         <TitleText>{user?.name ?? 'N/A'}</TitleText>
       </View>
       <View style={styles.infoBox}>
