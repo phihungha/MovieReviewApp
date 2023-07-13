@@ -65,7 +65,9 @@ export function MovieGridItem(props: MovieGridItemProps): JSX.Element {
         android_ripple={pressableRippleConfig}>
         <MoviePoster imageUrl={data?.posterUrl} />
         <View style={styles.infoContainer}>
-          <ItemTitleText>{data?.title}</ItemTitleText>
+          <ItemTitleText style={styles.titleText} numberOfLines={2}>
+            {data?.title}
+          </ItemTitleText>
           <ItemSubtitleText>
             {new Date(data?.releaseDate).getFullYear()}
           </ItemSubtitleText>
@@ -91,6 +93,9 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     paddingHorizontal: 3,
+  },
+  titleText: {
+    height: 50,
   },
   scoresContainer: {
     flexDirection: 'row',
