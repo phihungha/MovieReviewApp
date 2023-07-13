@@ -1,18 +1,22 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Avatar, Input} from '@rneui/themed';
+import {Input} from '@rneui/themed';
 import {BigTitleText} from '../../../components/Text/BigTitleText';
 import {TitleText} from '../../../components/Text/TitleText';
-
-import {ActionCb} from '../../../types/ActionCb';
 import colors from '../../../styles/colors';
 import {OnSelectedManageInformation} from './ManageAccountInformationItem';
+import {OnChangedCb} from '../../../types/OnChangedCb';
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker';
+import {StandardAvatar} from '../../../components/Display/StandardAvatar';
 
 interface ManageAccountProfilePictureProps {
   imageUri?: string;
   nameValue: string;
   onSelectedName: OnSelectedManageInformation;
-  onSelectedImage: ActionCb;
+  onSelectedImage: OnChangedCb<string>;
 }
 
 /**
@@ -25,7 +29,20 @@ interface ManageAccountProfilePictureProps {
 export function ManageAccountProfilePictureDisplay(
   props: ManageAccountProfilePictureProps,
 ): JSX.Element {
-  const uri = 'https://uifaces.co/our-content/donated/6MWH9Xi_.jpg';
+  const options: ImageLibraryOptions = {
+    mediaType: 'photo',
+    selectionLimit: 1,
+  };
+
+  const onPressImage = async () => {
+    await launchImageLibrary(options, response => {
+      if (response?.assets) {
+        const uriResult = response.assets?.at(0)?.uri;
+        props.onSelectedImage(uriResult ? uriResult : '');
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
       <BigTitleText style={styles.titleLine}>
@@ -33,11 +50,10 @@ export function ManageAccountProfilePictureDisplay(
       </BigTitleText>
 
       <View style={styles.avatarContainer}>
-        <Avatar
+        <StandardAvatar
           size={128}
-          rounded
-          source={{uri: props.imageUri ? props.imageUri : uri}}
-          onPress={props.onSelectedImage}
+          uri={props.imageUri}
+          onPress={onPressImage}
         />
 
         <TitleText>{props.nameValue}</TitleText>

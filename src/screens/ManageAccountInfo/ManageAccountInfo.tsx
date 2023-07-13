@@ -3,10 +3,6 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button} from '@rneui/themed';
 import {ManageAccountProfilePictureDisplay} from './components/ManageAccountProfilePictureDisplay';
 import {ManageAccountInformationDisplay} from './components/ManageAccountInformationDisplay';
-import {
-  ImageLibraryOptions,
-  launchImageLibrary,
-} from 'react-native-image-picker';
 import {ManageAccountPasswordDisplay} from './components/ManageAccountPasswordDisplay';
 import {graphql} from 'relay-runtime';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
@@ -20,6 +16,7 @@ import {Gender} from './__generated__/ManageAccountInfoQuery.graphql';
 import Snackbar from 'react-native-snackbar';
 import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
 import {dateToIsoDateStr} from '../../utils/time-conversion';
+import validator from 'validator';
 
 const BASE_AVATAR_URL =
   'https://cinerate-movie-review-service.s3.ap-southeast-1.amazonaws.com/public/userProfileImages/';
@@ -28,6 +25,7 @@ export const ManageAccountInfoQuery = graphql`
   query ManageAccountInfoQuery {
     viewer {
       name
+      avatarUrl
       username
       gender
       dateOfBirth
@@ -141,25 +139,8 @@ function ManageAccountInfoWithData({
     setGender(myAccount.gender);
     setWebsite(myAccount.blogUrl ?? '');
     setEmail(myFirebaseAccount?.email ?? '');
+    setAvatarUri(myAccount.avatarUrl ?? '');
   }, [myAccount, myFirebaseAccount]);
-
-  const options: ImageLibraryOptions = {
-    mediaType: 'photo',
-    selectionLimit: 1,
-  };
-
-  const onPressImage = async () => {
-    await launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response?.errorCode) {
-        console.log('ImagePicker Error: ', response.errorMessage);
-      } else if (response?.assets) {
-        const uriResult = response.assets?.at(0)?.uri;
-        setAvatarUri(uriResult ? uriResult : '');
-      }
-    });
-  };
 
   function returnToMyAccountScreen() {
     preloadedQueries?.MyAccount.loadQuery({});
@@ -167,6 +148,15 @@ function ManageAccountInfoWithData({
   }
 
   const onSave = async () => {
+    if (
+      username === '' ||
+      email === '' ||
+      name === '' ||
+      (myUserType === 'Critic' && !validator.isURL(website))
+    ) {
+      return Snackbar.show({text: 'Invalid info'});
+    }
+
     if (!myAccount || !myFirebaseAccount) {
       return;
     }
@@ -243,7 +233,7 @@ function ManageAccountInfoWithData({
           nameValue={name}
           onSelectedName={(item: string) => setName(item)}
           imageUri={avatarUri}
-          onSelectedImage={onPressImage}
+          onSelectedImage={setAvatarUri}
         />
         <ManageAccountInformationDisplay
           gender={gender}

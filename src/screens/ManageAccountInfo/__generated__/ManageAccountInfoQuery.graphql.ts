@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<deb2bfb12ba10c7a597f65d592efce64>>
+ * @generated SignedSource<<d48ffa6fa9f65420ab52a7c8cfe6a062>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type ManageAccountInfoQuery$variables = {};
 export type ManageAccountInfoQuery$data = {
   readonly userProfileImageUploadUrl: string;
   readonly viewer: {
+    readonly avatarUrl: string | null;
     readonly blogUrl: string | null;
     readonly dateOfBirth: any | null;
     readonly gender: Gender | null;
@@ -40,38 +41,45 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "username",
+  "name": "avatarUrl",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "gender",
+  "name": "username",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "dateOfBirth",
+  "name": "gender",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "blogUrl",
+  "name": "dateOfBirth",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "userType",
+  "name": "blogUrl",
   "storageKey": null
 },
 v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "userType",
+  "storageKey": null
+},
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -98,11 +106,12 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
-          (v5/*: any*/)
+          (v5/*: any*/),
+          (v6/*: any*/)
         ],
         "storageKey": null
       },
-      (v6/*: any*/)
+      (v7/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -127,6 +136,7 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -137,20 +147,20 @@ return {
         ],
         "storageKey": null
       },
-      (v6/*: any*/)
+      (v7/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "d7243b3afe1affa706f296fb8c04d782",
+    "cacheID": "dfec5568fd8382db9c63f47911aa9001",
     "id": null,
     "metadata": {},
     "name": "ManageAccountInfoQuery",
     "operationKind": "query",
-    "text": "query ManageAccountInfoQuery {\n  viewer {\n    name\n    username\n    gender\n    dateOfBirth\n    blogUrl\n    userType\n    id\n  }\n  userProfileImageUploadUrl\n}\n"
+    "text": "query ManageAccountInfoQuery {\n  viewer {\n    name\n    avatarUrl\n    username\n    gender\n    dateOfBirth\n    blogUrl\n    userType\n    id\n  }\n  userProfileImageUploadUrl\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2b5e2dd9e74a4aa914882f42adbe709c";
+(node as any).hash = "43962b65cff0ec5e0c29cf8ccd742e38";
 
 export default node;
