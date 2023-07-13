@@ -6,13 +6,12 @@ import {TitleText} from '../../../components/Text/TitleText';
 
 import {ActionCb} from '../../../types/ActionCb';
 import colors from '../../../styles/colors';
-
-export type OnSelectedName = (name: string) => void;
+import {OnSelectedManageInformation} from './ManageAccountInformationItem';
 
 interface ManageAccountProfilePictureProps {
   imageUri?: string;
   nameValue: string;
-  onSelectedName: OnSelectedName;
+  onSelectedName: OnSelectedManageInformation;
   onSelectedImage: ActionCb;
 }
 

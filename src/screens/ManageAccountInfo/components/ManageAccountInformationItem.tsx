@@ -7,7 +7,7 @@ import {ItemTitleOnly} from '../../../components/Items/BottomSheetListItem';
 import {DatePickerDialog} from '../../../dialogs/DatePickerDialog';
 
 export type OnSelectedManageInformation = (
-  item: Date | ItemTitleOnly | string,
+  item: Date | ItemTitleOnly | string | any,
 ) => void;
 interface ManageItemProps {
   value: string;
