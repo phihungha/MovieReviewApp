@@ -123,7 +123,6 @@ function ManageAccountInfoWithData({
 
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [birthdayText, setBirthdayText] = useState('');
   const [gender, setGender] = useState<Gender | null>(null);
   const [username, setUsername] = useState('');
   const [website, setWebsite] = useState('');
@@ -139,7 +138,6 @@ function ManageAccountInfoWithData({
     setName(myAccount.name);
     setUsername(myAccount.username);
     setDateOfBirth(new Date(myAccount.dateOfBirth));
-    setBirthdayText(myAccount.dateOfBirth);
     setGender(myAccount.gender);
     setWebsite(myAccount.blogUrl ?? '');
     setEmail(myFirebaseAccount?.email ?? '');
@@ -161,11 +159,6 @@ function ManageAccountInfoWithData({
         setAvatarUri(uriResult ? uriResult : '');
       }
     });
-  };
-
-  const onSelectedBirthday = (date: Date) => {
-    setBirthdayText(date.toDateString());
-    setDateOfBirth(date);
   };
 
   function returnToMyAccountScreen() {
@@ -253,9 +246,10 @@ function ManageAccountInfoWithData({
           onSelectedImage={onPressImage}
         />
         <ManageAccountInformationDisplay
-          birthdayValue={birthdayText}
-          onSelectedDate={onSelectedBirthday}
-          onSelectedGender={(item: any) => setGender(item)}
+          gender={gender}
+          onSelectedGender={(item: Gender | null) => setGender(item)}
+          birthdayValue={dateOfBirth}
+          onSelectedDate={(date: Date) => setDateOfBirth(date)}
           usernameValue={username}
           onSelectedUsername={(item: string) => setUsername(item)}
           emailValue={email}

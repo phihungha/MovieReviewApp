@@ -9,10 +9,13 @@ import {
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ItemSubtitleText} from '../../../components/Text/ItemSubtitleText';
 import {Input} from '@rneui/themed';
+import {Gender} from '../__generated__/ManageAccountInfoQuery.graphql';
 
 interface ManageAccountInformationProps {
-  birthdayValue: string;
+  birthdayValue: Date;
   onSelectedDate: OnSelectedManageInformation;
+
+  gender: Gender | null;
   onSelectedGender: OnSelectedManageInformation;
 
   usernameValue: string;
@@ -25,7 +28,6 @@ interface ManageAccountInformationProps {
 export function ManageAccountInformationDisplay(
   props: ManageAccountInformationProps,
 ): JSX.Element {
-  const [genderValue, setGenderValue] = useState('');
   const [isGenderOpen, setGenderOpen] = useState(false);
   const [genderItems, setGenderItems] = useState([
     {label: 'None', value: undefined},
@@ -33,6 +35,10 @@ export function ManageAccountInformationDisplay(
     {label: 'Female', value: 'Female'},
     {label: 'Other', value: 'Other'},
   ]);
+
+  const onSelectedItemDropdown = (item: any) => {
+    props.onSelectedGender(item.value);
+  };
 
   return (
     <View style={styles.container}>
@@ -67,14 +73,14 @@ export function ManageAccountInformationDisplay(
         <ItemSubtitleText>Gender</ItemSubtitleText>
         <DropDownPicker
           listMode="SCROLLVIEW"
-          placeholder="Sort by"
+          placeholder="Select your gender..."
           open={isGenderOpen}
           setOpen={setGenderOpen}
-          value={genderValue}
-          setValue={setGenderValue}
+          value={props.gender}
+          setValue={() => {}}
           items={genderItems}
           setItems={setGenderItems}
-          onSelectItem={(gender: any) => props.onSelectedGender(gender.value)}
+          onSelectItem={onSelectedItemDropdown}
           textStyle={styles.dropdownText}
           style={styles.dropdownContainer}
           containerStyle={styles.belowDropdown}
