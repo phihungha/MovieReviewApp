@@ -7,6 +7,7 @@ export type OnSelectedDate = (date: Date) => void;
 
 interface DatePickerDialogProps {
   onSelectedDate: OnSelectedDate;
+  date: Date;
   iconColor?: string;
   iconSize?: number;
 }
@@ -18,14 +19,11 @@ interface DatePickerDialogProps {
  * @param {number} iconSize icon's size
  */
 export function DatePickerDialog(props: DatePickerDialogProps): JSX.Element {
-  const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
 
   const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || props.date;
     setVisible(false);
-    setDate(currentDate);
-
     props.onSelectedDate(currentDate);
   };
 
@@ -42,7 +40,7 @@ export function DatePickerDialog(props: DatePickerDialogProps): JSX.Element {
       onPress={openDialog}>
       {visible && (
         <DateTimePicker
-          value={date}
+          value={props.date}
           mode="date"
           is24Hour
           display="default"
