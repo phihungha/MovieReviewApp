@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6bb213f022df7bc2f0515a2f23e70b26>>
+ * @generated SignedSource<<88015a64432ea2f30eb7dd9f6897b2dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EditReviewDeleteMutation$variables = {
-  connections: ReadonlyArray<string>;
   id: string;
 };
 export type EditReviewDeleteMutation$data = {
@@ -30,48 +29,42 @@ export type EditReviewDeleteMutation = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "id"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "id"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "kind": "Literal",
   "name": "authorType",
   "value": "Regular"
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "EditReviewDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteReview",
@@ -88,7 +81,7 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -141,16 +134,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "EditReviewDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteReview",
@@ -174,23 +164,7 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "filters": null,
-                    "handle": "deleteEdge",
-                    "key": "",
-                    "kind": "ScalarHandle",
-                    "name": "id",
-                    "handleArgs": [
-                      {
-                        "kind": "Variable",
-                        "name": "connections",
-                        "variableName": "connections"
-                      }
-                    ]
-                  },
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -230,7 +204,7 @@ return {
                       {
                         "alias": "score0count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -244,7 +218,7 @@ return {
                       {
                         "alias": "score1count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -258,7 +232,7 @@ return {
                       {
                         "alias": "score2count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -272,7 +246,7 @@ return {
                       {
                         "alias": "score3count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -286,7 +260,7 @@ return {
                       {
                         "alias": "score4count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -300,7 +274,7 @@ return {
                       {
                         "alias": "score5count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -314,7 +288,7 @@ return {
                       {
                         "alias": "score6count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -328,7 +302,7 @@ return {
                       {
                         "alias": "score7count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -342,7 +316,7 @@ return {
                       {
                         "alias": "score8count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -356,7 +330,7 @@ return {
                       {
                         "alias": "score9count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -370,7 +344,7 @@ return {
                       {
                         "alias": "score10count",
                         "args": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -487,7 +461,7 @@ return {
                         "name": "regularScoreByCriteria",
                         "storageKey": "regularScoreByCriteria(minAge:51)"
                       },
-                      (v3/*: any*/)
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -514,6 +488,6 @@ return {
 };
 })();
 
-(node as any).hash = "c74bfc8a1d122a8c3c41277b5138730c";
+(node as any).hash = "d7c3d775e40b99e31a18ed71380c6a9d";
 
 export default node;

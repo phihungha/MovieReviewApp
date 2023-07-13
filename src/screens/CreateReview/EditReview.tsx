@@ -6,7 +6,7 @@ import {ConfirmDialog} from '../../dialogs/ConfirmDialog';
 import {ActionCb} from '../../types/ActionCb';
 import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
 import {ReviewEditor} from './components/ReviewEditor';
-import {ConnectionHandler, graphql} from 'relay-runtime';
+import {graphql} from 'relay-runtime';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
@@ -58,11 +58,11 @@ const EditReviewMutation = graphql`
 `;
 
 const EditReviewDeleteMutation = graphql`
-  mutation EditReviewDeleteMutation($id: ID!, $connections: [ID!]!) {
+  mutation EditReviewDeleteMutation($id: ID!) {
     deleteReview(id: $id) {
       ... on MutationDeleteReviewSuccess {
         data {
-          id @deleteEdge(connections: $connections)
+          id
           movie {
             ...CriticAggregateScoreIndicator
             ...RegularAggregateScoreIndicator
@@ -165,14 +165,14 @@ function EditReviewScreenWithData({
 
   function onDelete() {
     if (reviewId && review) {
-      const regularReviewListConnID = ConnectionHandler.getConnectionID(
-        review.movie.id,
-        'RegularReviewListFragment_regularReviews',
-      );
       commitDeleteMutation({
-        variables: {id: reviewId, connections: [regularReviewListConnID]},
+        variables: {id: reviewId},
         onCompleted: () => {
           if (review) {
+            preloadedQueries?.MovieReviewList.loadQuery(
+              {id: review.movie.id},
+              {fetchPolicy: 'network-only'},
+            );
             preloadedQueries?.MyAccount.loadQuery(
               {},
               {fetchPolicy: 'network-only'},

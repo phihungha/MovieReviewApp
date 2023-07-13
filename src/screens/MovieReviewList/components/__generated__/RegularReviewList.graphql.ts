@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7895deafc3879c81c674199d07776492>>
+ * @generated SignedSource<<0811a2537eb07698f7b2fb0b980307b5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -106,33 +106,7 @@ return {
   "selections": [
     {
       "alias": "regularReviews",
-      "args": [
-        {
-          "kind": "Variable",
-          "name": "maxScore",
-          "variableName": "maxScore"
-        },
-        {
-          "kind": "Variable",
-          "name": "minScore",
-          "variableName": "minScore"
-        },
-        {
-          "kind": "Variable",
-          "name": "sortBy",
-          "variableName": "sortBy"
-        },
-        {
-          "kind": "Variable",
-          "name": "sortDirection",
-          "variableName": "sortDirection"
-        },
-        {
-          "kind": "Variable",
-          "name": "textContains",
-          "variableName": "textContains"
-        }
-      ],
+      "args": null,
       "concreteType": "ReviewConnection",
       "kind": "LinkedField",
       "name": "__RegularReviewListFragment_regularReviews_connection",
@@ -215,6 +189,6 @@ return {
 };
 })();
 
-(node as any).hash = "d79c539d673cf6922817f4894a9400e7";
+(node as any).hash = "32388a4a77904906aa9c98710f70885f";
 
 export default node;

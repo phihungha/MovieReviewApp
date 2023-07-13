@@ -27,7 +27,7 @@ const CriticReviewListFragment = graphql`
       textContains: $textContains
       minScore: $minScore
       maxScore: $maxScore
-    ) @connection(key: "CriticReviewListFragment_criticReviews") {
+    ) @connection(key: "CriticReviewListFragment_criticReviews", filters: []) {
       edges {
         node {
           id
@@ -55,13 +55,16 @@ export function CriticReviewList(
   const options = props.options;
 
   useEffect(() => {
-    refetch({
-      textContains: props.textContains,
-      minScore: options?.minScore,
-      maxScore: options?.maxScore,
-      sortBy: options?.sortBy,
-      sortDirection: options?.sortDirection,
-    });
+    refetch(
+      {
+        textContains: props.textContains,
+        minScore: options?.minScore,
+        maxScore: options?.maxScore,
+        sortBy: options?.sortBy,
+        sortDirection: options?.sortDirection,
+      },
+      {fetchPolicy: 'network-only'},
+    );
   }, [
     props.textContains,
     options?.minScore,

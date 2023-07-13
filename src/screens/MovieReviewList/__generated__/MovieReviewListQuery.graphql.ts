@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<add141e33a12108f81f561a29d29011e>>
+ * @generated SignedSource<<264a31cfc96c05a6d18b564cd6c77a66>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -205,13 +205,6 @@ v4 = [
     ],
     "storageKey": null
   }
-],
-v5 = [
-  "sortBy",
-  "sortDirection",
-  "textContains",
-  "minScore",
-  "maxScore"
 ];
 return {
   "fragment": {
@@ -274,7 +267,7 @@ return {
           {
             "alias": null,
             "args": (v3/*: any*/),
-            "filters": (v5/*: any*/),
+            "filters": [],
             "handle": "connection",
             "key": "CriticReviewListFragment_criticReviews",
             "kind": "LinkedHandle",
@@ -293,7 +286,7 @@ return {
           {
             "alias": null,
             "args": (v3/*: any*/),
-            "filters": (v5/*: any*/),
+            "filters": [],
             "handle": "connection",
             "key": "RegularReviewListFragment_regularReviews",
             "kind": "LinkedHandle",

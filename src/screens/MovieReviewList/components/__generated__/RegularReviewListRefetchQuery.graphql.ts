@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<81b7b074e9df5fe34dee20519223cf3b>>
+ * @generated SignedSource<<cd45ec4028e9e8ea9266516a413ce627>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -375,13 +375,7 @@ return {
               {
                 "alias": null,
                 "args": (v16/*: any*/),
-                "filters": [
-                  "sortBy",
-                  "sortDirection",
-                  "textContains",
-                  "minScore",
-                  "maxScore"
-                ],
+                "filters": [],
                 "handle": "connection",
                 "key": "RegularReviewListFragment_regularReviews",
                 "kind": "LinkedHandle",
@@ -407,6 +401,6 @@ return {
 };
 })();
 
-(node as any).hash = "d79c539d673cf6922817f4894a9400e7";
+(node as any).hash = "32388a4a77904906aa9c98710f70885f";
 
 export default node;
