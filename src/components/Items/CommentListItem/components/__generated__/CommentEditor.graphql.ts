@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<751d187748f570f3457538311a21e980>>
+ * @generated SignedSource<<a63e4f6405f04a509f4ba89656a7b393>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,34 +10,42 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommentListItem$data = {
+export type CommentEditor$data = {
   readonly author: {
     readonly avatarUrl: string | null;
+    readonly id: string;
     readonly name: string;
   };
+  readonly content: string;
   readonly id: string;
-  readonly isMine: boolean | null;
-  readonly lastUpdateTime: any | null;
   readonly postTime: any;
-  readonly " $fragmentSpreads": FragmentRefs<"CommentContent" | "CommentEditor">;
-  readonly " $fragmentType": "CommentListItem";
+  readonly " $fragmentType": "CommentEditor";
 };
-export type CommentListItem$key = {
-  readonly " $data"?: CommentListItem$data;
-  readonly " $fragmentSpreads": FragmentRefs<"CommentListItem">;
+export type CommentEditor$key = {
+  readonly " $data"?: CommentEditor$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommentEditor">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "CommentListItem",
+  "name": "CommentEditor",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "content",
       "storageKey": null
     },
     {
@@ -48,6 +56,7 @@ const node: ReaderFragment = {
       "name": "author",
       "plural": false,
       "selections": [
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -69,38 +78,15 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "isMine",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "postTime",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "lastUpdateTime",
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "CommentContent"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "CommentEditor"
     }
   ],
   "type": "Comment",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "60822a170e405a66b7ea0f4bdc8c8b5a";
+(node as any).hash = "7e0c5c952cf1830885dce3798e0fa636";
 
 export default node;

@@ -13,11 +13,15 @@ import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
 export const ReviewDetailsQuery = graphql`
   query ReviewDetailsQuery($id: ID!) {
     review(id: $id) {
+      id
       movie {
         ...MovieInfoDisplay
       }
       ...ReviewListItem
       ...CommentList
+    }
+    viewer {
+      avatarUrl
     }
   }
 `;
@@ -64,7 +68,10 @@ function ListHeader({
         displayScore={true}
       />
       <ReviewListItem canEdit={true} onPress={null} review={data.review} />
-      <CommentCreator />
+      <CommentCreator
+        viewerAvatar={data.viewer?.avatarUrl}
+        reviewId={data.review?.id}
+      />
     </View>
   );
 }

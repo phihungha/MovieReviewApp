@@ -1,27 +1,46 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {VerticalProfileDisplay} from '../../Display/VerticalProfileDisplay';
 import {ItemTitleOnly} from '../BottomSheetListItem';
 import {CommentListItemMoreButton} from './components/CommentListItemMoreButton';
 import {ItemTitleText} from '../../Text/ItemTitleText';
 import {ItemSubtitleText} from '../../Text/ItemSubtitleText';
-import {RegularText} from '../../Text/RegularText';
 import colors from '../../../styles/colors';
 import {graphql} from 'relay-runtime';
 import {CommentListItem$key} from './__generated__/CommentListItem.graphql';
-import {useFragment} from 'react-relay';
+import {useFragment, useMutation} from 'react-relay';
 import {dateToStandardDateTimeFormat} from '../../../utils/time-conversion';
-import {Input} from '@rneui/themed';
-import {pressableRippleConfig} from '../../../styles/pressable-ripple';
+import {CommentEditor} from './components/CommentEditor';
+import {CommentContent} from './components/CommentContent';
+import type {CommentListItemDeleteMutation as CommentListItemDeleteMutationType} from './__generated__/CommentListItemDeleteMutation.graphql';
 
 const CommentListItemFragment = graphql`
   fragment CommentListItem on Comment {
+    id
     author {
       avatarUrl
       name
     }
+    isMine
     postTime
-    content
+    lastUpdateTime
+    ...CommentContent
+    ...CommentEditor
+  }
+`;
+
+const CommentListItemDeleteMutation = graphql`
+  mutation CommentListItemDeleteMutation($id: ID!) {
+    deleteComment(id: $id) {
+      ... on MutationDeleteCommentSuccess {
+        data {
+          ...CommentListItem
+          review {
+            ...ReviewListItem
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -33,28 +52,36 @@ export interface CommentListItemProps {
  * Item for list of review comments.
  */
 export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
-  const [isEnabledEdit, setEnabledEdit] = useState(false);
+  const data = useFragment(CommentListItemFragment, comment);
+  const reviewId = data?.id;
+
+  const [isEditMode, setEditMode] = useState(false);
   const onSelectedItem = (item: ItemTitleOnly) => {
     switch (item.id) {
       case 'delete':
+        onCommentDelete();
         break;
       case 'edit':
-        setEnabledEdit(true);
+        setEditMode(true);
         break;
     }
   };
 
-  const updateComment = () => {
-    setEnabledEdit(false);
-    console.log('Call API');
-  };
+  const [commitMutation] = useMutation<CommentListItemDeleteMutationType>(
+    CommentListItemDeleteMutation,
+  );
 
-  const cancelEdit = () => {
-    setEnabledEdit(false);
-  };
+  // Call this to delete comment
+  function onCommentDelete() {
+    if (reviewId) {
+      commitMutation({
+        variables: {
+          id: data.id,
+        },
+      });
+    }
+  }
 
-  const data = useFragment(CommentListItemFragment, comment);
-  const [commentText, setCommentText] = useState(data?.content);
   return (
     <View>
       <View style={styles.container}>
@@ -63,41 +90,30 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           imageUrl={data?.author.avatarUrl}
         />
         <View style={styles.infoContainer}>
-          <ItemTitleText>{data?.author.name ?? 'N/A'}</ItemTitleText>
-          <ItemSubtitleText>
-            {dateToStandardDateTimeFormat(new Date(data?.postTime))}
-          </ItemSubtitleText>
-          {isEnabledEdit ? (
-            <View style={styles.editContainer}>
-              <Input
-                value={commentText}
-                onChangeText={setCommentText}
-                containerStyle={styles.input_containerStyle}
-                inputContainerStyle={styles.input_inputContainerStyle}
-                renderErrorMessage={false}
-              />
-              <View style={styles.okCancelContainer}>
-                <Pressable
-                  onPress={cancelEdit}
-                  android_ripple={pressableRippleConfig}>
-                  <ItemSubtitleText style={styles.okCancelText}>
-                    Cancel
-                  </ItemSubtitleText>
-                </Pressable>
-                <Pressable
-                  onPress={updateComment}
-                  android_ripple={pressableRippleConfig}>
-                  <ItemSubtitleText style={styles.okCancelText}>
-                    Ok
-                  </ItemSubtitleText>
-                </Pressable>
-              </View>
-            </View>
-          ) : (
-            <RegularText>{data?.content ?? 'N/A'}</RegularText>
-          )}
+          <View style={styles.metaInfoContainer}>
+            <ItemTitleText>{data?.author.name ?? 'N/A'}</ItemTitleText>
+            <ItemSubtitleText>
+              {dateToStandardDateTimeFormat(new Date(data?.postTime))}
+            </ItemSubtitleText>
+            {data?.lastUpdateTime && (
+              <ItemSubtitleText>
+                Last edit:{' '}
+                {dateToStandardDateTimeFormat(new Date(data.lastUpdateTime))}
+              </ItemSubtitleText>
+            )}
+          </View>
 
-          <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
+          {isEditMode ? (
+            <CommentEditor
+              comment={data}
+              onDisable={() => setEditMode(false)}
+            />
+          ) : (
+            <CommentContent comment={data} />
+          )}
+          {data?.isMine && (
+            <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
+          )}
         </View>
       </View>
     </View>
@@ -113,34 +129,12 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     padding: 10,
+    gap: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
   avatarContainer: {
     alignSelf: 'flex-start',
   },
-  bottomSheet: {
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-  },
-  editContainer: {
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-  input_containerStyle: {
-    flex: 1,
-  },
-  input_inputContainerStyle: {
-    paddingTop: 0,
-    paddingHorizontal: 0,
-  },
-  okCancelContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  okCancelText: {
-    color: colors.blue,
-  },
+  metaInfoContainer: {},
 });
