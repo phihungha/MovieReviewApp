@@ -18,6 +18,7 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
+  const [birthdayValue, setBirthdayValue] = useState(new Date());
   const [birthdayText, setBirthdayText] = useState('');
   const [type, setType] = useState('');
 
@@ -27,19 +28,15 @@ export function SignUpScreen({navigation}: Props): JSX.Element {
 
   const signUp = (emailText: string, passwordText: string) => {
     console.log(emailText + ' ' + passwordText);
+    console.log(birthdayValue);
     console.log('Call API');
   };
 
   const onSelectedDate = (date: Date) => {
-    let tempDate = new Date(date);
     let dateToText =
-      tempDate.getMonth() +
-      1 +
-      '/' +
-      tempDate.getDate() +
-      '/' +
-      tempDate.getFullYear();
+      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
     setBirthdayText(dateToText);
+    setBirthdayValue(date);
   };
 
   const onSelectedType = (typeItem: ItemTitleOnly) => {

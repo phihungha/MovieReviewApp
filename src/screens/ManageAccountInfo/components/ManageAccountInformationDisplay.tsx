@@ -147,5 +147,6 @@ const styles = StyleSheet.create({
   belowDropdown: {zIndex: 10000},
   input: {
     backgroundColor: colors.mediumBlack,
+    paddingTop: 5,
   },
 });
