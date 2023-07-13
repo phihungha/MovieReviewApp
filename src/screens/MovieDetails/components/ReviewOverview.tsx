@@ -28,6 +28,9 @@ const ReviewOverviewFragment = graphql`
         }
       }
     }
+    viewerReview {
+      ...ReviewListItem
+    }
   }
 `;
 
@@ -48,7 +51,9 @@ export function ReviewOverview({
   const data = useFragment(ReviewOverviewFragment, movie);
   const preloadedQueries = useContext(PreloadedQueriesContext);
 
-  const onAllReviewBtnPressed = (firstTab: 'regular' | 'critic') => {
+  const onAllReviewBtnPressed = (
+    firstTab: 'regular' | 'critic' | 'personal',
+  ) => {
     if (data?.id) {
       preloadedQueries?.MovieReviewList.loadQuery({id: data.id});
     }
@@ -60,13 +65,26 @@ export function ReviewOverview({
   // on list additions in TabView
   const [tab1Height, setTab1Height] = useState(0);
   const [tab2Height, setTab2Height] = useState(0);
-  const tabViewHeight = index === 0 ? tab1Height : tab2Height;
+  const [tab3Height, setTab3Height] = useState(0);
+  let tabViewHeight;
+  switch (index) {
+    case 0:
+      tabViewHeight = tab1Height;
+      break;
+    case 1:
+      tabViewHeight = tab2Height;
+      break;
+    case 2:
+      tabViewHeight = tab3Height;
+      break;
+  }
 
   return (
     <>
       <Tab value={index} onChange={i => setIndex(i)}>
         <Tab.Item title="Critic" />
         <Tab.Item title="Regular" />
+        <Tab.Item title="Mine" />
       </Tab>
       <TabView
         containerStyle={{height: tabViewHeight}}
@@ -94,6 +112,19 @@ export function ReviewOverview({
             ))}
             <Button
               onPress={() => onAllReviewBtnPressed('regular')}
+              title="All reviews"
+            />
+          </View>
+        </TabView.Item>
+        <TabView.Item>
+          <View
+            style={styles.reviewOverviewList}
+            onLayout={e => setTab3Height(e.nativeEvent.layout.height)}>
+            {data?.viewerReview && (
+              <ReviewListItem review={data.viewerReview} />
+            )}
+            <Button
+              onPress={() => onAllReviewBtnPressed('personal')}
               title="All reviews"
             />
           </View>

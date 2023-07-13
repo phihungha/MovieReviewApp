@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<94bb12141dc2e0ea23ce5f65dc08096a>>
+ * @generated SignedSource<<3ec42ec305a9b20e18ef4f0e6eab60ec>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,9 @@ export type ReviewOverview$data = {
       };
     } | null>;
   };
+  readonly viewerReview: {
+    readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
+  } | null;
   readonly " $fragmentType": "ReviewOverview";
 };
 export type ReviewOverview$key = {
@@ -55,7 +58,12 @@ v1 = [
     "value": "ThankCount"
   }
 ],
-v2 = [
+v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "ReviewListItem"
+},
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -73,11 +81,7 @@ v2 = [
         "plural": false,
         "selections": [
           (v0/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ReviewListItem"
-          }
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -99,7 +103,7 @@ return {
       "kind": "LinkedField",
       "name": "criticReviews",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
     },
     {
@@ -109,8 +113,20 @@ return {
       "kind": "LinkedField",
       "name": "regularReviews",
       "plural": false,
-      "selections": (v2/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Review",
+      "kind": "LinkedField",
+      "name": "viewerReview",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "Movie",
@@ -118,6 +134,6 @@ return {
 };
 })();
 
-(node as any).hash = "58547d0b21fdd8d207d21ed98044d659";
+(node as any).hash = "c08a4adab6099054d51b066a8f2b3f56";
 
 export default node;

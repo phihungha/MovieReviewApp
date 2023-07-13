@@ -90,7 +90,6 @@ function MovieReviewListScreenWithData({
       startTabIndex = 2;
       break;
   }
-  console.log(startTabIndex);
   const [index, setIndex] = useState(startTabIndex);
 
   return (
