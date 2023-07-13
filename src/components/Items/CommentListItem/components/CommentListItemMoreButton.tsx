@@ -2,10 +2,12 @@ import React from 'react';
 import {OnPressItem} from '../../../../dialogs/GenericBottomSheetHandleItemPressDialog';
 import {GenericMoreButton} from '../../../Buttons/GenericMoreButton';
 import {StyleProp, ViewStyle} from 'react-native';
+import {ActionCb} from '../../../../types/ActionCb';
 
 interface CommentListItemMoreButtonProps {
   onSelectedItem: OnPressItem;
   style?: StyleProp<ViewStyle>;
+  onOk: ActionCb;
 }
 
 const list = [
@@ -21,6 +23,7 @@ export function CommentListItemMoreButton(
       onSelectedItem={item => props.onSelectedItem(item)}
       list={list}
       style={props.style}
+      onOK={() => props.onOk()}
     />
   );
 }

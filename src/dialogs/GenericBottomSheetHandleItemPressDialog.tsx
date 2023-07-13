@@ -4,6 +4,7 @@ import {
   ItemTitleOnly,
 } from '../components/Items/BottomSheetListItem';
 import {GenericBottomSheetDialog} from './GenericBottomSheetDialog';
+import {ActionCb} from '../types/ActionCb';
 
 export type OnPressItem = (item: ItemTitleOnly) => void;
 
@@ -13,6 +14,7 @@ export interface EventBottomSheetProps {
   iconSize?: number;
   iconName: string;
   listItem: {}[];
+  onOk: ActionCb;
 }
 
 /**
@@ -38,8 +40,7 @@ export function GenericBottomSheetHandleItemPressDialog(
   };
 
   const onConfirmDialog = () => {
-    console.log('Call API');
-    console.log('Delete');
+    props.onOk();
     closeDialog();
   };
 

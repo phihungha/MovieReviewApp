@@ -8,14 +8,27 @@ import {
 } from './ManageAccountInformationItem';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ItemSubtitleText} from '../../../components/Text/ItemSubtitleText';
+import {Input} from '@rneui/themed';
 
 interface ManageAccountInformationProps {
   iconSize?: number;
   iconColor?: string;
 
   birthdayValue: string;
-  onSelectedGender: OnSelectedManageInformation;
   onSelectedDate: OnSelectedManageInformation;
+  onSelectedGender: OnSelectedManageInformation;
+
+  usernameValue: string;
+  onSelectedUsername: OnSelectedManageInformation;
+
+  emailValue: string;
+  onSelectedEmail: OnSelectedManageInformation;
+
+  passwordValue: string;
+  onSelectedPassword: OnSelectedManageInformation;
+
+  rePasswordValue: string;
+  onSelectedRePassword: OnSelectedManageInformation;
 }
 
 export function ManageAccountInformationDisplay(
@@ -34,7 +47,29 @@ export function ManageAccountInformationDisplay(
       <View style={styles.titleLine}>
         <BigTitleText>Information</BigTitleText>
       </View>
+      <View>
+        <ItemSubtitleText>Username</ItemSubtitleText>
+        <Input
+          inputMode="text"
+          value={props.usernameValue}
+          onChangeText={(item: string) => props.onSelectedUsername(item)}
+          placeholder="Enter username..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
 
+      <View>
+        <ItemSubtitleText>Email</ItemSubtitleText>
+        <Input
+          inputMode="email"
+          value={props.emailValue}
+          onChangeText={(item: string) => props.onSelectedEmail(item)}
+          placeholder="Enter your email..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
       <View>
         <ItemSubtitleText>Gender</ItemSubtitleText>
         <DropDownPicker
@@ -63,6 +98,30 @@ export function ManageAccountInformationDisplay(
           onSelected={props.onSelectedDate}
         />
       </View>
+
+      <View>
+        <ItemSubtitleText>Password</ItemSubtitleText>
+        <Input
+          secureTextEntry
+          value={props.passwordValue}
+          onChangeText={(item: string) => props.onSelectedPassword(item)}
+          placeholder="Enter your password..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
+
+      <View>
+        <ItemSubtitleText>Re-enter password</ItemSubtitleText>
+        <Input
+          secureTextEntry
+          value={props.rePasswordValue}
+          onChangeText={(item: string) => props.onSelectedRePassword(item)}
+          placeholder="Re-enter your password..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
     </View>
   );
 }
@@ -86,4 +145,7 @@ const styles = StyleSheet.create({
   },
   aboveDropdown: {zIndex: 10001},
   belowDropdown: {zIndex: 10000},
+  input: {
+    backgroundColor: colors.mediumBlack,
+  },
 });
