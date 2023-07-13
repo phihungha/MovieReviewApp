@@ -33,3 +33,13 @@ export function dateToStandardDateTimeFormat(dateInput?: Date | string | null) {
   }
   return date.toLocaleString('en-GB').substring(0, 20);
 }
+
+export function dateToIsoDateStr(dateInput?: Date | string | null) {
+  let date;
+  if (!dateInput) {
+    date = new Date('0001-01-01');
+  } else {
+    date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  }
+  return date.toISOString().substring(0, 10);
+}

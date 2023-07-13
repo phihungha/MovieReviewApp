@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet} from 'react-native';
 import colors from '../../../styles/colors';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MyAccountStackParams} from '../../../navigators/MyAccountStackNavigator';
 import auth from '@react-native-firebase/auth';
 import {Button} from '@rneui/themed';
+import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 
 type MyAccountScreenProps = NativeStackScreenProps<
   MyAccountStackParams,
@@ -14,12 +15,15 @@ type MyAccountScreenProps = NativeStackScreenProps<
 export function ActionButtons({
   navigation,
 }: MyAccountScreenProps): React.JSX.Element {
+  const preloadedQueries = useContext(PreloadedQueriesContext);
+
   async function onSignOut() {
     await auth().signOut();
     navigation.navigate('Login');
   }
 
   function goToEditScreen() {
+    preloadedQueries?.ManageAccountInfo.loadQuery({});
     navigation.navigate('ManageAccountInfo');
   }
 

@@ -124,7 +124,7 @@ function MyAccountScreenWithData(
           }
         />
 
-        {user?.userType === 'Critic' ? (
+        {user?.userType === 'Critic' && (
           <LinkInfoSection
             name="Website"
             value={user?.blogUrl}
@@ -137,7 +137,7 @@ function MyAccountScreenWithData(
               />
             }
           />
-        ) : undefined}
+        )}
       </View>
 
       <ActionButtons {...props} />
