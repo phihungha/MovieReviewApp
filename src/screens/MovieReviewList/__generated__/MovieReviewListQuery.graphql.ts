@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2d2affe5759c0b68afaa62d43d7fe25>>
+ * @generated SignedSource<<f10a1338f9d5c826febba94cc507de5e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type MovieReviewListQuery$variables = {
 };
 export type MovieReviewListQuery$data = {
   readonly movie: {
-    readonly " $fragmentSpreads": FragmentRefs<"CriticReviewList" | "MovieInfoDisplay" | "RegularReviewList">;
+    readonly " $fragmentSpreads": FragmentRefs<"CriticReviewList" | "MovieInfoDisplay" | "PersonalReview" | "RegularReviewList">;
   } | null;
 };
 export type MovieReviewListQuery = {
@@ -63,31 +63,137 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "posterUrl",
+  "name": "content",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "releaseDate",
+  "name": "postTime",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "criticScore",
+  "name": "score",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "authorType",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "User",
+  "kind": "LinkedField",
+  "name": "author",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "avatarUrl",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "userType",
+      "storageKey": null
+    },
+    (v3/*: any*/)
+  ],
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "posterUrl",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "releaseDate",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "criticScore",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "regularScore",
   "storageKey": null
 },
-v9 = [
+v14 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Movie",
+  "kind": "LinkedField",
+  "name": "movie",
+  "plural": false,
+  "selections": [
+    (v10/*: any*/),
+    (v4/*: any*/),
+    (v11/*: any*/),
+    (v12/*: any*/),
+    (v13/*: any*/),
+    (v3/*: any*/)
+  ],
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "thankCount",
+  "storageKey": null
+},
+v16 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isThankedByViewer",
+  "storageKey": null
+},
+v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "commentCount",
+  "storageKey": null
+},
+v18 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isMine",
+  "storageKey": null
+},
+v19 = [
   {
     "alias": null,
     "args": null,
@@ -106,112 +212,16 @@ v9 = [
         "selections": [
           (v3/*: any*/),
           (v4/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "postTime",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "score",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "authorType",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "author",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "avatarUrl",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "userType",
-                "storageKey": null
-              },
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Movie",
-            "kind": "LinkedField",
-            "name": "movie",
-            "plural": false,
-            "selections": [
-              (v5/*: any*/),
-              (v4/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "thankCount",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "isThankedByViewer",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "commentCount",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "isMine",
-            "storageKey": null
-          },
+          (v5/*: any*/),
+          (v6/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
+          (v9/*: any*/),
+          (v14/*: any*/),
+          (v15/*: any*/),
+          (v16/*: any*/),
+          (v17/*: any*/),
+          (v18/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -286,6 +296,11 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
+            "name": "PersonalReview"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
             "name": "MovieInfoDisplay"
           }
         ],
@@ -316,7 +331,7 @@ return {
             "kind": "LinkedField",
             "name": "criticReviews",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v19/*: any*/),
             "storageKey": "criticReviews(first:4)"
           },
           {
@@ -336,7 +351,7 @@ return {
             "kind": "LinkedField",
             "name": "regularReviews",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v19/*: any*/),
             "storageKey": "regularReviews(first:4)"
           },
           {
@@ -348,27 +363,50 @@ return {
             "kind": "LinkedHandle",
             "name": "regularReviews"
           },
-          (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Review",
+            "kind": "LinkedField",
+            "name": "viewerReview",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
+              (v8/*: any*/),
+              (v9/*: any*/),
+              (v14/*: any*/),
+              (v15/*: any*/),
+              (v16/*: any*/),
+              (v17/*: any*/),
+              (v18/*: any*/)
+            ],
+            "storageKey": null
+          },
+          (v10/*: any*/),
           (v4/*: any*/),
-          (v6/*: any*/),
-          (v7/*: any*/),
-          (v8/*: any*/)
+          (v11/*: any*/),
+          (v12/*: any*/),
+          (v13/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b9e105b9748e3bcb44c11a2edb634849",
+    "cacheID": "cc0ab54860a34ea16fd4828a34e09271",
     "id": null,
     "metadata": {},
     "name": "MovieReviewListQuery",
     "operationKind": "query",
-    "text": "query MovieReviewListQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    ...CriticReviewList\n    ...RegularReviewList\n    ...MovieInfoDisplay\n    id\n  }\n}\n\nfragment CriticReviewList on Movie {\n  criticReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment RegularReviewList on Movie {\n  regularReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
+    "text": "query MovieReviewListQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    ...CriticReviewList\n    ...RegularReviewList\n    ...PersonalReview\n    ...MovieInfoDisplay\n    id\n  }\n}\n\nfragment CriticReviewList on Movie {\n  criticReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment PersonalReview on Movie {\n  viewerReview {\n    ...ReviewListItem\n    id\n  }\n}\n\nfragment RegularReviewList on Movie {\n  regularReviews(first: 4) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cce0066da3a61fba6e1248d9ac81770a";
+(node as any).hash = "a45e2cd4e13f1770488212f7058b4e60";
 
 export default node;

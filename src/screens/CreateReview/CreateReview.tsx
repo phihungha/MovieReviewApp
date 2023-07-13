@@ -127,7 +127,7 @@ function CreateReviewScreenWithData({
           );
         }
         Snackbar.show({text: 'Review posted!'});
-        navigation.navigate('MovieReviewList', {});
+        navigation.navigate('MovieReviewList', {firstTab: 'personal'});
       },
     });
   }

@@ -19,18 +19,23 @@ import {MovieReviewListOptions} from './dialogs/MovieReviewListOptionsDialog';
 import {StandardLoadingIcon} from '../../components/Display/StandardLoadingIcon';
 import {MovieReviewListHeader} from './components/MovieReviewListHeader';
 import {MovieInfoDisplay} from '../../components/Display/MovieInfoDisplay';
+import {PersonalReview} from './components/PersonalReview';
 
 export const MovieReviewListQuery = graphql`
   query MovieReviewListQuery($id: ID!) {
     movie(id: $id) {
       ...CriticReviewList
       ...RegularReviewList
+      ...PersonalReview
       ...MovieInfoDisplay
     }
   }
 `;
 
-type MovieReviewListScreenProps = NativeStackScreenProps<MainStackParams>;
+type MovieReviewListScreenProps = NativeStackScreenProps<
+  MainStackParams,
+  'MovieReviewList'
+>;
 
 export function MovieReviewListScreen(
   props: MovieReviewListScreenProps,
@@ -45,6 +50,7 @@ export function MovieReviewListScreen(
 
 function MovieReviewListScreenWithData({
   navigation,
+  route,
 }: MovieReviewListScreenProps) {
   const preloadedQueries = useContext(PreloadedQueriesContext);
   const data = usePreloadedQuery<MovieReviewListQueryType>(
@@ -72,7 +78,20 @@ function MovieReviewListScreenWithData({
 
   useEffect(() => navigation.setOptions({header: () => customHeader()}));
 
-  const [index, setIndex] = useState(0);
+  let startTabIndex = 0;
+  switch (route.params.firstTab) {
+    case 'critic':
+      startTabIndex = 0;
+      break;
+    case 'regular':
+      startTabIndex = 1;
+      break;
+    case 'personal':
+      startTabIndex = 2;
+      break;
+  }
+  console.log(startTabIndex);
+  const [index, setIndex] = useState(startTabIndex);
 
   return (
     <View style={styles.container}>
@@ -86,6 +105,7 @@ function MovieReviewListScreenWithData({
       <Tab value={index} onChange={i => setIndex(i)}>
         <Tab.Item title="Critic" />
         <Tab.Item title="Regular" />
+        <Tab.Item title="Mine" />
       </Tab>
 
       <TabView value={index} onChange={setIndex}>
@@ -106,6 +126,9 @@ function MovieReviewListScreenWithData({
               options={options}
             />
           </Suspense>
+        </TabView.Item>
+        <TabView.Item>
+          <PersonalReview movie={data.movie} />
         </TabView.Item>
       </TabView>
     </View>

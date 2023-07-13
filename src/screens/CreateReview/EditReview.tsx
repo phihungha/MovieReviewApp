@@ -179,7 +179,7 @@ function EditReviewScreenWithData({
             );
           }
           Snackbar.show({text: 'Review deleted!'});
-          navigation.navigate('MovieReviewList', {});
+          navigation.navigate('MovieReviewList', {firstTab: 'personal'});
         },
       });
     }
