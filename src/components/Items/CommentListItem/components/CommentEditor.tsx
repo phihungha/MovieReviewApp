@@ -1,3 +1,4 @@
+import React from 'react';
 import {graphql} from 'relay-runtime';
 import {CommentEditor$key} from './__generated__/CommentEditor.graphql';
 import {useFragment, useMutation} from 'react-relay';
@@ -42,7 +43,7 @@ export interface CommentEditorProps {
   onDisable?: ActionCb;
 }
 
-export function CommentEditor(props: CommentEditorProps) {
+export function CommentEditor(props: CommentEditorProps): React.JSX.Element {
   const data = useFragment(CommentEditorFragment, props.comment);
 
   const [content, setContent] = useState<string | undefined>(undefined);
