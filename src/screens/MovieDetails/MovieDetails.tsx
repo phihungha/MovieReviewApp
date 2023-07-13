@@ -31,6 +31,7 @@ export const MovieDetailsQuery = graphql`
       id
       title
       releaseDate
+      synopsis
       runningTime
       posterUrl
       genres {
@@ -129,10 +130,7 @@ function MovieDetailsScreenWithData({navigation}: MovieDetailsScreenProps) {
 
           <SimpleInfoSection
             name="Synopsis"
-            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat"
+            value={data.movie?.synopsis ?? 'N/A'}
           />
           <SimpleInfoSection
             name="Running time"

@@ -4,6 +4,7 @@ import {StyleProp, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {fontSizes} from '../../styles/typography';
 import colors from '../../styles/colors';
+import {getRoundedScore} from '../../utils/number-conversion';
 
 export interface GenericReviewScoreIndicatorProps {
   iconName: string;
@@ -26,6 +27,7 @@ export interface GenericReviewScoreIndicatorProps {
  * @param {StyleProp<ViewStyle>?} textStyle Style of score value
  */
 export function ReviewScoreIndicator(props: GenericReviewScoreIndicatorProps) {
+  const roundedScore = props.score ? getRoundedScore(props.score) : undefined;
   return (
     <View
       style={[
@@ -38,7 +40,7 @@ export function ReviewScoreIndicator(props: GenericReviewScoreIndicatorProps) {
         style={[styles.defaultIcon, props.iconStyle]}
       />
       <Text style={[styles.scoreText, props.textStyle]}>
-        {props.score ?? 'N/A'}
+        {roundedScore ?? 'N/A'}
         {''}
         {props.fullScore ? ' / 10' : ''}
       </Text>
