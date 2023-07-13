@@ -21,6 +21,9 @@ import Snackbar from 'react-native-snackbar';
 import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
 import {dateToIsoDateStr} from '../../utils/time-conversion';
 
+const BASE_AVATAR_URL =
+  'https://cinerate-movie-review-service.s3.ap-southeast-1.amazonaws.com/public/userProfileImages/';
+
 export const ManageAccountInfoQuery = graphql`
   query ManageAccountInfoQuery {
     viewer {
@@ -64,6 +67,14 @@ const ManageAccountInfoCriticMutation = graphql`
     }
   }
 `;
+
+async function uploadProfileImage(uploadUrl: string, imageUri: string) {
+  const resp = await fetch(uploadUrl, {
+    method: 'PUT',
+    body: {uri: imageUri, type: 'image/png', name: 'profile.png'},
+  });
+  console.log(resp.status, await resp.text());
+}
 
 type ManageAccountInfoProps = NativeStackScreenProps<
   MyAccountStackParams,
@@ -160,18 +171,29 @@ function ManageAccountInfoWithData({
   }
 
   const onSave = async () => {
+    if (!myAccount || !myFirebaseAccount) {
+      return;
+    }
+
     setIsPending(true);
 
-    await myFirebaseAccount?.updateEmail(email);
-    await myFirebaseAccount?.updateProfile({displayName: name});
+    await myFirebaseAccount.updateEmail(email);
+    await myFirebaseAccount.updateProfile({displayName: name});
     if (password.length > 0) {
       await myFirebaseAccount?.updatePassword(password);
+    }
+
+    let newAvatarUrl;
+    if (avatarUri !== '') {
+      await uploadProfileImage(data.userProfileImageUploadUrl, avatarUri);
+      newAvatarUrl = BASE_AVATAR_URL + myFirebaseAccount.uid;
     }
 
     if (myUserType === 'Critic') {
       commitCriticMutation({
         variables: {
           input: {
+            avatarUrl: newAvatarUrl,
             username,
             dateOfBirth,
             gender,
@@ -195,6 +217,7 @@ function ManageAccountInfoWithData({
       commitRegularMutation({
         variables: {
           input: {
+            avatarUrl: newAvatarUrl,
             username,
             dateOfBirth: dateToIsoDateStr(dateOfBirth),
             gender,
@@ -212,23 +235,8 @@ function ManageAccountInfoWithData({
           setIsPending(false);
           returnToMyAccountScreen();
         },
-        onError: err => {
-          console.log(err);
-        },
       });
     }
-
-    console.log('Call API');
-    console.log(avatarUri);
-    console.log(data.userProfileImageUploadUrl);
-    console.log(name);
-    console.log(gender);
-    console.log(birthdayText);
-    console.log(dateOfBirth);
-    console.log(username);
-    console.log(email);
-    console.log(password);
-    console.log(rePassword);
   };
 
   return (
