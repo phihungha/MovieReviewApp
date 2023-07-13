@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {VerticalProfileDisplay} from '../../Display/VerticalProfileDisplay';
-import {ItemTitleOnly} from '../BottomSheetListItem';
 import {CommentListItemMoreButton} from './components/CommentListItemMoreButton';
 import {ItemTitleText} from '../../Text/ItemTitleText';
 import {ItemSubtitleText} from '../../Text/ItemSubtitleText';
@@ -56,24 +55,12 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
   const reviewId = data?.id;
 
   const [isEditMode, setEditMode] = useState(false);
-  const onSelectedItem = (item: ItemTitleOnly) => {
-    switch (item.id) {
-      case 'delete':
-        onCommentDelete();
-        break;
-      case 'edit':
-        setEditMode(true);
-        break;
-    }
-  };
 
   const [commitMutation] = useMutation<CommentListItemDeleteMutationType>(
     CommentListItemDeleteMutation,
   );
 
-  // Call this to delete comment
   function onCommentDelete() {
-    console.log('Delete');
     if (reviewId) {
       commitMutation({
         variables: {
@@ -115,7 +102,7 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           {data?.isMine && (
             <CommentListItemMoreButton
               onOk={() => onCommentDelete()}
-              onSelectedItem={onSelectedItem}
+              onSelectedItem={i => i.title === 'edit' && setEditMode(true)}
             />
           )}
         </View>

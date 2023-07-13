@@ -31,7 +31,7 @@ export function dateToStandardDateTimeFormat(dateInput?: Date | string | null) {
   } else {
     date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
   }
-  return date.toLocaleString('en-GB').substring(0, 20);
+  return date.toLocaleString('en-GB').substring(0, 17);
 }
 
 export function dateToIsoDateStr(dateInput?: Date | string | null) {

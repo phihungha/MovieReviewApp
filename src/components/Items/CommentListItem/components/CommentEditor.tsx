@@ -74,6 +74,8 @@ export function CommentEditor(props: CommentEditorProps): React.JSX.Element {
               avatarUrl: data.author.avatarUrl,
               name: data.author.name,
             },
+            isMine: true,
+            lastUpdateTime: new Date().toISOString(),
             postTime: data.postTime,
           },
         },
