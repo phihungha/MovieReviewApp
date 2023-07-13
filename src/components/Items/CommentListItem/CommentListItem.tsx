@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {VerticalProfileDisplay} from '../../Display/VerticalProfileDisplay';
 import {ItemTitleOnly} from '../BottomSheetListItem';
 import {CommentListItemMoreButton} from './components/CommentListItemMoreButton';
 import {ItemTitleText} from '../../Text/ItemTitleText';
 import {ItemSubtitleText} from '../../Text/ItemSubtitleText';
-import {RegularText} from '../../Text/RegularText';
 import colors from '../../../styles/colors';
 import {graphql} from 'relay-runtime';
 import {CommentListItem$key} from './__generated__/CommentListItem.graphql';
 import {useFragment} from 'react-relay';
 import {dateToStandardDateTimeFormat} from '../../../utils/time-conversion';
-import {Input} from '@rneui/themed';
-import {pressableRippleConfig} from '../../../styles/pressable-ripple';
+import {CommentEditor} from './components/CommentEditor';
+import {CommentContent} from './components/CommentContent';
 
 const CommentListItemFragment = graphql`
   fragment CommentListItem on Comment {
@@ -21,7 +20,8 @@ const CommentListItemFragment = graphql`
       name
     }
     postTime
-    content
+    ...CommentContent
+    ...CommentEditor
   }
 `;
 
@@ -33,28 +33,19 @@ export interface CommentListItemProps {
  * Item for list of review comments.
  */
 export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
-  const [isEnabledEdit, setEnabledEdit] = useState(false);
+  const data = useFragment(CommentListItemFragment, comment);
+
+  const [isEditMode, setEditMode] = useState(false);
   const onSelectedItem = (item: ItemTitleOnly) => {
     switch (item.id) {
       case 'delete':
         break;
       case 'edit':
-        setEnabledEdit(true);
+        setEditMode(true);
         break;
     }
   };
 
-  const updateComment = () => {
-    setEnabledEdit(false);
-    console.log('Call API');
-  };
-
-  const cancelEdit = () => {
-    setEnabledEdit(false);
-  };
-
-  const data = useFragment(CommentListItemFragment, comment);
-  const [commentText, setCommentText] = useState(data?.content);
   return (
     <View>
       <View style={styles.container}>
@@ -67,34 +58,13 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           <ItemSubtitleText>
             {dateToStandardDateTimeFormat(new Date(data?.postTime))}
           </ItemSubtitleText>
-          {isEnabledEdit ? (
-            <View style={styles.editContainer}>
-              <Input
-                value={commentText}
-                onChangeText={setCommentText}
-                containerStyle={styles.input_containerStyle}
-                inputContainerStyle={styles.input_inputContainerStyle}
-                renderErrorMessage={false}
-              />
-              <View style={styles.okCancelContainer}>
-                <Pressable
-                  onPress={cancelEdit}
-                  android_ripple={pressableRippleConfig}>
-                  <ItemSubtitleText style={styles.okCancelText}>
-                    Cancel
-                  </ItemSubtitleText>
-                </Pressable>
-                <Pressable
-                  onPress={updateComment}
-                  android_ripple={pressableRippleConfig}>
-                  <ItemSubtitleText style={styles.okCancelText}>
-                    Ok
-                  </ItemSubtitleText>
-                </Pressable>
-              </View>
-            </View>
+          {isEditMode ? (
+            <CommentEditor
+              comment={data}
+              onDisable={() => setEditMode(false)}
+            />
           ) : (
-            <RegularText>{data?.content ?? 'N/A'}</RegularText>
+            <CommentContent comment={data} />
           )}
 
           <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
