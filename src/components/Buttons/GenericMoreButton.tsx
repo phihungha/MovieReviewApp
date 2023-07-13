@@ -6,11 +6,13 @@ import {
 import {Pressable, StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import colors from '../../styles/colors';
 import {pressableRippleConfig} from '../../styles/pressable-ripple';
+import {ActionCb} from '../../types/ActionCb';
 
 interface GenericMoreButtonProps {
   onSelectedItem: OnPressItem;
   list: {}[];
   style?: StyleProp<ViewStyle>;
+  onOK: ActionCb;
 }
 
 /**
@@ -30,6 +32,7 @@ export function GenericMoreButton(props: GenericMoreButtonProps): JSX.Element {
         iconName="dots-vertical"
         iconColor={colors.white}
         iconSize={24}
+        onOk={() => props.onOK()}
       />
     </Pressable>
   );

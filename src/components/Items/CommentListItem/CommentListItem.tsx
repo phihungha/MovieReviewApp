@@ -73,6 +73,7 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
 
   // Call this to delete comment
   function onCommentDelete() {
+    console.log('Delete');
     if (reviewId) {
       commitMutation({
         variables: {
@@ -112,7 +113,10 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
             <CommentContent comment={data} />
           )}
           {data?.isMine && (
-            <CommentListItemMoreButton onSelectedItem={onSelectedItem} />
+            <CommentListItemMoreButton
+              onOk={() => onCommentDelete()}
+              onSelectedItem={onSelectedItem}
+            />
           )}
         </View>
       </View>
