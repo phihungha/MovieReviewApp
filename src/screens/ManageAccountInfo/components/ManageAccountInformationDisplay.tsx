@@ -11,9 +11,6 @@ import {ItemSubtitleText} from '../../../components/Text/ItemSubtitleText';
 import {Input} from '@rneui/themed';
 
 interface ManageAccountInformationProps {
-  iconSize?: number;
-  iconColor?: string;
-
   birthdayValue: string;
   onSelectedDate: OnSelectedManageInformation;
   onSelectedGender: OnSelectedManageInformation;
@@ -23,12 +20,6 @@ interface ManageAccountInformationProps {
 
   emailValue: string;
   onSelectedEmail: OnSelectedManageInformation;
-
-  passwordValue: string;
-  onSelectedPassword: OnSelectedManageInformation;
-
-  rePasswordValue: string;
-  onSelectedRePassword: OnSelectedManageInformation;
 }
 
 export function ManageAccountInformationDisplay(
@@ -96,30 +87,6 @@ export function ManageAccountInformationDisplay(
           iconColor={colors.white}
           value={props.birthdayValue}
           onSelected={props.onSelectedDate}
-        />
-      </View>
-
-      <View>
-        <ItemSubtitleText>Password</ItemSubtitleText>
-        <Input
-          secureTextEntry
-          value={props.passwordValue}
-          onChangeText={(item: string) => props.onSelectedPassword(item)}
-          placeholder="Enter your password..."
-          inputContainerStyle={styles.input}
-          renderErrorMessage={false}
-        />
-      </View>
-
-      <View>
-        <ItemSubtitleText>Re-enter password</ItemSubtitleText>
-        <Input
-          secureTextEntry
-          value={props.rePasswordValue}
-          onChangeText={(item: string) => props.onSelectedRePassword(item)}
-          placeholder="Re-enter your password..."
-          inputContainerStyle={styles.input}
-          renderErrorMessage={false}
         />
       </View>
     </View>

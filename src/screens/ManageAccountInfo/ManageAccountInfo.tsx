@@ -7,6 +7,7 @@ import {
   ImageLibraryOptions,
   launchImageLibrary,
 } from 'react-native-image-picker';
+import {ManageAccountPasswordDisplay} from './components/ManageAccountPasswordDisplay';
 
 export function ManageAccountInfo(): JSX.Element {
   const [birthdayValue, setBirthdayValue] = useState(new Date());
@@ -73,6 +74,8 @@ export function ManageAccountInfo(): JSX.Element {
           onSelectedUsername={(item: string) => setUsernameValue(item)}
           emailValue={emailValue}
           onSelectedEmail={(item: string) => setEmailValue(item)}
+        />
+        <ManageAccountPasswordDisplay
           passwordValue={passwordValue}
           onSelectedPassword={(item: string) => setPasswordValue(item)}
           rePasswordValue={rePasswordValue}
