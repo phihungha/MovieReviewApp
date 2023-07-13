@@ -52,6 +52,7 @@ export function MoviesListOptionsDialog(
     {label: 'Ascending', value: 'Asc'},
     {label: 'Descending', value: 'Desc'},
   ]);
+  const [displayError, setDisplayError] = useState(false);
 
   function updateStrOption(
     optionName: MovieListOptionsKey,
@@ -74,10 +75,23 @@ export function MoviesListOptionsDialog(
     setOptions(o => getUpdatedScoreOptions(o, optionName, newValue));
   }
 
+  function onOk(): void {
+    if (
+      !(
+        options.releaseYear! > 1980 &&
+        options.releaseYear! < new Date().getFullYear()
+      )
+    ) {
+      return setDisplayError(true);
+    }
+
+    props.onOptionsChanged?.(options);
+  }
+
   return (
     <GenericDialog
       title="Options"
-      onOk={() => props.onOptionsChanged?.(options)}
+      onOk={onOk}
       containerStyle={styles.mainContainer}
       customOpenButton={props.customOpenButton}>
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -86,7 +100,13 @@ export function MoviesListOptionsDialog(
           label="Release year"
           value={options.releaseYear?.toString()}
           onChangeText={i => updateNumberOption('releaseYear', i)}
-          renderErrorMessage={false}
+          errorMessage={
+            displayError &&
+            (options.releaseYear! < 1980 ||
+              options.releaseYear! > new Date().getFullYear())
+              ? 'Year must be greater than 1980 and less than current'
+              : ''
+          }
           inputContainerStyle={styles.inputContainer}
         />
 
