@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import validator from 'validator';
 import {Button, Input} from '@rneui/themed';
@@ -78,7 +78,12 @@ export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
     useMutation<SignUpRegularMutationType>(SignUpRegularMutation);
   const [commitCriticMutation, isCriticPending] =
     useMutation<SignUpCriticMutationType>(SignUpCriticMutation);
-  const isPending = isRegularPending || isCriticPending;
+
+  const [isPending, setIsPending] = useState(false);
+  useEffect(
+    () => setIsPending(isRegularPending || isCriticPending),
+    [isRegularPending, isCriticPending],
+  );
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -102,6 +107,8 @@ export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
       return setDisplayError(true);
     }
 
+    setIsPending(true);
+
     await firebaseSignUp(name, email, password);
 
     if (userType === 'Critic') {
@@ -118,6 +125,7 @@ export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
             Snackbar.show({text: errorMessage});
           } else {
             Snackbar.show({text: 'Signed up successfully!'});
+            navigation.navigate('Login');
           }
         },
       });
@@ -132,22 +140,24 @@ export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
             Snackbar.show({text: errorMessage});
           } else {
             Snackbar.show({text: 'Signed up successfully!'});
+            navigation.navigate('Login');
           }
         },
       });
     }
 
     await auth().signOut();
+    setIsPending(false);
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.space} />
         <TitleBlock>SIGN UP</TitleBlock>
-        <View>
+        <View style={styles.inputContainer}>
           <Input
             label="Email"
             value={email}
@@ -229,39 +239,40 @@ export function SignUpScreen({navigation}: SignUpScreenProps): JSX.Element {
           />
         </View>
 
-        <View style={styles.buttonContainer}>
-          <Button onPress={onSignUp} title="SIGN UP" />
-          {isPending ? (
-            <ButtonLoadingIcon />
-          ) : (
-            <TextLink
-              text="Already have an account, "
-              textLink="login"
-              onClicked={() => navigation.navigate('Login')}
-              isUnderline={false}
-            />
-          )}
+        <View style={styles.bottomSection}>
+          <Button onPress={onSignUp}>
+            {isPending ? <ButtonLoadingIcon /> : 'SIGN UP'}
+          </Button>
+          <TextLink
+            text="Already have an account, "
+            textLink="login"
+            onClicked={() => navigation.navigate('Login')}
+            isUnderline={false}
+          />
         </View>
-        <View style={styles.space} />
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  scrollView: {
-    height: '100%',
-  },
   container: {
     paddingHorizontal: 20,
     justifyContent: 'center',
+    alignItems: 'stretch',
     height: '100%',
   },
-  buttonContainer: {
+  scrollView: {
+    height: '100%',
+  },
+  scrollViewContent: {
+    paddingVertical: 30,
+  },
+  inputContainer: {
+    gap: 3,
+  },
+  bottomSection: {
     paddingHorizontal: 10,
     gap: 20,
-  },
-  space: {
-    height: 100,
   },
   iconStyle: {
     color: colors.white,
