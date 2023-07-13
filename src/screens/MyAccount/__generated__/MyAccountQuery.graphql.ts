@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d3eedf4cad41db3446957a4c5870b7c4>>
+ * @generated SignedSource<<6e88b88f2c6d4069b3a5296d89cd1c04>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -101,7 +101,21 @@ v9 = {
   "name": "title",
   "storageKey": null
 },
-v10 = [
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "posterUrl",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "releaseDate",
+  "storageKey": null
+},
+v12 = [
   {
     "alias": null,
     "args": null,
@@ -159,6 +173,35 @@ v10 = [
               (v7/*: any*/),
               (v1/*: any*/),
               (v5/*: any*/),
+              (v0/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Movie",
+            "kind": "LinkedField",
+            "name": "movie",
+            "plural": false,
+            "selections": [
+              (v10/*: any*/),
+              (v9/*: any*/),
+              (v11/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "criticScore",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "regularScore",
+                "storageKey": null
+              },
               (v0/*: any*/)
             ],
             "storageKey": null
@@ -269,7 +312,7 @@ return {
             "kind": "LinkedField",
             "name": "reviews",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": "reviews(first:3)"
           },
           {
@@ -279,7 +322,7 @@ return {
             "kind": "LinkedField",
             "name": "reviewThanks",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": "reviewThanks(first:3)"
           },
           {
@@ -308,20 +351,8 @@ return {
                     "selections": [
                       (v0/*: any*/),
                       (v9/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "posterUrl",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "releaseDate",
-                        "storageKey": null
-                      }
+                      (v10/*: any*/),
+                      (v11/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -337,12 +368,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "649912e968e0ed76acb18a83ab4fc253",
+    "cacheID": "0ad9206b16f0d85327b1f88ef379f508",
     "id": null,
     "metadata": {},
     "name": "MyAccountQuery",
     "operationKind": "query",
-    "text": "query MyAccountQuery {\n  viewer {\n    id\n    name\n    dateOfBirth\n    gender\n    username\n    userType\n    blogUrl\n    ...UpdatableAvatar\n    ...UserReviewOverviewList\n    ...UserThankedReviewOverviewList\n    ...UserWatchedOverviewList\n  }\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment UpdatableAvatar on User {\n  id\n  avatarUrl\n}\n\nfragment UserReviewOverviewList on User {\n  reviews(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserThankedReviewOverviewList on User {\n  reviewThanks(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserWatchedOverviewList on User {\n  viewedMovies(first: 3) {\n    edges {\n      node {\n        id\n        ...WatchedMovieListItem\n      }\n    }\n  }\n}\n\nfragment WatchedMovieListItem on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n}\n"
+    "text": "query MyAccountQuery {\n  viewer {\n    id\n    name\n    dateOfBirth\n    gender\n    username\n    userType\n    blogUrl\n    ...UpdatableAvatar\n    ...UserReviewOverviewList\n    ...UserThankedReviewOverviewList\n    ...UserWatchedOverviewList\n  }\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment UpdatableAvatar on User {\n  id\n  avatarUrl\n}\n\nfragment UserReviewOverviewList on User {\n  reviews(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserThankedReviewOverviewList on User {\n  reviewThanks(first: 3) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n\nfragment UserWatchedOverviewList on User {\n  viewedMovies(first: 3) {\n    edges {\n      node {\n        id\n        ...WatchedMovieListItem\n      }\n    }\n  }\n}\n\nfragment WatchedMovieListItem on Movie {\n  id\n  title\n  posterUrl\n  releaseDate\n}\n"
   }
 };
 })();

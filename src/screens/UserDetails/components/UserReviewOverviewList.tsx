@@ -28,7 +28,11 @@ export function UserReviewOverviewList({user}: UserReviewOverviewListProps) {
   return (
     <View style={styles.container}>
       {data?.reviews.edges.map(i => (
-        <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
+        <ReviewListItem
+          key={i?.node.id}
+          review={i?.node ?? null}
+          movieHeader={true}
+        />
       ))}
     </View>
   );

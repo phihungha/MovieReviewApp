@@ -43,7 +43,9 @@ export function AllUserThankedReviewList(
       isLoading={isLoadingNext}
       onEndReached={() => loadNext(4)}
       keyExtractor={item => item?.node.id ?? '0'}
-      renderItem={({item}) => <ReviewListItem review={item?.node ?? null} />}
+      renderItem={({item}) => (
+        <ReviewListItem review={item?.node ?? null} movieHeader={true} />
+      )}
     />
   );
 }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d195b8ec86087234e99dc4b50ab85bcf>>
+ * @generated SignedSource<<173c9c2aa8154652f5b287e799feda2b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -104,7 +104,21 @@ v8 = {
   "name": "avatarUrl",
   "storageKey": null
 },
-v9 = [
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "criticScore",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "regularScore",
+  "storageKey": null
+},
+v11 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -116,7 +130,7 @@ v9 = [
     "value": "ThankCount"
   }
 ],
-v10 = [
+v12 = [
   {
     "alias": null,
     "args": null,
@@ -180,6 +194,23 @@ v10 = [
                 "name": "userType",
                 "storageKey": null
               },
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Movie",
+            "kind": "LinkedField",
+            "name": "movie",
+            "plural": false,
+            "selections": [
+              (v6/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -408,13 +439,7 @@ return {
             ],
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "criticScore",
-            "storageKey": null
-          },
+          (v9/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -422,13 +447,7 @@ return {
             "name": "criticReviewCount",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "regularScore",
-            "storageKey": null
-          },
+          (v10/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -438,22 +457,22 @@ return {
           },
           {
             "alias": null,
-            "args": (v9/*: any*/),
+            "args": (v11/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "criticReviews",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": "criticReviews(first:3,sortBy:\"ThankCount\")"
           },
           {
             "alias": null,
-            "args": (v9/*: any*/),
+            "args": (v11/*: any*/),
             "concreteType": "ReviewConnection",
             "kind": "LinkedField",
             "name": "regularReviews",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v12/*: any*/),
             "storageKey": "regularReviews(first:3,sortBy:\"ThankCount\")"
           },
           {
@@ -469,12 +488,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bcf343a6196312d7e3163f81055285cb",
+    "cacheID": "4fa777a2c221c44c2e3e63adb2b0f220",
     "id": null,
     "metadata": {},
     "name": "MovieDetailsQuery",
     "operationKind": "query",
-    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    ...MarkMovieWatchedButton\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MarkMovieWatchedButton on Movie {\n  id\n  isViewedByViewer\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  id\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
+    "text": "query MovieDetailsQuery(\n  $id: ID!\n) {\n  movie(id: $id) {\n    id\n    title\n    releaseDate\n    runningTime\n    posterUrl\n    genres {\n      id\n      ...GenreListItem\n    }\n    actingCredits {\n      id\n      ...ActorListItem\n    }\n    workCredits {\n      id\n      ...CrewListItem\n    }\n    ...CriticAggregateScoreIndicator\n    ...RegularAggregateScoreIndicator\n    ...ReviewOverview\n    ...MarkMovieWatchedButton\n  }\n}\n\nfragment ActorListItem on ActingCredit {\n  actor {\n    avatarUrl\n    name\n    id\n  }\n  characterName\n}\n\nfragment CrewListItem on WorkCredit {\n  crew {\n    name\n    avatarUrl\n    id\n  }\n  role\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenreListItem on Genre {\n  name\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MarkMovieWatchedButton on Movie {\n  id\n  isViewedByViewer\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ReviewOverview on Movie {\n  id\n  criticReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n  regularReviews(first: 3, sortBy: ThankCount) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n      }\n    }\n  }\n}\n"
   }
 };
 })();

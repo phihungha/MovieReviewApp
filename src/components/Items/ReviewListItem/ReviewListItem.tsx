@@ -14,6 +14,7 @@ import {PreloadedQueriesContext} from '../../../relay/PreloadedQueriesContext';
 import {Button} from '@rneui/themed';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {MainStackParams} from '../../../navigators/MainStackParams';
+import {MovieInfoDisplay} from '../../Display/MovieInfoDisplay';
 
 const ReviewListItemFragment = graphql`
   fragment ReviewListItem on Review {
@@ -22,6 +23,9 @@ const ReviewListItemFragment = graphql`
     author {
       ...HorizontalUserDisplay
     }
+    movie {
+      ...MovieInfoDisplay
+    }
     ...ReviewLikeButton
     ...ReviewCommentButton
   }
@@ -29,6 +33,7 @@ const ReviewListItemFragment = graphql`
 
 export interface ReviewListItemProps {
   review: ReviewListItem$key | null;
+  movieHeader?: boolean;
   onPress?: ActionCb | null;
   onNavigate?: ActionCb | null;
   canEdit?: boolean;
@@ -81,10 +86,17 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
         onPress={onPress}
         android_ripple={pressableRippleConfig}>
         <View style={styles.header}>
-          <HorizontalUserDisplay
-            style={styles.userDisplay}
-            user={data?.author ?? null}
-          />
+          {props.movieHeader ? (
+            <MovieInfoDisplay
+              moviePosterStyle={styles.movieInfoPoster}
+              movie={data?.movie ?? null}
+            />
+          ) : (
+            <HorizontalUserDisplay
+              style={styles.userDisplay}
+              user={data?.author ?? null}
+            />
+          )}
           {props.canEdit && <EditReviewIconButton onPress={onEditPress} />}
         </View>
         <ReviewInfoDisplay
@@ -120,6 +132,9 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: 15,
     gap: 10,
+  },
+  movieInfoPoster: {
+    width: 65,
   },
   infoContainer: {
     padding: 0,

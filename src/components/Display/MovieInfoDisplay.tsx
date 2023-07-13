@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TitleText} from '../Text/TitleText';
+import {ImageStyle, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {RegularText} from '../Text/RegularText';
 import {CriticReviewScoreIndicator} from './CriticReviewScoreIndicator';
 import {RegularReviewScoreIndicator} from './RegularReviewScoreIndicator';
@@ -8,6 +7,7 @@ import {graphql} from 'relay-runtime';
 import {useFragment} from 'react-relay';
 import {MoviePoster} from './MoviePoster';
 import {MovieInfoDisplay$key} from './__generated__/MovieInfoDisplay.graphql';
+import {SectionText} from '../Text/SectionText';
 
 const MovieInfoDisplayFragment = graphql`
   fragment MovieInfoDisplay on Movie {
@@ -21,23 +21,31 @@ const MovieInfoDisplayFragment = graphql`
 
 interface MovieInfoDisplayProps {
   movie: MovieInfoDisplay$key | null;
+  displayScore?: boolean;
+  infoContainerStyle?: StyleProp<ViewStyle>;
+  moviePosterStyle?: StyleProp<ImageStyle>;
 }
 
-export function MovieInfoDisplay({
-  movie,
-}: MovieInfoDisplayProps): React.JSX.Element {
-  const data = useFragment(MovieInfoDisplayFragment, movie);
+export function MovieInfoDisplay(
+  props: MovieInfoDisplayProps,
+): React.JSX.Element {
+  const data = useFragment(MovieInfoDisplayFragment, props.movie);
 
   return (
     <View style={styles.container}>
-      <MoviePoster style={styles.moviePoster} imageUrl={data?.posterUrl} />
-      <View style={styles.infoContainer}>
-        <TitleText>{data?.title ?? 'N/A'}</TitleText>
+      <MoviePoster
+        style={[styles.moviePoster, props.moviePosterStyle]}
+        imageUrl={data?.posterUrl}
+      />
+      <View style={[styles.infoContainer, props.infoContainerStyle]}>
+        <SectionText>{data?.title ?? 'N/A'}</SectionText>
         <RegularText>{new Date(data?.releaseDate).getFullYear()}</RegularText>
-        <View style={styles.scoreContainer}>
-          <CriticReviewScoreIndicator score={data?.criticScore} />
-          <RegularReviewScoreIndicator score={data?.regularScore} />
-        </View>
+        {props.displayScore && (
+          <View style={styles.scoreContainer}>
+            <CriticReviewScoreIndicator score={data?.criticScore} />
+            <RegularReviewScoreIndicator score={data?.regularScore} />
+          </View>
+        )}
       </View>
     </View>
   );

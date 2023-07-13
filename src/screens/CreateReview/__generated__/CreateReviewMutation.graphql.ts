@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95e8a5d861c45c92d352877622bc3165>>
+ * @generated SignedSource<<d67ffc67aefb8ba8585117d71d0362da>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -80,6 +80,13 @@ v5 = {
   "storageKey": null
 },
 v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v7 = {
   "kind": "Literal",
   "name": "authorType",
   "value": "Regular"
@@ -200,13 +207,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v5/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -271,32 +272,26 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "thankCount",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "isThankedByViewer",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "commentCount",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
                     "concreteType": "Movie",
                     "kind": "LinkedField",
                     "name": "movie",
                     "plural": false,
                     "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "posterUrl",
+                        "storageKey": null
+                      },
+                      (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "releaseDate",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -308,14 +303,15 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "criticReviewCount",
+                        "name": "regularScore",
                         "storageKey": null
                       },
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "regularScore",
+                        "name": "criticReviewCount",
                         "storageKey": null
                       },
                       {
@@ -328,7 +324,7 @@ return {
                       {
                         "alias": "score0count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -342,7 +338,7 @@ return {
                       {
                         "alias": "score1count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -356,7 +352,7 @@ return {
                       {
                         "alias": "score2count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -370,7 +366,7 @@ return {
                       {
                         "alias": "score3count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -384,7 +380,7 @@ return {
                       {
                         "alias": "score4count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -398,7 +394,7 @@ return {
                       {
                         "alias": "score5count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -412,7 +408,7 @@ return {
                       {
                         "alias": "score6count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -426,7 +422,7 @@ return {
                       {
                         "alias": "score7count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -440,7 +436,7 @@ return {
                       {
                         "alias": "score8count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -454,7 +450,7 @@ return {
                       {
                         "alias": "score9count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -468,7 +464,7 @@ return {
                       {
                         "alias": "score10count",
                         "args": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "score",
@@ -584,9 +580,29 @@ return {
                         "kind": "ScalarField",
                         "name": "regularScoreByCriteria",
                         "storageKey": "regularScoreByCriteria(minAge:51)"
-                      },
-                      (v5/*: any*/)
+                      }
                     ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "thankCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isThankedByViewer",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "commentCount",
                     "storageKey": null
                   }
                 ],
@@ -604,12 +620,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "df3d3246b57734453a6a30c5febc6aea",
+    "cacheID": "2744b21afc7ec82ac06e59504c9f9b1f",
     "id": null,
     "metadata": {},
     "name": "CreateReviewMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateReviewMutation(\n  $input: CreateReviewInput!\n) {\n  createReview(input: $input) {\n    __typename\n    ... on MutationCreateReviewSuccess {\n      data {\n        ...ReviewListItem\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n        id\n      }\n    }\n    ... on AlreadyExistsError {\n      message\n    }\n    ... on ValidationError {\n      message\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
+    "text": "mutation CreateReviewMutation(\n  $input: CreateReviewInput!\n) {\n  createReview(input: $input) {\n    __typename\n    ... on MutationCreateReviewSuccess {\n      data {\n        ...ReviewListItem\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n        id\n      }\n    }\n    ... on AlreadyExistsError {\n      message\n    }\n    ... on ValidationError {\n      message\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
   }
 };
 })();

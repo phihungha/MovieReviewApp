@@ -30,7 +30,11 @@ export function UserThankedReviewOverviewList({
   return (
     <View style={styles.container}>
       {data?.reviewThanks.edges.map(i => (
-        <ReviewListItem key={i?.node.id} review={i?.node ?? null} />
+        <ReviewListItem
+          key={i?.node.id}
+          review={i?.node ?? null}
+          movieHeader={true}
+        />
       ))}
     </View>
   );

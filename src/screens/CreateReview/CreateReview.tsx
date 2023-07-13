@@ -134,7 +134,7 @@ function CreateReviewScreenWithData({
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <MovieInfoDisplay movie={data.movie} />
+      <MovieInfoDisplay movie={data.movie} displayScore={true} />
       <View style={styles.inputContainer}>
         <ReviewEditor
           title={title}

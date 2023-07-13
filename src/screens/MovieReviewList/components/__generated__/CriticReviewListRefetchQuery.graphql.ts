@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<32d7a5697db07263afa667e4a5affa6d>>
+ * @generated SignedSource<<8797911ac465f122b15812f04361cdf5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -135,7 +135,14 @@ v16 = [
   (v11/*: any*/),
   (v12/*: any*/),
   (v13/*: any*/)
-];
+],
+v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -241,13 +248,7 @@ return {
                         "plural": false,
                         "selections": [
                           (v15/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "title",
-                            "storageKey": null
-                          },
+                          (v17/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -303,6 +304,47 @@ return {
                                 "args": null,
                                 "kind": "ScalarField",
                                 "name": "userType",
+                                "storageKey": null
+                              },
+                              (v15/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "Movie",
+                            "kind": "LinkedField",
+                            "name": "movie",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "posterUrl",
+                                "storageKey": null
+                              },
+                              (v17/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "releaseDate",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "criticScore",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "regularScore",
                                 "storageKey": null
                               },
                               (v15/*: any*/)
@@ -391,12 +433,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "db8c07c5f543cdbf1b237b0ed0608485",
+    "cacheID": "b072d238357c26ccb9204c3e058003eb",
     "id": null,
     "metadata": {},
     "name": "CriticReviewListRefetchQuery",
     "operationKind": "query",
-    "text": "query CriticReviewListRefetchQuery(\n  $count: Int = 4\n  $cursor: ID\n  $maxScore: Int\n  $minScore: Int\n  $sortBy: ReviewSortBy\n  $sortDirection: SortDirection\n  $textContains: String\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CriticReviewList_3KPYIB\n    id\n  }\n}\n\nfragment CriticReviewList_3KPYIB on Movie {\n  criticReviews(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, textContains: $textContains, minScore: $minScore, maxScore: $maxScore) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query CriticReviewListRefetchQuery(\n  $count: Int = 4\n  $cursor: ID\n  $maxScore: Int\n  $minScore: Int\n  $sortBy: ReviewSortBy\n  $sortDirection: SortDirection\n  $textContains: String\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CriticReviewList_3KPYIB\n    id\n  }\n}\n\nfragment CriticReviewList_3KPYIB on Movie {\n  criticReviews(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, textContains: $textContains, minScore: $minScore, maxScore: $maxScore) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
   }
 };
 })();

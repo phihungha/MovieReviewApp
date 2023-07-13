@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8466f76ebfe16ec15f5b7d61ac654592>>
+ * @generated SignedSource<<77ba8b3706487cc5020f0e84ccf5c4f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -75,7 +75,14 @@ v4 = [
     "name": "first",
     "variableName": "count"
   }
-];
+],
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -158,13 +165,7 @@ return {
                         "plural": false,
                         "selections": [
                           (v3/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "title",
-                            "storageKey": null
-                          },
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -220,6 +221,47 @@ return {
                                 "args": null,
                                 "kind": "ScalarField",
                                 "name": "userType",
+                                "storageKey": null
+                              },
+                              (v3/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "Movie",
+                            "kind": "LinkedField",
+                            "name": "movie",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "posterUrl",
+                                "storageKey": null
+                              },
+                              (v5/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "releaseDate",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "criticScore",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "regularScore",
                                 "storageKey": null
                               },
                               (v3/*: any*/)
@@ -308,12 +350,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "985767c37ded90ef80aa2fed3dcc9c24",
+    "cacheID": "9f0c59681a2aab5d0c1594c24c82fb15",
     "id": null,
     "metadata": {},
     "name": "AllUserReviewListRefetchQuery",
     "operationKind": "query",
-    "text": "query AllUserReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserReviewList_1G22uz on User {\n  reviews(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query AllUserReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserReviewList_1G22uz on User {\n  reviews(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
   }
 };
 })();
