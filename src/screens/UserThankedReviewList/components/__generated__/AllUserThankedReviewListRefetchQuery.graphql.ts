@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<110476a8739ca77980de2e2044bdc655>>
+ * @generated SignedSource<<e9a1913dc5bb5905e8bc18be54f772f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -289,6 +289,13 @@ return {
                             "name": "commentCount",
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "isMine",
+                            "storageKey": null
+                          },
                           (v2/*: any*/)
                         ],
                         "storageKey": null
@@ -350,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fb1a4b4e7b2dd03bc93e0b9433f3401d",
+    "cacheID": "7b0c3c9b42d9e4b324b4fb6fd23aff4a",
     "id": null,
     "metadata": {},
     "name": "AllUserThankedReviewListRefetchQuery",
     "operationKind": "query",
-    "text": "query AllUserThankedReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserThankedReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserThankedReviewList_1G22uz on User {\n  reviewThanks(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query AllUserThankedReviewListRefetchQuery(\n  $count: Int = 10\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...AllUserThankedReviewList_1G22uz\n    id\n  }\n}\n\nfragment AllUserThankedReviewList_1G22uz on User {\n  reviewThanks(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();

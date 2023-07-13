@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bfaf2e5501fd1a9ad00eae019a93094d>>
+ * @generated SignedSource<<e1156bd8a196f6b6ff3f237f1fbd3fdd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -606,6 +606,13 @@ return {
                     "kind": "ScalarField",
                     "name": "commentCount",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "isMine",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -621,12 +628,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b3c5bbfd93a1bf466a828b32771ff5a4",
+    "cacheID": "653c8681342ee0e74f26610821275f07",
     "id": null,
     "metadata": {},
     "name": "EditReviewMutation",
     "operationKind": "mutation",
-    "text": "mutation EditReviewMutation(\n  $id: ID!\n  $input: EditReviewInput!\n) {\n  editReview(id: $id, input: $input) {\n    __typename\n    ... on MutationEditReviewSuccess {\n      data {\n        ...ReviewListItem\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n        id\n      }\n    }\n    ... on ValidationError {\n      message\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
+    "text": "mutation EditReviewMutation(\n  $id: ID!\n  $input: EditReviewInput!\n) {\n  editReview(id: $id, input: $input) {\n    __typename\n    ... on MutationEditReviewSuccess {\n      data {\n        ...ReviewListItem\n        movie {\n          ...CriticAggregateScoreIndicator\n          ...RegularAggregateScoreIndicator\n          ...ScoreCountChart\n          ...GenderScoreChart\n          ...AgeScoreChart\n          id\n        }\n        id\n      }\n    }\n    ... on ValidationError {\n      message\n    }\n  }\n}\n\nfragment AgeScoreChart on Movie {\n  age14to20score: regularScoreByCriteria(minAge: 14, maxAge: 20)\n  age21to30score: regularScoreByCriteria(minAge: 21, maxAge: 30)\n  age31to50score: regularScoreByCriteria(minAge: 31, maxAge: 50)\n  age51score: regularScoreByCriteria(minAge: 51)\n}\n\nfragment CriticAggregateScoreIndicator on Movie {\n  criticScore\n  criticReviewCount\n}\n\nfragment GenderScoreChart on Movie {\n  maleScore: regularScoreByCriteria(gender: Male)\n  femaleScore: regularScoreByCriteria(gender: Female)\n  otherScore: regularScoreByCriteria(gender: Other)\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment RegularAggregateScoreIndicator on Movie {\n  regularScore\n  regularReviewCount\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n\nfragment ScoreCountChart on Movie {\n  score0count: numberOfReviewsPerScore(authorType: Regular, score: 0)\n  score1count: numberOfReviewsPerScore(authorType: Regular, score: 1)\n  score2count: numberOfReviewsPerScore(authorType: Regular, score: 2)\n  score3count: numberOfReviewsPerScore(authorType: Regular, score: 3)\n  score4count: numberOfReviewsPerScore(authorType: Regular, score: 4)\n  score5count: numberOfReviewsPerScore(authorType: Regular, score: 5)\n  score6count: numberOfReviewsPerScore(authorType: Regular, score: 6)\n  score7count: numberOfReviewsPerScore(authorType: Regular, score: 7)\n  score8count: numberOfReviewsPerScore(authorType: Regular, score: 8)\n  score9count: numberOfReviewsPerScore(authorType: Regular, score: 9)\n  score10count: numberOfReviewsPerScore(authorType: Regular, score: 10)\n}\n"
   }
 };
 })();

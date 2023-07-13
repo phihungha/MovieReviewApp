@@ -28,6 +28,7 @@ const ReviewListItemFragment = graphql`
     }
     ...ReviewLikeButton
     ...ReviewCommentButton
+    isMine
   }
 `;
 
@@ -97,7 +98,9 @@ export function ReviewListItem(props: ReviewListItemProps): React.JSX.Element {
               user={data?.author ?? null}
             />
           )}
-          {props.canEdit && <EditReviewIconButton onPress={onEditPress} />}
+          {props.canEdit && data?.isMine && (
+            <EditReviewIconButton onPress={onEditPress} />
+          )}
         </View>
         <ReviewInfoDisplay
           review={data}

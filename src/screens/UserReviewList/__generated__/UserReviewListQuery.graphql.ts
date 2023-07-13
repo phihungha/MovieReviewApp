@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<943adc4103767902d952729986b60a06>>
+ * @generated SignedSource<<248bddb76917940417c31d79b1f8de2d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -257,6 +257,13 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
+                        "name": "isMine",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
                         "name": "__typename",
                         "storageKey": null
                       }
@@ -317,12 +324,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ff474e2d1870e974496d57a72b68b11c",
+    "cacheID": "4b9bc8a90f42cc1aa9b7204fb52b5067",
     "id": null,
     "metadata": {},
     "name": "UserReviewListQuery",
     "operationKind": "query",
-    "text": "query UserReviewListQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    name\n    ...AllUserReviewList\n    id\n  }\n}\n\nfragment AllUserReviewList on User {\n  reviews(first: 10) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query UserReviewListQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    name\n    ...AllUserReviewList\n    id\n  }\n}\n\nfragment AllUserReviewList on User {\n  reviews(first: 10) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();

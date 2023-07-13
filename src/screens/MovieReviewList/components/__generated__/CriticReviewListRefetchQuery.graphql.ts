@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8797911ac465f122b15812f04361cdf5>>
+ * @generated SignedSource<<3f1f16b6f9668356cbb9bc95fa7a9f88>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -372,6 +372,13 @@ return {
                             "name": "commentCount",
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "isMine",
+                            "storageKey": null
+                          },
                           (v14/*: any*/)
                         ],
                         "storageKey": null
@@ -433,12 +440,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b072d238357c26ccb9204c3e058003eb",
+    "cacheID": "02bd800cd577e69faf9645ba536ee439",
     "id": null,
     "metadata": {},
     "name": "CriticReviewListRefetchQuery",
     "operationKind": "query",
-    "text": "query CriticReviewListRefetchQuery(\n  $count: Int = 4\n  $cursor: ID\n  $maxScore: Int\n  $minScore: Int\n  $sortBy: ReviewSortBy\n  $sortDirection: SortDirection\n  $textContains: String\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CriticReviewList_3KPYIB\n    id\n  }\n}\n\nfragment CriticReviewList_3KPYIB on Movie {\n  criticReviews(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, textContains: $textContains, minScore: $minScore, maxScore: $maxScore) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n}\n"
+    "text": "query CriticReviewListRefetchQuery(\n  $count: Int = 4\n  $cursor: ID\n  $maxScore: Int\n  $minScore: Int\n  $sortBy: ReviewSortBy\n  $sortDirection: SortDirection\n  $textContains: String\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CriticReviewList_3KPYIB\n    id\n  }\n}\n\nfragment CriticReviewList_3KPYIB on Movie {\n  criticReviews(after: $cursor, first: $count, sortBy: $sortBy, sortDirection: $sortDirection, textContains: $textContains, minScore: $minScore, maxScore: $maxScore) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();
