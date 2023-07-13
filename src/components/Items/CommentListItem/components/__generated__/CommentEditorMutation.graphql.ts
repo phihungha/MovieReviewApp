@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f55ae24d9a4649cac4941b060cd3816d>>
+ * @generated SignedSource<<ac89f9143f882e143c2da2390d3c67d2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -183,6 +183,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "lastUpdateTime",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "content",
                     "storageKey": null
                   }
@@ -199,12 +206,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b9fa3b0a6e930bc957132a443562ab98",
+    "cacheID": "d5b932739df38bb247f2a7b3c45cdbcb",
     "id": null,
     "metadata": {},
     "name": "CommentEditorMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        ...CommentListItem\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
+    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        ...CommentListItem\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
   }
 };
 })();

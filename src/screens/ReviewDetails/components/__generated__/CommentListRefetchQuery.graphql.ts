@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3cbbc5f45487b65cb3d7cf3a931fb29e>>
+ * @generated SignedSource<<ad2f8b877ef71f68f96706dd8ec2df1f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -202,6 +202,13 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
+                            "name": "lastUpdateTime",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "content",
                             "storageKey": null
                           },
@@ -266,12 +273,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e50d19b72fb54340025dc2457fc8a057",
+    "cacheID": "40ae38146ae6bef6e368c825a472861f",
     "id": null,
     "metadata": {},
     "name": "CommentListRefetchQuery",
     "operationKind": "query",
-    "text": "query CommentListRefetchQuery(\n  $count: Int = 8\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CommentList_1G22uz\n    id\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment CommentList_1G22uz on Review {\n  comments(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...CommentListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query CommentListRefetchQuery(\n  $count: Int = 8\n  $cursor: ID\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...CommentList_1G22uz\n    id\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment CommentList_1G22uz on Review {\n  comments(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...CommentListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();

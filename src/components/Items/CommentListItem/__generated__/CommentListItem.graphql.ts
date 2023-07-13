@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<480061be396a26ceb5db9af1380406c8>>
+ * @generated SignedSource<<751d187748f570f3457538311a21e980>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type CommentListItem$data = {
   };
   readonly id: string;
   readonly isMine: boolean | null;
+  readonly lastUpdateTime: any | null;
   readonly postTime: any;
   readonly " $fragmentSpreads": FragmentRefs<"CommentContent" | "CommentEditor">;
   readonly " $fragmentType": "CommentListItem";
@@ -79,6 +80,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "lastUpdateTime",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CommentContent"
@@ -93,6 +101,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "4bad64c95ccf7bcdd6d125c97435e885";
+(node as any).hash = "60822a170e405a66b7ea0f4bdc8c8b5a";
 
 export default node;

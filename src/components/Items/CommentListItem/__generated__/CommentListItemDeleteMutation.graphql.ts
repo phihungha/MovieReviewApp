@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4aef75cd373324197d589200cc3195e7>>
+ * @generated SignedSource<<94904d10bbd13aab77df0ff176bca9de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,16 +11,15 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CommentListItemDeleteMutation$variables = {
-  connections: ReadonlyArray<string>;
   id: string;
 };
 export type CommentListItemDeleteMutation$data = {
   readonly deleteComment: {
     readonly data?: {
-      readonly id: string;
       readonly review: {
         readonly " $fragmentSpreads": FragmentRefs<"ReviewListItem">;
       };
+      readonly " $fragmentSpreads": FragmentRefs<"CommentListItem">;
     };
   };
 };
@@ -30,31 +29,63 @@ export type CommentListItemDeleteMutation = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "id"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "id"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "avatarUrl",
+  "storageKey": null
+},
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isMine",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "postTime",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -63,17 +94,14 @@ v4 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "CommentListItemDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteComment",
@@ -90,7 +118,11 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "CommentListItem"
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -123,16 +155,13 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CommentListItemDeleteMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "deleteComment",
@@ -156,23 +185,31 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "filters": null,
-                    "handle": "deleteEdge",
-                    "key": "",
-                    "kind": "ScalarHandle",
-                    "name": "id",
-                    "handleArgs": [
-                      {
-                        "kind": "Variable",
-                        "name": "connections",
-                        "variableName": "connections"
-                      }
-                    ]
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "author",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      (v2/*: any*/)
+                    ],
+                    "storageKey": null
                   },
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "lastUpdateTime",
+                    "storageKey": null
+                  },
+                  (v7/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -181,22 +218,10 @@ return {
                     "name": "review",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "content",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "postTime",
-                        "storageKey": null
-                      },
+                      (v2/*: any*/),
+                      (v8/*: any*/),
+                      (v7/*: any*/),
+                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -219,20 +244,8 @@ return {
                         "name": "author",
                         "plural": false,
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "avatarUrl",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "name",
-                            "storageKey": null
-                          },
+                          (v3/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -240,7 +253,7 @@ return {
                             "name": "userType",
                             "storageKey": null
                           },
-                          (v3/*: any*/)
+                          (v2/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -259,7 +272,7 @@ return {
                             "name": "posterUrl",
                             "storageKey": null
                           },
-                          (v4/*: any*/),
+                          (v8/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -281,7 +294,7 @@ return {
                             "name": "regularScore",
                             "storageKey": null
                           },
-                          (v3/*: any*/)
+                          (v2/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -306,13 +319,7 @@ return {
                         "name": "commentCount",
                         "storageKey": null
                       },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "isMine",
-                        "storageKey": null
-                      }
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -329,16 +336,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "48e7d40bac626ff4c60da12ad107be64",
+    "cacheID": "d9f4efb2042cf18128bf6693119f9a9d",
     "id": null,
     "metadata": {},
     "name": "CommentListItemDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentListItemDeleteMutation(\n  $id: ID!\n) {\n  deleteComment(id: $id) {\n    __typename\n    ... on MutationDeleteCommentSuccess {\n      data {\n        id\n        review {\n          ...ReviewListItem\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
+    "text": "mutation CommentListItemDeleteMutation(\n  $id: ID!\n) {\n  deleteComment(id: $id) {\n    __typename\n    ... on MutationDeleteCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewListItem\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0e31edf71fff5a7a02e7b139872876e3";
+(node as any).hash = "7b182961c747cd0326e43f2da7994f2e";
 
 export default node;

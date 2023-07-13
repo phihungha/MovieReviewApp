@@ -16,7 +16,5 @@ export function dateToStandardDateFormat(dateInput: Date | string) {
 
 export function dateToStandardDateTimeFormat(dateInput: Date | string) {
   const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
-  const formattedDate = dateToStandardDateFormat(date);
-  const formattedTime = `${date.getHours()}:${date.getMinutes()}`;
-  return `${formattedDate} ${formattedTime}`;
+  return date.toLocaleString('en-GB').substring(0, 20);
 }

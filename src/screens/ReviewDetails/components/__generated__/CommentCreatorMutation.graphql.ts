@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2cda805b23e9f456f29b0de4d4ce8dca>>
+ * @generated SignedSource<<018f7649e2db1ddad9f9aceee3d2fdb0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -202,6 +202,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "lastUpdateTime",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "content",
                     "storageKey": null
                   },
@@ -258,12 +265,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f13db4d422a9fe30f0b6256dd6fa3612",
+    "cacheID": "6323e2d2b689ee48a740e6fde0cc23e0",
     "id": null,
     "metadata": {},
     "name": "CommentCreatorMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentCreatorMutation(\n  $input: CreateCommentInput!\n) {\n  createComment(input: $input) {\n    __typename\n    ... on MutationCreateCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewCommentButton\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n"
+    "text": "mutation CommentCreatorMutation(\n  $input: CreateCommentInput!\n) {\n  createComment(input: $input) {\n    __typename\n    ... on MutationCreateCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewCommentButton\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n"
   }
 };
 })();

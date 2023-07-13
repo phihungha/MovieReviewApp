@@ -6,7 +6,7 @@ import {CommentListItemMoreButton} from './components/CommentListItemMoreButton'
 import {ItemTitleText} from '../../Text/ItemTitleText';
 import {ItemSubtitleText} from '../../Text/ItemSubtitleText';
 import colors from '../../../styles/colors';
-import {ConnectionHandler, graphql} from 'relay-runtime';
+import {graphql} from 'relay-runtime';
 import {CommentListItem$key} from './__generated__/CommentListItem.graphql';
 import {useFragment, useMutation} from 'react-relay';
 import {dateToStandardDateTimeFormat} from '../../../utils/time-conversion';
@@ -23,17 +23,18 @@ const CommentListItemFragment = graphql`
     }
     isMine
     postTime
+    lastUpdateTime
     ...CommentContent
     ...CommentEditor
   }
 `;
 
 const CommentListItemDeleteMutation = graphql`
-  mutation CommentListItemDeleteMutation($id: ID!, $connections: [ID!]!) {
+  mutation CommentListItemDeleteMutation($id: ID!) {
     deleteComment(id: $id) {
       ... on MutationDeleteCommentSuccess {
         data {
-          id @deleteEdge(connections: $connections)
+          ...CommentListItem
           review {
             ...ReviewListItem
           }
@@ -73,14 +74,9 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
   // Call this to delete comment
   function onCommentDelete() {
     if (reviewId) {
-      const commentListConnId = ConnectionHandler.getConnectionID(
-        reviewId,
-        'CommentListFragment_comments',
-      );
       commitMutation({
         variables: {
           id: data.id,
-          connections: [commentListConnId],
         },
       });
     }
@@ -94,10 +90,19 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           imageUrl={data?.author.avatarUrl}
         />
         <View style={styles.infoContainer}>
-          <ItemTitleText>{data?.author.name ?? 'N/A'}</ItemTitleText>
-          <ItemSubtitleText>
-            {dateToStandardDateTimeFormat(new Date(data?.postTime))}
-          </ItemSubtitleText>
+          <View style={styles.metaInfoContainer}>
+            <ItemTitleText>{data?.author.name ?? 'N/A'}</ItemTitleText>
+            <ItemSubtitleText>
+              {dateToStandardDateTimeFormat(new Date(data?.postTime))}
+            </ItemSubtitleText>
+            {data?.lastUpdateTime && (
+              <ItemSubtitleText>
+                Last edit:{' '}
+                {dateToStandardDateTimeFormat(new Date(data.lastUpdateTime))}
+              </ItemSubtitleText>
+            )}
+          </View>
+
           {isEditMode ? (
             <CommentEditor
               comment={data}
@@ -124,34 +129,12 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     padding: 10,
+    gap: 10,
     borderRadius: 5,
     backgroundColor: colors.mediumBlack,
   },
   avatarContainer: {
     alignSelf: 'flex-start',
   },
-  bottomSheet: {
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-  },
-  editContainer: {
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-  input_containerStyle: {
-    flex: 1,
-  },
-  input_inputContainerStyle: {
-    paddingTop: 0,
-    paddingHorizontal: 0,
-  },
-  okCancelContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  okCancelText: {
-    color: colors.blue,
-  },
+  metaInfoContainer: {},
 });

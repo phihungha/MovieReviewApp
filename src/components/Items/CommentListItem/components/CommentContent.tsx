@@ -15,5 +15,6 @@ export interface CommentContentProps {
 
 export function CommentContent({comment}: CommentContentProps) {
   const data = useFragment(CommentContentFragment, comment);
-  return <RegularText>{data?.content ?? 'N/A'}</RegularText>;
+  const content = data?.content ?? 'N/A';
+  return <RegularText>{content === '' ? '[Deleted]' : content}</RegularText>;
 }

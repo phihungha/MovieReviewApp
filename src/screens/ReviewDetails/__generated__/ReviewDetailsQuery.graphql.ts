@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dbe09fc53ecc8f65d47b4e9cb6e290df>>
+ * @generated SignedSource<<e02cf91c094527d2358468af383cb0fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -319,6 +319,13 @@ return {
                       },
                       (v8/*: any*/),
                       (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "lastUpdateTime",
+                        "storageKey": null
+                      },
                       (v5/*: any*/),
                       {
                         "alias": null,
@@ -396,12 +403,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "47607a6e794eeafecf23d802c04f40eb",
+    "cacheID": "78891576f3d48b052ce7c1a7771ab6fd",
     "id": null,
     "metadata": {},
     "name": "ReviewDetailsQuery",
     "operationKind": "query",
-    "text": "query ReviewDetailsQuery(\n  $id: ID!\n) {\n  review(id: $id) {\n    id\n    movie {\n      ...MovieInfoDisplay\n      id\n    }\n    ...ReviewListItem\n    ...CommentList\n  }\n  viewer {\n    avatarUrl\n    id\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentList on Review {\n  comments(first: 8) {\n    edges {\n      node {\n        id\n        ...CommentListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
+    "text": "query ReviewDetailsQuery(\n  $id: ID!\n) {\n  review(id: $id) {\n    id\n    movie {\n      ...MovieInfoDisplay\n      id\n    }\n    ...ReviewListItem\n    ...CommentList\n  }\n  viewer {\n    avatarUrl\n    id\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentList on Review {\n  comments(first: 8) {\n    edges {\n      node {\n        id\n        ...CommentListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();
