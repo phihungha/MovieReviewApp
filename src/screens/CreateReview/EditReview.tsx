@@ -14,9 +14,9 @@ import type {EditReviewQuery as EditReviewQueryType} from './__generated__/EditR
 import {useMutation, usePreloadedQuery} from 'react-relay';
 import type {EditReviewMutation as EditReviewMutationType} from './__generated__/EditReviewMutation.graphql';
 import Snackbar from 'react-native-snackbar';
-import {validateUrl} from '../../utils/url-check';
 import {ButtonLoadingIcon} from '../../components/Display/ButtonLoadingIcon';
 import type {EditReviewDeleteMutation as EditReviewDeleteMutationType} from './__generated__/EditReviewDeleteMutation.graphql';
+import validator from 'validator';
 
 export const EditReviewQuery = graphql`
   query EditReviewQuery($id: ID!) {
@@ -110,6 +110,7 @@ function EditReviewScreenWithData({
   const [externalUrl, setExternalUrl] = useState<string | undefined>(undefined);
   const [content, setContent] = useState('');
   const [score, setScore] = useState(0);
+  const [displayError, setDisplayError] = useState(false);
 
   useEffect(() => {
     setTitle(data.review?.title ?? '');
@@ -119,16 +120,12 @@ function EditReviewScreenWithData({
   }, [data]);
 
   function onSave() {
-    if (title.length < 1) {
-      return Snackbar.show({text: 'Title cannot be empty'});
-    }
-
-    if (content.length < 1) {
-      return Snackbar.show({text: 'Content cannot be empty'});
-    }
-
-    if (externalUrl && !validateUrl(externalUrl)) {
-      return Snackbar.show({text: 'Invalid external URL'});
+    if (
+      title === '' ||
+      content === '' ||
+      (externalUrl && !validator.isURL(externalUrl))
+    ) {
+      return setDisplayError(true);
     }
 
     if (!reviewId) {
@@ -208,6 +205,7 @@ function EditReviewScreenWithData({
       />
       <View style={styles.inputContainer}>
         <ReviewEditor
+          displayError={displayError}
           title={title}
           onTitleChanged={setTitle}
           externalUrl={externalUrl}

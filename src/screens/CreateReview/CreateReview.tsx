@@ -11,8 +11,8 @@ import {MainStackParams} from '../../navigators/MainStackParams';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import type {CreateReviewQuery as CreateReviewQueryType} from './__generated__/CreateReviewQuery.graphql';
 import Snackbar from 'react-native-snackbar';
-import {validateUrl} from '../../utils/url-check';
 import {ReviewEditor} from './components/ReviewEditor';
+import validator from 'validator';
 
 export const CreateReviewQuery = graphql`
   query CreateReviewQuery($id: ID!) {
@@ -83,17 +83,15 @@ function CreateReviewScreenWithData({
   const [content, setContent] = useState('');
   const [score, setScore] = useState(0);
 
+  const [displayError, setDisplayError] = useState(false);
+
   function onCreateReview() {
-    if (title.length < 1) {
-      return Snackbar.show({text: 'Title cannot be empty'});
-    }
-
-    if (content.length < 1) {
-      return Snackbar.show({text: 'Content cannot be empty'});
-    }
-
-    if (externalUrl && !validateUrl(externalUrl)) {
-      return Snackbar.show({text: 'Invalid external URL'});
+    if (
+      title === '' ||
+      content === '' ||
+      (externalUrl && !validator.isURL(externalUrl))
+    ) {
+      return setDisplayError(true);
     }
 
     if (!data.movie) {
@@ -137,6 +135,7 @@ function CreateReviewScreenWithData({
       <MovieInfoDisplay movie={data.movie} displayScore={true} />
       <View style={styles.inputContainer}>
         <ReviewEditor
+          displayError={displayError}
           title={title}
           onTitleChanged={setTitle}
           externalUrl={externalUrl}
