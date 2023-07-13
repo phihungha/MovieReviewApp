@@ -29,8 +29,6 @@ const CommentEditorMutation = graphql`
     editComment(id: $id, input: $input) {
       ... on MutationEditCommentSuccess {
         data {
-          id
-          ...CommentEditor
           ...CommentListItem
         }
       }

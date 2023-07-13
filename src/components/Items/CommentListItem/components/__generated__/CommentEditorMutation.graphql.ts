@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<adda297684503392823016ee4583008c>>
+ * @generated SignedSource<<f19705bbb1b41b22ce52c42e4a657ef9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,8 +20,7 @@ export type CommentEditorMutation$variables = {
 export type CommentEditorMutation$data = {
   readonly editComment: {
     readonly data?: {
-      readonly id: string;
-      readonly " $fragmentSpreads": FragmentRefs<"CommentEditor" | "CommentListItem">;
+      readonly " $fragmentSpreads": FragmentRefs<"CommentListItem">;
     };
   };
 };
@@ -88,12 +87,6 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  {
-                    "args": null,
-                    "kind": "FragmentSpread",
-                    "name": "CommentEditor"
-                  },
                   {
                     "args": null,
                     "kind": "FragmentSpread",
@@ -145,14 +138,6 @@ return {
                 "name": "data",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "content",
-                    "storageKey": null
-                  },
                   {
                     "alias": null,
                     "args": null,
@@ -161,7 +146,6 @@ return {
                     "name": "author",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -175,7 +159,8 @@ return {
                         "kind": "ScalarField",
                         "name": "name",
                         "storageKey": null
-                      }
+                      },
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -185,7 +170,15 @@ return {
                     "kind": "ScalarField",
                     "name": "postTime",
                     "storageKey": null
-                  }
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "content",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -199,16 +192,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "28e62ffa28b804055276f430692cbc8e",
+    "cacheID": "f9671c6eaf1b52b9ec01b2803c0fe880",
     "id": null,
     "metadata": {},
     "name": "CommentEditorMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        id\n        ...CommentEditor\n        ...CommentListItem\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  author {\n    avatarUrl\n    name\n    id\n  }\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
+    "text": "mutation CommentEditorMutation(\n  $id: ID!\n  $input: EditCommentInput!\n) {\n  editComment(id: $id, input: $input) {\n    __typename\n    ... on MutationEditCommentSuccess {\n      data {\n        ...CommentListItem\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  author {\n    avatarUrl\n    name\n    id\n  }\n  postTime\n  ...CommentContent\n  ...CommentEditor\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2eea84e79700ddc88df38e6a3e119b7c";
+(node as any).hash = "7628b90e06ac8a476b35f4565fd0c7ed";
 
 export default node;
