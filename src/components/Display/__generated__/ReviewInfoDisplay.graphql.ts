@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<56b43ccc7518bf2a1cbf59231d45d0d9>>
+ * @generated SignedSource<<05657b261c399cf25593feec49e16abf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ReviewInfoDisplay$data = {
   readonly authorType: UserType;
   readonly content: string;
+  readonly externalUrl: string | null;
   readonly postTime: any;
   readonly score: number;
   readonly title: string;
@@ -64,12 +65,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "authorType",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "externalUrl",
+      "storageKey": null
     }
   ],
   "type": "Review",
   "abstractKey": null
 };
 
-(node as any).hash = "3f424e69082d2c4ae9a86ff6e473fabb";
+(node as any).hash = "5a8124ca53bed81cc50866ca0a5940ee";
 
 export default node;

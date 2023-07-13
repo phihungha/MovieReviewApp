@@ -6,12 +6,13 @@ import {ActionCb} from '../../types/ActionCb';
 import {TextProps} from '@rneui/themed';
 
 type TextLinkProps = TextProps & {
-  text: string;
-  textLink: string;
+  text?: string;
+  textLink?: string;
   textStyle?: StyleProp<TextStyle>;
   textLinkStyle?: StyleProp<TextStyle>;
   onClicked?: ActionCb;
   isUnderline?: boolean;
+  maxLinkLineCount?: number;
 };
 
 export function TextLink(props: TextLinkProps): JSX.Element {
@@ -23,6 +24,7 @@ export function TextLink(props: TextLinkProps): JSX.Element {
 
       <Pressable onPress={props.onClicked}>
         <RegularText
+          numberOfLines={props.maxLinkLineCount}
           style={[
             styles.linkText,
             props.isUnderline ? styles.underline : null,

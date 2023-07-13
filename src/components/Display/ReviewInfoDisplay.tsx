@@ -11,6 +11,7 @@ import {dateToStandardDateFormat} from '../../utils/time-conversion';
 import {RegularReviewScoreIndicator} from './RegularReviewScoreIndicator';
 import {fontSizes, fonts} from '../../styles/typography';
 import {ItemSubtitleText} from '../Text/ItemSubtitleText';
+import {TextLink} from '../Text/TextLink';
 
 const ReviewInfoDisplayFragment = graphql`
   fragment ReviewInfoDisplay on Review {
@@ -19,6 +20,7 @@ const ReviewInfoDisplayFragment = graphql`
     postTime
     score
     authorType
+    externalUrl
   }
 `;
 
@@ -62,6 +64,17 @@ export function ReviewInfoDisplay(
       <RegularText numberOfLines={props.maxContentLineCount}>
         {data?.content ?? 'N/A'}
       </RegularText>
+      {data?.externalUrl && (
+        <View>
+          <RegularText style={styles.readMore}>Read more:</RegularText>
+          <TextLink
+            text=""
+            textLink={data?.externalUrl}
+            maxLinkLineCount={2}
+            isUnderline={true}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -72,6 +85,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.mediumBlack,
     gap: 4,
+  },
+  readMore: {
+    fontWeight: 'bold',
   },
   scoreText: {
     fontSize: fontSizes.sm,
