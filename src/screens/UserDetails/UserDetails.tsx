@@ -86,7 +86,7 @@ function UserDetailsScreenWithData({
 
         <InfoSection
           name="Gender"
-          value={user?.gender}
+          value={user?.gender ?? 'None'}
           icon={
             <Icon
               type="foundation"
@@ -99,7 +99,11 @@ function UserDetailsScreenWithData({
 
         <InfoSection
           name="Date of birth"
-          value={dateToStandardDateFormat(user?.dateOfBirth)}
+          value={
+            user?.dateOfBirth
+              ? dateToStandardDateFormat(user?.dateOfBirth)
+              : 'None'
+          }
           icon={
             <Icon
               type="font-awesome"

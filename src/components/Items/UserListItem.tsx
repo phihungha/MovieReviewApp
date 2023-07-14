@@ -12,6 +12,7 @@ import {pressableRippleConfig} from '../../styles/pressable-ripple';
 import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {MainStackParams} from '../../navigators/MainStackParams';
+import {getNameInitials} from '../../utils/name-format';
 
 const UserListItemFragment = graphql`
   fragment UserListItem on User {
@@ -50,16 +51,18 @@ export function UserListItem(props: UserListItemProps): JSX.Element {
 
   const onPress = props.onPress ?? defaultOnPress;
 
+  const avatarTitle = data?.name ? getNameInitials(data.name) : 'N/A';
+
   return (
     <View style={styles.container}>
       <Pressable
         style={styles.contentContainer}
         onPress={onPress}
         android_ripple={pressableRippleConfig}>
-        <StandardAvatar uri={data?.avatarUrl} />
+        <StandardAvatar uri={data?.avatarUrl} title={avatarTitle} />
         <View style={styles.infoContainer}>
-          <ItemTitleText>{data?.name}</ItemTitleText>
-          <ItemSubtitleText>{data?.userType}</ItemSubtitleText>
+          <ItemTitleText>{data?.name ?? 'N/A'}</ItemTitleText>
+          <ItemSubtitleText>{data?.userType ?? 'N/A'}</ItemSubtitleText>
         </View>
       </Pressable>
     </View>
