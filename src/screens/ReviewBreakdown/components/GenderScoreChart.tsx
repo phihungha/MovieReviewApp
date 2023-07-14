@@ -7,6 +7,7 @@ import {AbstractChartConfig} from 'react-native-chart-kit/dist/AbstractChart';
 import {GenderScoreChart$key} from './__generated__/GenderScoreChart.graphql';
 import {ChartData} from 'react-native-chart-kit/dist/HelperTypes';
 import {RegularText} from '../../../components/Text/RegularText';
+import {getRoundedScore} from '../../../utils/number-conversion';
 
 const GenderScoreChartFragment = graphql`
   fragment GenderScoreChart on Movie {
@@ -31,9 +32,9 @@ export function GenderScoreChart(
     datasets: [
       {
         data: [
-          data?.maleScore ?? 0,
-          data?.femaleScore ?? 0,
-          data?.otherScore ?? 0,
+          getRoundedScore(data?.maleScore ?? 0),
+          getRoundedScore(data?.femaleScore ?? 0),
+          getRoundedScore(data?.otherScore ?? 0),
         ],
       },
     ],

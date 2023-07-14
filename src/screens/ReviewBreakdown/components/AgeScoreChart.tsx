@@ -7,6 +7,7 @@ import {AbstractChartConfig} from 'react-native-chart-kit/dist/AbstractChart';
 import {AgeScoreChart$key} from './__generated__/AgeScoreChart.graphql';
 import {ChartData} from 'react-native-chart-kit/dist/HelperTypes';
 import {RegularText} from '../../../components/Text/RegularText';
+import {getRoundedScore} from '../../../utils/number-conversion';
 
 const AgeScoreChartFragment = graphql`
   fragment AgeScoreChart on Movie {
@@ -30,10 +31,10 @@ export function AgeScoreChart(props: AgeScoreChartProps): React.JSX.Element {
     datasets: [
       {
         data: [
-          data?.age14to20score ?? 0,
-          data?.age21to30score ?? 0,
-          data?.age31to50score ?? 0,
-          data?.age51score ?? 0,
+          getRoundedScore(data?.age14to20score ?? 0),
+          getRoundedScore(data?.age21to30score ?? 0),
+          getRoundedScore(data?.age31to50score ?? 0),
+          getRoundedScore(data?.age51score ?? 0),
         ],
       },
     ],
