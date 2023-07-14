@@ -34,7 +34,7 @@ export function MyAccountStackScreen(): React.JSX.Element {
         />
         <MyAccountStackNavigator.Screen
           name="ReviewBreakdown"
-          options={{title: 'Review breakdown'}}
+          options={{title: 'Regular review breakdown'}}
           component={ReviewBreakdownScreen}
         />
         <MyAccountStackNavigator.Screen

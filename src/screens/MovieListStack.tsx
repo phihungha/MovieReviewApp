@@ -33,7 +33,7 @@ export function MovieListStackScreen(): React.JSX.Element {
         />
         <MoviesListStackNavigator.Screen
           name="ReviewBreakdown"
-          options={{title: 'Review breakdown'}}
+          options={{title: 'Regular review breakdown'}}
           component={ReviewBreakdownScreen}
         />
         <MoviesListStackNavigator.Screen

@@ -34,7 +34,7 @@ export function HomeStackScreen(): React.JSX.Element {
         />
         <HomeStackNavigator.Screen
           name="ReviewBreakdown"
-          options={{title: 'Review breakdown'}}
+          options={{title: 'Regular review breakdown'}}
           component={ReviewBreakdownScreen}
         />
         <HomeStackNavigator.Screen

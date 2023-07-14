@@ -33,7 +33,7 @@ export function UserListStackScreen(): React.JSX.Element {
         />
         <UserListStackNavigator.Screen
           name="ReviewBreakdown"
-          options={{title: 'Review breakdown'}}
+          options={{title: 'Regular review breakdown'}}
           component={ReviewBreakdownScreen}
         />
         <UserListStackNavigator.Screen
