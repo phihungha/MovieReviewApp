@@ -102,7 +102,7 @@ export function CommentListItem({comment}: CommentListItemProps): JSX.Element {
           {data?.isMine && (
             <CommentListItemMoreButton
               onOk={() => onCommentDelete()}
-              onSelectedItem={i => i.title === 'edit' && setEditMode(true)}
+              onSelectedItem={i => i.id === 'edit' && setEditMode(true)}
             />
           )}
         </View>
