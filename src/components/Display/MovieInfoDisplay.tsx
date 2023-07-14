@@ -38,7 +38,9 @@ export function MovieInfoDisplay(
         imageUrl={data?.posterUrl}
       />
       <View style={[styles.infoContainer, props.infoContainerStyle]}>
-        <SectionText>{data?.title ?? 'N/A'}</SectionText>
+        <SectionText style={styles.titleText} numberOfLines={2}>
+          {data?.title ?? 'N/A'}
+        </SectionText>
         <RegularText>{new Date(data?.releaseDate).getFullYear()}</RegularText>
         {props.displayScore && (
           <View style={styles.scoreContainer}>
@@ -59,6 +61,9 @@ const styles = StyleSheet.create({
   },
   moviePoster: {
     width: 80,
+  },
+  titleText: {
+    paddingRight: 15,
   },
   infoContainer: {
     gap: 5,
