@@ -9,6 +9,9 @@ import {PreloadedQueriesContext} from '../../../../relay/PreloadedQueriesContext
 const ReviewLikeButtonFragment = graphql`
   fragment ReviewLikeButton on Review {
     id
+    author {
+      id
+    }
     thankCount
     isThankedByViewer
   }
@@ -56,11 +59,16 @@ export function ReviewLikeButton({review}: ReviewLikeButtonProps): JSX.Element {
           },
         },
       },
-      onCompleted: () =>
+      onCompleted: () => {
         preloadedQueries?.MyAccount.loadQuery(
           {},
           {fetchPolicy: 'network-only'},
-        ),
+        );
+        preloadedQueries?.UserThankedReviewList.loadQuery(
+          {id: data.author.id},
+          {fetchPolicy: 'network-only'},
+        );
+      },
     });
   }
 

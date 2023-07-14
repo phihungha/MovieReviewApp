@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b438d1b40730d2c6e305fdcf35a246c>>
+ * @generated SignedSource<<2832af6f0bbf32b73b496f7f46c642f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -343,12 +343,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "371f2f070c06ed5afd378ce331fbf305",
+    "cacheID": "69c184b28ade6de88b948b72a4bf87c6",
     "id": null,
     "metadata": {},
     "name": "CommentListItemDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation CommentListItemDeleteMutation(\n  $id: ID!\n) {\n  deleteComment(id: $id) {\n    __typename\n    ... on MutationDeleteCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewListItem\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n  externalUrl\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
+    "text": "mutation CommentListItemDeleteMutation(\n  $id: ID!\n) {\n  deleteComment(id: $id) {\n    __typename\n    ... on MutationDeleteCommentSuccess {\n      data {\n        ...CommentListItem\n        review {\n          ...ReviewListItem\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment CommentContent on Comment {\n  content\n}\n\nfragment CommentEditor on Comment {\n  id\n  content\n  author {\n    id\n    avatarUrl\n    name\n  }\n  postTime\n}\n\nfragment CommentListItem on Comment {\n  id\n  author {\n    avatarUrl\n    name\n    id\n  }\n  isMine\n  postTime\n  lastUpdateTime\n  ...CommentContent\n  ...CommentEditor\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n  externalUrl\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  author {\n    id\n  }\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();

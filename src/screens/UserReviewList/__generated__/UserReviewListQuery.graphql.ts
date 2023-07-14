@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c5030cb6f974ea94670bfbf04d325151>>
+ * @generated SignedSource<<2e7925af5598a118e364bed74afe41d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -331,12 +331,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7bce7c3062f158da85002fd4d6fa2572",
+    "cacheID": "e1e1b8c9ead204d6392e2f4593f2a8ce",
     "id": null,
     "metadata": {},
     "name": "UserReviewListQuery",
     "operationKind": "query",
-    "text": "query UserReviewListQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    name\n    ...AllUserReviewList\n    id\n  }\n}\n\nfragment AllUserReviewList on User {\n  reviews(first: 10) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n  externalUrl\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
+    "text": "query UserReviewListQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    name\n    ...AllUserReviewList\n    id\n  }\n}\n\nfragment AllUserReviewList on User {\n  reviews(first: 10) {\n    edges {\n      node {\n        id\n        ...ReviewListItem\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment HorizontalUserDisplay on User {\n  avatarUrl\n  name\n  userType\n}\n\nfragment MovieInfoDisplay on Movie {\n  posterUrl\n  title\n  releaseDate\n  criticScore\n  regularScore\n}\n\nfragment ReviewCommentButton on Review {\n  commentCount\n}\n\nfragment ReviewInfoDisplay on Review {\n  title\n  content\n  postTime\n  score\n  authorType\n  externalUrl\n}\n\nfragment ReviewLikeButton on Review {\n  id\n  author {\n    id\n  }\n  thankCount\n  isThankedByViewer\n}\n\nfragment ReviewListItem on Review {\n  id\n  ...ReviewInfoDisplay\n  author {\n    ...HorizontalUserDisplay\n    id\n  }\n  movie {\n    ...MovieInfoDisplay\n    id\n  }\n  ...ReviewLikeButton\n  ...ReviewCommentButton\n  isMine\n}\n"
   }
 };
 })();

@@ -151,7 +151,10 @@ function MyAccountScreenWithData(
           onPress={() => {
             props.navigation.navigate('UserReviewList', {isPersonal: true});
             if (userId) {
-              preloadedQueries?.UserReviewList.loadQuery({id: userId});
+              preloadedQueries?.UserReviewList.loadQuery(
+                {id: userId},
+                {fetchPolicy: 'network-only'},
+              );
             }
           }}>
           More...
@@ -168,7 +171,10 @@ function MyAccountScreenWithData(
               isPersonal: true,
             });
             if (userId) {
-              preloadedQueries?.UserThankedReviewList.loadQuery({id: userId});
+              preloadedQueries?.UserThankedReviewList.loadQuery(
+                {id: userId},
+                {fetchPolicy: 'network-only'},
+              );
             }
           }}>
           More...
@@ -183,7 +189,10 @@ function MyAccountScreenWithData(
           onPress={() => {
             props.navigation.navigate('UserWatchedList', {isPersonal: true});
             if (userId) {
-              preloadedQueries?.UserWatchedList.loadQuery({id: userId});
+              preloadedQueries?.UserWatchedList.loadQuery(
+                {id: userId},
+                {fetchPolicy: 'network-only'},
+              );
             }
           }}>
           More...

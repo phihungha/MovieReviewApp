@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<275d17aaf1a74e26f18d934b667ffa73>>
+ * @generated SignedSource<<325b9767607ddb4eeef6a080e3dab69f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ReviewLikeButton$data = {
+  readonly author: {
+    readonly id: string;
+  };
   readonly id: string;
   readonly isThankedByViewer: boolean | null;
   readonly thankCount: number;
@@ -21,17 +24,31 @@ export type ReviewLikeButton$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ReviewLikeButton">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ReviewLikeButton",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "id",
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "author",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -52,7 +69,8 @@ const node: ReaderFragment = {
   "type": "Review",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "4ca68bb4e42988678d44f33216c49c9a";
+(node as any).hash = "4ea5a05074ebfcfadea7f4227e77eea0";
 
 export default node;
