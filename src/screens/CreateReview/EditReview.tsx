@@ -176,7 +176,7 @@ function EditReviewScreenWithData({
             );
           }
           Snackbar.show({text: 'Review deleted!'});
-          navigation.navigate('MovieReviewList', {firstTab: 'personal'});
+          navigation.replace('MovieReviewList', {firstTab: 'personal'});
         },
       });
     }

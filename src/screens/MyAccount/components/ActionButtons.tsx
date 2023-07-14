@@ -21,8 +21,8 @@ export function ActionButtons({
 
   async function onSignOut() {
     await auth().signOut();
+    navigation.replace('Login');
     commitLocalUpdate(environment, store => store.invalidateStore());
-    navigation.navigate('Login');
   }
 
   function goToEditScreen() {
