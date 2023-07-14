@@ -15,7 +15,7 @@ interface ManageAccountInformationProps {
   birthdayValue: Date;
   onSelectedDate: OnSelectedManageInformation;
 
-  gender: Gender | null;
+  gender: Gender | 'None';
   onSelectedGender: OnSelectedManageInformation;
 
   usernameValue: string;
@@ -30,7 +30,7 @@ export function ManageAccountInformationDisplay(
 ): JSX.Element {
   const [isGenderOpen, setGenderOpen] = useState(false);
   const [genderItems, setGenderItems] = useState([
-    {label: 'None', value: undefined},
+    {label: 'None', value: 'None'},
     {label: 'Male', value: 'Male'},
     {label: 'Female', value: 'Female'},
     {label: 'Other', value: 'Other'},
@@ -73,7 +73,6 @@ export function ManageAccountInformationDisplay(
         <ItemSubtitleText>Gender</ItemSubtitleText>
         <DropDownPicker
           listMode="SCROLLVIEW"
-          placeholder="Select your gender..."
           open={isGenderOpen}
           setOpen={setGenderOpen}
           value={props.gender}

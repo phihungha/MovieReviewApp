@@ -121,7 +121,7 @@ function ManageAccountInfoWithData({
 
   const [name, setName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [gender, setGender] = useState<Gender | null>(null);
+  const [gender, setGender] = useState<Gender | 'None'>('None');
   const [username, setUsername] = useState('');
   const [website, setWebsite] = useState('');
   const [email, setEmail] = useState('');
@@ -129,6 +129,7 @@ function ManageAccountInfoWithData({
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [avatarUri, setAvatarUri] = useState('');
+  const [newAvatar, setNewAvatar] = useState(false);
 
   useEffect(() => {
     if (!myAccount) {
@@ -137,7 +138,7 @@ function ManageAccountInfoWithData({
     setName(myAccount.name);
     setUsername(myAccount.username);
     setDateOfBirth(new Date(myAccount.dateOfBirth));
-    setGender(myAccount.gender);
+    setGender(myAccount.gender ?? 'None');
     setWebsite(myAccount.blogUrl ?? '');
     setEmail(myFirebaseAccount?.email ?? '');
     setAvatarUri(myAccount.avatarUrl ?? '');
@@ -171,7 +172,7 @@ function ManageAccountInfoWithData({
     }
 
     let newAvatarUrl;
-    if (avatarUri !== '') {
+    if (newAvatar && avatarUri !== '') {
       await uploadProfileImage(data.userProfileImageUploadUrl, avatarUri);
       newAvatarUrl =
         BASE_AVATAR_URL + myFirebaseAccount.uid + `?date=${new Date()}`;
@@ -184,7 +185,7 @@ function ManageAccountInfoWithData({
             avatarUrl: newAvatarUrl,
             username,
             dateOfBirth,
-            gender,
+            gender: gender === 'None' ? null : gender,
             blogUrl: website,
           },
         },
@@ -208,7 +209,7 @@ function ManageAccountInfoWithData({
             avatarUrl: newAvatarUrl,
             username,
             dateOfBirth: dateToIsoDateStr(dateOfBirth),
-            gender,
+            gender: gender === 'None' ? null : gender,
           },
         },
         updater: store => {
@@ -234,11 +235,14 @@ function ManageAccountInfoWithData({
           nameValue={name}
           onSelectedName={(item: string) => setName(item)}
           imageUri={avatarUri}
-          onSelectedImage={setAvatarUri}
+          onSelectedImage={i => {
+            setAvatarUri(i);
+            setNewAvatar(true);
+          }}
         />
         <ManageAccountInformationDisplay
           gender={gender}
-          onSelectedGender={(item: Gender | null) => setGender(item)}
+          onSelectedGender={(item: Gender | 'None') => setGender(item)}
           birthdayValue={dateOfBirth}
           onSelectedDate={(date: Date) => setDateOfBirth(date)}
           usernameValue={username}
