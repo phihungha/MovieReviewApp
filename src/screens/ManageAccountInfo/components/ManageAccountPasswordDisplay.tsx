@@ -7,6 +7,9 @@ import {ItemSubtitleText} from '../../../components/Text/ItemSubtitleText';
 import {Input} from '@rneui/themed';
 
 interface ManageAccountPasswordDisplayProps {
+  currentPassword: string;
+  onSelectedCurrentPassword: OnSelectedManageInformation;
+
   passwordValue: string;
   onSelectedPassword: OnSelectedManageInformation;
 
@@ -22,9 +25,20 @@ export function ManageAccountPasswordDisplay(
       <View style={styles.titleLine}>
         <BigTitleText>Change password</BigTitleText>
       </View>
+      <View>
+        <ItemSubtitleText>Current password</ItemSubtitleText>
+        <Input
+          secureTextEntry
+          value={props.currentPassword}
+          onChangeText={(item: string) => props.onSelectedCurrentPassword(item)}
+          placeholder="Enter your password..."
+          inputContainerStyle={styles.input}
+          renderErrorMessage={false}
+        />
+      </View>
 
       <View>
-        <ItemSubtitleText>Password</ItemSubtitleText>
+        <ItemSubtitleText>New password</ItemSubtitleText>
         <Input
           secureTextEntry
           value={props.passwordValue}

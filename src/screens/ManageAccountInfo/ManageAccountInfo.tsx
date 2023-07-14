@@ -125,6 +125,7 @@ function ManageAccountInfoWithData({
   const [username, setUsername] = useState('');
   const [website, setWebsite] = useState('');
   const [email, setEmail] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [password, setPassword] = useState('');
   const [rePassword, setRePassword] = useState('');
   const [avatarUri, setAvatarUri] = useState('');
@@ -250,6 +251,8 @@ function ManageAccountInfoWithData({
           onSelectedPassword={(item: string) => setPassword(item)}
           rePasswordValue={rePassword}
           onSelectedRePassword={(item: string) => setRePassword(item)}
+          currentPassword={currentPassword}
+          onSelectedCurrentPassword={(item: string) => setCurrentPassword(item)}
         />
         <Button onPress={onSave}>
           {isPending ? <ButtonLoadingIcon /> : 'Save'}

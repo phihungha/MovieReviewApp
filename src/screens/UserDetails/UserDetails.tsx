@@ -239,14 +239,14 @@ const styles = StyleSheet.create({
   },
   infoSection: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 10,
   },
   listSection: {
     gap: 10,
   },
   icon: {
-    marginBottom: 5,
+    marginTop: 4,
     width: 20,
   },
 });

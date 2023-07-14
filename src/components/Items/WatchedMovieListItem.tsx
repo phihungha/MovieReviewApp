@@ -72,7 +72,9 @@ export function WatchedMovieListItem(
           }
         />
         <View style={styles.infoContainer}>
-          <ItemTitleText>{data?.title ?? 'N/A'}</ItemTitleText>
+          <ItemTitleText numberOfLines={1} ellipsizeMode="tail">
+            {data?.title ?? 'N/A'}
+          </ItemTitleText>
           <ItemSubtitleText>
             {new Date(data?.releaseDate).getFullYear()}
           </ItemSubtitleText>
@@ -100,6 +102,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   infoContainer: {
+    paddingHorizontal: 12,
     gap: 10,
   },
 });
