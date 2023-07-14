@@ -57,7 +57,12 @@ export function ManageAccountPasswordDisplay(
           onChangeText={(item: string) => props.onSelectedRePassword(item)}
           placeholder="Re-enter your password..."
           inputContainerStyle={styles.input}
-          renderErrorMessage={false}
+          errorMessage={
+            props.passwordValue !== '' &&
+            props.passwordValue !== props.rePasswordValue
+              ? 'Password does not match'
+              : undefined
+          }
         />
       </View>
     </View>

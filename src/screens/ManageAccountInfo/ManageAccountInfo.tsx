@@ -9,7 +9,7 @@ import {PreloadedQueriesContext} from '../../relay/PreloadedQueriesContext';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MyAccountStackParams} from '../../navigators/MyAccountStackNavigator';
 import {useMutation, usePreloadedQuery} from 'react-relay';
-import auth from '@react-native-firebase/auth';
+import auth, {firebase} from '@react-native-firebase/auth';
 import type {ManageAccountInfoRegularMutation as ManageAccountInfoRegularMutationType} from './__generated__/ManageAccountInfoRegularMutation.graphql';
 import type {ManageAccountInfoCriticMutation as ManageAccountInfoCriticMutationType} from './__generated__/ManageAccountInfoCriticMutation.graphql';
 import {Gender} from './__generated__/ManageAccountInfoQuery.graphql';
@@ -159,17 +159,35 @@ function ManageAccountInfoWithData({
       return Snackbar.show({text: 'Invalid info'});
     }
 
+    if (
+      password !== '' &&
+      (currentPassword === '' || password !== rePassword)
+    ) {
+      return;
+    }
+
     if (!myAccount || !myFirebaseAccount) {
       return;
     }
 
     setIsPending(true);
 
+    if (myFirebaseAccount.email && password !== '') {
+      try {
+        const newCred = firebase.auth.EmailAuthProvider.credential(
+          myFirebaseAccount.email,
+          currentPassword,
+        );
+        await myFirebaseAccount.reauthenticateWithCredential(newCred);
+        await myFirebaseAccount.updatePassword(password);
+      } catch (err) {
+        Snackbar.show({text: 'Incorrect current password'});
+        return setIsPending(false);
+      }
+    }
+
     await myFirebaseAccount.updateEmail(email);
     await myFirebaseAccount.updateProfile({displayName: name});
-    if (password.length > 0) {
-      await myFirebaseAccount?.updatePassword(password);
-    }
 
     let newAvatarUrl;
     if (newAvatar && avatarUri !== '') {
