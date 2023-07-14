@@ -19,6 +19,7 @@ export function UserListStackScreen(): React.JSX.Element {
       <UserListStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <UserListStackNavigator.Screen
           name="UserList"
+          options={{headerShown: false}}
           component={UserListScreen}
         />
         <UserListStackNavigator.Screen

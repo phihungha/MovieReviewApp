@@ -29,6 +29,7 @@ export function HomeStackScreen(): React.JSX.Element {
         />
         <HomeStackNavigator.Screen
           name="MovieReviewList"
+          options={{headerShown: false}}
           component={MovieReviewListScreen}
         />
         <HomeStackNavigator.Screen
@@ -48,7 +49,7 @@ export function HomeStackScreen(): React.JSX.Element {
         />
         <HomeStackNavigator.Screen
           name="ReviewDetails"
-          options={{title: 'Review details'}}
+          options={{title: ''}}
           component={ReviewDetailsScreen}
         />
         <HomeStackNavigator.Screen

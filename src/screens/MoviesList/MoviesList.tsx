@@ -64,7 +64,9 @@ function MoviesListScreenWithData({
     [search, options],
   );
 
-  useEffect(() => navigation.setOptions({header: () => customHeader()}));
+  useEffect(() =>
+    navigation.setOptions({headerShown: true, header: () => customHeader()}),
+  );
 
   return (
     <View style={styles.container}>

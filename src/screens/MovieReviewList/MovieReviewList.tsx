@@ -76,7 +76,9 @@ function MovieReviewListScreenWithData({
     [search, options],
   );
 
-  useEffect(() => navigation.setOptions({header: () => customHeader()}));
+  useEffect(() =>
+    navigation.setOptions({headerShown: true, header: () => customHeader()}),
+  );
 
   let startTabIndex = 0;
   switch (route.params.firstTab) {

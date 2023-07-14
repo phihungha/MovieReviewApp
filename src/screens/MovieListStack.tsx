@@ -19,6 +19,7 @@ export function MovieListStackScreen(): React.JSX.Element {
       <MoviesListStackNavigator.Group screenOptions={stackNavHeaderOptions}>
         <MoviesListStackNavigator.Screen
           name="MoviesList"
+          options={{headerShown: false}}
           component={MoviesListScreen}
         />
         <MoviesListStackNavigator.Screen

@@ -52,7 +52,9 @@ function UserListScreenWithData({
     [search],
   );
 
-  useEffect(() => navigation.setOptions({header: () => customHeader()}));
+  useEffect(() =>
+    navigation.setOptions({headerShown: true, header: () => customHeader()}),
+  );
 
   return (
     <View style={styles.container}>
