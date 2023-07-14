@@ -10,6 +10,7 @@ import {
 } from '../components/__generated__/AllMovieListRefetchQuery.graphql';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../../../styles/colors';
+import Snackbar from 'react-native-snackbar';
 
 const MIN_SCORE = 0;
 const MAX_SCORE = 10;
@@ -52,7 +53,6 @@ export function MoviesListOptionsDialog(
     {label: 'Ascending', value: 'Asc'},
     {label: 'Descending', value: 'Desc'},
   ]);
-  const [displayError, setDisplayError] = useState(false);
 
   function updateStrOption(
     optionName: MovieListOptionsKey,
@@ -76,15 +76,9 @@ export function MoviesListOptionsDialog(
   }
 
   function onOk(): void {
-    if (
-      !(
-        options.releaseYear! > 1980 &&
-        options.releaseYear! < new Date().getFullYear()
-      )
-    ) {
-      return setDisplayError(true);
+    if (options.releaseYear && options.releaseYear < 1900) {
+      return Snackbar.show({text: 'Invalid year'});
     }
-
     props.onOptionsChanged?.(options);
   }
 
@@ -100,13 +94,7 @@ export function MoviesListOptionsDialog(
           label="Release year"
           value={options.releaseYear?.toString()}
           onChangeText={i => updateNumberOption('releaseYear', i)}
-          errorMessage={
-            displayError &&
-            (options.releaseYear! < 1980 ||
-              options.releaseYear! > new Date().getFullYear())
-              ? 'Year must be greater than 1980 and less than current'
-              : ''
-          }
+          renderErrorMessage={false}
           inputContainerStyle={styles.inputContainer}
         />
 
