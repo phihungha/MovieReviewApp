@@ -149,13 +149,13 @@ function MyAccountScreenWithData(
         </Suspense>
         <Button
           onPress={() => {
-            props.navigation.navigate('UserReviewList', {isPersonal: true});
             if (userId) {
               preloadedQueries?.UserReviewList.loadQuery(
                 {id: userId},
                 {fetchPolicy: 'network-only'},
               );
             }
+            props.navigation.navigate('UserReviewList', {isPersonal: true});
           }}>
           More...
         </Button>
@@ -167,15 +167,15 @@ function MyAccountScreenWithData(
         </Suspense>
         <Button
           onPress={() => {
-            props.navigation.navigate('UserThankedReviewList', {
-              isPersonal: true,
-            });
             if (userId) {
               preloadedQueries?.UserThankedReviewList.loadQuery(
                 {id: userId},
                 {fetchPolicy: 'network-only'},
               );
             }
+            props.navigation.navigate('UserThankedReviewList', {
+              isPersonal: true,
+            });
           }}>
           More...
         </Button>
@@ -187,13 +187,13 @@ function MyAccountScreenWithData(
         </Suspense>
         <Button
           onPress={() => {
-            props.navigation.navigate('UserWatchedList', {isPersonal: true});
             if (userId) {
               preloadedQueries?.UserWatchedList.loadQuery(
                 {id: userId},
                 {fetchPolicy: 'network-only'},
               );
             }
+            props.navigation.navigate('UserWatchedList', {isPersonal: true});
           }}>
           More...
         </Button>
