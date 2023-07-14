@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth';
 import {
   Environment,
   Network,
@@ -7,11 +8,17 @@ import {
   Variables,
 } from 'relay-runtime';
 
+const API_URL = 'https://cinerate-app.05052023.xyz/';
+
 async function fetchQuery(operation: RequestParameters, variables: Variables) {
-  const resp = await fetch('', {
+  const idToken = await auth().currentUser?.getIdToken();
+  const authHeader = idToken ? {Authorization: `Bearer ${idToken}`} : undefined;
+
+  const resp = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
+      ...authHeader,
     },
     body: JSON.stringify({
       query: operation.text,

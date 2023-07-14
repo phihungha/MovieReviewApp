@@ -7,8 +7,12 @@ import {ReviewScoreIndicatorProps} from '../../props/ReviewIndicatorProps';
 
 /**
  * Displays review score of a critic.
- * @param {number} score Score value
+ * @param {number | null | undefined} score Score value
+ * @param {fullScore?} boolean True if the score format is x/10
  * @param {StyleProp<ViewStyle>} style Style
+ * @param {StyleProp<TextStyle>} iconStyle Style for icon
+ * @param {StyleProp<TextStyle>} textStyle Style for text
+ *
  * @example
  * <CriticReviewScoreIndicator score={5} />
  */
@@ -18,10 +22,8 @@ export function CriticReviewScoreIndicator(
   return (
     <ReviewScoreIndicator
       iconName="star"
-      score={props.score}
-      style={props.style}
-      isLeft={true}
-      iconStyle={styles.criticIcon}
+      iconStyle={[styles.criticIcon, props.iconStyle]}
+      {...props}
     />
   );
 }

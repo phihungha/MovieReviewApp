@@ -34,22 +34,67 @@ export const theme = createTheme({
     },
 
     Input: {
-      inputStyle: {
-        fontFamily: fonts.primary,
-        color: colors.white,
+      containerStyle: {
+        paddingHorizontal: 0,
+      },
+      inputContainerStyle: {
         backgroundColor: colors.mediumBlack,
-        borderRadius: 8,
-        paddingVertical: 4,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        textDecorationLine: 'none',
-        fontSize: fontSizes.lg,
+        borderRadius: 12,
+        borderColor: 'transparent',
+        paddingHorizontal: 16,
+        paddingTop: 16,
+        paddingBottom: 0,
+      },
+      inputStyle: {
+        fontWeight: 'normal',
+        color: colors.white,
+        fontSize: fontSizes.sm,
+        fontFamily: fonts.primary,
       },
       labelStyle: {
-        fontSize: fontSizes.md,
         fontFamily: fonts.primary,
+        fontWeight: 'normal',
         color: colors.lightGrey,
+        zIndex: 100,
+        fontSize: fontSizes.sm,
+        marginBottom: -28,
+        marginStart: 20,
       },
+    },
+
+    SearchBar: {
+      inputContainerStyle: {
+        backgroundColor: colors.mediumBlack,
+      },
+    },
+
+    Tab: {
+      variant: 'primary',
+      indicatorStyle: {
+        backgroundColor: colors.primary,
+        height: '100%',
+        zIndex: 0,
+      },
+      containerStyle: {
+        zIndex: 1,
+        backgroundColor: 'transparent',
+      },
+    },
+    TabItem: {
+      buttonStyle: {
+        padding: 0,
+      },
+      titleStyle: {
+        fontFamily: fonts.primaryBold,
+      },
+    },
+    TabView: {
+      tabItemContainerStyle: {
+        padding: 10,
+      },
+    },
+    TabViewItem: {
+      style: {width: '100%'},
     },
   },
 });
